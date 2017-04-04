@@ -16,7 +16,8 @@ import javax.swing.JPanel;
 import Model.Orc;
 import Model.Board;
 
-public class View {
+public class View extends JPanel {
+	final int frameCount = 10;
 	BufferedImage[][] pics;
 	int blankSpace=10;
 	List<Orc> orcs = new ArrayList<Orc>();
@@ -25,56 +26,9 @@ public class View {
     	Iterator<Orc> it = orcs.iterator();
     	while (it.hasNext()){
     		Orc curOrc = it.next();
-    	}
-    	picNum = (picNum + 1) % frameCount;
-    	if (picDirection == SE)
-    		g.drawImage(pics[SE][picNum], xloc+=xIncr, yloc+=yIncr, Color.gray, this);
-    	else if (picDirection == SW)
-    		g.drawImage(pics[SW][picNum], xloc-=xIncr, yloc+=yIncr, Color.gray, this);
-    	else if (picDirection == NE)
-    		g.drawImage(pics[NE][picNum], xloc+=xIncr, yloc-=yIncr, Color.gray, this);
-    	else
-    		g.drawImage(pics[NW][picNum], xloc-=xIncr, yloc-=yIncr, Color.gray, this);
-    	
-    	if (xloc>=frameWidth-imgWidth+blankSpace){
-    		switch(picDirection){
-    			case SE:
-    				picDirection=SW;
-    				break;
-    			case NE:
-    				picDirection=NW;
-    				break;
-    		}
-    	}
-    	else if (xloc<=-blankSpace){
-    		switch(picDirection){
-			case SW:
-				picDirection=SE;
-				break;
-			case NW:
-				picDirection=NE;
-				break;
-    		}
-    	}
-    	else if (yloc>=frameHeight-imgHeight+blankSpace){
-    		switch(picDirection){
-			case SW:
-				picDirection=NW;
-				break;
-			case SE:
-				picDirection=NE;
-				break;
-    		}
-    	}
-    	else if (yloc<=-blankSpace){
-    		switch(picDirection){
-			case NE:
-				picDirection=SE;
-				break;
-			case NW:
-				picDirection=SW;
-				break;
-    		}
+    		curOrc.updateOrc(frameCount, blankSpace);
+    		g.drawImage(pics[curOrc.getDirection()][curOrc.getPicNum()], curOrc.getX(), 
+    				curOrc.getY(), Color.gray, this);
     	}
     	// TODO: Keep the orc from walking off-screen, turn around when bouncing off walls.
 		//Be sure that animation picture direction matches what is happening on screen.
