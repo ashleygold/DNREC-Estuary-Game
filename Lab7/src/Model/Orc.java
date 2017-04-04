@@ -31,18 +31,20 @@ public class Orc {
 	}
   	public void updateOrc(int frameCount, int blankSpace){
 		picNum = (picNum + 1) % frameCount;
-		if (direction == SE){
-    		xloc+=xIncr;
-    		yloc+=yIncr;
-		} else if (direction == SW) {
-    		xloc-=xIncr;
-			yloc+=yIncr;
-		} else if (direction == NE){
-    		xloc+=xIncr;
-			yloc-=yIncr;
-		} else {
-			xloc-=xIncr;
-			yloc-=yIncr;
+		if (action != 2){
+			if (direction == SE){
+	    		xloc+=xIncr;
+	    		yloc+=yIncr;
+			} else if (direction == SW) {
+	    		xloc-=xIncr;
+				yloc+=yIncr;
+			} else if (direction == NE){
+	    		xloc+=xIncr;
+				yloc-=yIncr;
+			} else {
+				xloc-=xIncr;
+				yloc-=yIncr;
+			}
 		}
 		
 		if (xloc >= Board.frameWidth-imgWidth+blankSpace){
