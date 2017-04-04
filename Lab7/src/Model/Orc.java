@@ -2,35 +2,33 @@ package Model;
 
 public class Orc {
 	
-	final public static int imgWidth = 165;
-    final public static int imgHeight = 165;
+	final static int imgWidth = 165;
+    final static int imgHeight = 165;
 	
 	int xloc = 0;
     int yloc = 0;
     int picNum = 0;
     final int xIncr = 6;
     final int yIncr = 2;
-    
-    int direction = SE;
+    int action;
+    int direction;
     
   //Directions, index for the image's location in pics[i]
-  	final static int NE = 6; 
-  	final static int NW = 4;
-  	final static int SE = 0;
-  	final static int SW = 2;
-
+  	final static int NE = 2; 
+  	final static int NW = 3;
+  	final static int SE = 5;
+  	final static int SW = 6;
 	
-	public Orc(){
+  	public Orc(){
+  		action = 0;
 		xloc = (int) (Math.random()*(Board.frameWidth - imgWidth));
 		yloc = (int) (Math.random()*(Board.frameHeight - imgHeight));
 		direction = (int) (Math.random()*4)*2;
 	}
-	
-	public int getPicNum(){
+  	public int getPicNum(){
 		return picNum;
 	}
-	
-	public void updateOrc(int frameCount, int blankSpace){
+  	public void updateOrc(int frameCount, int blankSpace){
 		picNum = (picNum + 1) % frameCount;
 		if (direction == SE){
     		xloc+=xIncr;
@@ -87,8 +85,7 @@ public class Orc {
     		}
     	}
 	}
-	
-	public int getDirection(){
+  	public int getDirection(){
 		return direction;
 	}
 	
@@ -102,5 +99,12 @@ public class Orc {
 
 	public int getY() {
 		return yloc;
+	}
+	
+	public int getAction(){
+		return action;
+	}
+	public void setAction(int x){
+		action = x;
 	}
 }
