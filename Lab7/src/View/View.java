@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import Model.Orc;
 import Model.Board;
