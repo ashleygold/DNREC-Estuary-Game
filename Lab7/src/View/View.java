@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -97,8 +98,7 @@ public class View extends JPanel{
 				}
 			}
 		}
-		for (int i = 0; i < 5; i++)
-    		orcs.add(new Orc());
+    	orcs.add(new Orc());
 	}
 	public void paint(Graphics g) {
 		Iterator<Orc> it = orcs.iterator();
@@ -118,7 +118,7 @@ public class View extends JPanel{
 				break;
 			}
 			g.drawImage(pics[curOrc.getDirection()][curOrc.getPicNum()], curOrc.getX(), 
-				curOrc.getY(), Color.gray, this);
+				curOrc.getY(), null, this);
 		}
 		
 		// TODO: Keep the orc from walking off-screen, turn around when bouncing off walls.
@@ -131,15 +131,36 @@ public class View extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(Board.frameWidth, Board.frameHeight);
 		JButton addOrc = new JButton("Add an Orc");
+		JButton killOrc = new JButton("Kill an Orc");
+		JButton changeAction = new JButton("Change Orcs' Actions");
 		addOrc.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addOrc();	
 			}
 		});
-		frame.add(addOrc);
-		addOrc.setPreferredSize(new Dimension(10, 10));
+		killOrc.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeOrc();	
+			}
+		});
+		changeAction.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeAnimation();	
+			}
+		});
 		frame.setVisible(true);
+		frame.setLayout(null);
+		frame.add(addOrc);
+		addOrc.setSize(100, 20);
+		frame.add(killOrc);
+		killOrc.setBounds(300, 0, 100, 100);
+		killOrc.setSize(100, 20);
+		frame.add(changeAction);
+		changeAction.setBounds(100, 0, 100, 100);
+		changeAction.setSize(200, 20);
 		for(int i = 0; i < 1000; i++){
 			frame.repaint();
 			try {
@@ -152,16 +173,18 @@ public class View extends JPanel{
 	public static void addOrc(){
 		orcs.add(new Orc());
 	}
-	public void removeOrc(){
+	public static void removeOrc(){
 		Random rand = new Random();
 		int  x = rand.nextInt(orcs.size());
 		orcs.remove(x);
 	}
-	public void changeAnimation(){
+	public static void changeAnimation(){
 		Iterator<Orc> it = orcs.iterator();
 		while (it.hasNext()){
 			Orc curOrc = it.next();
 			curOrc.nextAction(numActions);
 		}
+		
 	}
+	
 }
