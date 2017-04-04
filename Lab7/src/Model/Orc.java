@@ -104,7 +104,7 @@ public class Orc {
 	public int getAction(){
 		return action;
 	}
-	public void setAction(int x){
-		action = x;
+	public void nextAction(int x){
+		action = (action + 1)%x;
 	}
 }

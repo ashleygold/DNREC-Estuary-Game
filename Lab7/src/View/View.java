@@ -25,7 +25,7 @@ public class View extends JPanel{
 	final int[] frameCount = {10,8,4}; //array of frames for each action
 	final static int imgWidth = 165;
 	final static int imgHeight = 165;
-	final int numActions = 3; //forward, jump, fire
+	final static int numActions = 3; //forward, jump, fire
 	BufferedImage[][] forwardPics;
 	BufferedImage[][] jumpPics;
 	BufferedImage[][] firePics;
@@ -161,7 +161,7 @@ public class View extends JPanel{
 		Iterator<Orc> it = orcs.iterator();
 		while (it.hasNext()){
 			Orc curOrc = it.next();
-			curOrc.setAction(curOrc.getAction()+1);
+			curOrc.nextAction(numActions);
 		}
 	}
 }
