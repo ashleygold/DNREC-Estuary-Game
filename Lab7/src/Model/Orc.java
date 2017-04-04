@@ -1,11 +1,9 @@
 package Model;
 
-import java.awt.Color;
-
 public class Orc {
 	
-	final static int imgWidth = 165;
-    final static int imgHeight = 165;
+	final public static int imgWidth = 165;
+    final public static int imgHeight = 165;
 	
 	int xloc = 0;
     int yloc = 0;
@@ -16,16 +14,15 @@ public class Orc {
     int direction = SE;
     
   //Directions, index for the image's location in pics[i]
-  	final public static int NE = 2; 
-  	final public static int NW = 3;
-  	final public static int SE = 5;
-  	final public static int SW = 6;
+  	final static int NE = 6; 
+  	final static int NW = 4;
+  	final static int SE = 0;
+  	final static int SW = 2;
 
 	
 	public Orc(){
-		xloc=(int) Math.random();
-		yloc=(int) Math.random();
-		
+		xloc = (int) (Math.random()*(Board.frameWidth - imgWidth));
+		yloc = (int) (Math.random()*(Board.frameHeight - imgHeight));
 	}
 	
 	public int getPicNum(){
