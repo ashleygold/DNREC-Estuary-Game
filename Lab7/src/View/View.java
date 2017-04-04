@@ -5,17 +5,27 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Model.Orc;
+import Model.Board;
+
 public class View {
 	BufferedImage[][] pics;
 	int blankSpace=10;
+	List<Orc> orcs = new ArrayList<Orc>();
 	
     public void paint(Graphics g) {
+    	Iterator<Orc> it = orcs.iterator();
+    	while (it.hasNext()){
+    		Orc curOrc = it.next();
+    	}
     	picNum = (picNum + 1) % frameCount;
     	if (picDirection == SE)
     		g.drawImage(pics[SE][picNum], xloc+=xIncr, yloc+=yIncr, Color.gray, this);
