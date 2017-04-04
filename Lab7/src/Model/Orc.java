@@ -8,7 +8,7 @@ public class Orc {
 	int xloc = 0;
     int yloc = 0;
     int picNum = 0;
-    final int xIncr = 8;
+    final int xIncr = 6;
     final int yIncr = 2;
     
     int direction = SE;
@@ -23,6 +23,7 @@ public class Orc {
 	public Orc(){
 		xloc = (int) (Math.random()*(Board.frameWidth - imgWidth));
 		yloc = (int) (Math.random()*(Board.frameHeight - imgHeight));
+		direction = (int) (Math.random()*4)*2;
 	}
 	
 	public int getPicNum(){

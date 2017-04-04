@@ -20,7 +20,7 @@ public class View extends JPanel {
 	final int frameCount = 10;
     final int numAni = 8;
 	BufferedImage[][] pics;
-	int blankSpace=10;
+	int blankSpace = 10;
 	List<Orc> orcs = new ArrayList<Orc>();
 	
 	//Make frame, loop on repaint and wait
@@ -58,8 +58,8 @@ public class View extends JPanel {
     		for(int i = 0; i < frameCount; i++)
     			pics[dir][i] = img.getSubimage(Orc.imgWidth*i, 0, Orc.imgWidth, Orc.imgHeight);
     	}
-    	orcs.add(new Orc());
-    	orcs.add(new Orc());
+    	for (int i = 0; i < 5; i++)
+    		orcs.add(new Orc());
     	
     	// TODO: Change this constructor so that at least eight orc animation pngs are loaded
     }  
