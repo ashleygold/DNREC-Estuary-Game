@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JFrame;
@@ -37,8 +36,6 @@ public class View extends JPanel{
 			e.printStackTrace();
 		}
 		return null;
-
-		// TODO: Change this method so you can load other orc animation bitmaps
 	}
 	public View(){
 		//initializes all file names into string arrays
@@ -96,10 +93,12 @@ public class View extends JPanel{
 				}
 			}
 		}
+		//creates initial orc
     	orcs.add(new Orc());
 	}
 	public void paint(Graphics g) {
 		Iterator<Orc> it = orcs.iterator();
+		//iterates through orcs to paint each one
 		while (it.hasNext()){
 			Orc curOrc = it.next();
 			curOrc.updateOrc(frameCount[curOrc.getAction()], blankSpace);
@@ -115,22 +114,23 @@ public class View extends JPanel{
 				pics = firePics;
 				break;
 			}
+			//paints orc
 			g.drawImage(pics[curOrc.getDirection()][curOrc.getPicNum()], curOrc.getX(), 
 				curOrc.getY(), null, this);
 		}
-		
-		// TODO: Keep the orc from walking off-screen, turn around when bouncing off walls.
-		//Be sure that animation picture direction matches what is happening on screen.
 	}
 	public static void main(String[] args) {
+		//create and set up frame defaults
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new View());
 		frame.setBackground(Color.gray);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(Board.frameWidth, Board.frameHeight);
+		//create buttons
 		JButton addOrc = new JButton("Add an Orc");
 		JButton killOrc = new JButton("Kill an Orc");
 		JButton changeAction = new JButton("Change Orcs' Actions");
+		//creates action on click for each button
 		addOrc.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -149,8 +149,10 @@ public class View extends JPanel{
 				changeAnimation();	
 			}
 		});
+		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
+		//puts buttons on screen
 		frame.add(addOrc);
 		addOrc.setSize(100, 20);
 		frame.add(killOrc);
@@ -159,6 +161,7 @@ public class View extends JPanel{
 		frame.add(changeAction);
 		changeAction.setBounds(100, 0, 100, 100);
 		changeAction.setSize(200, 20);
+		//repaints on tick
 		for(int i = 0; i < 1000; i++){
 			frame.repaint();
 			try {
@@ -168,19 +171,22 @@ public class View extends JPanel{
 			}
 		}
 	}
+	//adds an orc
 	public static void addOrc(){
 		orcs.add(new Orc());
 	}
+	//removes an orc
 	public static void removeOrc(){
 		Random rand = new Random();
 		int  x = rand.nextInt(orcs.size());
 		orcs.remove(x);
 	}
+	//changes all orc animations to next animation
 	public static void changeAnimation(){
 		Iterator<Orc> it = orcs.iterator();
 		while (it.hasNext()){
 			Orc curOrc = it.next();
-			curOrc.nextAction(numActions);
+			curOrc.nextAction();
 		}
 		
 	}
