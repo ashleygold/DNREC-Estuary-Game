@@ -2,36 +2,54 @@ package Model;
 
 public class Orc {
 	
+	//dimensions of each orc
 	final static int imgWidth = 165;
     final static int imgHeight = 165;
 	
+    //location
 	int xloc = 0;
     int yloc = 0;
+    //current frame
     int picNum = 0;
+    //movement speed
     final int xIncr = 6;
     final int yIncr = 2;
+    //current action and direction
     int action;
     int direction;
     
-  //Directions, index for the image's location in pics[i]
+    //Actions
+    final static int run = 0;
+    final static int jump = 1;
+    final static int shoot = 2;
+    
+    final static int totalNumActions = 3;
+    
+    //Directions, index for the image's location in pics[i]
   	final static int NE = 2; 
   	final static int NW = 3;
   	final static int SE = 5;
   	final static int SW = 6;
 	
   	public Orc(){
-  		action = 0;
+  		action = run;
+  		//move to a random location
 		xloc = (int) (Math.random()*(Board.frameWidth - imgWidth));
 		yloc = (int) (Math.random()*(Board.frameHeight - imgHeight));
+		//face a random direction
 		int[] dirArr = {NE, NW, SE, SW};
-		direction = dirArr[(int) (Math.random()*4)];
+		direction = dirArr[(int) (Math.random()*dirArr.length)];
 	}
+  	
   	public int getPicNum(){
 		return picNum;
 	}
+  	
   	public void updateOrc(int frameCount, int blankSpace){
+  		//update frame
 		picNum = (picNum + 1) % frameCount;
-		if (action != 2){
+		//move unless the orc is shooting
+		if (action != shoot){
 			if (direction == SE){
 	    		xloc+=xIncr;
 	    		yloc+=yIncr;
@@ -47,6 +65,7 @@ public class Orc {
 			}
 		}
 		
+		//if an orc reaches an edge
 		if (xloc >= Board.frameWidth-imgWidth+blankSpace){
     		switch(direction){
     			case SE:
@@ -88,6 +107,7 @@ public class Orc {
     		}
     	}
 	}
+  	
   	public int getDirection(){
 		return direction;
 	}
@@ -107,7 +127,8 @@ public class Orc {
 	public int getAction(){
 		return action;
 	}
-	public void nextAction(int x){
-		action = (action + 1)%x;
+	
+	public void nextAction(){
+		action = (action + 1) % totalNumActions;
 	}
 }
