@@ -23,7 +23,8 @@ public class Orc {
   		action = 0;
 		xloc = (int) (Math.random()*(Board.frameWidth - imgWidth));
 		yloc = (int) (Math.random()*(Board.frameHeight - imgHeight));
-		direction = (int) (Math.random()*4)*2;
+		int[] dirArr = {NE, NW, SE, SW};
+		direction = dirArr[(int) (Math.random()*4)];
 	}
   	public int getPicNum(){
 		return picNum;
