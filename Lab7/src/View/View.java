@@ -31,7 +31,6 @@ public class View extends JPanel {
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(Board.frameWidth, Board.frameHeight);
     	frame.setVisible(true);
-
     	for(int i = 0; i < 1000; i++){
     		frame.repaint();
     		try {
@@ -45,14 +44,14 @@ public class View extends JPanel {
 	public View(){
     	pics = new BufferedImage[numAni][frameCount];
     	//this array holds the file locations of the 8 orc images 
-    	String[] directory = {"orc_animation/orc_forward_southeast.png",
-    			"orc_animation/orc_forward_south.png",
-    			"orc_animation/orc_forward_southwest.png",
-    			"orc_animation/orc_forward_west.png",
-    			"orc_animation/orc_forward_northwest.png",
-    			"orc_animation/orc_forward_north.png",
-    			"orc_animation/orc_forward_northeast.png",
-    			"orc_animation/orc_forward_east.png"};
+    	String[] directory = {"images/orc/orc_forward_southeast.png",
+    			"images/orc/orc_forward_south.png",
+    			"images/orc/orc_forward_southwest.png",
+    			"images/orc/orc_forward_west.png",
+    			"images/orc/orc_forward_northwest.png",
+    			"images/orc/orc_forward_north.png",
+    			"images/orc/orc_forward_northeast.png",
+    			"images/orc/orc_forward_east.png"};
     	//this loop makes sure each set of images is loaded
     	for (int dir = 0; dir < numAni; dir++) {
     		BufferedImage img = createImage(directory[dir]);
@@ -71,7 +70,7 @@ public class View extends JPanel {
     		Orc curOrc = it.next();
     		curOrc.updateOrc(frameCount, blankSpace);
     		g.drawImage(pics[curOrc.getDirection()][curOrc.getPicNum()], curOrc.getX(), 
-    				curOrc.getY(),null, this);
+    				curOrc.getY(), Color.gray, this);
     	}
     	// TODO: Keep the orc from walking off-screen, turn around when bouncing off walls.
 		//Be sure that animation picture direction matches what is happening on screen.

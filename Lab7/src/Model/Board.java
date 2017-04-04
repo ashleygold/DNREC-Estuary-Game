@@ -2,6 +2,6 @@ package Model;
 
 public class Board {
 
-	 public final static int frameWidth = 500;
-	 public final static int frameHeight = 300;
+	 final public static int frameWidth = 1000;
+	 final public static int frameHeight = 600;
 }
