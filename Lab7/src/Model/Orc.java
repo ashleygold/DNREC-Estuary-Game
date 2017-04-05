@@ -1,5 +1,6 @@
 package Model;
 
+//Orc Class
 public class Orc {
 	
 	//dimensions of each orc
