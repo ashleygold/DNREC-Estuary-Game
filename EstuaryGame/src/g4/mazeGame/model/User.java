@@ -23,7 +23,9 @@ public class User {
 		yLoc += YINCR;
 	}
 	public void die(){
-		
+		foodCount = 0;
+		xLoc = DEFAULTX;
+		yLoc = DEFAULTY;
 	}
 	public int getxLoc() {
 		return xLoc;
