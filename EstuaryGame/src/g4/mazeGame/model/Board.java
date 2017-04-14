@@ -1,6 +1,5 @@
 package g4.mazeGame.model;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,4 @@ public class Board {
 			food.add(new FoodParticle());
 		}
 	}
-=======
-public class Board {
->>>>>>> 93e848245dbbb7d5c435292455502838f9856833
-	
 }
