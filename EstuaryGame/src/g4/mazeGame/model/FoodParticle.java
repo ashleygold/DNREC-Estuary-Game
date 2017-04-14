@@ -11,7 +11,7 @@ public class FoodParticle {
 		this.xloc = (int) Math.random()*Board.WIDTH;
 		this.yloc = (int) Math.random()*Board.HEIGHT;
 		while (Wall.isEmpty(xloc, yloc)){
-		xloc = (int) Math.random()*Board.WIDTH;
+			xloc = (int) Math.random()*Board.WIDTH;
 			yloc = (int) Math.random()*Board.HEIGHT;
 		}
 	}

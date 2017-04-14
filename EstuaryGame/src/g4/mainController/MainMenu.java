@@ -39,7 +39,7 @@ public class MainMenu extends JPanel{
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new MainMenu());
 		frame.setBackground(BACKGROUND_BLUE);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(660, 420);
 		
 		//create buttons
@@ -132,27 +132,25 @@ public class MainMenu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				curState = DE;
-				state.setText(labelNames[curState]);
 			}
 		});
 		states[1].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				curState = TX;
-				state.setText(labelNames[curState]);
 			}
 		});
 		states[2].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				curState = FL;
-				state.setText(labelNames[curState]);
 			}
 		});
 				
 		
 		//repaints on tick
 		while(!exitFlag){
+			state.setText(labelNames[curState]);
 			frame.repaint();
 			try {
 				//Extremely low framerate to improve performance
