@@ -1,7 +1,6 @@
 package g4.storyGame.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Table {
@@ -22,10 +21,6 @@ public class Table {
 	public void update(){
 		for (Cube x : dice)
 			x.changeImg();
-	}
-	
-	public Iterator<Cube> getCubeIterator(){
-		return dice.iterator();
 	}
 	
 	public Cube getCubeAt(int i){

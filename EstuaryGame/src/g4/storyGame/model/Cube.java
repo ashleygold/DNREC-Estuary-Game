@@ -1,6 +1,6 @@
 package g4.storyGame.model;
 
-import g4.storyGame.controller.StoryCont;
+import g4.storyGame.view.StoryView;
 
 public class Cube {
 
@@ -15,13 +15,13 @@ public class Cube {
 	private boolean moved = false;
 	
 	public Cube(){
-		RAND_ID = StoryCont.NUM_SIDES + (int)(200*Math.random());
-		imageNum = RAND_ID % StoryCont.NUM_SIDES;
+		RAND_ID = StoryView.NUM_SIDES + (int)(200*Math.random());
+		imageNum = RAND_ID % StoryView.NUM_SIDES;
 	}
 	
 	protected void changeImg(){
 		if (!fixed)
-			imageNum = (int)(RAND_ID*Math.random()) % StoryCont.NUM_SIDES;
+			imageNum = (int)(RAND_ID*Math.random()) % StoryView.NUM_SIDES;
 	}
 	
 	public int getImg(){
