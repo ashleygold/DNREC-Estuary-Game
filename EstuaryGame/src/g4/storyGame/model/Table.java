@@ -20,7 +20,8 @@ public class Table {
 	}
 	
 	public void update(){
-		dice.get((int)(dice.size()*Math.random())).changeImg();
+		for (Cube x : dice)
+			x.changeImg();
 	}
 	
 	public Iterator<Cube> getCubeIterator(){

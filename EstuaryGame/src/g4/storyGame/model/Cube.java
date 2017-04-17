@@ -36,6 +36,10 @@ public class Cube {
 		moved = true;
 	}
 	
+	public boolean isFixed(){
+		return fixed;
+	}
+	
 	public boolean isMoved(){
 		return moved;
 	}
