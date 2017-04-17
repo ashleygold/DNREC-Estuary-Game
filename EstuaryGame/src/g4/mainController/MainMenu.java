@@ -42,7 +42,7 @@ public class MainMenu extends JPanel{
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new MainMenu());
 		frame.setBackground(BACKGROUND_BLUE);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setSize(660, 420);
 		
 		//create buttons
@@ -131,7 +131,7 @@ public class MainMenu extends JPanel{
 		JLabel state = new JLabel(LABEL_NAMES[curState]);
 		
 		frame.add(state);
-		state.setBounds(330, 30, 300, 75);
+		state.setBounds(340, 30, 300, 75);
 		state.setSize(300, 75);
 		state.setFont(new Font("SansSerif", Font.BOLD, 50));
 		state.setForeground(SEA_GREEN);
