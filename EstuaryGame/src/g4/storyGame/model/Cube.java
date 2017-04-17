@@ -5,7 +5,7 @@ import g4.storyGame.view.StoryView;
 public class Cube {
 
 	//Used to allow each cube to change image randomly independent from any other cube
-	protected final int RAND_ID;
+	private final int RAND_ID;
 	
 	//Current side of the cube
 	private int imageNum;
