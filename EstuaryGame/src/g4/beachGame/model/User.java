@@ -1,8 +1,8 @@
 package g4.beachGame.model;
 
 public class User {
-	private final int DEFAULTX = 0;
-	private final int DEFAULTY = 0;
+	private final int DEFAULTX = 15;
+	private final int DEFAULTY = 305;
 	private final int XINCR = 8;
 	private final int YINCR = 8;
 	private int xLoc = DEFAULTX;
