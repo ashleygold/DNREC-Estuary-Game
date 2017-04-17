@@ -29,10 +29,10 @@ public class MainMenu extends JPanel{
 	static final int TX = 1;
 	static final int FL = 2;
 	
-	//Colors for menu
-	static final Color SEA_GREEN = new Color(26, 255, 139);
-	static final Color BACKGROUND_BLUE = new Color(10,105,148);
-	static final Color TEXT_BROWN = new Color(101, 67, 33);
+	//Colors for menus
+	public static final Color SEA_GREEN = new Color(26, 255, 139);
+	public static final Color BACKGROUND_BLUE = new Color(10,105,148);
+	public static final Color TEXT_BROWN = new Color(101, 67, 33);
 	
 	//Text for label
 	static final String[] LABEL_NAMES = {"Delaware", "Texas", "Florida"};
