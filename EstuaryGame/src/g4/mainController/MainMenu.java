@@ -20,6 +20,9 @@ public class MainMenu extends JPanel{
 	//Exit program flag
 	static boolean exitFlag = false;
 	
+	//Current MiniGame
+	static MiniGameController game = null;
+	
 	//State selection
 	static int curState = 0;
 	static final int DE = 0;
@@ -32,7 +35,7 @@ public class MainMenu extends JPanel{
 	static final Color TEXT_BROWN = new Color(101, 67, 33);
 	
 	//Text for label
-	static final String[] labelNames = {"Delaware", "Texas", "Florida"};
+	static final String[] LABEL_NAMES = {"Delaware", "Texas", "Florida"};
 	
 	public static void main(String [] args){
 		//create and set up frame defaults
@@ -69,19 +72,25 @@ public class MainMenu extends JPanel{
 		choices[0].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new MazeCont();
+				if(game != null)
+					game.dispose();
+				game = new MazeCont();
 			}
 		});
 		choices[1].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new BeachCont();
+				if(game != null)
+					game.dispose();
+				game = new BeachCont();
 			}
 		});
 		choices[2].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new StoryCont();
+				if(game != null)
+					game.dispose();
+				game = new StoryCont();
 			}
 		});
 		choices[3].addActionListener(new ActionListener(){
@@ -119,7 +128,7 @@ public class MainMenu extends JPanel{
 		
 		//Add text Label for current state
 		//create label
-		JLabel state = new JLabel(labelNames[curState]);
+		JLabel state = new JLabel(LABEL_NAMES[curState]);
 		
 		frame.add(state);
 		state.setBounds(330, 30, 300, 75);
@@ -150,15 +159,18 @@ public class MainMenu extends JPanel{
 		
 		//repaints on tick
 		while(!exitFlag){
-			state.setText(labelNames[curState]);
+			state.setText(LABEL_NAMES[curState]);
+			if(game != null)
+				game.update();
 			frame.repaint();
 			try {
-				//Extremely low framerate to improve performance
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		if(game != null)
+			game.dispose();
 		frame.dispose();
 	}
 	
