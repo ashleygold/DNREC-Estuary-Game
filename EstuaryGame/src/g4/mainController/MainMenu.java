@@ -23,6 +23,14 @@ public class MainMenu extends JPanel{
 	//Current MiniGame
 	static MiniGameController game = null;
 	
+	//Frame rate 
+	//Number of times models are updated and frames are repainted per second
+	static int fps = 24;
+	//allows for different games to process at different rates
+	static final int MAZE_FPS = 24;
+	static final int BEACH_FPS = 24;
+	static final int STORY_FPS = 24;
+	
 	//State selection
 	static int curState = 0;
 	static final int DE = 0;
@@ -75,6 +83,7 @@ public class MainMenu extends JPanel{
 				if(game != null)
 					game.dispose();
 				game = new MazeCont();
+				fps = MAZE_FPS;
 			}
 		});
 		choices[1].addActionListener(new ActionListener(){
@@ -83,6 +92,7 @@ public class MainMenu extends JPanel{
 				if(game != null)
 					game.dispose();
 				game = new BeachCont();
+				fps = BEACH_FPS;
 			}
 		});
 		choices[2].addActionListener(new ActionListener(){
@@ -91,6 +101,7 @@ public class MainMenu extends JPanel{
 				if(game != null)
 					game.dispose();
 				game = new StoryCont();
+				fps = STORY_FPS;
 			}
 		});
 		choices[3].addActionListener(new ActionListener(){
@@ -164,7 +175,7 @@ public class MainMenu extends JPanel{
 				game.update();
 			frame.repaint();
 			try {
-				Thread.sleep(100);
+				Thread.sleep((int)(1000/fps));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
