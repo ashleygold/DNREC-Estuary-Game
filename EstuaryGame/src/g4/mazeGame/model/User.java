@@ -1,44 +1,107 @@
 package g4.mazeGame.model;
 
+import g4.mainController.MainMenu;
+
 public class User {
-	private final int DEFAULTX = 0;
-	private final int DEFAULTY = 0;
-	private final int XINCR = 8;
-	private final int YINCR = 8;
-	private int xLoc = DEFAULTX;
-	private int yLoc = DEFAULTY;
-	private int foodCount = 0;
-	private String userImage;
+	//reference to board
+	private final Board board;
 	
-	public void moveLeft(){
-		xLoc -= XINCR;
+	//movement variables
+	private double xLoc=15, yLoc=15;
+	private final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
+	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
+	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
+			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
+	private int direction = STILL;
+	
+	//use the center of the user for wall detection
+	public final double CENTER_IMG = 0.5;
+	
+	//hitbox buffer
+	public final double BUFFER = 0.25;
+	
+	private int foodCount;
+	
+	public User(Board b){
+		board = b;
 	}
-	public void moveRight(){
-		xLoc += XINCR;
+	
+	public boolean isEmpty(double x, double y){
+		return board.getCell((int)x, (int)y) == '.';
 	}
-	public void moveUp(){
-		yLoc -= YINCR;
+
+
+	public void move() {
+		//checks nested in the interest of efficiency
+		switch(direction) {
+			case LEFT:
+				if (isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+						yLoc + CENTER_IMG)){
+					xLoc-=MOVE_SPEED;
+				}
+				break;
+			case RIGHT:
+				if (isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG)){
+					xLoc+=MOVE_SPEED;
+				}
+				break;
+			case UP:
+				if (isEmpty(xLoc + CENTER_IMG,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
+					yLoc-=MOVE_SPEED;
+				}
+				break;
+			case DOWN:
+				if (isEmpty(xLoc + CENTER_IMG,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
+					yLoc+=MOVE_SPEED;
+				}
+				break;
+			case UP_RIGHT:
+				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+					xLoc+=DIAG_MOVE_SPEED;
+					yLoc-=DIAG_MOVE_SPEED;
+				}
+				break;
+			case UP_LEFT:
+				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+					xLoc-=DIAG_MOVE_SPEED;
+					yLoc-=DIAG_MOVE_SPEED;
+				}
+				break;
+			case DOWN_RIGHT:
+				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+					xLoc+=DIAG_MOVE_SPEED;
+					yLoc+=DIAG_MOVE_SPEED;
+				}
+				break;
+			case DOWN_LEFT:
+				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+					xLoc-=DIAG_MOVE_SPEED;
+					yLoc+=DIAG_MOVE_SPEED;
+				}
+				break;
+		}
 	}
-	public void moveDown(){
-		yLoc += YINCR;
-	}
-	public void die(){
-		foodCount = 0;
-		xLoc = DEFAULTX;
-		yLoc = DEFAULTY;
-	}
-	public int getxLoc() {
+	
+	public double getXLoc(){
 		return xLoc;
 	}
-	public void setxLoc(int x) {
-		this.xLoc = x;
-	}
-	public int getyLoc() {
+	
+	public double getYLoc(){
 		return yLoc;
 	}
-	public void setyLoc(int y) {
-		this.yLoc = y;
+	
+	public void setDirection(int d){
+		direction = d;
 	}
+	
+	
 	public int getFoodCount() {
 		return foodCount;
 	}

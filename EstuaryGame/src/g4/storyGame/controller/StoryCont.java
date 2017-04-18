@@ -6,13 +6,6 @@ import g4.storyGame.view.StoryView;
 
 public class StoryCont implements MiniGameController{
 
-	private Table stTable = new Table();
-	private StoryView stView = new StoryView(stTable);
-	
-	public StoryCont(){
-		
-	}
-
 	//model and view
 	private Table stTable = new Table();
 	private StoryView stView = new StoryView(stTable);
