@@ -13,8 +13,8 @@ import g4.mazeGame.view.MazeView;
 
 public class MazeCont implements MiniGameController {
 	
-	private User user = new User();
 	private Board board=new Board();
+	private User user = new User(board);
 	private JFrame app=new JFrame("Minigame 1: Maze");
 	private MazeView screen=new MazeView(board, user);
 	

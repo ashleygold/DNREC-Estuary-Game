@@ -1,46 +1,104 @@
 package g4.mazeGame.model;
 
-import java.awt.Image;
+import g4.mainController.MainMenu;
 
 public class User {
-	public float xLoc=15, yLoc=15;
-	public final static int still=0, left =1, right =2, up=3, down =4;
-	public int direction = still;
-	public int time=0;
-	public Image image;
-	public int foodCount;
+	//reference to board
+	private final Board board;
 	
-	public User(){
-		//Image image= ImageIO.read(new File("screenshots/screengrab.png"));
-		xLoc=15;
-		yLoc=15;
-		direction=still;
+	//movement variables
+	private double xLoc=15, yLoc=15;
+	private final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
+	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
+	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
+			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
+	private int direction = STILL;
+	
+	//use the center of the user for wall detection
+	public final double CENTER_IMG = 0.5;
+	
+	//hitbox buffer
+	public final double BUFFER = 0.25;
+	
+	private int foodCount;
+	
+	public User(Board b){
+		board = b;
+	}
+	
+	public boolean isEmpty(double x, double y){
+		return board.getCell((int)x, (int)y) == '.';
 	}
 
 
-	public void move()
-	{
-		time+=1;
-		if(direction==left){
-			xLoc-=.1;
-		}
-		else if(direction == right){
-			xLoc+=.1;
-		}
-		else if (direction==up){
-			yLoc-=.1;
-		}
-		else if(direction==down){
-			yLoc+=.1;
+	public void move() {
+		//checks nested in the interest of efficiency
+		switch(direction) {
+			case LEFT:
+				if (isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+						yLoc + CENTER_IMG)){
+					xLoc-=MOVE_SPEED;
+				}
+				break;
+			case RIGHT:
+				if (isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG)){
+					xLoc+=MOVE_SPEED;
+				}
+				break;
+			case UP:
+				if (isEmpty(xLoc + CENTER_IMG,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
+					yLoc-=MOVE_SPEED;
+				}
+				break;
+			case DOWN:
+				if (isEmpty(xLoc + CENTER_IMG,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
+					yLoc+=MOVE_SPEED;
+				}
+				break;
+			case UP_RIGHT:
+				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+					xLoc+=DIAG_MOVE_SPEED;
+					yLoc-=DIAG_MOVE_SPEED;
+				}
+				break;
+			case UP_LEFT:
+				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+					xLoc-=DIAG_MOVE_SPEED;
+					yLoc-=DIAG_MOVE_SPEED;
+				}
+				break;
+			case DOWN_RIGHT:
+				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+					xLoc+=DIAG_MOVE_SPEED;
+					yLoc+=DIAG_MOVE_SPEED;
+				}
+				break;
+			case DOWN_LEFT:
+				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+					xLoc-=DIAG_MOVE_SPEED;
+					yLoc+=DIAG_MOVE_SPEED;
+				}
+				break;
 		}
 	}
 	
-	public float getXLoc(){
+	public double getXLoc(){
 		return xLoc;
 	}
 	
-	public float getYLoc(){
+	public double getYLoc(){
 		return yLoc;
+	}
+	
+	public void setDirection(int d){
+		direction = d;
 	}
 	
 	
