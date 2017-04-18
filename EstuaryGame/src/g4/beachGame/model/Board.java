@@ -20,8 +20,9 @@ public class Board {
 	User user;
 	int difficulty;
 	
-	
+	/*creates a new board of waves and protectors*/
 	public Board(){
+		currBoats = new ArrayList<Boat>();
 		currWaves = new ArrayList<Wave>();
 		user = new User();
 		protectorLine = new ArrayList<Protector>();
