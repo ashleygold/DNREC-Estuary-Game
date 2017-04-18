@@ -43,13 +43,19 @@ public class MazeView extends JPanel{
 						g.setColor(Color.YELLOW);
 						g.fillRect(x*SLOT_SPACE, y*SLOT_SPACE, SLOT_SPACE, SLOT_SPACE);
 						break;
+					case 'o':
+						g.setColor(Color.CYAN);
+						g.fillRect(x*SLOT_SPACE, y*SLOT_SPACE, SLOT_SPACE, SLOT_SPACE);
+						g.setColor(Color.BLACK);
+						g.fillOval(x*SLOT_SPACE+(SLOT_SPACE/2), y*SLOT_SPACE+(SLOT_SPACE/2), 10, 10);
+						break;
 					default : System.err.println(c+" Not found");
 				}
 			}
 		}
 		
 		g.setColor(Color.RED);
-		g.fillOval((int)(user.getXLoc()*SLOT_SPACE-10), (int)(user.getYLoc()*SLOT_SPACE-10), SLOT_SPACE-10, SLOT_SPACE-10);
+		g.fillOval((int)(user.getXLoc()*SLOT_SPACE), (int)(user.getYLoc()*SLOT_SPACE), SLOT_SPACE, SLOT_SPACE);
 
 	}
 }
