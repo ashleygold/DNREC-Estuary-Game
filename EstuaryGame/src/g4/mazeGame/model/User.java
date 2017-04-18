@@ -1,10 +1,12 @@
 package g4.mazeGame.model;
 
 import g4.mainController.MainMenu;
+import g4.mazeGame.view.MazeView;
 
 public class User {
 	//reference to board
 	private final Board board;
+	public boolean isFood=true;
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
@@ -18,7 +20,7 @@ public class User {
 	public final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	public final double BUFFER = 0.25;
+	public final double BUFFER = 0.45;
 	
 	private int foodCount;
 	
@@ -27,7 +29,23 @@ public class User {
 	}
 	
 	public boolean isEmpty(double x, double y){
-		return board.getCell((int)x, (int)y) == '.';
+		if ((board.getCell((int)x, (int)y) == '.') || (board.getCell((int)x, (int)y) == 'o')){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean isFood(double x, double y){
+		return (board.getCell((int)x, (int)y) == 'o');
+	}
+	
+	public void checkFood(){
+		if (isFood(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+				yLoc + CENTER_IMG)){
+			isFood = false;
+		}
 	}
 
 
