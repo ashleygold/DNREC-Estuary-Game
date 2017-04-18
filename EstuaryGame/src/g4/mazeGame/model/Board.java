@@ -105,6 +105,4 @@ public class Board {
 		return false;
 	}
 	
-	List<FoodParticle> food = new ArrayList<FoodParticle>();
-	
 }
