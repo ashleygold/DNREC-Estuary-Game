@@ -28,23 +28,11 @@ public class User {
 		board = b;
 	}
 	
-	public boolean isEmpty(double x, double y){
-		if ((board.getCell((int)x, (int)y) == '.') || (board.getCell((int)x, (int)y) == 'o')){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
-	public boolean isFood(double x, double y){
-		return (board.getCell((int)x, (int)y) == 'o');
-	}
-	
 	public void checkFood(){
-		if (isFood(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
-				yLoc + CENTER_IMG)){
-			isFood = false;
+		//unfinished
+		if (board.eatFood(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
+			foodCount++;
+			System.out.println(foodCount);
 		}
 	}
 
@@ -53,58 +41,59 @@ public class User {
 		//checks nested in the interest of efficiency
 		switch(direction) {
 			case LEFT:
-				if (isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG)){
 					xLoc-=MOVE_SPEED;
 				}
 				break;
 			case RIGHT:
-				if (isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + CENTER_IMG)){
 					xLoc+=MOVE_SPEED;
 				}
 				break;
 			case UP:
-				if (isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG,
 						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
 					yLoc-=MOVE_SPEED;
 				}
 				break;
 			case DOWN:
-				if (isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
 					yLoc+=MOVE_SPEED;
 				}
 				break;
 			case UP_RIGHT:
-				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				}
 				break;
 			case UP_LEFT:
-				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				}
 				break;
 			case DOWN_LEFT:
-				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				}
 				break;
 		}
+		checkFood();
 	}
 	
 	public double getXLoc(){
