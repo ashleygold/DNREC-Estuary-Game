@@ -21,7 +21,7 @@ public class Board {
 	int difficulty;
 	
 	
-	Board(){
+	public Board(){
 		currWaves = new ArrayList<Wave>();
 		user = new User();
 		protectorLine = new ArrayList<Protector>();
@@ -31,12 +31,11 @@ public class Board {
 	
 	/*returns the hour of the day and calls controller to move sun*/
 	public int getCurrHour(double currTime){ //beachCont.getElapsedTime
-		hour = (int) (currTime /GAMESEC_PER_HOUR);
+		this.hour = (int) (currTime /GAMESEC_PER_HOUR);
 		return hour;
 	}
 	/*checks to see if player has won*/
 	public boolean win(){
-		getCurrHour();
 		if (hour==0 && shoreline>0)
 			return true;
 		else 
