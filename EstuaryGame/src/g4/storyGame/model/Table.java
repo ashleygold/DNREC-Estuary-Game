@@ -6,6 +6,11 @@ import java.util.List;
 public class Table {
 	
 	private List<Cube> dice = new ArrayList<Cube>();
+
+	//list of Cubes
+	private List<Cube> dice = new ArrayList<Cube>();
+	//Quantity of cubes
+
 	public final int NUM_DICE; 
 	
 	//Allowed range of number of cubes 
@@ -13,16 +18,19 @@ public class Table {
 	private static final int MIN_DICE = 5;
 	
 	public Table(){
+		//put a random number of Cubes in dice
 		NUM_DICE = MIN_DICE + (int)((MAX_DICE - MIN_DICE)*Math.random());
 		for(int i = 0; i< NUM_DICE; i++)
 			dice.add(new Cube());
 	}
 	
+	//change the images in all the Cubes
 	public void update(){
 		for (Cube x : dice)
 			x.changeImg();
 	}
 	
+	//retrieve a Cube
 	public Cube getCubeAt(int i){
 		return dice.get(i);
 	}

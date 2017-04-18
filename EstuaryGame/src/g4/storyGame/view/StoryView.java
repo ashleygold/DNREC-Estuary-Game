@@ -21,32 +21,41 @@ import g4.storyGame.model.Table;
 
 public class StoryView extends JPanel{
 
+	//reference to Model, used to get data
 	private final Table refTable;
-	private final JFrame frame;
 	
+	//This game's window
+	private final JFrame frame;
 	private final int FRAME_WIDTH = 1100;
 	private final int FRAME_HEIGHT = 600;
 	
+	//Dimensions & locations of images
 	private final int IMG_WIDTH = 100;
 	private final int IMG_HEIGHT = 100;
-	
 	private static final String[] imagesLoc = {"images/StoryImages/TestImage.png",
-			"images/StoryImages/TestImage2.png"};
+			"images/StoryImages/TestImage2.png",
+			"images/StoryImages/TestImage3.png",
+			"images/StoryImages/TestImage4.png"};
 	//The number of possible sides of cubes (total number of images)
 	public static final int NUM_SIDES = imagesLoc.length;
 	
+	//Every possible image
 	private final BufferedImage[] images = new BufferedImage[imagesLoc.length];
 	
+	//Buttons/Images for Cubes
 	private final JButton[] cubes;
 	private List<BufferedImage> finalized = new ArrayList<BufferedImage>();
 	
 	public StoryView(Table t){
+		//create all images
 		for (int i = 0; i < imagesLoc.length; i++){
 			images[i] = createImage(imagesLoc[i]);
 		}
 		
+		//set refernce
 		refTable = t;
 		
+		//set up window
 		frame = new JFrame();
 		frame.getContentPane().add(this);
 		frame.setBackground(MainMenu.BACKGROUND_BLUE);
@@ -56,19 +65,21 @@ public class StoryView extends JPanel{
 		frame.setVisible(true);
 		frame.setLayout(null);
 		
+		//create JButtons for Cubes
+		
 		cubes = new JButton[refTable.NUM_DICE];
 		
-		//Iterator<Cube> cubesItr = refTable.getCubeIterator();
 		for (int i = 0; i < refTable.NUM_DICE; i++){
 			cubes[i] = new JButton(new ImageIcon(images[refTable.getCubeAt(i).getImg()]));
 			cubes[i].setBackground(MainMenu.BACKGROUND_BLUE);
 			cubes[i].addActionListener(new CubeActionListener(i));
 			frame.add(cubes[i]);
-			cubes[i].setBounds(IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), IMG_HEIGHT/2, 100, 100);
-			cubes[i].setSize(100, 100);
+			cubes[i].setBounds(IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), IMG_HEIGHT/2, IMG_WIDTH, IMG_HEIGHT);
+			cubes[i].setSize(IMG_WIDTH, IMG_HEIGHT);
 		}
 	}
 	
+	//This private class allows the Cube JButtons to trigger when clicked
 	private class CubeActionListener implements ActionListener{
 		private final int cubeNum; 
 		CubeActionListener(int i){
@@ -80,6 +91,7 @@ public class StoryView extends JPanel{
 		}
 	}
 	
+	//Runs when a Cube's JButton is clicked
 	private void clicked(int i) {
 		if (!refTable.getCubeAt(i).isFixed())
 			//if not fixed
@@ -126,9 +138,12 @@ public class StoryView extends JPanel{
 	
 	@Override
 	public void paint(Graphics g) {
+
+		//set icons to JButtons
 		for (int i = 0; i < cubes.length; i++){
 			cubes[i].setIcon(new ImageIcon(images[refTable.getCubeAt(i).getImg()]));
 		}
+		//draw finalized images
 		for (int i = 0; i < finalized.size(); i++){
 			g.drawImage(finalized.get(i),IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), 2*IMG_HEIGHT, null, this);
 		}
