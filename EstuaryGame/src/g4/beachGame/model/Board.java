@@ -92,4 +92,11 @@ public class Board {
 	public void createWave(Boat boat){
 		currWaves.add(new Wave(boat));
 	}
+	public int getWidth(){
+		return WIDTH;
+	}
+	
+	public int getHeight(){
+		return HEIGHT;	
+	}
 }
