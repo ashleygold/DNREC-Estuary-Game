@@ -19,8 +19,7 @@ public class BeachCont implements MiniGameController{
 	
 	private BeachView bView = new BeachView();
 	private JFrame application = new JFrame ("Minigrame 2: Beach");
-	
-	Board b1 = new Board();
+	public Board b1 = new Board();
 	
 	/*returns how much time has elapsed in the game in seconds*/
 	public double updateElapsedTime(){
@@ -39,12 +38,11 @@ public class BeachCont implements MiniGameController{
 		});
 		application.setLayout(null);
 		application.getContentPane().add(bView);
-		//app.pack();
-		application.setSize(15+(b1.getWidth(), (1+board.getHeight()));
+		application.setSize(b1.getWidth(), b1.getHeight());
 		
-		app.setVisible(true);
+		application.setVisible(true);
 		
-		screen.addKeyListener(new Listener(user));
+		bView.addKeyListener(new Listener(b1.user));
 	}
 	//public void 
 
