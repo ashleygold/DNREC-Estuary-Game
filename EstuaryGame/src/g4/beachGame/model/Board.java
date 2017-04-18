@@ -9,6 +9,7 @@ public class Board {
 	final static int SHORELINE = 400;
 	ArrayList<Protector> protectorLine;
 	ArrayList<Wave> currWaves;
+	ArrayList<Boat> currBoats;
 	User user;
 	int difficulty;
 	
@@ -51,7 +52,20 @@ public class Board {
 			}
 		}
 	}
-	public void createWave(){
-		currWaves.add(new Wave());
+	
+	/*creates a random new boat*/
+	public void createBoat(){
+		int randomNum = 1 + (int)(Math.random() * 7); 
+		if (randomNum>0 && randomNum<4)
+			currBoats.add(new Sailboat());
+		else if(randomNum<=6)
+			currBoats.add(new Speedboat());
+		else
+			currBoats.add(new CruiseLiner());
+	}
+	
+	/*creates a new wave based on the boat*/
+	public void createWave(Boat boat){
+		currWaves.add(new Wave(boat));
 	}
 }

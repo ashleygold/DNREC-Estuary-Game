@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Table {
 	
-	protected List<Cube> dice = new ArrayList<Cube>();
+	private List<Cube> dice = new ArrayList<Cube>();
 	public final int NUM_DICE; 
 	
 	//Allowed range of number of cubes 
-	protected static final int MAX_DICE = 8;
-	protected static final int MIN_DICE = 5;
+	private static final int MAX_DICE = 8;
+	private static final int MIN_DICE = 5;
 	
 	public Table(){
 		NUM_DICE = MIN_DICE + (int)((MAX_DICE - MIN_DICE)*Math.random());

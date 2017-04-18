@@ -4,6 +4,7 @@ public abstract class Boat {
 	
 	int xloc; 
 	int yloc; 
+
 	
 	
 	//getter for X Location of boat

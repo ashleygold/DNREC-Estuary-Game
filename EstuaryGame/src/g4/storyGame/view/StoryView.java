@@ -67,8 +67,6 @@ public class StoryView extends JPanel{
 			cubes[i].setBounds(IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), IMG_HEIGHT/2, 100, 100);
 			cubes[i].setSize(100, 100);
 		}
-		
-		System.out.println("herelol");
 	}
 	
 	private class CubeActionListener implements ActionListener{
@@ -128,7 +126,6 @@ public class StoryView extends JPanel{
 	
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("test");
 		for (int i = 0; i < cubes.length; i++){
 			cubes[i].setIcon(new ImageIcon(images[refTable.getCubeAt(i).getImg()]));
 		}
