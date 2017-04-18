@@ -17,14 +17,7 @@ public class BeachView extends JPanel{
 	
 	private final int USER_WIDTH = 100;
 	private final int USER_HEIGHT = 100;
-	
-	private static final String[] crabImages = {"images/StoryImages/TestImage.png",
-	"images/StoryImages/TestImage2.png"};
-	
-	public BeachView(){
-		
-	}
-}
+
 	private static final String[] crabImagesLoc = {"images/BeachImages/bluecrab_0.png",
 	"images/BeachImages/bluecrab_1.png", "images/BeachImages/bluecrab_2.png",
 	"images/BeachImages/bluecrab_back.png"};

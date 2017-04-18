@@ -26,8 +26,8 @@ public class StoryView extends JPanel{
 	
 	//This game's window
 	private final JFrame frame;
-	private final int FRAME_WIDTH = 1100;
-	private final int FRAME_HEIGHT = 600;
+	private final int FRAME_WIDTH = 950;
+	private final int FRAME_HEIGHT = 500;
 	
 	//Dimensions & locations of images
 	private final int IMG_WIDTH = 100;
