@@ -36,8 +36,8 @@ public class BeachView extends JPanel{
 		"images/BeachImages/bogturtle_right_0.png", "images/BeachImages/bogturtle_right_1.png",
 		"images/BeachImages/bogturtle_right_2.png"};
 	
-	private static final String[] protectorsLoc = {"images/StoryImages/TestImage.png",
-		"images/StoryImages/TestImage2.png", "images/StoryImages/TestImage2.png"};
+	private static final String[] protectorsLoc = {"images/StoryImages/grass.png",
+		"images/StoryImages/oysters.png", "images/StoryImages/sand_tile.png"};
 	
 	private final BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
 	private final JLabel[] protectors = new JLabel[protectorsLoc.length];
