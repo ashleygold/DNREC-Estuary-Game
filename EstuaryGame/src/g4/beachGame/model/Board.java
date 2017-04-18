@@ -17,7 +17,7 @@ public class Board {
 	ArrayList<Wave> currWaves;
 	ArrayList<Boat> currBoats;
 	
-	User user;
+	public User user;
 	int difficulty;
 	
 	/*creates a new board of waves and protectors*/

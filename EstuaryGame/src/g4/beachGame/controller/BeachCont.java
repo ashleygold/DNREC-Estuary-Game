@@ -29,8 +29,8 @@ public class BeachCont implements MiniGameController{
 
 	@Override
 	public void update() {
-		updateElapsedTime();
-		
+		b1.user.move();
+		app.repaint();
 
 	}
 
