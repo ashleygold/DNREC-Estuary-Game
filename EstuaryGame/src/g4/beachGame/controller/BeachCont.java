@@ -1,12 +1,14 @@
 package g4.beachGame.controller;
 
 import g4.beachGame.model.Board;
+import g4.beachGame.view.BeachView;
 import g4.mainController.MiniGameController;
 
 public class BeachCont implements MiniGameController{
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
 	final static long START_TIME= System.nanoTime(); 
 	double elapsedTime;
+	private BeachView bView = new BeachView();
 	Board b1;
 	
 	
@@ -22,7 +24,7 @@ public class BeachCont implements MiniGameController{
 		return this.elapsedTime;
 	}
 	
-	public void 
+	//public void 
 
 
 	@Override

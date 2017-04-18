@@ -36,8 +36,8 @@ public class BeachView extends JPanel{
 		"images/BeachImages/bogturtle_right_0.png", "images/BeachImages/bogturtle_right_1.png",
 		"images/BeachImages/bogturtle_right_2.png"};
 	
-	private static final String[] protectorsLoc = {"images/StoryImages/grass.png",
-		"images/StoryImages/oysters.png", "images/StoryImages/sand_tile.png"};
+	private static final String[] protectorsLoc = {"images/StoryImages/TestImage.png", 
+			"images/StoryImages/TestImage.png", "images/StoryImages/TestImage.png"};
 	
 	private final BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
 	private final JLabel[] protectors = new JLabel[protectorsLoc.length];
@@ -77,12 +77,12 @@ public class BeachView extends JPanel{
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
-		for (int i = 0; i < protectors.length; i++){
+		/*for (int i = 0; i < protectors.length; i++){
 			frame.add(protectors[i]);
 			protectors[i].setBounds(FRAME_WIDTH - 2*IMG_WIDTH, FRAME_HEIGHT/2 +IMG_HEIGHT/2 + 
 					(int)(i*1.2*IMG_HEIGHT), IMG_WIDTH, IMG_HEIGHT);
 			protectors[i].setSize(IMG_WIDTH, IMG_HEIGHT);
-		}
+		}*/
 	}
 	private class ImagePanel extends JComponent{
 		private BufferedImage image;
