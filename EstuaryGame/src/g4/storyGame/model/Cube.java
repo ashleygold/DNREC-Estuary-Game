@@ -1,5 +1,6 @@
 package g4.storyGame.model;
 
+//Imported solely for use of constant NUM_SIDES
 import g4.storyGame.view.StoryView;
 
 public class Cube {
@@ -14,11 +15,13 @@ public class Cube {
 	private boolean fixed = false;
 	private boolean moved = false;
 	
+	//initialize with a random seed and random image
 	public Cube(){
 		RAND_ID = StoryView.NUM_SIDES + (int)(200*Math.random());
 		imageNum = RAND_ID % StoryView.NUM_SIDES;
 	}
 	
+	//change to a new random image
 	protected void changeImg(){
 		if (!fixed)
 			imageNum = (int)(RAND_ID*Math.random()) % StoryView.NUM_SIDES;
@@ -28,6 +31,7 @@ public class Cube {
 		return imageNum;
 	}
 	
+	//stop changes
 	public void fix(){
 		fixed = true;
 	}
