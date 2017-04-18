@@ -6,14 +6,14 @@ public class BeachCont implements MiniGameController {
 	
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
 	final static long START_TIME= System.nanoTime(); 
-	static long currTime;
+	static double elapsedTime;
 	
 
 	/*returns how much time has elapsed in the game in seconds*/
 	public double getElapsedTime(){
-		currTime=System.nanoTime();
-		long elapsedTime = currTime-START_TIME;
-		return (double) elapsedTime / NANOSECOND_PER_SECOND;
+		long currTime=System.nanoTime();
+		elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
+		return elapsedTime;
 	}
 	
 	@Override

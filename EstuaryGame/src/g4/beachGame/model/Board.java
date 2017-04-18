@@ -6,31 +6,41 @@ import java.util.Iterator;
 import g4.beachGame.controller.BeachCont;
 
 public class Board {
+	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 600; 
 	final static int HEIGHT = 600;
 	static int shoreline = 400;
+	int hour; 
+	
+	
 	ArrayList<Protector> protectorLine;
 	ArrayList<Wave> currWaves;
 	ArrayList<Boat> currBoats;
+	
 	User user;
 	int difficulty;
+	
 	
 	Board(){
 		currWaves = new ArrayList<Wave>();
 		user = new User();
 		protectorLine = new ArrayList<Protector>();
+		hour = 24;
 	}
 	
-	public void win(){
-		
-	}
 	
-	public void checksTime(){
-		BeachCont.setCurrTime(System.nanoTime());
-		if(BeachCont.getCurrTime()>2.0){
-			win();
-		}
-		
+	/*returns the hour of the day and calls controller to move sun*/
+	public int getCurrHour(double currTime){ //beachCont.getElapsedTime
+		hour = (int) (currTime /GAMESEC_PER_HOUR);
+		return hour;
+	}
+	/*checks to see if player has won*/
+	public boolean win(){
+		getCurrHour();
+		if (hour==0 && shoreline>0)
+			return true;
+		else 
+			return false;
 	}
 	
 	/*checks to if the shoreline has completely disappeared*/
