@@ -3,22 +3,20 @@ package g4.mazeGame.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import g4.mazeGame.model.Board;
 import g4.mazeGame.model.User;
 
 
 public class Listener implements KeyListener {
 	
-	Board world;
 	User user;
-	public Listener(Board board, User user) {
-		this.world=world;
+	public Listener(User user) {
 		this.user = user;
 	}
 
 	//@Override
 	public void keyPressed(KeyEvent ke) {
 		int code= ke.getKeyCode();
+		System.out.println("Key pressed");
 		if(code==KeyEvent.VK_LEFT){
 			user.direction=User.left;
 		}

@@ -1,9 +1,6 @@
 package g4.mazeGame.model;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class User {
 	public float xLoc=15, yLoc=15;
