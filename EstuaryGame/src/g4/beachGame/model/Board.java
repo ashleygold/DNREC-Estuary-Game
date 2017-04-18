@@ -17,7 +17,7 @@ public class Board {
 	ArrayList<Wave> currWaves;
 	ArrayList<Boat> currBoats;
 	
-	User user;
+	public User user;
 	int difficulty;
 	
 	/*creates a new board of waves and protectors*/
@@ -91,5 +91,12 @@ public class Board {
 	/*creates a new wave based on the boat*/
 	public void createWave(Boat boat){
 		currWaves.add(new Wave(boat));
+	}
+	public int getWidth(){
+		return WIDTH;
+	}
+	
+	public int getHeight(){
+		return HEIGHT;	
 	}
 }

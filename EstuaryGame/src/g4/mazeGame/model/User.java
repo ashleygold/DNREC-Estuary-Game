@@ -1,10 +1,12 @@
 package g4.mazeGame.model;
 
 import g4.mainController.MainMenu;
+import g4.mazeGame.view.MazeView;
 
 public class User {
 	//reference to board
 	private final Board board;
+	public boolean isFood=true;
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
@@ -18,7 +20,7 @@ public class User {
 	public final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	public final double BUFFER = 0.25;
+	public final double BUFFER = 0.45;
 	
 	private int foodCount;
 	
@@ -26,8 +28,12 @@ public class User {
 		board = b;
 	}
 	
-	public boolean isEmpty(double x, double y){
-		return board.getCell((int)x, (int)y) == '.';
+	public void checkFood(){
+		//unfinished
+		if (board.eatFood(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
+			foodCount++;
+			System.out.println(foodCount);
+		}
 	}
 
 
@@ -35,58 +41,59 @@ public class User {
 		//checks nested in the interest of efficiency
 		switch(direction) {
 			case LEFT:
-				if (isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG)){
 					xLoc-=MOVE_SPEED;
 				}
 				break;
 			case RIGHT:
-				if (isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + CENTER_IMG)){
 					xLoc+=MOVE_SPEED;
 				}
 				break;
 			case UP:
-				if (isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG,
 						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
 					yLoc-=MOVE_SPEED;
 				}
 				break;
 			case DOWN:
-				if (isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
 					yLoc+=MOVE_SPEED;
 				}
 				break;
 			case UP_RIGHT:
-				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				}
 				break;
 			case UP_LEFT:
-				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				}
 				break;
 			case DOWN_LEFT:
-				if (isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				}
 				break;
 		}
+		checkFood();
 	}
 	
 	public double getXLoc(){

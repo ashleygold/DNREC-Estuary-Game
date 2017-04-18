@@ -88,10 +88,21 @@ public class Board {
         return newstartboard;
 	}
 	
+	public boolean isEmpty(double x, double y){
+		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o');
+	}
+	
+	protected boolean eatFood(double x, double y){
+		if (getCell((int)x, (int)y) == 'o'){
+			board.get((int)y).set((int)x, '.');
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public boolean endgame() {
 		return false;
 	}
-	
-	List<FoodParticle> food = new ArrayList<FoodParticle>();
 	
 }

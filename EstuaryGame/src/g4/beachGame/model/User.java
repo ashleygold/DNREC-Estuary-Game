@@ -1,5 +1,7 @@
 package g4.beachGame.model;
 
+import g4.mainController.MainMenu;
+
 public class User {
 	private final int DEFAULTX = 15;
 	private final int DEFAULTY = 305;
@@ -10,21 +12,67 @@ public class User {
 	private int foodCount = 0;
 	private String userImage;
 	
+	
+	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
+			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
+	private int direction = STILL;
+	
 	public void place(){
 		
 	}
-	public void moveLeft(){
-		xLoc -= XINCR;
+	
+	/*checks to see if the user is on the shore*/
+	public boolean isShore(double x, double y){
+		return (x>0 && x<Board.WIDTH && y>Board.shoreline);
 	}
-	public void moveRight(){
-		xLoc += XINCR;
+	
+	
+	public void move() {
+		//checks nested in the interest of efficiency
+		switch(direction) {
+			case LEFT:
+				if (isShore(xLoc - XINCR, yLoc))
+					xLoc-=XINCR;
+				break;
+			case RIGHT:
+				if (isShore(xLoc + XINCR, yLoc))
+					xLoc+=XINCR;
+				break;
+			case UP:
+				if (isShore(xLoc, yLoc - YINCR))
+					yLoc-=YINCR;
+				break;
+			case DOWN:
+				if (isShore(xLoc, yLoc+YINCR))
+					yLoc+=YINCR;
+				break;
+			case UP_RIGHT:
+				if (isShore(xLoc + XINCR, yLoc-YINCR)){
+					xLoc+=XINCR;
+					yLoc-=YINCR;
+				}
+				break;
+			case UP_LEFT:
+				if (isShore(xLoc-XINCR,yLoc-YINCR)){
+					xLoc-=XINCR;
+					yLoc-=YINCR;
+				}
+				break;
+			case DOWN_RIGHT:
+				if (isShore(xLoc + XINCR, yLoc + YINCR)){
+					xLoc+=XINCR;
+					yLoc+=YINCR;
+				}
+				break;
+			case DOWN_LEFT:
+				if (isShore(xLoc - XINCR, yLoc + YINCR)){
+					xLoc-= XINCR;
+					yLoc+= YINCR;
+				}
+				break;
+		}
 	}
-	public void moveUp(){
-		yLoc -= YINCR;
-	}
-	public void moveDown(){
-		yLoc += YINCR;
-	}
+
 	public int getxLoc() {
 		return xLoc;
 	}
@@ -36,5 +84,9 @@ public class User {
 	}
 	public void setyLoc(int y) {
 		this.yLoc = y;
+	}
+	
+	public void setDirection(int direct){
+		this.direction = direct;
 	}
 }
