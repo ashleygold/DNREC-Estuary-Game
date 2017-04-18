@@ -1,44 +1,52 @@
 package g4.mazeGame.model;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class User {
-	private final int DEFAULTX = 0;
-	private final int DEFAULTY = 0;
-	private final int XINCR = 8;
-	private final int YINCR = 8;
-	private int xLoc = DEFAULTX;
-	private int yLoc = DEFAULTY;
-	private int foodCount = 0;
-	private String userImage;
+	public float xLoc=15, yLoc=15;
+	public final static int still=0, left =1, right =2, up=3, down =4;
+	public int direction = still;
+	public int time=0;
+	public Image image;
+	public int foodCount;
 	
-	public void moveLeft(){
-		xLoc -= XINCR;
+	public User(){
+		//Image image= ImageIO.read(new File("screenshots/screengrab.png"));
+		xLoc=15;
+		yLoc=15;
+		direction=still;
 	}
-	public void moveRight(){
-		xLoc += XINCR;
+
+
+	public void move()
+	{
+		time+=1;
+		if(direction==left){
+			xLoc-=.1;
+		}
+		else if(direction == right){
+			xLoc+=.1;
+		}
+		else if (direction==up){
+			yLoc-=.1;
+		}
+		else if(direction==down){
+			yLoc+=.1;
+		}
 	}
-	public void moveUp(){
-		yLoc -= YINCR;
-	}
-	public void moveDown(){
-		yLoc += YINCR;
-	}
-	public void die(){
-		foodCount = 0;
-		xLoc = DEFAULTX;
-		yLoc = DEFAULTY;
-	}
-	public int getxLoc() {
+	
+	public float getXLoc(){
 		return xLoc;
 	}
-	public void setxLoc(int x) {
-		this.xLoc = x;
-	}
-	public int getyLoc() {
+	
+	public float getYLoc(){
 		return yLoc;
 	}
-	public void setyLoc(int y) {
-		this.yLoc = y;
-	}
+	
+	
 	public int getFoodCount() {
 		return foodCount;
 	}
