@@ -11,8 +11,9 @@ public class Listener implements KeyListener {
 	
 	Board world;
 	User user;
-	public Listener(Board board) {
+	public Listener(Board board, User user) {
 		this.world=world;
+		this.user = user;
 	}
 
 	//@Override

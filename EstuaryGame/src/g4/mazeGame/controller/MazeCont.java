@@ -7,6 +7,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
+import g4.mainController.MainMenu;
 import g4.mainController.MiniGameController;
 import g4.mazeGame.model.Board;
 import g4.mazeGame.model.User;
@@ -15,24 +18,26 @@ import g4.mazeGame.view.MazeView;
 
 public class MazeCont implements KeyListener, MiniGameController {
 	
-	User user = new User();
+	private User user = new User();
+	private Board board=new Board();
+	private JFrame app=new JFrame("Minigame 1: Maze");
+	private MazeView screen=new MazeView(board, user);
 	
 	public MazeCont() {
-		Frame app=new Frame("Minigame 1: Maze");
 		app.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we)
 			{
 				System.exit(0);
 			}			
 		});
-		Board board=new Board();
-		User user= new User();
-		MazeView screen=new MazeView(board);		
-		app.add(screen);
-		app.pack();
+		app.setLayout(null);
+		app.getContentPane().add(screen);
+		//app.pack();
+		app.setSize(15+(board.getWidth()*screen.t), (1+board.getHeight())*screen.t);
+		
 		app.setVisible(true);
 		
-		screen.addKeyListener(new Listener(board));
+		screen.addKeyListener(new Listener(board, user));
 	}
 
 	//@Override
@@ -63,7 +68,9 @@ public class MazeCont implements KeyListener, MiniGameController {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+		//System.out.println("repaint()");
+		//screen.repaint();
+		app.repaint();
 	}
 
 	@Override

@@ -14,28 +14,35 @@ import javax.swing.*;
 import g4.mazeGame.controller.*;
 import g4.mazeGame.model.*;
 
-public class MazeView extends Canvas{
+public class MazeView extends JPanel{
 	
 	private Board board;
 	private User user;
-	private final int t=40;
+	public final int t=40;
 	
 	
 	
-	public MazeView(Board board) {
+	public MazeView(Board board, User u) {
 		this.board=board;	
+		user = u;
 		setSize(board.getWidth()*t,board.getHeight()*t);
 	}
 	
+	/*
+	@Override
 	public void update(Graphics g)
 	{
+		System.out.println("MV update");
 		Image im = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		paint(im.getGraphics());
 		g.drawImage(im, 0, 0, null);		
 		
-	}
+	}*/
+	
+	@Override
 	public void paint(Graphics g)
 	{
+		System.out.println("MV paint");
 		for(int x=0; x<board.getWidth();x++){
 			for(int y=0;y<board.getHeight();y++)
 			{
@@ -59,10 +66,10 @@ public class MazeView extends Canvas{
 			}
 		}
 		
-		/*
 		g.setColor(Color.RED);
 		g.fillOval((int)(user.getXLoc()*t-10), (int)(user.getYLoc()*t-10), t-10, t-10);
-		*/
-	}
+		g.fillRect(board.getWidth()*t-25,board.getHeight()*t-50, 10, 10);
+		g.fillRect(0,0, 10, 10);
 
+	}
 }
