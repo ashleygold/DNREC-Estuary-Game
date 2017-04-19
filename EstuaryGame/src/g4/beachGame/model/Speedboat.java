@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class Speedboat extends Boat{
 	
-	final int SPEEDBOAT_SPEED=30;
+	final int SPEEDBOAT_SPEED=20;
 
 	public Speedboat(){
 		int randomDir = 1+ (int) (Math.random() * 1);
-		int randomHeight = (int) (Math.random()*Board.shoreline);
+		int randomHeight = (int) (Math.random()*Board.shoreline-100);
 		if (randomDir==1)
 			this.xloc=0;
 		else
