@@ -13,7 +13,7 @@ public class Board {
 	public final int HEIGHT= 17;
 	public final int WIDTH= 19;
 	int goalFood=10;
-	private final int NUM_PREDATORS = 3; 
+	private final int NUM_PREDATORS = 3;
 	int totalFood;
 	private String startboard =
 			 "##########*########\n"
@@ -51,11 +51,11 @@ public class Board {
 		user = new User(this);
 		
 		for(int i = 0; i < NUM_PREDATORS; i++){
-			int yTest = (int) (Math.random()*(HEIGHT-3)+1);
-			int xTest = (int) (Math.random()*(WIDTH-3)+1);
+			int yTest = (int) (Math.random()*(WIDTH-1)+1);
+			int xTest = (int) (Math.random()*(HEIGHT-6)+1);
 			while(getCell(yTest, xTest) != '.') {
-				yTest = (int) (Math.random()*(HEIGHT-3)+1);
-				xTest = (int) (Math.random()*(WIDTH-3)+1);
+				yTest = (int) (Math.random()*(WIDTH-1)+1);
+				xTest = (int) (Math.random()*(HEIGHT-6)+1);
 			}
 			hunters.add(new Predator(this, user, yTest, xTest));
 		}
