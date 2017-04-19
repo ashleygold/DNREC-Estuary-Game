@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
+import g4.beachGame.model.User;
 import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
@@ -22,11 +22,11 @@ public class BeachView extends JPanel{
 	private final int USER_HEIGHT = 100;
 	private final int IMG_WIDTH = 150;
 	private final int IMG_HEIGHT = 150;
+	private User user;
 
 	//Dimensions & locations of images
 	private static final String[] crabImagesLoc = {"images/BeachImages/bluecrab_0.png",
-	"images/BeachImages/bluecrab_1.png", "images/BeachImages/bluecrab_2.png",
-	"images/BeachImages/bluecrab_back.png"};
+	"images/BeachImages/bluecrab_1.png", "images/BeachImages/bluecrab_2.png"};
 	
 	private static final String[] turtleImagesLoc = {"images/BeachImages/bogturtle_left_0.png",
 		"images/BeachImages/bogturtle_left_1.png", "images/BeachImages/bogturtle_left_2.png",
@@ -36,9 +36,9 @@ public class BeachView extends JPanel{
 	private static final String[] protectorsLoc = {"images/BeachImages/grass.png", 
 			"images/BeachImages/oysters.png", "images/BeachImages/seawall.png"};
 	
-	private final BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
-	private final JLabel[] protectors = new JLabel[protectorsLoc.length];
-	private final BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
+	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
+	private JLabel[] protectors = new JLabel[protectorsLoc.length];
+	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
 	
 	//converts filename to buffered image
 	private BufferedImage createImage(String fileName){ 
@@ -52,7 +52,8 @@ public class BeachView extends JPanel{
 		return null;
 	}
 	
-	public BeachView(int frame_width, int frame_height, int crabx, int craby){
+	public BeachView(int frame_width, int frame_height, int crabx, int craby, User u){
+		user = u;
 		//loads images into imageIcons
 		for (int i = 0; i < protectors.length; i++){
 			protectors[i] = new JLabel();
@@ -72,14 +73,14 @@ public class BeachView extends JPanel{
 		frame.getContentPane().add(this);
 		//frame.setContentPane(new ImagePanel(beachBackground));
 		
-		//adds background images
+		/*adds background images
 		frame.add(wavesImage);
 		wavesImage.setBounds(0, 0, frame_width, frame_height/2);
 		wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
 		frame.add(sandImage);
-		sandImage.setBounds(0, frame_height/2, frame_width, frame_height/2);
+		sandImage.setBounds(0, (frame_height/2 + 300), frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
-		
+		*/
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(frame_width, frame_height);
 		//makes frame visible and sets no layout
@@ -102,6 +103,13 @@ public class BeachView extends JPanel{
 		protected void paintComponent(Graphics g){
 			super.paintComponent(g);
 			g.drawImage(image, 0, 0, this);
+		}
+	}
+	public void paint(Graphics g){
+		try{
+			g.drawImage(crabImages[0], user.getxLoc(), user.getyLoc(), null, this);
+		}catch (NullPointerException e){
+			System.out.println(user.getxLoc());
 		}
 	}
 }

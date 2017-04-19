@@ -16,7 +16,7 @@ public class BeachCont implements MiniGameController{
 	private Board b1 = new Board();
 	private User user = new User();
 	
-	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), user.getxLoc(), user.getyLoc());
+	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), user.getxLoc(), user.getyLoc(), user);
 	
 	private boolean hasWon=false;
 	private boolean hasLost=false;
