@@ -50,10 +50,10 @@ public class BeachCont implements MiniGameController{
 	@Override
 	public void update() {
 		b1.user.move();
-		application.repaint();
+		bView.frame.repaint();
 		if (hasWon==false){
 			user.move();
-			application.repaint();
+			bView.frame.repaint();
 			if (b1.checkLost()){
 				hasLost=true;
 				this.dispose();
@@ -63,7 +63,7 @@ public class BeachCont implements MiniGameController{
 
 	@Override
 	public void dispose() {
-		application.dispose();
+		bView.frame.dispose();
 	}
 
 }
