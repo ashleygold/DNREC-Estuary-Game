@@ -18,8 +18,8 @@ import g4.mainController.MainMenu;
 public class BeachView extends JPanel{
 	//This game's window
 	public JFrame frame;
-	private final int FRAME_WIDTH = 1100;
-	private final int FRAME_HEIGHT = 930;
+	public final int FRAME_WIDTH = 1100;
+	public final int FRAME_HEIGHT = 930;
 	
 	private final int USER_WIDTH = 100;
 	private final int USER_HEIGHT = 100;
@@ -76,11 +76,11 @@ public class BeachView extends JPanel{
 		//frame.setContentPane(new ImagePanel(beachBackground));
 		
 		//adds background images
-		frame.add(wavesImage);
-		wavesImage.setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT/2);
-		wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
+		//frame.add(wavesImage);
+		//wavesImage.setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT/2);
+		//wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
 		frame.add(sandImage);
-		sandImage.setBounds(0, FRAME_HEIGHT/2, FRAME_WIDTH, FRAME_HEIGHT/2);
+		sandImage.setBounds(0, (FRAME_HEIGHT/2 + 700), FRAME_WIDTH, FRAME_HEIGHT/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
 		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -108,3 +108,4 @@ public class BeachView extends JPanel{
 		}
 	}
 }
+
