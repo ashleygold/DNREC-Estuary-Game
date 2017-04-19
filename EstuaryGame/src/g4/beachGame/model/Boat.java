@@ -1,11 +1,15 @@
 package g4.beachGame.model;
 
-public abstract class Boat {
+import java.util.TimerTask;
+
+public abstract class Boat{
 	
 	int xloc; 
 	int yloc; 
+	boolean hasEmittedWave;
+	int waveLocation = 0 + (int)(Math.random() * (Board.WIDTH + 1));
 
-	
+
 	
 	//getter for X Location of boat
 	public int getXLoc(){
