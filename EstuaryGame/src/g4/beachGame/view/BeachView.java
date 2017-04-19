@@ -53,6 +53,7 @@ public class BeachView extends JPanel{
 	}
 	
 	public BeachView(int frame_width, int frame_height, int crabx, int craby, User u){
+		this.setFocusable(true);
 		user = u;
 		//loads images into imageIcons
 		for (int i = 0; i < protectors.length; i++){
@@ -78,7 +79,7 @@ public class BeachView extends JPanel{
 		wavesImage.setBounds(0, 0, frame_width, frame_height/2);
 		wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
 		frame.add(sandImage);
-		sandImage.setBounds(0, (frame_height/2 + 300), frame_width, frame_height/2);
+		sandImage.setBounds(0, 10000, frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
 		*/
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -102,15 +103,12 @@ public class BeachView extends JPanel{
 		@Override
 		protected void paintComponent(Graphics g){
 			super.paintComponent(g);
-			g.drawImage(image, 0, 0, this);
+			//g.drawImage(image, 0, 0, this);
 		}
 	}
 	public void paint(Graphics g){
-		try{
-			g.drawImage(crabImages[0], user.getxLoc(), user.getyLoc(), null, this);
-		}catch (NullPointerException e){
-			System.out.println(user.getxLoc());
-		}
+		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
+		System.out.println(user.getxLoc());
 	}
 }
 

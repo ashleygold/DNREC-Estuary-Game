@@ -35,7 +35,7 @@ public class Predator {
 		//checks nested in the interest of efficiency
 		switch(direction) {
 			case LEFT:
-				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+				if (board.isEmptyPred(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG)){
 					xLoc-=MOVE_SPEED;
 				} else {
@@ -43,7 +43,7 @@ public class Predator {
 				}
 				break;
 			case RIGHT:
-				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmptyPred(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + CENTER_IMG)){
 					xLoc+=MOVE_SPEED;
 				} else {
@@ -51,7 +51,7 @@ public class Predator {
 				}
 				break;
 			case UP:
-				if (board.isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmptyPred(xLoc + CENTER_IMG,
 						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
 					yLoc-=MOVE_SPEED;
 				} else {
@@ -59,7 +59,7 @@ public class Predator {
 				}
 				break;
 			case DOWN:
-				if (board.isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmptyPred(xLoc + CENTER_IMG,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
 					yLoc+=MOVE_SPEED;
 				} else {
@@ -67,7 +67,7 @@ public class Predator {
 				}
 				break;
 			case UP_RIGHT:
-				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmptyPred(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
@@ -76,7 +76,7 @@ public class Predator {
 				}
 				break;
 			case UP_LEFT:
-				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+				if (board.isEmptyPred(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
@@ -85,7 +85,7 @@ public class Predator {
 				}
 				break;
 			case DOWN_RIGHT:
-				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
+				if (board.isEmptyPred(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
@@ -94,7 +94,7 @@ public class Predator {
 				}
 				break;
 			case DOWN_LEFT:
-				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
+				if (board.isEmptyPred(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;

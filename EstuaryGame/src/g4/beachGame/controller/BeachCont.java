@@ -18,9 +18,12 @@ import g4.mainController.MiniGameController;
 public class BeachCont implements MiniGameController{
 	
 	private Board b1 = new Board();
-	private User user = new User();
 	
+<<<<<<< HEAD
 	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), user.getxLoc(), user.getyLoc());
+=======
+	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), b1.user.getxLoc(), b1.user.getyLoc(), b1.user);
+>>>>>>> 0d5abcab8c86a5bf413fcdd744dc9665dcaaa6bc
 	
 	private boolean hasWon=false;
 	private boolean hasLost=false;
@@ -38,7 +41,7 @@ public class BeachCont implements MiniGameController{
 		bView.frame.getContentPane().add(bView);
 		bView.frame.setSize(b1.getWidth(), b1.getHeight());
 		bView.frame.setVisible(true);
-		bView.addKeyListener(new Listener(user));
+		bView.addKeyListener(new Listener(b1.user));
 	} 
 
 
@@ -60,7 +63,7 @@ public class BeachCont implements MiniGameController{
 //		}
 		bView.frame.repaint();
 		if (hasWon==false){
-			user.move();
+			b1.user.move();
 			bView.frame.repaint();
 			if (b1.checkLost()){
 				hasLost=true;
