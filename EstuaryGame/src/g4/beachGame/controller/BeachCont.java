@@ -6,58 +6,54 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import g4.beachGame.model.Board;
+import g4.beachGame.model.User;
 import g4.beachGame.view.BeachView;
 import g4.mainController.MiniGameController;
-import g4.mazeGame.controller.Listener;
-import g4.mazeGame.model.User;
-import g4.mazeGame.view.MazeView;
+
 
 public class BeachCont implements MiniGameController{
-	final static double NANOSECOND_PER_SECOND=1000000000.0;
-	final static long START_TIME= System.nanoTime(); 
-	double elapsedTime;
+	
 	
 	private BeachView bView = new BeachView();
-	private JFrame application = new JFrame ("Minigrame 2: Beach");
-	public Board b1 = new Board();
+	private Board b1 = new Board();
+	private User user = new User();
+	private boolean hasWon=false;
+	private boolean hasLost=false;
 	
-	/*returns how much time has elapsed in the game in seconds*/
-	public double updateElapsedTime(){
-		long currTime=System.nanoTime();
-		this.elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
-		return this.elapsedTime;
-	}
 
 
 	public BeachCont() {
-		application.addWindowListener(new WindowAdapter(){
+		bView.frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we)
 			{
 				System.exit(0);
 			}			
 		});
-		application.setLayout(null);
-		application.getContentPane().add(bView);
-		application.setSize(b1.getWidth(), b1.getHeight());
-		
-		application.setVisible(true);
-		
-		bView.addKeyListener(new Listener(b1.user));
-	}
-	//public void 
+		bView.frame.setLayout(null);
+		bView.frame.getContentPane().add(bView);
+		bView.frame.setSize(bView.FRAME_WIDTH(), bView.FRAME_HEIGHT());
+		bView.frame.setVisible(true);
+		bView.addKeyListener(new Listener(user));
+	} 
 
 
 	@Override
 	public void update() {
 		b1.user.move();
-		app.repaint();
-
+		bView.frame.repaint();
+		if (hasWon==false){
+			user.move();
+			bView.frame.repaint();
+			if (b1.checkLost()){
+				hasLost=true;
+				this.dispose();
+			}
+		}
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		bView.frame.dispose();
 	}
 
 }

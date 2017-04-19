@@ -46,4 +46,8 @@ public class Wave {
 		this.yloc=boat.getYLoc(); 
 		
 	}
+	
+	public void moveWave(){
+		this.xloc += speed;
+	}
 }

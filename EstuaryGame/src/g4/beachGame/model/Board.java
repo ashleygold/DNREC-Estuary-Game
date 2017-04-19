@@ -9,9 +9,14 @@ public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 600; 
 	final static int HEIGHT = 600;
+	final static int SHORELINE_RECEDING = 70;
 	static int shoreline = 400;
-	int hour; 
 	
+	int hoursLeft; 
+	
+	final static double NANOSECOND_PER_SECOND=1000000000.0;
+	final static long START_TIME= System.nanoTime(); 
+	double elapsedTime=0;
 	
 	ArrayList<Protector> protectorLine;
 	ArrayList<Wave> currWaves;
@@ -26,33 +31,28 @@ public class Board {
 		currWaves = new ArrayList<Wave>();
 		user = new User();
 		protectorLine = new ArrayList<Protector>();
-		hour = 24;
+		hoursLeft = 24;
 	}
-	
-	
-	/*returns the hour of the day and calls controller to move sun*/
-	public int getCurrHour(double currTime){ //beachCont.getElapsedTime
-		this.hour = (int) (currTime /GAMESEC_PER_HOUR);
-		return hour;
+
+	/*returns how much time has elapsed in the game in seconds*/
+	public void updateElapsedTime(){
+		long currTime=System.nanoTime();
+		elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
+		hoursLeft = (int) (elapsedTime /GAMESEC_PER_HOUR);
 	}
+
 	/*checks to see if player has won*/
 	public boolean win(){
-		if (hour==0 && shoreline>0)
+		if (hoursLeft==0 && shoreline>0)
 			return true;
 		else 
 			return false;
 	}
-	
-	/*checks to if the shoreline has completely disappeared*/
-	public void checkShoreline(){
-		if (shoreline==0){
-			restart();
-		}	
+	/*return true if the player has lost*/
+	public boolean checkLost(){
+		return (shoreline==0);
 	}
 	
-	public void restart(){
-		
-	}
 	
 	/*Checks to see if the waves has hit a protector along the shoreline.
 	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
@@ -66,11 +66,11 @@ public class Board {
 				while (protit.hasNext()){
 					Protector currProt = protit.next();
 					if (currProt==null){
-						difficulty++; 
-						//loss(); 
+						shoreline-=SHORELINE_RECEDING;
 					}
 					//if either end of the protector is within the bounds of wave, wave has hit it
-					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
+					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)
+							||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
 						currProt.loseLife();
 				}
 			}
