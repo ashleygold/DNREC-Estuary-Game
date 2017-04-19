@@ -45,10 +45,13 @@ public class Wave {
 		this.xloc=boat.getXLoc();
 		this.yloc=boat.getYLoc(); 
 		
+		boat.emittedWave();
+		
 	}
 	
 	public void move(){
 		this.yloc += speed;
+		System.out.println("moved wave");
 	}
 	
 	public int getX(){

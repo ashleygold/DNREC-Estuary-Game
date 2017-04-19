@@ -114,10 +114,22 @@ public class BeachView extends JPanel{
 	public void paint(Graphics g){
 		System.out.println("Paint");
 		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, board.getWidth(), board.getHeight()/2);
+		g.fillRect(0, 0, board.getWidth(), board.getHeight());
 		
-		g.setColor(Color.YELLOW);
-		g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
+		for (int row = 0; row < board.beach.length; row++){
+			for (int col = 0; col < board.beach[0].length; col++){
+				if (board.beach[row][col] == 0)
+					g.setColor(Color.YELLOW);
+				
+				if (board.beach[row][col] == 1)
+					g.setColor(Color.BLUE);
+				
+				g.fillRect(col*(board.getWidth() - 100)/12, 
+						board.posArr[row], (board.getWidth() - 100)/12, board.getHeight()/6);
+			}
+		}
+		//g.setColor(Color.YELLOW);
+		//g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
 		
 		g.setColor(Color.GREEN);
 		g.fillRect(board.getWidth() - 100, board.getHeight()/2, 100, board.getHeight()/6);

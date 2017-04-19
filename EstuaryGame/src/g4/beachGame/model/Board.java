@@ -11,9 +11,14 @@ public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 1100; 
 	final static int HEIGHT = 600;
-	static int shoreline = HEIGHT/2; //where the shore starts
+	public final static int shoreline = HEIGHT/2; //where the shore starts
+	private boolean shoreDestoryed = false; 
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
 	static int protector;
+	
+	public int[][] beach = new int[3][12];
+	
+	public int[] posArr = {HEIGHT/2, 4*HEIGHT/6 - 15, 5*HEIGHT/6 - 30};
 	
 	int hoursLeft; 
 	
@@ -54,6 +59,7 @@ public class Board {
 	
 	/*return true if the player has lost*/
 	public boolean checkLost(){
+		//return !shoreDestoryed;
 		return (shoreline==0);
 	}
 	
@@ -131,6 +137,21 @@ public class Board {
 
 	public void setCurrWaves(ArrayList<Wave> currWaves) {
 		this.currWaves = currWaves;
+	}
+	
+	public void wavehit(int x){
+		int depth = 0;
+		if ((int)(12*x/(WIDTH - 100)) < 12){
+			while (depth < beach.length && beach[depth][(int)(12*x/(WIDTH - 100))] == 1)
+				depth++;
+			if (depth == beach.length)
+				shoreDestoryed = true;
+			else if (beach[depth][(int)(12*x/(WIDTH - 100))] == 0){
+				System.out.println();
+				beach[depth][(int)(12*x/(WIDTH - 100))] = 1;
+			}
+			System.out.println("wavehit");
+		}
 	}
 
 	public ArrayList<Boat> getCurrBoats() {

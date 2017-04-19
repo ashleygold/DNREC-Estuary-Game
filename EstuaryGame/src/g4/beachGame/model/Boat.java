@@ -37,6 +37,10 @@ public abstract class Boat{
 		return waveLocation;
 	}
 	
+	public void emittedWave(){
+		hasEmittedWave = true;
+	}
+	
 	public boolean getDirection(){
 		return direction;
 	}

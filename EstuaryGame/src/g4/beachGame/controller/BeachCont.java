@@ -27,12 +27,6 @@ public class BeachCont implements MiniGameController{
 	final int timeBetweenBoats= 6;
 	
 	public BeachCont() {
-		bView.frame.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent we)
-			{
-				System.exit(0);
-			}			
-		});
 		bView.addKeyListener(new Listener(b1.user));
 		frameCounter=0;
 	} 
@@ -54,26 +48,28 @@ public class BeachCont implements MiniGameController{
 			frameCounter=0;
 			
 		}
-		b1.checkHitProtector();
+		//b1.checkHitProtector();
 		Iterator<Wave> wavesIt = b1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
 			currWave.move();
+			if (currWave.getY() >= Board.shoreline){
+				b1.wavehit(currWave.getX());
+				wavesIt.remove();
+			}
 		}
+		
 		Iterator<Boat> boatIt = b1.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
 			currBoat.move();
 			couldCreateWave(currBoat);	
 		}
+		
 		bView.frame.repaint();
-		if (hasWon==false){
-			b1.user.move();
-			bView.frame.repaint();
-			if (b1.checkLost()){
-				hasLost=true;
-				this.dispose();
-			}
+		if (b1.checkLost()){
+			hasLost=true;
+			this.dispose();
 		}
 	}
 
