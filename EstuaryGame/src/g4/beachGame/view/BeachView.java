@@ -104,7 +104,6 @@ public class BeachView extends JPanel{
 	
 	public void paint(Graphics g){
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
-		System.out.println("here");
 	}
 }
 

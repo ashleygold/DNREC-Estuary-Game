@@ -28,7 +28,7 @@ public class MainMenu extends JPanel{
 	static int fps = 24;
 	//allows for different games to process at different rates
 	public static final int MAZE_FPS = 60;
-	public static final int BEACH_FPS = 24;
+	public static final int BEACH_FPS = 60;
 	public static final int STORY_FPS = 24;
 	
 	//State selection
