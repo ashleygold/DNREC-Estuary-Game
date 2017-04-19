@@ -13,7 +13,7 @@ public class Board {
 	int goalFood=10;
 	int totalFood;
 	private String startboard=
-			 "#########*#########\n"
+			 "##########*########\n"
 			+"#.....#.....#.....#\n"
 			+"####........#..####\n"
 			+"#.......#...#..#..#\n"
@@ -89,7 +89,7 @@ public class Board {
 	}
 	
 	public boolean isEmpty(double x, double y){
-		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o');
+		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o' || getCell((int)x, (int)y) == 'W');
 	}
 	
 	protected boolean eatFood(double x, double y){
@@ -99,6 +99,18 @@ public class Board {
 		} else {
 			return false;
 		}
+	}
+	
+	protected boolean winGame(double x, double y){
+		if (getCell((int)x, (int)y) == 'W'){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	protected void openGate(){
+		board.get(0).set(9, 'W');
 	}
 	
 	public boolean endgame() {

@@ -17,6 +17,7 @@ public class MazeCont implements MiniGameController {
 	private User user = new User(board);
 	private JFrame app=new JFrame("Minigame 1: Maze");
 	private MazeView screen=new MazeView(board, user);
+	private boolean checkWin=false;
 	
 	public MazeCont() {
 		app.addWindowListener(new WindowAdapter(){
@@ -39,6 +40,12 @@ public class MazeCont implements MiniGameController {
 	public void update() {
 		user.move();
 		app.repaint();
+		if (checkWin==false){
+			if (user.checkWin()){
+				checkWin=true;
+				this.dispose();
+			}
+		}
 	}
 
 	@Override
