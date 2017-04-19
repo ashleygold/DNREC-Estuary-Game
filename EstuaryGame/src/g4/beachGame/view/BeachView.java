@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import g4.beachGame.model.Board;
 import g4.beachGame.model.User;
 import g4.mainController.MainMenu;
 
@@ -20,8 +21,8 @@ public class BeachView extends JPanel{
 	public JFrame frame;	
 	private final int USER_WIDTH = 100;
 	private final int USER_HEIGHT = 100;
-	private final int IMG_WIDTH = 150;
-	private final int IMG_HEIGHT = 150;
+	private final int IMG_WIDTH = 100;
+	private final int IMG_HEIGHT = 100;
 	private User user;
 
 	//Dimensions & locations of images
@@ -52,9 +53,10 @@ public class BeachView extends JPanel{
 		return null;
 	}
 	
-	public BeachView(int frame_width, int frame_height, User u){
-		this.setFocusable(true);
-		user = u;
+	public BeachView(Board b){
+		int frame_width = b.getWidth();
+		int frame_height = b.getHeight();
+		user = b.user;
 		//loads images into imageIcons
 		for (int i = 0; i < protectors.length; i++){
 			protectors[i] = new JLabel();
@@ -74,21 +76,17 @@ public class BeachView extends JPanel{
 		frame.getContentPane().add(this);
 		//frame.setContentPane(new ImagePanel(beachBackground));
 		
-		//adds background images
 		
+		//adds background images
 		this.add(wavesImage);
 		wavesImage.setBounds(0, 0, frame_width, frame_height/2);
 		wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
 		this.add(sandImage);
-		sandImage.setBounds(0, 10000, frame_width, frame_height/2);
+		sandImage.setBounds(0, frame_height/2, frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
 		
-		
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(frame_width, frame_height);
-		//makes frame visible and sets no layout
-		frame.setVisible(true);
 		frame.setLayout(null);
+		
 		int space = 50;
 		for (int i = 0; i < protectors.length; i++){
 			frame.add(protectors[i]);
@@ -96,21 +94,16 @@ public class BeachView extends JPanel{
 					(int)(i*1.2*IMG_HEIGHT), IMG_WIDTH, IMG_HEIGHT);
 			protectors[i].setSize(IMG_WIDTH, IMG_HEIGHT);
 		}
-	}
-	private class ImagePanel extends JComponent{
-		private BufferedImage image;
-		public ImagePanel(BufferedImage beachBackground){
-			this.image = beachBackground;
-		}
-		@Override
-		protected void paintComponent(Graphics g){
-			super.paintComponent(g);
-			//g.drawImage(image, 0, 0, this);
-		}
+		
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(frame_width, frame_height);
+		//makes frame visible and sets no layout
+		frame.setVisible(true);
+		
+		
 	}
 	public void paint(Graphics g){
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
-		System.out.println(user.getxLoc());
 	}
 }
 
