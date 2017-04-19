@@ -1,21 +1,25 @@
 package g4.beachGame.controller;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
 import g4.beachGame.model.Board;
 import g4.beachGame.view.BeachView;
 import g4.mainController.MiniGameController;
+import g4.mazeGame.controller.Listener;
+import g4.mazeGame.model.User;
+import g4.mazeGame.view.MazeView;
 
 public class BeachCont implements MiniGameController{
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
 	final static long START_TIME= System.nanoTime(); 
 	double elapsedTime;
+	
 	private BeachView bView = new BeachView();
-	Board b1;
-	
-	
-	public BeachCont(){
-		elapsedTime=0.0;
-		b1 = new Board(); 
-	}	
+	private JFrame application = new JFrame ("Minigrame 2: Beach");
+	public Board b1 = new Board();
 	
 	/*returns how much time has elapsed in the game in seconds*/
 	public double updateElapsedTime(){
@@ -23,7 +27,23 @@ public class BeachCont implements MiniGameController{
 		this.elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
 		return this.elapsedTime;
 	}
-	
+
+
+	public BeachCont() {
+		application.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent we)
+			{
+				System.exit(0);
+			}			
+		});
+		application.setLayout(null);
+		application.getContentPane().add(bView);
+		application.setSize(b1.getWidth(), b1.getHeight());
+		
+		application.setVisible(true);
+		
+		bView.addKeyListener(new Listener(b1.user));
+	}
 	//public void 
 
 
