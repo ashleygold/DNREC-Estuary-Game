@@ -11,11 +11,7 @@ public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 1100; 
 	final static int HEIGHT = 600;
-<<<<<<< HEAD
-	final static int shoreline = HEIGHT/2; //where the shore starts
-=======
 	public static int shoreline = HEIGHT/2; //where the shore starts
->>>>>>> 72a968b0e385e6802c8bf75d75847e083a098cd4
 	private boolean shoreDestoryed = false; 
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
 	public static int protector;
