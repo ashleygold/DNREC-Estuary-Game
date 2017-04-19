@@ -12,7 +12,7 @@ public class Board {
 	public final int HEIGHT= 17;
 	public final int WIDTH= 19;
 	int goalFood=10;
-	private final int NUM_PREDATORS = 15; 
+	private final int NUM_PREDATORS = 3; 
 	int totalFood;
 	private String startboard =
 			 "##########*########\n"
@@ -50,11 +50,11 @@ public class Board {
 		user = new User(this);
 		
 		for(int i = 0; i < NUM_PREDATORS; i++){
-			int yTest = (int) (Math.random()*(HEIGHT-2)+1);
-			int xTest = (int) (Math.random()*(WIDTH-2)+1);
+			int yTest = (int) (Math.random()*(HEIGHT-3)+1);
+			int xTest = (int) (Math.random()*(WIDTH-3)+1);
 			while(getCell(yTest, xTest) != '.') {
-				yTest = (int) (Math.random()*(HEIGHT-2)+1);
-				xTest = (int) (Math.random()*(WIDTH-2)+1);
+				yTest = (int) (Math.random()*(HEIGHT-3)+1);
+				xTest = (int) (Math.random()*(WIDTH-3)+1);
 			}
 			hunters.add(new Predator(this, user, yTest, xTest));
 		}
@@ -127,8 +127,6 @@ public class Board {
 	
 	public void update(){
 		user.move();
-		System.out.println("Predtime");
-		System.out.println(hunters);
 		for(Predator x : hunters){
 			x.move();
 		}

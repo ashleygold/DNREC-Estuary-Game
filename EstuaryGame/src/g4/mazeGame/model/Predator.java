@@ -28,10 +28,6 @@ public class Predator {
 		yLoc = y;
 		newDirection();
 	}
-	
-	public String toString(){
-		return ""+ xLoc + " " + yLoc;
-	}
 
 	public void move() {
 		//checks nested in the interest of efficiency
