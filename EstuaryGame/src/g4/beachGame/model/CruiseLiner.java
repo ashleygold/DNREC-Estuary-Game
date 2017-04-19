@@ -2,22 +2,19 @@ package g4.beachGame.model;
 
 public class CruiseLiner extends Boat{
 	
-	final int CRUISELINER_SPEED=10;
+	final int CRUISELINER_SPEED=20;
 	
 	public CruiseLiner(){
-		//this.yloc = 0 + (int)(Math.random() * Board.SHORELINE); 
-		if (Math.random() < 0.5 == true){
+		int randomDir = 1+ (int) (Math.random() * 1);
+		int randomHeight = (int) (Math.random()*Board.shoreline);
+		if (randomDir==1)
 			this.xloc=0;
-		}
-		else{
-			this.yloc=Board.WIDTH;
-		}
-		this.speed=CRUISELINER_SPEED; 
+		else
+			this.xloc=randomDir; 
+		this.yloc=randomHeight;
 		this.hasEmittedWave=false;
-		
+		this.speed=CRUISELINER_SPEED;
 	}
 	
-	public void move(){
-		
-	}
+	
 }
