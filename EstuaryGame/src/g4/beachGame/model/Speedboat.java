@@ -17,4 +17,8 @@ public class Speedboat extends Boat{
 		
 	}
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 04a233e549cbe6da067739079f55713933e98766
 }

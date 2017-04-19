@@ -25,7 +25,7 @@ public class BeachView extends JPanel{
 	private final int USER_HEIGHT = 100;
 	private final int IMG_WIDTH = 100;
 	private final int IMG_HEIGHT = 100;
-	private Board b;
+	private Board board;
 	private User user;
 
 	//Dimensions & locations of images
@@ -57,6 +57,7 @@ public class BeachView extends JPanel{
 	}
 	
 	public BeachView(Board b){
+		board = b;
 		this.setFocusable(true);
 		int frame_width = b.getWidth();
 		int frame_height = b.getHeight();
@@ -107,7 +108,7 @@ public class BeachView extends JPanel{
 	
 	public void paint(Graphics g){
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
-		Iterator<Boat> boatIt = b.getCurrBoats().iterator();
+		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
 			g.fillRect(currBoat.getXLoc(), currBoat.getYLoc(), 10, 2);
