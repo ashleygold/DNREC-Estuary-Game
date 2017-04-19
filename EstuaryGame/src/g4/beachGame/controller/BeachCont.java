@@ -50,7 +50,7 @@ public class BeachCont implements MiniGameController{
 		Iterator<Wave> wavesIt = b1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
-			currWave.moveWave();
+			currWave.move();
 		}
 		Iterator<Boat> boatIt = b1.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
