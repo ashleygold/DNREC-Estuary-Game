@@ -4,7 +4,7 @@ import g4.mainController.MainMenu;
 
 public class User {
 	private final int DEFAULTX = 15;
-	private final int DEFAULTY = 305;
+	private final int DEFAULTY = 450;
 	private final int XINCR = 8;
 	private final int YINCR = 8;
 	private int xLoc;

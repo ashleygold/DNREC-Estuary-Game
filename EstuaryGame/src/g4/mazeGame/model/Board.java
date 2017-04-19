@@ -1,18 +1,20 @@
 package g4.mazeGame.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class Board {
+	
+	private User user;
+	
 	static Random rand; // Global variable
 	public final int HEIGHT= 17;
 	public final int WIDTH= 19;
 	int goalFood=10;
+	private final int NUM_PREDATORS = 3; 
 	int totalFood;
-	private String startboard=
+	private String startboard =
 			 "##########*########\n"
 			+"#.....#.....#.....#\n"
 			+"####........#..####\n"
@@ -33,14 +35,28 @@ public class Board {
 	
 	private ArrayList<ArrayList<Character>> board = new ArrayList<ArrayList<Character>>();
 	
+	private List<Predator> hunters = new ArrayList<Predator>();
+	
 	public Board(){
-		String new_start=generateFood();
+		String new_start = generateFood();
 		for(String row:new_start.split("\n")){
 			ArrayList<Character> r= new ArrayList<Character>();
 			for(int i=0;i<row.length();i++){
 				r.add(row.charAt(i));
 			}
 			board.add(r);
+		}
+		
+		user = new User(this);
+		
+		for(int i = 0; i < NUM_PREDATORS; i++){
+			int yTest = (int) (Math.random()*(HEIGHT-3)+1);
+			int xTest = (int) (Math.random()*(WIDTH-3)+1);
+			while(getCell(yTest, xTest) != '.') {
+				yTest = (int) (Math.random()*(HEIGHT-3)+1);
+				xTest = (int) (Math.random()*(WIDTH-3)+1);
+			}
+			hunters.add(new Predator(this, user, yTest, xTest));
 		}
 	}
 	
@@ -50,6 +66,14 @@ public class Board {
 
 	public int getWidth() {
 		return WIDTH;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public List<Predator> getPredator() {
+		return hunters;
 	}
 
 	public char getCell(int x, int y) {	
@@ -63,27 +87,19 @@ public class Board {
 	    return randomInt;
 	}
 	
-	public String generateFood(){
+	private String generateFood() {
 		char[] board = startboard.toCharArray();
-		int[] random = new int[goalFood];
 		ArrayList<Integer> possibilities = new ArrayList<Integer>();
 		for (int y=0; y<board.length;y++){
 			if (board[y]=='.'){
 				possibilities.add(y);
 			}
 		}
-		for (int j=0; j<goalFood; j++){
-			random[j]=randomItem(possibilities);
+		
+		for (int j=0; j<goalFood; j++) {
+			board[randomItem(possibilities)] = 'o';
 		}
-        for (int i=0; i<board.length; i++) {
-            if (board[i]=='.'){
-            	for (int k=0; k<random.length;k++){
-	            	if (i==random[k]){
-	            		board[i]='o';
-	            	}
-	            }
-            }
-        }
+		
         String newstartboard = String.valueOf(board);
         return newstartboard;
 	}
@@ -106,6 +122,13 @@ public class Board {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	public void update(){
+		user.move();
+		for(Predator x : hunters){
+			x.move();
 		}
 	}
 	

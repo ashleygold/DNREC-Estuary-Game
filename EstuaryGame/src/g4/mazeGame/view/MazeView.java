@@ -6,18 +6,16 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import g4.mazeGame.model.Board;
-import g4.mazeGame.model.User;
+import g4.mazeGame.model.Predator;
 
 public class MazeView extends JPanel{
 	
 	private Board board;
-	private User user;
 	public final int SLOT_SPACE=40;
 	
 	
-	public MazeView(Board board, User u) {
-		this.board=board;	
-		user = u;
+	public MazeView(Board board) {
+		this.board=board;
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 		setFocusable(true);
 	}
@@ -55,9 +53,15 @@ public class MazeView extends JPanel{
 				}
 			}
 		}
+		g.setColor(Color.LIGHT_GRAY);
+		for(Predator x : board.getPredator()){
+			g.fillOval((int)(x.getXLoc()*SLOT_SPACE), 
+					(int)(x.getYLoc()*SLOT_SPACE), SLOT_SPACE, SLOT_SPACE);
+		}
 		
 		g.setColor(Color.RED);
-		g.fillOval((int)(user.getXLoc()*SLOT_SPACE), (int)(user.getYLoc()*SLOT_SPACE), SLOT_SPACE, SLOT_SPACE);
+		g.fillOval((int)(board.getUser().getXLoc()*SLOT_SPACE), 
+				(int)(board.getUser().getYLoc()*SLOT_SPACE), SLOT_SPACE, SLOT_SPACE);
 
 	}
 }

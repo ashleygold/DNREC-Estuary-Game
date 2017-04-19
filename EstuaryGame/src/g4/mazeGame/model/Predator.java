@@ -105,11 +105,19 @@ public class Predator {
 	}
 	
 	private void newDirection(){
-		direction = (int)(9*Math.random());
+		direction = (int)(1 + 8*Math.random());
 	}
 	
 	private void checkEat(){
 		if (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5)
 			System.out.println("You got eaten! This should do something else too");
+	}
+	
+	public double getXLoc(){
+		return xLoc;
+	}
+	
+	public double getYLoc(){
+		return yLoc;
 	}
 }

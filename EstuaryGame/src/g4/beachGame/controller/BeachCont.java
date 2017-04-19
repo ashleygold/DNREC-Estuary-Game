@@ -20,8 +20,6 @@ public class BeachCont implements MiniGameController{
 	private boolean hasWon=false;
 	private boolean hasLost=false;
 	
-
-
 	public BeachCont() {
 		bView.frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we)
@@ -31,7 +29,7 @@ public class BeachCont implements MiniGameController{
 		});
 		bView.frame.setLayout(null);
 		bView.frame.getContentPane().add(bView);
-		bView.frame.setSize(bView.FRAME_WIDTH(), bView.FRAME_HEIGHT());
+		bView.frame.setSize(bView.FRAME_WIDTH, bView.FRAME_HEIGHT);
 		bView.frame.setVisible(true);
 		bView.addKeyListener(new Listener(user));
 	} 
