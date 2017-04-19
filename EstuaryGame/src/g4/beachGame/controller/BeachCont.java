@@ -43,7 +43,7 @@ public class BeachCont implements MiniGameController{
 		b1.user.move();
 		if (b1.elapsedTime%1000 == 0){
 			b1.createBoat();
-		}
+		}/*
 		Iterator<Wave> wavesIt = b1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
@@ -56,7 +56,7 @@ public class BeachCont implements MiniGameController{
 		}
 //		if (b1.elapsedTime%1000==0){
 //			b1.createBoat();
-//		}
+//		}*/
 		bView.frame.repaint();
 		if (hasWon==false){
 			b1.user.move();
