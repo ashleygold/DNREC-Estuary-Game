@@ -10,8 +10,11 @@ public class Board {
 	final static int WIDTH = 600; 
 	final static int HEIGHT = 600;
 	static int shoreline = 400;
-	int hour; 
+	int hoursLeft; 
 	
+	final static double NANOSECOND_PER_SECOND=1000000000.0;
+	final static long START_TIME= System.nanoTime(); 
+	double elapsedTime=0;
 	
 	ArrayList<Protector> protectorLine;
 	ArrayList<Wave> currWaves;
@@ -26,18 +29,19 @@ public class Board {
 		currWaves = new ArrayList<Wave>();
 		user = new User();
 		protectorLine = new ArrayList<Protector>();
-		hour = 24;
+		hoursLeft = 24;
 	}
-	
-	
-	/*returns the hour of the day and calls controller to move sun*/
-	public int getCurrHour(double currTime){ //beachCont.getElapsedTime
-		this.hour = (int) (currTime /GAMESEC_PER_HOUR);
-		return hour;
+
+	/*returns how much time has elapsed in the game in seconds*/
+	public void updateElapsedTime(){
+		long currTime=System.nanoTime();
+		elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
+		hoursLeft = (int) (elapsedTime /GAMESEC_PER_HOUR);
 	}
+
 	/*checks to see if player has won*/
 	public boolean win(){
-		if (hour==0 && shoreline>0)
+		if (hoursLeft==0 && shoreline>0)
 			return true;
 		else 
 			return false;
