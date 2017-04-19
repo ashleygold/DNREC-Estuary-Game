@@ -3,6 +3,9 @@ package g4.beachGame.model;
 import g4.mainController.MainMenu;
 
 public class User {
+	private final int CRAB_HEIGHT=115;
+	private final int CRAB_WIDTH=245;
+	
 	private final int DEFAULTX = 15;
 	private final int DEFAULTY = 450;
 	private final int XINCR = 8;
@@ -25,7 +28,7 @@ public class User {
 	
 	/*checks to see if the user is on the shore*/
 	public boolean isShore(double x, double y){
-		return (x>0 && x<Board.WIDTH-100 && y>Board.shoreline);
+		return (x>0 && x<Board.WIDTH -CRAB_WIDTH && y>Board.shoreline && y<Board.HEIGHT-CRAB_HEIGHT);
 	}
 	
 	public int getPicNum(){
