@@ -33,7 +33,6 @@ public class User {
 		//unfinished
 		if (board.eatFood(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
 			foodCount++;
-			System.out.println(foodCount);
 		}
 	}
 	
