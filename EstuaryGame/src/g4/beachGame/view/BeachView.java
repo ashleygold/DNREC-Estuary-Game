@@ -52,7 +52,7 @@ public class BeachView extends JPanel{
 		return null;
 	}
 	
-	public BeachView(int frame_width, int frame_height, int crabx, int craby, User u){
+	public BeachView(int frame_width, int frame_height, User u){
 		this.setFocusable(true);
 		user = u;
 		//loads images into imageIcons
@@ -74,14 +74,16 @@ public class BeachView extends JPanel{
 		frame.getContentPane().add(this);
 		//frame.setContentPane(new ImagePanel(beachBackground));
 		
-		/*adds background images
-		frame.add(wavesImage);
+		//adds background images
+		
+		this.add(wavesImage);
 		wavesImage.setBounds(0, 0, frame_width, frame_height/2);
 		wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
-		frame.add(sandImage);
+		this.add(sandImage);
 		sandImage.setBounds(0, 10000, frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
-		*/
+		
+		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(frame_width, frame_height);
 		//makes frame visible and sets no layout

@@ -19,9 +19,7 @@ public class BeachCont implements MiniGameController{
 	
 	private Board b1 = new Board();
 
-	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), user.getxLoc(), user.getyLoc());
-
-	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), b1.user.getxLoc(), b1.user.getyLoc(), b1.user);
+	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), b1.user);
 
 	
 	private boolean hasWon=false;
@@ -55,7 +53,7 @@ public class BeachCont implements MiniGameController{
 		Iterator<Boat> boatIt = b1.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
-			currBoat.moveBoat();
+			//currBoat.moveBoat();
 		}
 //		if (b1.elapsedTime%1000==0){
 //			b1.createBoat();
