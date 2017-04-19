@@ -111,6 +111,7 @@ public class BeachView extends JPanel{
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	public void paint(Graphics g){
 		System.out.println("Paint");
 		g.setColor(Color.BLUE);
@@ -155,6 +156,18 @@ public class BeachView extends JPanel{
 			Wave currWave = wavesIt.next();
 			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength()*20, 10);
 		}
+		if (board.placeProtector() == 1){
+			g.setColor(Color.GREEN);
+			g.drawRect(board.placeProtector()+10, board.shoreline, 12/board.getWidth() - 100, 10);
+		}
+		else if (board.placeProtector() == 2){
+			g.setColor(Color.BLACK);
+			g.drawRect(board.placeProtector()+10, board.shoreline, 12/board.getWidth() - 100, 10);
+		}
+		else if (board.placeProtector() == 3){
+			g.setColor(Color.GRAY);
+			g.drawRect(board.placeProtector()+10, board.shoreline, 12/board.getWidth() - 100, 10);
+		}	
 	}
 }
 

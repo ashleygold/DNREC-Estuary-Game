@@ -11,10 +11,14 @@ public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 1100; 
 	final static int HEIGHT = 600;
+<<<<<<< HEAD
 	final static int shoreline = HEIGHT/2; //where the shore starts
+=======
+	public static int shoreline = HEIGHT/2; //where the shore starts
+>>>>>>> 72a968b0e385e6802c8bf75d75847e083a098cd4
 	private boolean shoreDestoryed = false; 
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
-	static int protector;
+	public static int protector;
 	
 	public int[][] beach = new int[3][12];
 	
@@ -158,13 +162,21 @@ public class Board {
 		return currBoats;
 	}
 	public static void getProtector() {
-		if (user.getxLoc() > .6* WIDTH){
-			if (user.getyLoc()> HEIGHT/2 && user.getyLoc()<4*HEIGHT/6 - 15)
+		if (user.getxLoc() > .75* WIDTH){
+			if (user.getyLoc()>= HEIGHT/2 && user.getyLoc()<4*HEIGHT/6 - 15)
 				protector = 1;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
 				protector = 2;
 			else
 				protector = 3;
 		}
+		System.out.println("here");
+	}
+	public static int placeProtector(){
+		int place = -1;
+		if (user.getyLoc() < shoreline + 50)
+			place = (int)user.getxLoc()*12/(WIDTH-100);
+		return place;
+		
 	}
 }
