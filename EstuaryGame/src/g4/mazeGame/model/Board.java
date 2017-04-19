@@ -7,6 +7,7 @@ import java.util.Random;
 public class Board {
 	
 	private User user;
+	public boolean eaten=false;
 	
 	static Random rand; // Global variable
 	public final int HEIGHT= 17;

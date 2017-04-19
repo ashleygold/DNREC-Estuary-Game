@@ -1,5 +1,7 @@
 package g4.mazeGame.model;
 
+import javax.swing.JOptionPane;
+
 import g4.mainController.MainMenu;
 
 public class Predator {
@@ -108,10 +110,17 @@ public class Predator {
 		direction = (int)(1 + 8*Math.random());
 	}
 	
-	private void checkEat(){
-		if (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5)
-			System.out.println("You got eaten! This should do something else too");
+	private boolean checkEat(){
+		if (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5){
+			JOptionPane.showMessageDialog(null, "You lose :(");
+			board.eaten=true;
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
+		
 	
 	public double getXLoc(){
 		return xLoc;
