@@ -14,9 +14,9 @@ public abstract class Boat{
 	
 	public void move() {
 		if (direction)
-			xloc-=speed; 
+			xloc+=speed; 
 		else 
-			xloc+=speed;
+			xloc-=speed;
 	}
 	
 	//getter for X Location of boat
