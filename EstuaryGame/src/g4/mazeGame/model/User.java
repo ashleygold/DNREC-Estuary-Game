@@ -1,12 +1,13 @@
 package g4.mazeGame.model;
 
+import javax.swing.JOptionPane;
+
 import g4.mainController.MainMenu;
 import g4.mazeGame.view.MazeView;
 
 public class User {
 	//reference to board
 	private final Board board;
-	public boolean isFood=true;
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
@@ -35,7 +36,20 @@ public class User {
 			System.out.println(foodCount);
 		}
 	}
-
+	
+	public boolean checkWin(){
+		if (this.foodCount==board.goalFood){
+			board.openGate();
+		}
+		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
+			JOptionPane.showMessageDialog(null, "You win! Press OK to advance to Stage 2 (when it exists).");
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 
 	public void move() {
 		//checks nested in the interest of efficiency
