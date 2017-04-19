@@ -3,7 +3,6 @@ package g4.mazeGame.model;
 import javax.swing.JOptionPane;
 
 import g4.mainController.MainMenu;
-import g4.mazeGame.view.MazeView;
 
 public class User {
 	//reference to board
@@ -33,7 +32,6 @@ public class User {
 		//unfinished
 		if (board.eatFood(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
 			foodCount++;
-			System.out.println(foodCount);
 		}
 	}
 	

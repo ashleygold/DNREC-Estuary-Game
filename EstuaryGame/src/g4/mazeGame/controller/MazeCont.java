@@ -7,16 +7,14 @@ import javax.swing.JFrame;
 
 import g4.mainController.MiniGameController;
 import g4.mazeGame.model.Board;
-import g4.mazeGame.model.User;
 import g4.mazeGame.view.MazeView;
 
 
 public class MazeCont implements MiniGameController {
 	
 	private Board board=new Board();
-	private User user = new User(board);
 	private JFrame app=new JFrame("Minigame 1: Maze");
-	private MazeView screen=new MazeView(board, user);
+	private MazeView screen=new MazeView(board);
 	private boolean checkWin=false;
 	
 	public MazeCont() {
@@ -28,20 +26,21 @@ public class MazeCont implements MiniGameController {
 		});
 		app.setLayout(null);
 		app.getContentPane().add(screen);
+		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//app.pack();
 		app.setSize(15+(board.getWidth()*screen.SLOT_SPACE), (1+board.getHeight())*screen.SLOT_SPACE);
 		
 		app.setVisible(true);
 		
-		screen.addKeyListener(new Listener(user));
+		screen.addKeyListener(new Listener(board.getUser()));
 	}
 
 	@Override
 	public void update() {
 		if (checkWin==false){
-			user.move();
+			board.update();
 			app.repaint();
-			if (user.checkWin()){
+			if (board.getUser().checkWin()){
 				checkWin=true;
 				this.dispose();
 			}
