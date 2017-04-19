@@ -14,7 +14,8 @@ import g4.mainController.MiniGameController;
 public class BeachCont implements MiniGameController{
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
 	final static long START_TIME= System.nanoTime(); 
-	double elapsedTime;
+	double elapsedTime=0;
+	
 	
 	private BeachView bView = new BeachView();
 	private JFrame application = new JFrame ("Minigrame 2: Beach");
