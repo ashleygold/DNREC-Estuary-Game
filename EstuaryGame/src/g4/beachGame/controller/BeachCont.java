@@ -6,11 +6,10 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import g4.beachGame.model.Board;
+import g4.beachGame.model.User;
 import g4.beachGame.view.BeachView;
 import g4.mainController.MiniGameController;
-import g4.mazeGame.controller.Listener;
-import g4.mazeGame.model.User;
-import g4.mazeGame.view.MazeView;
+
 
 public class BeachCont implements MiniGameController{
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
@@ -19,7 +18,8 @@ public class BeachCont implements MiniGameController{
 	
 	private BeachView bView = new BeachView();
 	private JFrame application = new JFrame ("Minigrame 2: Beach");
-	public Board b1 = new Board();
+	private Board b1 = new Board();
+	private User user = new User();
 	
 	/*returns how much time has elapsed in the game in seconds*/
 	public double updateElapsedTime(){
@@ -42,7 +42,7 @@ public class BeachCont implements MiniGameController{
 		
 		application.setVisible(true);
 		
-		bView.addKeyListener(new Listener(b1.user));
+		bView.addKeyListener(new Listener(user));
 	}
 	//public void 
 
@@ -50,7 +50,7 @@ public class BeachCont implements MiniGameController{
 	@Override
 	public void update() {
 		b1.user.move();
-		app.repaint();
+		application.repaint();
 
 	}
 

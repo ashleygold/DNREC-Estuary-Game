@@ -1,9 +1,10 @@
 package g4.beachGame.controller;
 
 import java.awt.event.KeyEvent;
+
 import java.awt.event.KeyListener;
 
-import g4.mazeGame.model.User;
+import g4.beachGame.model.User;
 
 
 public class Listener implements KeyListener {

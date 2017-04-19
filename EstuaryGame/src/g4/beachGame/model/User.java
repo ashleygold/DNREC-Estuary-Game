@@ -7,19 +7,20 @@ public class User {
 	private final int DEFAULTY = 305;
 	private final int XINCR = 8;
 	private final int YINCR = 8;
-	private int xLoc = DEFAULTX;
-	private int yLoc = DEFAULTY;
-	private int foodCount = 0;
-	private String userImage;
+	private int xLoc;
+	private int yLoc;
 	
 	
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
 	private int direction = STILL;
 	
-	public void place(){
-		
+	
+	public User(){
+		this.xLoc = DEFAULTX;
+		this.yLoc = DEFAULTY;
 	}
+	
 	
 	/*checks to see if the user is on the shore*/
 	public boolean isShore(double x, double y){
