@@ -47,7 +47,7 @@ public class Wave {
 		
 	}
 	
-	public void moveWave(){
+	public void move(){
 		this.xloc += speed;
 	}
 }
