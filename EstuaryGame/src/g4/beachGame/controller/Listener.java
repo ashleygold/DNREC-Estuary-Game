@@ -68,4 +68,5 @@ public class Listener implements KeyListener {
 		else
 			user.setDirection(User.STILL);
 	}
+	
 }
