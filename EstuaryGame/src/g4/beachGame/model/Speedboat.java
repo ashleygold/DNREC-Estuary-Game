@@ -17,7 +17,4 @@ public class Speedboat extends Boat{
 		
 	}
 	
-	public move(){
-		
-	}
 }
