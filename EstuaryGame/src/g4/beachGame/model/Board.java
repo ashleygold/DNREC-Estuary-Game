@@ -9,7 +9,9 @@ public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 600; 
 	final static int HEIGHT = 600;
+	final static int SHORELINE_RECEDING = 70;
 	static int shoreline = 400;
+	
 	int hoursLeft; 
 	
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
@@ -64,11 +66,11 @@ public class Board {
 				while (protit.hasNext()){
 					Protector currProt = protit.next();
 					if (currProt==null){
-						difficulty++; 
-						//loss(); 
+						shoreline-=SHORELINE_RECEDING;
 					}
 					//if either end of the protector is within the bounds of wave, wave has hit it
-					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
+					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)
+							||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
 						currProt.loseLife();
 				}
 			}
