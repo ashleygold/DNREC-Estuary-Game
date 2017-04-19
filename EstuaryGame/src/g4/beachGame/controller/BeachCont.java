@@ -19,7 +19,7 @@ public class BeachCont implements MiniGameController{
 	
 	private Board b1 = new Board();
 
-	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), b1.user);
+	private BeachView bView = new BeachView(b1);
 
 	
 	private boolean hasWon=false;
@@ -34,10 +34,6 @@ public class BeachCont implements MiniGameController{
 				System.exit(0);
 			}			
 		});
-		bView.frame.setLayout(null);
-		bView.frame.getContentPane().add(bView);
-		bView.frame.setSize(b1.getWidth(), b1.getHeight());
-		bView.frame.setVisible(true);
 		bView.addKeyListener(new Listener(b1.user));
 	} 
 
