@@ -17,7 +17,7 @@ import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
 	//This game's window
-	private JFrame frame;
+	public JFrame frame;
 	private final int FRAME_WIDTH = 1100;
 	private final int FRAME_HEIGHT = 930;
 	
