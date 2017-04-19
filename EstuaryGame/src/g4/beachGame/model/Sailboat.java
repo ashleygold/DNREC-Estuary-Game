@@ -20,4 +20,6 @@ public class Sailboat extends Boat{
 		this.speed=SAILBOAT_SPEED;
 		
 	}
+
+
 }
