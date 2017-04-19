@@ -38,9 +38,9 @@ public class MazeCont implements MiniGameController {
 
 	@Override
 	public void update() {
-		user.move();
-		app.repaint();
 		if (checkWin==false){
+			user.move();
+			app.repaint();
 			if (user.checkWin()){
 				checkWin=true;
 				this.dispose();
