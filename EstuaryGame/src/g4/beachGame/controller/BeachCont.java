@@ -18,9 +18,11 @@ public class BeachCont implements MiniGameController{
 	
 	
 	private BeachView bView = new BeachView();
-	private JFrame application = new JFrame ("Minigrame 2: Beach");
+	//private JFrame application = new JFrame ("Minigrame 2: Beach");
 	private Board b1 = new Board();
 	private User user = new User();
+	private boolean hasWon=false;
+	private boolean hasLost=false;
 	
 	/*returns how much time has elapsed in the game in seconds*/
 	public double updateElapsedTime(){
@@ -31,34 +33,37 @@ public class BeachCont implements MiniGameController{
 
 
 	public BeachCont() {
-		application.addWindowListener(new WindowAdapter(){
+		bView.frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we)
 			{
 				System.exit(0);
 			}			
 		});
-		application.setLayout(null);
-		application.getContentPane().add(bView);
-		application.setSize(b1.getWidth(), b1.getHeight());
-		
-		application.setVisible(true);
-		
+		bView.frame.setLayout(null);
+		bView.frame.getContentPane().add(bView);
+		bView.frame.setSize(b1.getWidth(), b1.getHeight());
+		bView.frame.setVisible(true);
 		bView.addKeyListener(new Listener(user));
-	}
-	//public void 
+	} 
 
 
 	@Override
 	public void update() {
 		b1.user.move();
 		application.repaint();
-
+		if (hasWon==false){
+			user.move();
+			application.repaint();
+			if (b1.checkLost()){
+				hasLost=true;
+				this.dispose();
+			}
+		}
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		application.dispose();
 	}
 
 }

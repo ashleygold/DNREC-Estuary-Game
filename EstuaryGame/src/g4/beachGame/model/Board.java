@@ -42,17 +42,11 @@ public class Board {
 		else 
 			return false;
 	}
-	
-	/*checks to if the shoreline has completely disappeared*/
-	public void checkShoreline(){
-		if (shoreline==0){
-			restart();
-		}	
+	/*return true if the player has lost*/
+	public boolean checkLost(){
+		return (shoreline==0);
 	}
 	
-	public void restart(){
-		
-	}
 	
 	/*Checks to see if the waves has hit a protector along the shoreline.
 	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
