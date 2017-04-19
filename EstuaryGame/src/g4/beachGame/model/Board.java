@@ -102,9 +102,14 @@ public class Board {
 		}
 	}
 	
-	public void checkWaves(Wave wave){
-		if(wave.getX()>WIDTH ||wave.getX()<0||wave.getY()>shoreline)
-				currBoats.remove(wave);
+	public void checkWaves(){
+		Iterator<Wave> waveIt = getCurrWaves().iterator();
+		while (waveIt.hasNext()){
+			Wave currWave = waveIt.next();
+			if (currWave.getX()>WIDTH ||currWave.getX()<0||currWave.getY()>shoreline){
+				currWaves.remove(currWave);
+			}
+		}
 	}
 	
 	/*creates a new wave based on the boat*/
