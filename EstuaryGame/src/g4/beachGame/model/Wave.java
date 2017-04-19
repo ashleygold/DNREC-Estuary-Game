@@ -50,4 +50,16 @@ public class Wave {
 	public void move(){
 		this.xloc += speed;
 	}
+	
+	public int getX(){
+		return xloc;
+	}
+	
+	public int getY(){
+		return yloc;
+	}
+	
+	public int getLength(){
+		return length;
+	}
 }
