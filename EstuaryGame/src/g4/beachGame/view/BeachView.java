@@ -63,11 +63,11 @@ public class BeachView extends JPanel{
 		this.setFocusable(true);
 		user = board.user;
 		//loads images into imageIcons
-		/*
+		
 		for (int i = 0; i < protectors.length; i++){
 			protectors[i] = new JLabel();
 			protectors[i].setIcon(new ImageIcon(protectorsLoc[i]));
-		}*/
+		}
 		for (int i = 0; i < crabImages.length; i++)
 			crabImages[i] = createImage(crabImagesLoc[i]);
 		/*
@@ -99,14 +99,15 @@ public class BeachView extends JPanel{
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
-		/*
+		
 		int space = 50;
 		for (int i = 0; i < protectors.length; i++){
 			frame.add(protectors[i]);
-			protectors[i].setBounds(frame_width - IMG_WIDTH - space, frame_height/4 +IMG_HEIGHT/2 + 
-					(int)(i*1.2*IMG_HEIGHT), IMG_WIDTH, IMG_HEIGHT);
+			protectors[i].setBounds(board.getWidth() - IMG_WIDTH - space,
+					board.getHeight()/4 +IMG_HEIGHT/2 + 
+					(int)(i*1.1*IMG_HEIGHT), IMG_WIDTH, IMG_HEIGHT);
 			protectors[i].setSize(IMG_WIDTH, IMG_HEIGHT);
-		}*/
+		}
 		
 	}
 	
@@ -117,6 +118,15 @@ public class BeachView extends JPanel{
 		
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
+		
+		g.setColor(Color.GREEN);
+		g.fillRect(board.getWidth() - 100, board.getHeight()/2, 100, board.getHeight()/6);
+		
+		g.setColor(Color.BLACK);
+		g.fillRect(board.getWidth() - 100, 4*board.getHeight()/6 - 15, 100, board.getHeight()/6);
+		
+		g.setColor(Color.GRAY);
+		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
 		
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
 		
