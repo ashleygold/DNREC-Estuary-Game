@@ -28,6 +28,16 @@ public abstract class Boat{
 	public int getYLoc(){
 		return this.yloc;
 	}
+
+	public boolean getHasEmittedWave(){
+		return hasEmittedWave;
+	}
 	
+	public int getWaveLocation(){
+		return waveLocation;
+	}
 	
+	public boolean getDirection(){
+		return direction;
+	}
 }

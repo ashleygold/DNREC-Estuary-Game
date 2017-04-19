@@ -48,7 +48,7 @@ public class Wave {
 	}
 	
 	public void move(){
-		this.xloc += speed;
+		this.yloc += speed;
 	}
 	
 	public int getX(){

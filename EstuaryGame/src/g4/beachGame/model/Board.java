@@ -102,6 +102,11 @@ public class Board {
 		}
 	}
 	
+	public void checkWaves(Wave wave){
+		if(wave.getX()>WIDTH ||wave.getX()<0||wave.getY()>shoreline)
+				currBoats.remove(wave);
+	}
+	
 	/*creates a new wave based on the boat*/
 	public void createWave(Boat boat){
 		getCurrWaves().add(new Wave(boat));
