@@ -2,6 +2,8 @@ package g4.beachGame.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import g4.beachGame.controller.BeachCont;
 
@@ -16,10 +18,10 @@ public class Board {
 	
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
 	final static long START_TIME= System.nanoTime(); 
-	double elapsedTime=0;
+	public double elapsedTime=0;
 	
 	ArrayList<Protector> protectorLine;
-	ArrayList<Wave> currWaves;
+	private ArrayList<Wave> currWaves;
 	ArrayList<Boat> currBoats;
 	
 	public User user;
@@ -28,7 +30,7 @@ public class Board {
 	/*creates a new board of waves and protectors*/
 	public Board(){
 		currBoats = new ArrayList<Boat>();
-		currWaves = new ArrayList<Wave>();
+		setCurrWaves(new ArrayList<Wave>());
 		user = new User();
 		protectorLine = new ArrayList<Protector>();
 		hoursLeft = 24;
@@ -58,7 +60,7 @@ public class Board {
 	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
 	 *drops. */
 	public void checkHitProtector(){
-		Iterator<Wave> wavesIt = currWaves.iterator();
+		Iterator<Wave> wavesIt = getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
 			if (currWave.yloc >= shoreline){
@@ -88,9 +90,20 @@ public class Board {
 			currBoats.add(new CruiseLiner());
 	}
 	
+	/*remove boats from list of current Boats to paint*/
+	public void checkBoats(){
+		Iterator<Boat> boatIt = getCurrBoats().iterator();
+		while (boatIt.hasNext()){
+			Boat currBoat = boatIt.next();
+			if (currBoat.getXLoc()>WIDTH ||currBoat.getXLoc()<0){
+				currBoats.remove(currBoat);
+			}
+		}
+	}
+	
 	/*creates a new wave based on the boat*/
 	public void createWave(Boat boat){
-		currWaves.add(new Wave(boat));
+		getCurrWaves().add(new Wave(boat));
 	}
 	public int getWidth(){
 		return WIDTH;
@@ -98,5 +111,17 @@ public class Board {
 	
 	public int getHeight(){
 		return HEIGHT;	
+	}
+
+	public ArrayList<Wave> getCurrWaves() {
+		return currWaves;
+	}
+
+	public void setCurrWaves(ArrayList<Wave> currWaves) {
+		this.currWaves = currWaves;
+	}
+
+	public ArrayList<Boat> getCurrBoats() {
+		return currBoats;
 	}
 }

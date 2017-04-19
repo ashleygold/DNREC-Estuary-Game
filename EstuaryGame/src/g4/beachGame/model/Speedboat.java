@@ -1,6 +1,8 @@
 package g4.beachGame.model;
 
 public class Speedboat extends Boat{
+	
+	final int SPEEDBOAT_SPEED=10;
 
 	public Speedboat(){
 		//this.yloc = 0 + (int)(Math.random() * Board.SHORELINE); 
@@ -10,6 +12,12 @@ public class Speedboat extends Boat{
 		else{
 			this.yloc=Board.WIDTH;
 		}
+		this.hasEmittedWave=false;
+		this.speed=SPEEDBOAT_SPEED;
+		
+	}
+	
+	public move(){
 		
 	}
 }

@@ -2,11 +2,15 @@ package g4.beachGame.controller;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 
 import g4.beachGame.model.Board;
+import g4.beachGame.model.Boat;
+import g4.beachGame.model.Protector;
 import g4.beachGame.model.User;
+import g4.beachGame.model.Wave;
 import g4.beachGame.view.BeachView;
 import g4.mainController.MiniGameController;
 
@@ -16,10 +20,12 @@ public class BeachCont implements MiniGameController{
 	private Board b1 = new Board();
 	private User user = new User();
 	
-	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), user.getxLoc(), user.getyLoc(), user);
+	private BeachView bView = new BeachView(b1.getWidth(),b1.getHeight(), user.getxLoc(), user.getyLoc());
 	
 	private boolean hasWon=false;
 	private boolean hasLost=false;
+	
+	final int timeBetweenBoats= 6;
 	
 	public BeachCont() {
 		bView.frame.addWindowListener(new WindowAdapter(){
@@ -39,6 +45,19 @@ public class BeachCont implements MiniGameController{
 	@Override
 	public void update() {
 		b1.user.move();
+		Iterator<Wave> wavesIt = b1.getCurrWaves().iterator();
+		while (wavesIt.hasNext()){
+			Wave currWave = wavesIt.next();
+			currWave.moveWave();
+		}
+		Iterator<Boat> boatIt = b1.getCurrBoats().iterator();
+		while (boatIt.hasNext()){
+			Boat currBoat = boatIt.next();
+			currBoat.moveBoat();
+		}
+//		if (b1.elapsedTime%1000==0){
+//			b1.createBoat();
+//		}
 		bView.frame.repaint();
 		if (hasWon==false){
 			user.move();

@@ -10,7 +10,7 @@ Board b1 = new Board();
 	@Test
 	public void testCheckWaves() {
 		b1.createWave(new Sailboat());
-		assertEquals(1, b1.currWaves.size());
+		assertEquals(1, b1.getCurrWaves().size());
 	}
 
 }
