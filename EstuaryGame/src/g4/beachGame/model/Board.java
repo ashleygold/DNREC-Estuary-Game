@@ -13,6 +13,7 @@ public class Board {
 	final static int HEIGHT = 600;
 	static int shoreline = HEIGHT/2; //where the shore starts
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
+	static int protector;
 	
 	int hoursLeft; 
 	
@@ -24,7 +25,7 @@ public class Board {
 	private ArrayList<Wave> currWaves;
 	ArrayList<Boat> currBoats;
 	
-	public User user;
+	public static User user;
 	int difficulty;
 	
 	/*creates a new board of waves and protectors*/
@@ -134,5 +135,15 @@ public class Board {
 
 	public ArrayList<Boat> getCurrBoats() {
 		return currBoats;
+	}
+	public static void getProtector() {
+		if (user.getxLoc() > .6* WIDTH){
+			if (user.getyLoc()> HEIGHT/2 && user.getyLoc()<4*HEIGHT/6 - 15)
+				protector = 1;
+			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
+				protector = 2;
+			else
+				protector = 3;
+		}
 	}
 }

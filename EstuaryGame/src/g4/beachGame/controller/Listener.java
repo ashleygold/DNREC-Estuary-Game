@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import java.awt.event.KeyListener;
 
+import g4.beachGame.model.Board;
 import g4.beachGame.model.User;
 
 
@@ -14,6 +15,7 @@ public class Listener implements KeyListener {
 	private final int[] ARROW_KEYS = {KeyEvent.VK_UP, 
 			KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
 	
+	private int SPACEBAR = KeyEvent.VK_SPACE;
 	private User user;
 	public Listener(User user) {
 		this.user = user;
@@ -38,6 +40,8 @@ public class Listener implements KeyListener {
 			loc++;
 		if (loc < ARROW_KEYS.length)
 			keysDown[loc] = false;
+		if (code == SPACEBAR)
+			Board.getProtector();
 		setUserDirection();
 	}
 
