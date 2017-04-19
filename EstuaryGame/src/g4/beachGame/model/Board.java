@@ -7,10 +7,10 @@ import g4.beachGame.controller.BeachCont;
 
 public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
-	final static int WIDTH = 600; 
-	final static int HEIGHT = 600;
-	final static int SHORELINE_RECEDING = 70;
-	static int shoreline = 400;
+	final static int WIDTH = 1100; 
+	final static int HEIGHT = 930;
+	static int shoreline = HEIGHT/2; //where the shore starts
+	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
 	
 	int hoursLeft; 
 	
