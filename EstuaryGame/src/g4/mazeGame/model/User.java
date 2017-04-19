@@ -36,7 +36,7 @@ public class User {
 	}
 	
 	public boolean checkWin(){
-		if (this.foodCount==board.goalFood){
+		if (this.foodCount==board.getGoalFood()){
 			board.openGate();
 		}
 		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){

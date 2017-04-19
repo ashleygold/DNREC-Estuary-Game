@@ -12,7 +12,9 @@ public class Board {
 	static Random rand; // Global variable
 	public final int HEIGHT= 17;
 	public final int WIDTH= 19;
-	int goalFood=10;
+	private int goalFood=10;
+	private int salinity = 3;
+	public static final int MAX_SALINITY = 3;
 	private final int NUM_PREDATORS = 3;
 	int totalFood;
 	private String startboard =
@@ -135,6 +137,14 @@ public class Board {
 	
 	protected void openGate(){
 		board.get(0).set(9, 'W');
+	}
+	
+	public int getGoalFood(){
+		return goalFood;
+	}
+	
+	public int getSalinity(){
+		return salinity;
 	}
 	
 	public boolean endgame() {
