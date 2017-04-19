@@ -1,8 +1,5 @@
 package g4.mazeGame.controller;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 
 import g4.mainController.MiniGameController;
@@ -16,15 +13,8 @@ public class MazeCont implements MiniGameController {
 	private JFrame app=new JFrame("Minigame 1: Maze");
 	private MazeView screen=new MazeView(board);
 	private boolean checkWin=false;
-	private boolean checkEat=false;
 	
 	public MazeCont() {
-		app.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent we)
-			{
-				System.exit(0);
-			}			
-		});
 		app.setLayout(null);
 		app.getContentPane().add(screen);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
