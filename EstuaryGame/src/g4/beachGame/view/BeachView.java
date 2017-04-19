@@ -17,10 +17,7 @@ import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
 	//This game's window
-	public JFrame frame;
-	public final int FRAME_WIDTH = 1100;
-	public final int FRAME_HEIGHT = 930;
-	
+	public JFrame frame;	
 	private final int USER_WIDTH = 100;
 	private final int USER_HEIGHT = 100;
 	private final int IMG_WIDTH = 150;
@@ -55,7 +52,7 @@ public class BeachView extends JPanel{
 		return null;
 	}
 	
-	public BeachView(int width, int height, int crabx, int craby){
+	public BeachView(int frame_width, int frame_height, int crabx, int craby){
 		//loads images into imageIcons
 		for (int i = 0; i < protectors.length; i++){
 			protectors[i] = new JLabel();
@@ -77,21 +74,21 @@ public class BeachView extends JPanel{
 		
 		//adds background images
 		frame.add(wavesImage);
-		wavesImage.setBounds(0, 0, FRAME_WIDTH, FRAME_HEIGHT/2);
+		wavesImage.setBounds(0, 0, frame_width, frame_height/2);
 		wavesImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/waves.png").getImage().getScaledInstance(wavesImage.getWidth(),wavesImage.getHeight(), Image.SCALE_SMOOTH)));
 		frame.add(sandImage);
-		sandImage.setBounds(0, FRAME_HEIGHT/2, FRAME_WIDTH, FRAME_HEIGHT/2);
+		sandImage.setBounds(0, frame_height/2, frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
 		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		frame.setSize(frame_width, frame_height);
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
 		int space = 50;
 		for (int i = 0; i < protectors.length; i++){
 			frame.add(protectors[i]);
-			protectors[i].setBounds(FRAME_WIDTH - IMG_WIDTH - space, FRAME_HEIGHT/4 +IMG_HEIGHT/2 + 
+			protectors[i].setBounds(frame_width - IMG_WIDTH - space, frame_height/4 +IMG_HEIGHT/2 + 
 					(int)(i*1.2*IMG_HEIGHT), IMG_WIDTH, IMG_HEIGHT);
 			protectors[i].setSize(IMG_WIDTH, IMG_HEIGHT);
 		}
