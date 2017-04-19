@@ -11,8 +11,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import g4.beachGame.model.Board;
+import g4.beachGame.model.Boat;
 import g4.beachGame.model.User;
 import g4.mainController.MainMenu;
 
@@ -23,6 +25,7 @@ public class BeachView extends JPanel{
 	private final int USER_HEIGHT = 100;
 	private final int IMG_WIDTH = 100;
 	private final int IMG_HEIGHT = 100;
+	private Board b;
 	private User user;
 
 	//Dimensions & locations of images
@@ -104,6 +107,11 @@ public class BeachView extends JPanel{
 	
 	public void paint(Graphics g){
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
+		Iterator<Boat> boatIt = b.getCurrBoats().iterator();
+		while (boatIt.hasNext()){
+			Boat currBoat = boatIt.next();
+			g.fillRect(currBoat.getXLoc(), currBoat.getYLoc(), 10, 2);
+		}
 	}
 }
 
