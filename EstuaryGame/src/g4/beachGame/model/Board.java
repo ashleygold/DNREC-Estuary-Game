@@ -50,6 +50,7 @@ public class Board {
 		else 
 			return false;
 	}
+	
 	/*return true if the player has lost*/
 	public boolean checkLost(){
 		return (shoreline==0);
