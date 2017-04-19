@@ -25,7 +25,7 @@ public class User {
 	
 	/*checks to see if the user is on the shore*/
 	public boolean isShore(double x, double y){
-		return (x>0 && x<Board.WIDTH && y>Board.shoreline);
+		return (x>0 && x<Board.WIDTH-100 && y>Board.shoreline);
 	}
 	
 	public int getPicNum(){
