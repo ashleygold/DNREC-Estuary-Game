@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Image;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import java.util.Iterator;
 import g4.beachGame.model.Board;
 import g4.beachGame.model.Boat;
 import g4.beachGame.model.User;
+import g4.beachGame.model.Wave;
 import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
@@ -59,29 +61,30 @@ public class BeachView extends JPanel{
 	public BeachView(Board b){
 		board = b;
 		this.setFocusable(true);
-		int frame_width = b.getWidth();
-		int frame_height = b.getHeight();
-		user = b.user;
+		user = board.user;
 		//loads images into imageIcons
+		/*
 		for (int i = 0; i < protectors.length; i++){
 			protectors[i] = new JLabel();
 			protectors[i].setIcon(new ImageIcon(protectorsLoc[i]));
-		}
+		}*/
 		for (int i = 0; i < crabImages.length; i++)
 			crabImages[i] = createImage(crabImagesLoc[i]);
+		/*
 		for (int i = 0; i < turtleImages.length; i++)
 			turtleImages[i] = createImage(turtleImagesLoc[i]);
 		BufferedImage beachBackground = createImage("images/BeachImages/beach.png");
+		*/
 		//creates Jlabels to create background in two parts
-		JLabel wavesImage = new JLabel();
-		JLabel sandImage = new JLabel();
+		//JLabel wavesImage = new JLabel();
+		//JLabel sandImage = new JLabel();
 	
 		//sets up frame
 		frame = new JFrame();
 		frame.getContentPane().add(this);
 		//frame.setContentPane(new ImagePanel(beachBackground));
 		
-		
+		/*
 		//adds background images
 		this.add(wavesImage);
 		wavesImage.setBounds(0, 0, frame_width, frame_height/2);
@@ -89,29 +92,46 @@ public class BeachView extends JPanel{
 		this.add(sandImage);
 		sandImage.setBounds(0, frame_height/2, frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
+		*/
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(frame_width, frame_height);
+		frame.setSize(b.getWidth(), b.getHeight());
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
-		
+		/*
 		int space = 50;
 		for (int i = 0; i < protectors.length; i++){
 			frame.add(protectors[i]);
 			protectors[i].setBounds(frame_width - IMG_WIDTH - space, frame_height/4 +IMG_HEIGHT/2 + 
 					(int)(i*1.2*IMG_HEIGHT), IMG_WIDTH, IMG_HEIGHT);
 			protectors[i].setSize(IMG_WIDTH, IMG_HEIGHT);
-		}
+		}*/
 		
 	}
 	
 	public void paint(Graphics g){
+		System.out.println("Paint");
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, board.getWidth(), board.getHeight()/2);
+		
+		g.setColor(Color.YELLOW);
+		g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
+		
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
+		
+		g.setColor(Color.DARK_GRAY);
 		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
-			g.fillRect(currBoat.getXLoc(), currBoat.getYLoc(), 10, 2);
+			g.fillRect(currBoat.getXLoc()+10, currBoat.getYLoc()+10, 50, 50);
+		}
+		
+		g.setColor(Color.CYAN);
+		Iterator<Wave> wavesIt = board.getCurrWaves().iterator();
+		while (wavesIt.hasNext()){
+			Wave currWave = wavesIt.next();
+			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength()*20, 10);
 		}
 	}
 }
