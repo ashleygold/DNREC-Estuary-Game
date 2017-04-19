@@ -54,6 +54,7 @@ public class BeachView extends JPanel{
 	}
 	
 	public BeachView(Board b){
+		this.setFocusable(true);
 		int frame_width = b.getWidth();
 		int frame_height = b.getHeight();
 		user = b.user;
@@ -84,7 +85,11 @@ public class BeachView extends JPanel{
 		this.add(sandImage);
 		sandImage.setBounds(0, frame_height/2, frame_width, frame_height/2);
 		sandImage.setIcon(new ImageIcon(new ImageIcon("images/BeachImages/sand.png").getImage().getScaledInstance(sandImage.getWidth(),sandImage.getHeight(), Image.SCALE_DEFAULT)));
-		
+
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(frame_width, frame_height);
+		//makes frame visible and sets no layout
+		frame.setVisible(true);
 		frame.setLayout(null);
 		
 		int space = 50;
@@ -95,15 +100,11 @@ public class BeachView extends JPanel{
 			protectors[i].setSize(IMG_WIDTH, IMG_HEIGHT);
 		}
 		
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(frame_width, frame_height);
-		//makes frame visible and sets no layout
-		frame.setVisible(true);
-		
-		
 	}
+	
 	public void paint(Graphics g){
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
+		System.out.println("here");
 	}
 }
 
