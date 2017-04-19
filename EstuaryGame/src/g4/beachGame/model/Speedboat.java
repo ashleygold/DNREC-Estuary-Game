@@ -17,5 +17,8 @@ public class Speedboat extends Boat{
 		this.hasEmittedWave=false;
 		this.speed=SPEEDBOAT_SPEED;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> b87327dfb7c3d4af88baa6a7d39bf12cb8b37a38
 }
