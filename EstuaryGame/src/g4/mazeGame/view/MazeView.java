@@ -45,7 +45,7 @@ public class MazeView extends JPanel{
 						g.setColor(Color.CYAN);
 						g.fillRect(x*SLOT_SPACE, y*SLOT_SPACE, SLOT_SPACE, SLOT_SPACE);
 						g.setColor(Color.BLACK);
-						g.fillOval(x*SLOT_SPACE+(SLOT_SPACE/2), y*SLOT_SPACE+(SLOT_SPACE/2), 10, 10);
+						g.fillOval(x*SLOT_SPACE+(SLOT_SPACE/2 - 5), y*SLOT_SPACE+(SLOT_SPACE/2 - 5), 10, 10);
 						break;
 					case 'W':
 						g.setColor(Color.YELLOW);
