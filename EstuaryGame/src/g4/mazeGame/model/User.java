@@ -20,7 +20,8 @@ public class User {
 	public final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	public final double BUFFER = 0.45;
+	public final double BUFFER = 0.36;
+	public final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2)) + 0.01;
 	
 	private int foodCount;
 	
@@ -35,25 +36,6 @@ public class User {
 		}
 	}
 	
-	public void fixLocation(){
-		//nudge the user away from walls
-		if(!board.isEmpty(xLoc, yLoc)){
-			xLoc += MOVE_SPEED/5;
-			yLoc += MOVE_SPEED/5;
-		}
-		if(!board.isEmpty(xLoc+1, yLoc)){
-			xLoc -= MOVE_SPEED/5;
-			yLoc += MOVE_SPEED/5;
-		}
-		if(!board.isEmpty(xLoc+1, yLoc+1)){
-			xLoc -= MOVE_SPEED/5;
-			yLoc -= MOVE_SPEED/5;
-		}
-		if(!board.isEmpty(xLoc, yLoc+1)){
-			xLoc += MOVE_SPEED/5;
-			yLoc -= MOVE_SPEED/5;
-		}
-	}
 	
 	public boolean checkWin(){
 		if (this.foodCount==board.getGoalFood()){
@@ -74,59 +56,82 @@ public class User {
 		switch(direction) {
 			case LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
-						yLoc + CENTER_IMG)){
+						yLoc + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+						yLoc + CENTER_IMG - BUFFER)){
 					xLoc-=MOVE_SPEED;
 				}
 				break;
 			case RIGHT:
 				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc + CENTER_IMG)){
+						yLoc + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG - BUFFER)){
 					xLoc+=MOVE_SPEED;
 				}
 				break;
 			case UP:
-				if (board.isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG + BUFFER,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER) &&
+						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
 						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
 					yLoc-=MOVE_SPEED;
 				}
 				break;
 			case DOWN:
-				if (board.isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG + BUFFER,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
 					yLoc+=MOVE_SPEED;
 				}
 				break;
 			case UP_RIGHT:
-				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER) &&
+						board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				}
 				break;
 			case UP_LEFT:
-				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
-						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER) &&
+						board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				}
 				break;
 			case DOWN_LEFT:
-				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
-						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				}
 				break;
 		}
 		checkFood();
-		fixLocation();
 	}
 	
 	public double getXLoc(){

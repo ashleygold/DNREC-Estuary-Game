@@ -55,13 +55,13 @@ public class MazeView extends JPanel{
 		}
 		g.setColor(Color.LIGHT_GRAY);
 		for(Predator x : board.getPredator()){
-			g.fillOval((int)(x.getXLoc()*SLOT_SPACE), 
-					(int)(x.getYLoc()*SLOT_SPACE), SLOT_SPACE, SLOT_SPACE);
+			g.fillOval((int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), 
+					(int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), 5*SLOT_SPACE/6, 5*SLOT_SPACE/6);
 		}
 		
 		g.setColor(Color.RED);
-		g.fillOval((int)(board.getUser().getXLoc()*SLOT_SPACE), 
-				(int)(board.getUser().getYLoc()*SLOT_SPACE), SLOT_SPACE, SLOT_SPACE);
+		g.fillOval((int)(board.getUser().getXLoc()*SLOT_SPACE + SLOT_SPACE/8), 
+				(int)(board.getUser().getYLoc()*SLOT_SPACE + SLOT_SPACE/8), 3*SLOT_SPACE/4, 3*SLOT_SPACE/4);
 		
 		g.setColor(Color.GRAY);
 		g.fillRect(5, 5, 200, 25);
