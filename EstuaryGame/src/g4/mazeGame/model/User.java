@@ -10,18 +10,18 @@ public class User {
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
-	private final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
-	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
+	private static final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
+	private static final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
 	private int direction = STILL;
 	
 	//use the center of the user for wall detection
-	public final double CENTER_IMG = 0.5;
+	public static final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	public final double BUFFER = 0.36;
-	public final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2)) + 0.01;
+	private static final double BUFFER = 0.36;
+	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2)) + 0.01;
 	
 	private int foodCount;
 	
@@ -52,14 +52,20 @@ public class User {
 	
 
 	public void move() {
+		tryMove(direction);
+		checkFood();
+	}
+	
+	private boolean tryMove(int tryDir){
 		//checks nested in the interest of efficiency
-		switch(direction) {
+		switch(tryDir) {
 			case LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG + BUFFER) &&
 						board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG - BUFFER)){
 					xLoc-=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case RIGHT:
@@ -68,6 +74,7 @@ public class User {
 						board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + CENTER_IMG - BUFFER)){
 					xLoc+=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case UP:
@@ -76,6 +83,7 @@ public class User {
 						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
 						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
 					yLoc-=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case DOWN:
@@ -84,6 +92,7 @@ public class User {
 						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
 					yLoc+=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case UP_RIGHT:
@@ -95,8 +104,18 @@ public class User {
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
+					return true;
+				} else {
+					//try moving in one diagonal component
+					tryDir = UP;
+					if (tryMove(tryDir))
+						return true;
+					else {
+						tryDir = RIGHT;
+						return tryMove(tryDir);
+					}
 				}
-				break;
+				//break; //unreachable
 			case UP_LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc + CENTER_IMG) &&
@@ -106,8 +125,18 @@ public class User {
 						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
+					return true;
+				} else {
+					//try moving in one diagonal component
+					tryDir = UP;
+					if (tryMove(tryDir))
+						return true;
+					else {
+						tryDir = LEFT;
+						return tryMove(tryDir);
+					}
 				}
-				break;
+				//break; //unreachable
 			case DOWN_RIGHT:
 				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
 						yLoc + CENTER_IMG) &&
@@ -117,8 +146,18 @@ public class User {
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
+					return true;
+				} else {
+					//try moving in one diagonal component
+					tryDir = DOWN;
+					if (tryMove(tryDir))
+						return true;
+					else {
+						tryDir = RIGHT;
+						return tryMove(tryDir);
+					}
 				}
-				break;
+				//break; //unreachable
 			case DOWN_LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER,
 						yLoc + CENTER_IMG) &&
@@ -128,10 +167,20 @@ public class User {
 						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
+					return true;
+				} else {
+					//try moving in one diagonal component
+					tryDir = DOWN;
+					if (tryMove(tryDir))
+						return true;
+					else {
+						tryDir = LEFT;
+						return tryMove(tryDir);
+					}
 				}
-				break;
+				//break; //unreachable
 		}
-		checkFood();
+		return false;
 	}
 	
 	public double getXLoc(){
