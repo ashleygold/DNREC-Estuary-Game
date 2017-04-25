@@ -12,7 +12,7 @@ public class User {
 	private final int YINCR = 8;
 	private int xLoc;
 	private int yLoc;
-	int picNum = 0;
+	private double picNum = 0;
 	int frameCount = 3;
 	
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
@@ -32,12 +32,12 @@ public class User {
 	}
 	
 	public int getPicNum(){
-		return picNum;
+		return (int) picNum;
 	}
 	
 	public void move() {
 		//checks nested in the interest of efficiency
-		picNum = (picNum + 1) % frameCount;
+		picNum = (picNum + .2) % frameCount;
 		switch(direction) {
 			case LEFT:
 				if (isShore(xLoc - XINCR, yLoc))

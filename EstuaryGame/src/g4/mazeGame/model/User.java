@@ -35,6 +35,26 @@ public class User {
 		}
 	}
 	
+	public void fixLocation(){
+		//nudge the user away from walls
+		if(!board.isEmpty(xLoc, yLoc)){
+			xLoc += MOVE_SPEED/5;
+			yLoc += MOVE_SPEED/5;
+		}
+		if(!board.isEmpty(xLoc+1, yLoc)){
+			xLoc -= MOVE_SPEED/5;
+			yLoc += MOVE_SPEED/5;
+		}
+		if(!board.isEmpty(xLoc+1, yLoc+1)){
+			xLoc -= MOVE_SPEED/5;
+			yLoc -= MOVE_SPEED/5;
+		}
+		if(!board.isEmpty(xLoc, yLoc+1)){
+			xLoc += MOVE_SPEED/5;
+			yLoc -= MOVE_SPEED/5;
+		}
+	}
+	
 	public boolean checkWin(){
 		if (this.foodCount==board.getGoalFood()){
 			board.openGate();
@@ -106,6 +126,7 @@ public class User {
 				break;
 		}
 		checkFood();
+		fixLocation();
 	}
 	
 	public double getXLoc(){
