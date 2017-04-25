@@ -51,7 +51,7 @@ public class User {
 	}
 	
 
-	public void move() {
+	public void update() {
 		tryMove(direction);
 		checkFood();
 	}

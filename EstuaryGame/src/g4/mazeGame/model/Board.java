@@ -133,7 +133,7 @@ public class Board {
 	}
 	
 	public void update(){
-		user.move();
+		user.update();
 		for(Predator x : hunters){
 			x.move();
 		}
