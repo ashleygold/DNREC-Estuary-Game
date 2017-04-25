@@ -14,7 +14,7 @@ public class Board {
 	public static int shoreline = HEIGHT/2; //where the shore starts
 	private boolean shoreDestoryed = false; 
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
-	public static int protector;
+	public static int protector = -1;
 	
 	public int[][] beach = new int[3][12];
 	

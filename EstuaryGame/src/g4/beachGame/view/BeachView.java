@@ -111,9 +111,7 @@ public class BeachView extends JPanel{
 		
 	}
 	
-	@SuppressWarnings("static-access")
 	public void paint(Graphics g){
-		System.out.println("Paint");
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, board.getWidth(), board.getHeight());
 		

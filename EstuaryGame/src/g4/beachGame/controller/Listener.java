@@ -40,8 +40,10 @@ public class Listener implements KeyListener {
 			loc++;
 		if (loc < ARROW_KEYS.length)
 			keysDown[loc] = false;
-		if (code == SPACEBAR)
+		if (code == SPACEBAR && Board.protector ==-1)
 			Board.getProtector();
+		else if (code == SPACEBAR && Board.protector != -1)
+			Board.placeProtector();
 		setUserDirection();
 	}
 
