@@ -21,7 +21,7 @@ public class User {
 	
 	//hitbox buffer
 	private static final double BUFFER = 0.36;
-	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2)) + 0.01;
+	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
 	private int foodCount;
 	
@@ -105,15 +105,18 @@ public class User {
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 					return true;
-				} else {
 					//try moving in one diagonal component
-					tryDir = UP;
-					if (tryMove(tryDir))
-						return true;
-					else {
-						tryDir = RIGHT;
-						return tryMove(tryDir);
-					}
+				} else if (tryMove(UP)) {
+					return true;
+				} else if (tryMove(RIGHT)){
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if (xLoc - (int)xLoc < 1 -(yLoc - (int)yLoc)){
+					xLoc -= DIAG_MOVE_SPEED;
+					return tryMove(UP_RIGHT);
+				} else {
+					yLoc += DIAG_MOVE_SPEED;
+					return tryMove(UP_RIGHT);
 				}
 				//break; //unreachable
 			case UP_LEFT:
@@ -126,15 +129,18 @@ public class User {
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 					return true;
-				} else {
 					//try moving in one diagonal component
-					tryDir = UP;
-					if (tryMove(tryDir))
-						return true;
-					else {
-						tryDir = LEFT;
-						return tryMove(tryDir);
-					}
+				} else if (tryMove(UP)) {
+					return true;
+				} else if (tryMove(LEFT)) {
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if ((xLoc - (int)xLoc) > (yLoc - (int)yLoc)){
+					xLoc += DIAG_MOVE_SPEED;
+					return tryMove(UP_LEFT);
+				} else {
+					yLoc += DIAG_MOVE_SPEED;
+					return tryMove(UP_LEFT);
 				}
 				//break; //unreachable
 			case DOWN_RIGHT:
@@ -147,15 +153,18 @@ public class User {
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 					return true;
-				} else {
 					//try moving in one diagonal component
-					tryDir = DOWN;
-					if (tryMove(tryDir))
-						return true;
-					else {
-						tryDir = RIGHT;
-						return tryMove(tryDir);
-					}
+				} else if (tryMove(DOWN)) {
+					return true;
+				} else if (tryMove(RIGHT)){
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if ((xLoc - (int)xLoc) > (yLoc - (int)yLoc)){
+					yLoc -= DIAG_MOVE_SPEED;
+					return tryMove(DOWN_RIGHT);
+				} else {
+					xLoc -= DIAG_MOVE_SPEED;
+					return tryMove(DOWN_RIGHT);
 				}
 				//break; //unreachable
 			case DOWN_LEFT:
@@ -168,15 +177,18 @@ public class User {
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 					return true;
-				} else {
 					//try moving in one diagonal component
-					tryDir = DOWN;
-					if (tryMove(tryDir))
-						return true;
-					else {
-						tryDir = LEFT;
-						return tryMove(tryDir);
-					}
+				} else if (tryMove(DOWN)) {
+					return true;
+				} else if (tryMove(LEFT)){
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if (xLoc - (int)xLoc < 1 -(yLoc - (int)yLoc)){
+					yLoc -= DIAG_MOVE_SPEED;
+					return tryMove(DOWN_LEFT);
+				} else {
+					xLoc += DIAG_MOVE_SPEED;
+					return tryMove(DOWN_LEFT);
 				}
 				//break; //unreachable
 		}
