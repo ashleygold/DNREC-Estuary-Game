@@ -14,8 +14,9 @@ This file is the deliverable for this lab, so make sure you do not forget to pus
 1.  List your team members below.
 
     ```
-Joseph Buxton
-Jordan Stewart
+	
+	Joseph Buxton
+	Jordan Stewart
 
     ```
 
