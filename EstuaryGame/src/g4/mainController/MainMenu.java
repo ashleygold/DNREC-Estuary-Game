@@ -169,6 +169,29 @@ public class MainMenu extends JPanel{
 				
 		
 		//repaints on tick
+		//
+		double previous = System.currentTimeMillis();
+		double lag = 0.0;
+		boolean updated = false;
+		while (!exitFlag) { 
+			double current = System.currentTimeMillis();
+			double elapsed = current - previous;
+			previous = current;
+			lag += elapsed;
+			
+			while (lag >= (1000/fps)) {
+				updated = true;
+				state.setText(LABEL_NAMES[curState]);
+				if(game != null)
+					game.update();
+				lag -= (1000/fps);
+			}
+			if (updated) {
+				updated = false;
+				frame.repaint();
+			}
+		}
+		/*
 		while(!exitFlag){
 			state.setText(LABEL_NAMES[curState]);
 			if(game != null)
@@ -180,6 +203,7 @@ public class MainMenu extends JPanel{
 				e.printStackTrace();
 			}
 		}
+		*/
 		if(game != null)
 			game.dispose();
 		frame.dispose();

@@ -10,17 +10,18 @@ public class User {
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
-	private final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
-	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
+	private static final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
+	private static final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
 	private int direction = STILL;
 	
 	//use the center of the user for wall detection
-	public final double CENTER_IMG = 0.5;
+	public static final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	public final double BUFFER = 0.45;
+	private static final double BUFFER = 0.36;
+	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
 	private int foodCount;
 	
@@ -35,25 +36,6 @@ public class User {
 		}
 	}
 	
-	public void fixLocation(){
-		//nudge the user away from walls
-		if(!board.isEmpty(xLoc, yLoc)){
-			xLoc += MOVE_SPEED/5;
-			yLoc += MOVE_SPEED/5;
-		}
-		if(!board.isEmpty(xLoc+1, yLoc)){
-			xLoc -= MOVE_SPEED/5;
-			yLoc += MOVE_SPEED/5;
-		}
-		if(!board.isEmpty(xLoc+1, yLoc+1)){
-			xLoc -= MOVE_SPEED/5;
-			yLoc -= MOVE_SPEED/5;
-		}
-		if(!board.isEmpty(xLoc, yLoc+1)){
-			xLoc += MOVE_SPEED/5;
-			yLoc -= MOVE_SPEED/5;
-		}
-	}
 	
 	public boolean checkWin(){
 		if (this.foodCount==board.getGoalFood()){
@@ -69,64 +51,148 @@ public class User {
 	}
 	
 
-	public void move() {
+	public void update() {
+		tryMove(direction);
+		checkFood();
+	}
+	
+	private boolean tryMove(int tryDir){
 		//checks nested in the interest of efficiency
-		switch(direction) {
+		switch(tryDir) {
 			case LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
-						yLoc + CENTER_IMG)){
+						yLoc + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
+						yLoc + CENTER_IMG - BUFFER)){
 					xLoc-=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case RIGHT:
 				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc + CENTER_IMG)){
+						yLoc + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG - BUFFER)){
 					xLoc+=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case UP:
-				if (board.isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG + BUFFER,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER) &&
+						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
 						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER)){
 					yLoc-=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case DOWN:
-				if (board.isEmpty(xLoc + CENTER_IMG,
+				if (board.isEmpty(xLoc + CENTER_IMG + BUFFER,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER)){
 					yLoc+=MOVE_SPEED;
+					return true;
 				}
 				break;
 			case UP_RIGHT:
-				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER) &&
+						board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
+					return true;
+					//try moving in one diagonal component
+				} else if (tryMove(UP)) {
+					return true;
+				} else if (tryMove(RIGHT)){
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if (xLoc - (int)xLoc < 1 -(yLoc - (int)yLoc)){
+					xLoc -= DIAG_MOVE_SPEED;
+					return tryMove(UP_RIGHT);
+				} else {
+					yLoc += DIAG_MOVE_SPEED;
+					return tryMove(UP_RIGHT);
 				}
-				break;
+				//break; //unreachable
 			case UP_LEFT:
-				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
-						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc - MOVE_SPEED + CENTER_IMG - BUFFER) &&
+						board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
+					return true;
+					//try moving in one diagonal component
+				} else if (tryMove(UP)) {
+					return true;
+				} else if (tryMove(LEFT)) {
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if ((xLoc - (int)xLoc) > (yLoc - (int)yLoc)){
+					xLoc += DIAG_MOVE_SPEED;
+					return tryMove(UP_LEFT);
+				} else {
+					yLoc += DIAG_MOVE_SPEED;
+					return tryMove(UP_LEFT);
 				}
-				break;
+				//break; //unreachable
 			case DOWN_RIGHT:
-				if (board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+				if (board.isEmpty(xLoc + MOVE_SPEED + CENTER_IMG + BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
+					return true;
+					//try moving in one diagonal component
+				} else if (tryMove(DOWN)) {
+					return true;
+				} else if (tryMove(RIGHT)){
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if ((xLoc - (int)xLoc) > (yLoc - (int)yLoc)){
+					yLoc -= DIAG_MOVE_SPEED;
+					return tryMove(DOWN_RIGHT);
+				} else {
+					xLoc -= DIAG_MOVE_SPEED;
+					return tryMove(DOWN_RIGHT);
 				}
-				break;
+				//break; //unreachable
 			case DOWN_LEFT:
-				if (board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
-						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER,
+						yLoc + CENTER_IMG) &&
+						board.isEmpty(xLoc + CENTER_IMG,
+						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
+						board.isEmpty(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
+					return true;
+					//try moving in one diagonal component
+				} else if (tryMove(DOWN)) {
+					return true;
+				} else if (tryMove(LEFT)){
+					return true;
+					//see if x/y can be slightly changed to allow movement
+				} else if (xLoc - (int)xLoc < 1 -(yLoc - (int)yLoc)){
+					yLoc -= DIAG_MOVE_SPEED;
+					return tryMove(DOWN_LEFT);
+				} else {
+					xLoc += DIAG_MOVE_SPEED;
+					return tryMove(DOWN_LEFT);
 				}
-				break;
+				//break; //unreachable
 		}
-		checkFood();
-		fixLocation();
+		return false;
 	}
 	
 	public double getXLoc(){
