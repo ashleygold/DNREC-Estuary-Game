@@ -33,15 +33,12 @@ Run the following commands.
 
     ```
 git help shows common Git commands used in various situations.  It categorizes them into each situation and states what each command does.
-
     ```
 
 2.  What does `-ag` cause `git help` to do?
 
     ```
 -ag causes git help to list all the available git commands, subcommands, and concept guides.  It lists them alphabetically instead of by category.
-
-
     ```
 
 G. Basic commands
@@ -67,23 +64,18 @@ Run `git status` before and after each of these commands.
 
     ```
 git status reports untracked files and changes to be committed.  It also gives hints as to how to handle the status.
-
-
     ```
 
 2.  What does `git add names.txt` do?
 
     ```
 It adds names.txt to the list of files that git tracks, so git can follow changes made to it.
-
-
     ```
 
 3.  What does `git commit -m "Add our names."` do?
 
     ```
 It gives a name to and records the change that you made by adding a file to the directory.  It creates a stage that you can revert back to if needed.
-
     ```
 
 Use a plain text editor to create the following files:
@@ -103,14 +95,12 @@ Run `git status` before and after each of these commands.
 
     ```
 git add . adds all files to be tracked instead of just one.
-
     ```
 
 5.  What does `git commit` (without -m) do?
 
     ```
-git commit opens up a vim editor so you can write multi-line commits instead of just one statement.
-
+git commit opens up a text editor so you can write multi-line commits instead of just one statement.
     ```
 
 6.  If you want to write a more detailed commit message (which is
@@ -118,16 +108,12 @@ git commit opens up a vim editor so you can write multi-line commits instead of 
 
     ```
 git commit
-
-
     ```
 
 7.  What does `git log do`?
 
     ```
-
-
-
+git log opens up a log of all the commits made.  You can scroll through this.  
     ```
 
 
@@ -156,49 +142,44 @@ Run the following commands:
     **Staged**
 
     ```
+"names.txt"
 
-
-
+These files have been changed and they are in the list of files to be committed.  
     ```
 
     **Unstaged**
 
     ```
+"lab9_activity.md"
+"movies.txt"
 
-
-
+These files are tracked by git and have been changed, but are not in the list of files to be committed.  
     ```
 
     **Untracked**
 
     ```
+"food.txt"
 
-
-
+These files are not tracked by git.  They do not get committed unless first tracked.  
     ```
 
 1.  If you run `git commit` what changes will be committed (***DON’T DO IT***)?
 
     ```
-
-
-
+Just the staged changes, in this case "names.txt"
     ```
 
 2.  What command do you run to stage changes?
 
     ```
-
-
-
+git add <file>
     ```
 
 3.  What command do you run to unstage changes?
 
     ```
-
-
-
+git reset HEAD <file>
     ```
 
 Run the following commands:
@@ -209,17 +190,13 @@ Run the following commands:
 1.  What does `git diff` display?
 
     ```
-
-
-
+git diff displays the differences between the current version of unstaged (but tracked) files and the last version that was committed
     ```
 
 2.  What does `git diff --cached` display?
 
     ```
-
-
-
+git diff --cached displays the changes between staged files and the last version that was committed
     ```
 
 3.  Formulate a sequence of commands to unstage changes to `names.txt`,
@@ -227,9 +204,9 @@ Run the following commands:
     confirm they worked.
 
     ```
-
-
-
+git reset HEAD "names.txt"
+git add "movies.txt"
+git status confirms this works
     ```
 
 4.  Edit `movies.txt`, change any one of the movies, and save it. Then
@@ -237,27 +214,21 @@ Run the following commands:
     going on.
 
     ```
-
-
-
+movies.txt is listed under both "Changes to be committed" and "Changes not staged for commit".  This is because our original changes to the file are still prepared for commit, but our new changes have caused the file to be updated away from this state.
     ```
 
 5.  Delete `names.txt`. Then run `git status`. What do you observe?
     Explain what you think is going on.
 
     ```
-
-
-
+Under "Changes not staged for commit", "names.txt" is listed as having been deleted.  This is because deletion is considered as a change, just like any other and we will have to stage/commit this.  
     ```
 
 6.  Rename `movies.txt` to `last-movies`. Run `git status`. Observe
     and explain.
 
     ```
-
-
-
+Like "names.txt" before, "movies.txt" is listed for deletion.  "last-movies.txt" is now an untracked file.  Git considers the two files to be entirely separate since each has a different name.  Thus, we are basically adding and deleting two different files.  
     ```
 
 7.  Formulate a sequence of commands to stage all changes including the
@@ -265,27 +236,22 @@ Run the following commands:
     Execute them.
 
     ```
-
-
-
+git add .
+git commit -m "Update all files"
     ```
 
 8.  In git vernacular, `index`, `cache`, and `stage` all refer to the
     same thing. What does it hold?
 
     ```
-
-
-
+The "index", "cache", or "stage" holds changes that we have finalized for commit.  
     ```
 
 9.  Why have a `stage`? Why not just commit all changes since the last
     commit?
 
     ```
-
-
-
+The "stage" is useful since it is entirely under the control of the user.  It also allows us to selectively push files, if we have made other changes that are not ready to be deployed.  
     ```
 
 I. Undo
@@ -302,9 +268,7 @@ Run the following commands:
 1.  What does `git reset --soft ``"HEAD^" `do?
 
     ```
-
-
-
+This reverts the last commit.  The files themselves are not changed, and all changes are still staged.  
     ```
 
 Run the following commands:
@@ -319,31 +283,25 @@ Run the following commands:
 1.  What does `git reset --hard ``"HEAD^"`` `do?
 
     ```
-
-
-
+This reverts the last commit and changes your files to what they were at the time of the last commit.  
     ```
 
 2.  What is the difference between `--hard` and `--soft`?
 
     ```
-
-
-
+Hard actually modifies your files to return them to their previous verison.  Soft just removes the last commit without actually changing your files.  
     ```
 
 3.  What do you think `HEAD` means?
 
     ```
-
-
+HEAD is the current working branch.  
     ```
 
 4.  What do you think `HEAD^` means?
 
     ```
-
-
+HEAD^ refers to the branch that is one commit behind the current working branch.  
     ```
 
 J. Helpful resources
