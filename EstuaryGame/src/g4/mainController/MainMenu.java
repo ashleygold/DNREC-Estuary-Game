@@ -166,44 +166,27 @@ public class MainMenu extends JPanel{
 				curState = FL;
 			}
 		});
-				
 		
-		//repaints on tick
-		//
-		double previous = System.currentTimeMillis();
-		double lag = 0.0;
-		boolean updated = false;
-		while (!exitFlag) { 
-			double current = System.currentTimeMillis();
-			double elapsed = current - previous;
-			previous = current;
-			lag += elapsed;
-			
-			while (lag >= (1000/fps)) {
-				updated = true;
-				state.setText(LABEL_NAMES[curState]);
-				if(game != null)
-					game.update();
-				lag -= (1000/fps);
-			}
-			if (updated) {
-				updated = false;
-				frame.repaint();
-			}
-		}
-		/*
+		//game loop
+		//repaints on tick		
 		while(!exitFlag){
+			double current = System.currentTimeMillis();
+			
 			state.setText(LABEL_NAMES[curState]);
 			if(game != null)
 				game.update();
 			frame.repaint();
-			try {
-				Thread.sleep((int)(1000/fps));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			
+			//if there is extra time left in the frame, sleep the thread
+			double elapsed = System.currentTimeMillis() - current;
+			if ((int)(1000/fps - elapsed) >= 0)
+				try {
+					Thread.sleep((int)(1000/fps - elapsed));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 		}
-		*/
+		
 		if(game != null)
 			game.dispose();
 		frame.dispose();
