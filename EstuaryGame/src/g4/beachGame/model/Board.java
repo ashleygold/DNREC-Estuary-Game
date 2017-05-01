@@ -16,7 +16,7 @@ public class Board {
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
 	public static int protector = -1;
 	
-	public int[][] beach = new int[3][12];
+	public int[][] beach = new int[3][12]; //height, width
 	
 	public int[] posArr = {HEIGHT/2, 4*HEIGHT/6 - 15, 5*HEIGHT/6 - 30};
 	
@@ -109,34 +109,20 @@ public class Board {
 		}
 	}
 	
-	public void checkWaves(){
-		Iterator<Wave> waveIt = getCurrWaves().iterator();
-		while (waveIt.hasNext()){
-			Wave currWave = waveIt.next();
-			if (currWave.getX()>WIDTH ||currWave.getX()<0||currWave.getY()>shoreline){
-				currWaves.remove(currWave);
-			}
-		}
-	}
+	
+//	public void checkWaves(){
+//		Iterator<Wave> waveIt = getCurrWaves().iterator();
+//		while (waveIt.hasNext()){
+//			Wave currWave = waveIt.next();
+//			if (currWave.getX()>WIDTH ||currWave.getX()<0||currWave.getY()>shoreline){
+//				currWaves.remove(currWave);
+//			}
+//		}
+//	}
 	
 	/*creates a new wave based on the boat*/
 	public void createWave(Boat boat){
 		getCurrWaves().add(new Wave(boat));
-	}
-	public int getWidth(){
-		return WIDTH;
-	}
-	
-	public int getHeight(){
-		return HEIGHT;	
-	}
-
-	public ArrayList<Wave> getCurrWaves() {
-		return currWaves;
-	}
-
-	public void setCurrWaves(ArrayList<Wave> currWaves) {
-		this.currWaves = currWaves;
 	}
 	
 	public void wavehit(int x){
@@ -154,9 +140,7 @@ public class Board {
 		}
 	}
 
-	public ArrayList<Boat> getCurrBoats() {
-		return currBoats;
-	}
+	
 	public static void getProtector() {
 		if (user.getxLoc() > .75* WIDTH){
 			if (user.getyLoc()>= HEIGHT/2 && user.getyLoc()<4*HEIGHT/6 - 15)
@@ -175,4 +159,17 @@ public class Board {
 		return place;
 		
 	}
+	
+	/*getters*/
+	public ArrayList<Boat> getCurrBoats() {return currBoats;}
+	public int getWidth(){return WIDTH;}
+	public int getHeight(){return HEIGHT;}
+	public ArrayList<Wave> getCurrWaves() {return currWaves;}
+
+	/*setters*/
+	public void setCurrWaves(ArrayList<Wave> currWaves) {
+		this.currWaves = currWaves;
+	}
 }
+
+
