@@ -64,13 +64,13 @@ public class MazeView extends JPanel{
 				(int)(board.getUser().getYLoc()*SLOT_SPACE + SLOT_SPACE/8), 3*SLOT_SPACE/4, 3*SLOT_SPACE/4);
 		
 		g.setColor(Color.GRAY);
-		g.fillRect(5, 5, 200, 25);
+		g.fillRect(5, 5, board.getGoalFood()*20, 25);
 		
 		g.setColor(Color.GREEN);
 		g.fillRect(5, 5, board.getUser().getFoodCount()*20, 25);
 		
 		g.setColor(Color.WHITE);
-		g.drawRect(5, 5, 200, 25);
+		g.drawRect(5, 5, board.getGoalFood()*20, 25);
 		
 		g.setColor(Color.BLUE);
 		g.fillRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);

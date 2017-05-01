@@ -9,7 +9,7 @@ import g4.mazeGame.view.MazeView;
 
 public class MazeCont implements MiniGameController {
 	
-	private Board board=new Board();
+	private Board board=new Board(3);
 	private JFrame app=new JFrame("Minigame 1: Maze");
 	private MazeView screen=new MazeView(board);
 	private boolean checkWin=false;

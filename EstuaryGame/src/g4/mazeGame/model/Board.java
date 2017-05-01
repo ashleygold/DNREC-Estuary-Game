@@ -10,14 +10,50 @@ public class Board {
 	public boolean eaten=false;
 	
 	static Random rand; // Global variable
-	public final int HEIGHT= 17;
-	public final int WIDTH= 19;
-	private int goalFood=10;
+	public final int HEIGHT = 17;
+	public final int WIDTH = 19;
+	private final int[] goalFood = {15, 10, 5};
 	private int salinity = 3;
 	public static final int MAX_SALINITY = 3;
-	private final int NUM_PREDATORS = 3;
+	private final int[] NUM_PREDATORS = {4, 2, 1};
 	int totalFood;
-	private String startboard =
+	private String startboard1 =
+			 "##########*########\n"
+			+"#.....#.....#.....#\n"
+			+"####........#..####\n"
+			+"#.......#...#..#..#\n"
+			+"#..###..#.........#\n"
+			+"##......#.....#####\n"
+			+"#..#...####.......#\n"
+			+"#..#........#.##..#\n"
+			+"#######.....#.....#\n"
+			+"#........##########\n"
+			+"#####.............#\n"
+			+"#...#.....######..#\n"
+			+"##..###........#..#\n"
+			+"#..............#..#\n"
+			+"########...########\n"
+			+"#.................#\n"
+			+"###################\n";
+	private String startboard2 =
+			 "##########*########\n"
+			+"#.....#.....#.....#\n"
+			+"####........#..####\n"
+			+"#.......#...#..#..#\n"
+			+"#..###..#.........#\n"
+			+"##......#.....#####\n"
+			+"#..#...####.......#\n"
+			+"#..#........#.##..#\n"
+			+"#######.....#.....#\n"
+			+"#........##########\n"
+			+"#####.............#\n"
+			+"#...#.....######..#\n"
+			+"##..###........#..#\n"
+			+"#..............#..#\n"
+			+"########...########\n"
+			+"#.................#\n"
+			+"###################\n";
+	private String startboard3 =
 			 "##########*########\n"
 			+"#.....#.....#.....#\n"
 			+"####........#..####\n"
@@ -36,11 +72,14 @@ public class Board {
 			+"#.................#\n"
 			+"###################\n";
 	
+	private String[] startboards = {startboard3, startboard2, startboard1};
+	
 	private ArrayList<ArrayList<Character>> board = new ArrayList<ArrayList<Character>>();
 	
 	private List<Predator> hunters = new ArrayList<Predator>();
 	
-	public Board(){
+	public Board(int s){
+		salinity = s;
 		String new_start = generateFood();
 		for(String row:new_start.split("\n")){
 			ArrayList<Character> r= new ArrayList<Character>();
@@ -52,7 +91,7 @@ public class Board {
 		
 		user = new User(this);
 		
-		for(int i = 0; i < NUM_PREDATORS; i++){
+		for(int i = 0; i < NUM_PREDATORS[salinity - 1]; i++){
 			int yTest = (int) (Math.random()*(WIDTH-1)+1);
 			int xTest = (int) (Math.random()*(HEIGHT-6)+1);
 			while(getCell(yTest, xTest) != '.') {
@@ -91,7 +130,7 @@ public class Board {
 	}
 	
 	private String generateFood() {
-		char[] board = startboard.toCharArray();
+		char[] board = startboards[salinity - 1].toCharArray();
 		ArrayList<Integer> possibilities = new ArrayList<Integer>();
 		for (int y=0; y<board.length;y++){
 			if (board[y]=='.'){
@@ -99,7 +138,7 @@ public class Board {
 			}
 		}
 		
-		for (int j=0; j<goalFood; j++) {
+		for (int j=0; j<goalFood[salinity - 1]; j++) {
 			board[randomItem(possibilities)] = 'o';
 		}
 		
@@ -144,7 +183,7 @@ public class Board {
 	}
 	
 	public int getGoalFood(){
-		return goalFood;
+		return goalFood[salinity - 1];
 	}
 	
 	public int getSalinity(){
