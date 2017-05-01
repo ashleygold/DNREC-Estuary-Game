@@ -8,7 +8,7 @@ public class Speedboat extends Boat{
 
 	public Speedboat(){
 		int randomDir = 1+ (int) (Math.random() * 2);
-		int randomHeight = (int) (Math.random()*Board.shoreline-100);
+		int randomHeight = 100 + (int) (Math.random()*Board.shoreline-100);
 		if (randomDir==1){
 			this.xloc=0;
 			this.direction=true;

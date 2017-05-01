@@ -17,9 +17,9 @@ import g4.mainController.MiniGameController;
 
 public class BeachCont implements MiniGameController{
 	
-	private Board b1 = new Board();
+	private Board board1 = new Board();
 
-	private BeachView bView = new BeachView(b1);
+	private BeachView bView = new BeachView(board1);
 	private boolean hasWon=false;
 	private boolean hasLost=false;
 	private int frameCounter;
@@ -27,7 +27,7 @@ public class BeachCont implements MiniGameController{
 	final int timeBetweenBoats= 6;
 	
 	public BeachCont() {
-		bView.addKeyListener(new Listener(b1.user));
+		bView.addKeyListener(new Listener(board1.user));
 		frameCounter=0;
 		framesBetweenBoats=180;
 	} 
@@ -35,10 +35,10 @@ public class BeachCont implements MiniGameController{
 	public void couldCreateWave(Boat boat){
 		if (!boat.getHasEmittedWave()){
 			if (boat.getDirection() && boat.getXLoc()>=boat.getWaveLocation()){
-				b1.createWave(boat);
+				board1.createWave(boat);
 			}
 			else if (!boat.getDirection() && boat.getXLoc()<=boat.getWaveLocation()){
-				b1.createWave(boat);
+				board1.createWave(boat);
 			}
 		}
 	}
@@ -48,28 +48,28 @@ public class BeachCont implements MiniGameController{
 	public void update() {
 		frameCounter++;
 		/*user*/
-		b1.user.move();
+		board1.user.move();
 		
 		//spawn boats
 		if (frameCounter==framesBetweenBoats){
-			b1.createBoat();
+			board1.createBoat();
 			frameCounter=0;
 			framesBetweenBoats-=5;
 		}
 		
 		//waves move down screen
-		Iterator<Wave> wavesIt = b1.getCurrWaves().iterator();
+		Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
 			currWave.move();
 			if (currWave.getY() >= Board.shoreline){
-				b1.wavehit(currWave.getX());
+				board1.wavehit(currWave.getX());
 				wavesIt.remove();
 			}
 		}
 		
 		//moves boats across screen
-		Iterator<Boat> boatIt = b1.getCurrBoats().iterator();
+		Iterator<Boat> boatIt = board1.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
 			currBoat.move();
@@ -77,7 +77,7 @@ public class BeachCont implements MiniGameController{
 		}
 		
 		bView.frame.repaint();
-		if (b1.checkLost()){
+		if (board1.checkLost()){
 			hasLost=true;
 			this.dispose();
 		}
