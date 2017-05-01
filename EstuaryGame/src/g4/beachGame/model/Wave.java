@@ -46,7 +46,6 @@ public class Wave {
 		this.yloc=boat.getYLoc(); 
 		
 		boat.emittedWave();
-		
 	}
 	
 	public void move(){

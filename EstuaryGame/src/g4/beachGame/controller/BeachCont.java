@@ -23,12 +23,13 @@ public class BeachCont implements MiniGameController{
 	private boolean hasWon=false;
 	private boolean hasLost=false;
 	private int frameCounter;
-	
+	private int framesBetweenBoats;
 	final int timeBetweenBoats= 6;
 	
 	public BeachCont() {
 		bView.addKeyListener(new Listener(b1.user));
 		frameCounter=0;
+		framesBetweenBoats=180;
 	} 
 
 	public void couldCreateWave(Boat boat){
@@ -36,19 +37,27 @@ public class BeachCont implements MiniGameController{
 			if (boat.getDirection() && boat.getXLoc()>=boat.getWaveLocation()){
 				b1.createWave(boat);
 			}
+			else if (!boat.getDirection() && boat.getXLoc()<=boat.getWaveLocation()){
+				b1.createWave(boat);
+			}
 		}
 	}
-
+	
+	/*everything that changes every frame*/
 	@Override
 	public void update() {
 		frameCounter++;
+		/*user*/
 		b1.user.move();
-		if (frameCounter==180){
+		
+		//spawn boats
+		if (frameCounter==framesBetweenBoats){
 			b1.createBoat();
 			frameCounter=0;
-			
+			framesBetweenBoats-=5;
 		}
-		//b1.checkHitProtector();
+		
+		//waves move down screen
 		Iterator<Wave> wavesIt = b1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
@@ -59,6 +68,7 @@ public class BeachCont implements MiniGameController{
 			}
 		}
 		
+		//moves boats across screen
 		Iterator<Boat> boatIt = b1.getCurrBoats().iterator();
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
