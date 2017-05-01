@@ -17,6 +17,11 @@ public class Listener implements KeyListener {
 	public Listener(User user) {
 		this.user = user;
 	}
+	
+	public void reset(User user) {
+		this.user = user;
+		keysDown = new boolean[4];
+	}
 
 	//@Override
 	public void keyPressed(KeyEvent ke) {

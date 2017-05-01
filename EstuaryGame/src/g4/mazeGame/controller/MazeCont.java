@@ -9,10 +9,13 @@ import g4.mazeGame.view.MazeView;
 
 public class MazeCont implements MiniGameController {
 	
-	private Board board=new Board(3);
+	private int level = 0;
+	private int deaths = 0;
+	private Board board=new Board(3 - level, deaths);
 	private JFrame app=new JFrame("Minigame 1: Maze");
 	private MazeView screen=new MazeView(board);
 	private boolean checkWin=false;
+	private Listener listen = new Listener(board.getUser());
 	
 	public MazeCont() {
 		app.setLayout(null);
@@ -23,18 +26,40 @@ public class MazeCont implements MiniGameController {
 		
 		app.setVisible(true);
 		
-		screen.addKeyListener(new Listener(board.getUser()));
+		screen.addKeyListener(listen);
+	}
+	
+	private void nextGame(){
+		deaths = 0;
+		level++;
+		board = new Board(3 - level, deaths);
+		screen.changeBoard(board);
+		listen.reset(board.getUser());
+	}
+	
+	private void lowerDifficulty(){
+		deaths++;
+		board = new Board(3 - level, deaths);
+		screen.changeBoard(board);
+		listen.reset(board.getUser());
 	}
 
 	@Override
 	public void update() {
-		if (checkWin==false && board.eaten==false){
+		if (checkWin==false){
 			board.update();
 			app.repaint();
-			if ((board.getUser().checkWin()) || (board.eaten==true)){
-				checkWin=true;
-				this.dispose();
+			if (board.getUser().checkWin()){
+				if (level < 2) {
+					nextGame();
+				} else {
+					checkWin = true;
+				}
+			} else if (board.eaten==true){
+				lowerDifficulty();
 			}
+		} else {
+			//victory thing
 		}
 	}
 

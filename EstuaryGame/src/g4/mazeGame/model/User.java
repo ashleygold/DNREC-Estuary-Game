@@ -24,6 +24,7 @@ public class User {
 	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
 	private int foodCount;
+	private boolean gateOpened = false;
 	
 	public User(Board b){
 		board = b;
@@ -38,8 +39,9 @@ public class User {
 	
 	
 	public boolean checkWin(){
-		if (this.foodCount==board.getGoalFood()){
+		if (this.foodCount==board.getGoalFood() && !gateOpened){
 			board.openGate();
+			gateOpened = true;
 		}
 		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
 			JOptionPane.showMessageDialog(null, "You win! Press OK to advance to Stage 2 (when it exists).");

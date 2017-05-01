@@ -15,9 +15,14 @@ public class MazeView extends JPanel{
 	
 	
 	public MazeView(Board board) {
-		this.board=board;
+		this.board = board;
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 		setFocusable(true);
+	}
+	
+	public void changeBoard(Board board){
+		this.board = board;
+		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 	}
 	
 	@Override
