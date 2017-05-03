@@ -18,17 +18,24 @@ public class Board {
 	private int protector = -1;
 	public int user_width = 100;
 	
-	final static int GRASS = 1;
-	final static int GABION = 2;
-	final static int WALL = 3;
+//	final static int GRASS = 1;
+//	final static int GABION = 2;
+//	final static int WALL = 3;
+
+//	final static int PROTECTOR = 2;
 	
-	final static int WATER = 1; 
 	final static int SHORE = 0; 
-	final static int PROTECTOR = 2;
+	final static int WATER = 1; 
+	final static int GRASS = 2; 
+	final static int GRASS_L =3; 
+	final static int WALL = 4;
+	final static int GABION = 5;
+	final static int GABION_L = 6;
+	final static int GABION_2L = 7;
 	
 	final static int SPACES_OF_SHORE = 12;
 	
-	public int[][] beach = new int[3][12]; //height, width
+	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
 	public int[] posArr = {HEIGHT/2, 4*HEIGHT/6 - 15, 5*HEIGHT/6 - 30};
 	
@@ -137,7 +144,7 @@ public class Board {
 				System.out.println();
 				beach[depth][spot] = WATER;
 			}
-			else if (beach[depth][spot] == PROTECTOR){
+			else if (beach[depth][spot] != WATER || beach[depth][spot]!=SHORE){
 				//some code that reduces the life of a protector
 				beach[depth][spot] = SHORE;
 			}
@@ -148,9 +155,9 @@ public class Board {
 	public int chooseProtector() {
 		if ((int)(user.getxLoc()+user_width)*12/SHORELINE_WIDTH == 11){ //need to change magic number
 			if (user.getyLoc() <4*HEIGHT/6 - 15)
-				protector = GRASS;
+				protector = GRASS_L;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
-				protector = GABION; 
+				protector = GABION_2L; 
 			else
 				protector = WALL; 
 		}
@@ -166,15 +173,10 @@ public class Board {
 		int depth = 0;
 		//if (user.getyLoc() < shoreline + 50)
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
-		while (depth < beach.length && beach[depth][(int)(SPACES_OF_SHORE*spot/SHORELINE_WIDTH)] != SHORE)
+		while (depth < beach.length && beach[depth][(int)(SPACES_OF_SHORE*spot/SHORELINE_WIDTH)] == WATER)
 			depth++;
 		System.out.println("x location of protector: " + spot + "ylocation of protector: " + depth);
-		if (getProtector()== GRASS)
-			beach[depth][spot] = SHORE;
-		else if (getProtector()== GABION)
-			beach[depth][spot] = 3;
-		else if (getProtector()==WALL)
-			beach[depth][spot] = 4;
+		beach[depth][spot] = getProtector();
 		protector = -1;
 	}
 	
