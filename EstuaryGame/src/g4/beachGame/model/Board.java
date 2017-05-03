@@ -12,9 +12,10 @@ public class Board {
 	final static int WIDTH = 1100; 
 	final static int HEIGHT = 600;
 	public static int shoreline = HEIGHT/2; //where the shore starts
-	private boolean shoreDestoryed = false; 
+	private boolean shoreDestroyed = false; 
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
-	public static int protector = -1;
+	private int protector = -1;
+	public int user_width = 100;
 	
 	public int[][] beach = new int[3][12]; //height, width
 	
@@ -30,7 +31,7 @@ public class Board {
 	private ArrayList<Wave> currWaves;
 	ArrayList<Boat> currBoats;
 	
-	public static User user;
+	public User user;
 	int difficulty;
 	
 	/*creates a new board of waves and protectors*/
@@ -59,8 +60,7 @@ public class Board {
 	
 	/*return true if the player has lost*/
 	public boolean checkLost(){
-		//return !shoreDestoryed;
-		return (shoreline==0);
+		return shoreDestroyed;
 	}
 	
 	
@@ -128,36 +128,56 @@ public class Board {
 	public void wavehit(int x){
 		int depth = 0;
 		if ((int)(12*x/(WIDTH - 100)) < 12){
+			//1: water
+			//0: shore
+			//2: protector
 			while (depth < beach.length && beach[depth][(int)(12*x/(WIDTH - 100))] == 1)
 				depth++;
 			if (depth == beach.length)
-				shoreDestoryed = true;
+				shoreDestroyed = true;
 			else if (beach[depth][(int)(12*x/(WIDTH - 100))] == 0){
 				System.out.println();
 				beach[depth][(int)(12*x/(WIDTH - 100))] = 1;
+			}
+			else if (beach[depth][(int)(12*x/(WIDTH - 100))] == 2){
+				beach[depth][(int)(12*x/(WIDTH - 100))] = 0;
 			}
 			System.out.println("wavehit");
 		}
 	}
 
 	
-	public static void getProtector() {
-		if (user.getxLoc() > .75* WIDTH){
-			if (user.getyLoc()>= HEIGHT/2 && user.getyLoc()<4*HEIGHT/6 - 15)
-				protector = 1;
+	public int chooseProtector() {
+		if ((int)(user.getxLoc()+user_width)*12/(WIDTH-100) == 11){ //need to change magic number
+			if (user.getyLoc() <4*HEIGHT/6 - 15)
+				protector = 1; //grass
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
-				protector = 2;
+				protector = 2; //gabion
 			else
-				protector = 3;
+				protector = 3; //wall
 		}
-		System.out.println("here");
+		return protector;
 	}
-	public static int placeProtector(){
-		int place = -1;
-		if (user.getyLoc() < shoreline + 50)
-			place = (int)user.getxLoc()*12/(WIDTH-100);
-		return place;
-		
+	public int getProtector(){
+		return protector;
+	}
+	
+	//if the user is close to the shoreline, place protector in current x location
+	public void placeProtector(){
+		int x = 0;
+		int depth = 0;
+		//if (user.getyLoc() < shoreline + 50)
+		x = (int)user.getxLoc()*12/(WIDTH-100);
+		while (depth < beach.length && beach[depth][(int)(12*x/(WIDTH - 100))] == 1)
+			depth++;
+		System.out.println("x location of protector: " + x + "ylocation of protector: " + depth);
+		if (getProtector()==1) //grass
+			beach[depth][x] = 2;
+		else if (getProtector()==2) //gabion
+			beach[depth][x] = 3;
+		else if (getProtector()==3) //wall
+			beach[depth][x] = 4;
+		protector = -1;
 	}
 	
 	/*getters*/

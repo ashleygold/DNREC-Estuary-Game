@@ -119,9 +119,14 @@ public class BeachView extends JPanel{
 			for (int col = 0; col < board.beach[0].length; col++){
 				if (board.beach[row][col] == 0)
 					g.setColor(Color.YELLOW);
-				
-				if (board.beach[row][col] == 1)
+				else if (board.beach[row][col] == 1)
 					g.setColor(Color.BLUE);
+				else if (board.beach[row][col] == 2) //grass
+					g.setColor(Color.GREEN);
+				else if (board.beach[row][col] == 3) //gabion
+					g.setColor(Color.LIGHT_GRAY);
+				else if (board.beach[row][col] == 4) //wall
+					g.setColor(Color.WHITE);
 				
 				g.fillRect(col*(board.getWidth() - 100)/12, 
 						board.posArr[row], (board.getWidth() - 100)/12, board.getHeight()/6);
@@ -133,10 +138,10 @@ public class BeachView extends JPanel{
 		g.setColor(Color.GREEN);
 		g.fillRect(board.getWidth() - 100, board.getHeight()/2, 100, board.getHeight()/6);
 		
-		g.setColor(Color.BLACK);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(board.getWidth() - 100, 4*board.getHeight()/6 - 15, 100, board.getHeight()/6);
 		
-		g.setColor(Color.GRAY);
+		g.setColor(Color.WHITE);
 		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
 		
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
@@ -154,18 +159,19 @@ public class BeachView extends JPanel{
 			Wave currWave = wavesIt.next();
 			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength()*20, 10);
 		}
-		if (board.placeProtector() == 1){
+		/*
+		if (board.placeProtectorX() == 1){
 			g.setColor(Color.GREEN);
-			g.drawRect(board.placeProtector()+10, board.shoreline, 12/board.getWidth() - 100, 10);
+			g.drawRect(board.placeProtectorX()+10, board.shoreline, 12/board.getWidth() - 100, 10);
 		}
-		else if (board.placeProtector() == 2){
+		else if (board.placeProtectorX() == 2){
 			g.setColor(Color.BLACK);
-			g.drawRect(board.placeProtector()+10, board.shoreline, 12/board.getWidth() - 100, 10);
+			g.drawRect(board.placeProtectorX()+10, board.shoreline, 12/board.getWidth() - 100, 10);
 		}
-		else if (board.placeProtector() == 3){
+		else if (board.placeProtectorX() == 3){
 			g.setColor(Color.GRAY);
-			g.drawRect(board.placeProtector()+10, board.shoreline, 12/board.getWidth() - 100, 10);
-		}	
+			g.drawRect(board.placeProtectorX()+10, board.shoreline, 12/board.getWidth() - 100, 10);
+		}*/	
 	}
 }
 

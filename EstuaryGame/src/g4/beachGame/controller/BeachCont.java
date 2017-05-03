@@ -27,7 +27,7 @@ public class BeachCont implements MiniGameController{
 	final int timeBetweenBoats= 6;
 	
 	public BeachCont() {
-		bView.addKeyListener(new Listener(board1.user));
+		bView.addKeyListener(new Listener(board1));
 		frameCounter=0;
 		framesBetweenBoats=180;
 	} 

@@ -17,8 +17,10 @@ public class Listener implements KeyListener {
 	
 	private int SPACEBAR = KeyEvent.VK_SPACE;
 	private User user;
-	public Listener(User user) {
-		this.user = user;
+	private Board board;
+	public Listener(Board board) {
+		this.user = board.user;
+		this.board = board;
 	}
 
 	//@Override
@@ -40,10 +42,10 @@ public class Listener implements KeyListener {
 			loc++;
 		if (loc < ARROW_KEYS.length)
 			keysDown[loc] = false;
-		if (code == SPACEBAR && Board.protector ==-1)
-			Board.getProtector();
-		else if (code == SPACEBAR && Board.protector != -1)
-			Board.placeProtector();
+		if (code == SPACEBAR && board.getProtector() ==-1)
+			board.chooseProtector();
+		else if (code == SPACEBAR && board.getProtector() != -1)
+			board.placeProtector();
 		setUserDirection();
 	}
 
