@@ -52,7 +52,7 @@ public class Board {
 	public User user;
 	int difficulty;
 	
-	/*creates a new board of waves and protectors*/
+	/**creates a new board of waves and protectors*/
 	public Board(){
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
@@ -127,11 +127,20 @@ public class Board {
 		}
 	}
 	
-	/*creates a new wave based on the boat*/
+	/**
+	 * 
+	 * @param boat
+	 */
 	public void createWave(Boat boat){
 		getCurrWaves().add(new Wave(boat));
 	}
 	
+	/**
+	 * This method sets the beach grid when the wave hits the shore.  If the shore is already at
+	 * the bottom of the screen, the shore is destroyed. If the wave hits the shore, that cell becomes 
+	 * water. If the wave hits a protector, the cell becomes the shore.
+	 * @param x the x location of the wave
+	 */
 	public void wavehit(int x){
 		int depth = 0;
 		int spot = (int)(SPACES_OF_SHORE*x/SHORELINE_WIDTH);//the spot along the shoreline
@@ -151,7 +160,10 @@ public class Board {
 		}
 	}
 
-	
+	/**
+	 * Returns the protector closest to the user by the user's position on the grid.
+	 * @return the integer representing the protector chosen
+	 */
 	public int chooseProtector() {
 		if ((int)(user.getxLoc()+user_width)*12/SHORELINE_WIDTH == 11){ //need to change magic number
 			if (user.getyLoc() <4*HEIGHT/6 - 15)
@@ -164,14 +176,19 @@ public class Board {
 		return protector;
 	}
 	
+	/**
+	 * Returns the current protector.
+	 * @return the integer representing the current protector
+	 */
 	public int getProtector(){
 		return protector;
 	}
 	
-	//if the user is close to the shoreline, place protector in current "spot" along the shore
+	/**
+	 * Sets specific cell of beachgrid on the shoreline at user's xlocation to a protector.
+	 */
 	public void placeProtector(){
 		int depth = 0;
-		//if (user.getyLoc() < shoreline + 50)
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
 		while (depth < beach.length && beach[depth][spot] == WATER)
 			depth++;
@@ -179,26 +196,38 @@ public class Board {
 		protector = -1;
 	}
 	
-	/*getters*/
+	/**
+	 * Returns the array of current boats on the screen.
+	 * @return the array of current boats on the screen
+	 */
 	public ArrayList<Boat> getCurrBoats() {return currBoats;}
+	
+	/**
+	 * Returns the width of the board.
+	 * @return the width of the board
+	 */
 	public int getWidth(){return WIDTH;}
+	
+	/**
+	 * Returns the height of the board.
+	 * @return the height of the board
+	 */
 	public int getHeight(){return HEIGHT;}
+	
+	/**
+	 * Returns the arraylist of current waves on the screen.
+	 * @return the arraylist of current waves on the screen
+	 */
 	public ArrayList<Wave> getCurrWaves() {return currWaves;}
 
-	/*setters*/
+	/**
+	 * Sets the attribute currWaves to the parameter currWaves.
+	 * @param currWaves the arraylist to replace the attribute currWaves
+	 */
 	public void setCurrWaves(ArrayList<Wave> currWaves) {
 		this.currWaves = currWaves;
 	}
 	
-//	public void checkWaves(){
-//	Iterator<Wave> waveIt = getCurrWaves().iterator();
-//	while (waveIt.hasNext()){
-//		Wave currWave = waveIt.next();
-//		if (currWave.getX()>WIDTH ||currWave.getX()<0||currWave.getY()>shoreline){
-//			currWaves.remove(currWave);
-//		}
-//	}
-//}
 }
 
 
