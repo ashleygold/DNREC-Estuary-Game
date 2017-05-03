@@ -17,6 +17,16 @@ public class Board {
 	private int protector = -1;
 	public int user_width = 100;
 	
+	final static int GRASS = 1;
+	final static int GABION = 2;
+	final static int WALL = 3;
+	
+	final static int WATER = 1; 
+	final static int SHORE = 0; 
+	final static int PROTECTOR = 2;
+	
+	final static int SPACES_OF_SHORE = 12;
+	
 	public int[][] beach = new int[3][12]; //height, width
 	
 	public int[] posArr = {HEIGHT/2, 4*HEIGHT/6 - 15, 5*HEIGHT/6 - 30};
@@ -127,20 +137,19 @@ public class Board {
 	
 	public void wavehit(int x){
 		int depth = 0;
-		if ((int)(12*x/(WIDTH - 100)) < 12){
-			//1: water
-			//0: shore
-			//2: protector
-			while (depth < beach.length && beach[depth][(int)(12*x/(WIDTH - 100))] == 1)
+		int spot = (int)(SPACES_OF_SHORE*x/(WIDTH - 100));//the spot along the shoreline
+		if (x < (int)(WIDTH-100)){
+			while (depth < beach.length && beach[depth][spot] == WATER)
 				depth++;
-			if (depth == beach.length)
+			if (depth == beach.length) // the shore has reached the bottom of the screen
 				shoreDestroyed = true;
-			else if (beach[depth][(int)(12*x/(WIDTH - 100))] == 0){
+			else if (beach[depth][spot] == SHORE){
 				System.out.println();
-				beach[depth][(int)(12*x/(WIDTH - 100))] = 1;
+				beach[depth][spot] = WATER;
 			}
-			else if (beach[depth][(int)(12*x/(WIDTH - 100))] == 2){
-				beach[depth][(int)(12*x/(WIDTH - 100))] = 0;
+			else if (beach[depth][spot] == PROTECTOR){
+				//some code that reduces the life of a protector
+				beach[depth][spot] = SHORE;
 			}
 			System.out.println("wavehit");
 		}
@@ -150,11 +159,11 @@ public class Board {
 	public int chooseProtector() {
 		if ((int)(user.getxLoc()+user_width)*12/(WIDTH-100) == 11){ //need to change magic number
 			if (user.getyLoc() <4*HEIGHT/6 - 15)
-				protector = 1; //grass
+				protector = GRASS;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
-				protector = 2; //gabion
+				protector = GABION; 
 			else
-				protector = 3; //wall
+				protector = WALL; 
 		}
 		return protector;
 	}
