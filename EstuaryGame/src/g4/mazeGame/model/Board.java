@@ -6,17 +6,20 @@ import java.util.Random;
 
 public class Board {
 	
-	private User user;
-	public boolean eaten=false;
-	static Random rand; // Global variable
-	public final int HEIGHT = 17;
-	public final int WIDTH = 19;
-	private final int[] goalFood = {10, 7, 5};
-	private int salinity = 3;
+	/** the maximum allowable salinity, equivalently the number of levels */
 	public static final int MAX_SALINITY = 3;
+	/** the height of the board */
+	
+	public final int HEIGHT = 17;
+	/** the width of the board */
+	public final int WIDTH = 19;
+	
+	/** the goal food for the various levels */
+	private final int[] goalFood = {10, 7, 5};
+	/** the number of predators for the various levels */
 	private final int[] NUM_PREDATORS = {3, 2, 1};
-	int totalFood;
-	private String startboard1 =
+	/** the base board for the first level */
+	private final String startboard1 =
 			 "##########*########\n"
 			+"###...#...^.#.....#\n"
 			+"#...........#..#.##\n"
@@ -34,7 +37,8 @@ public class Board {
 			+"#..#####...#####..#\n"
 			+"#.................#\n"
 			+"###################\n";
-	private String startboard2 =
+	/** the base board for the second level */
+	private final String startboard2 =
 			 "#########*#########\n"
 			+"####.....^.....####\n"
 			+"##....#######...###\n"
@@ -52,7 +56,8 @@ public class Board {
 			+"#..........###....#\n"
 			+"#..####...........#\n"
 			+"###################\n";
-	private String startboard3 =
+	/** the base board for the third level */
+	private final String startboard3 =
 			 "#########*#########\n"
 			+"#.....#..^..#.....#\n"
 			+"####........#..####\n"
@@ -70,13 +75,27 @@ public class Board {
 			+"########...########\n"
 			+"#.................#\n"
 			+"###################\n";
+	/** the base boards for the various levels */
+	private final String[] startBoards = {startboard3, startboard2, startboard1};
 	
-	private String[] startBoards = {startboard3, startboard2, startboard1};
-	
+	/** if the user has been eaten */
+	private boolean isEaten=false;
+	/** the random generation for board */
+	private static Random rand; // Global variable
+	/** the user in the board */
+	private User user;
+	/** representation of the actual board */
 	private ArrayList<ArrayList<Character>> boardArr = new ArrayList<ArrayList<Character>>();
-	
+	/** all of the Predators on the board */
 	private List<Predator> hunters = new ArrayList<Predator>();
+	/** the salinity (level) for the board */
+	private int salinity = 3;
 	
+	/**
+	 * Constructs a board with the specified level (salinity) and difficulty (deaths).
+	 * @param s salinity (level) of the board
+	 * @param deaths difficulty. The number of times the user has died on this level.  
+	 */
 	public Board(int s, int deaths){
 		salinity = s;
 		String new_start = generateFood();
@@ -100,34 +119,23 @@ public class Board {
 			hunters.add(new Predator(this, user, yTest, xTest));
 		}
 	}
-	
-	public int getHeight() {
-		return HEIGHT;
-	}
 
-	public int getWidth() {
-		return WIDTH;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public List<Predator> getPredator() {
-		return hunters;
-	}
-
-	public char getCell(int x, int y) {	
-		return boardArr.get(y).get(x);
-	}
-
-	public static int randomItem(ArrayList<Integer> mylist) {
+	/**
+	 * Selects and removes a random item from the list.  Used by generateFood()
+	 * @param mylist the list of integer locations 
+	 * @return a random (valid) location
+	 */
+	private static int randomItem(ArrayList<Integer> mylist) {
 	    rand = new Random(); 
 	    Integer randomInt = mylist.get(rand.nextInt(mylist.size()));
 	    mylist.remove(randomInt);
 	    return randomInt;
 	}
 	
+	/**
+	 * Loads the correct base maze string and adds the correct amount of food bits.    
+	 * @return string representation of the board, with food
+	 */
 	private String generateFood() {
 		char[] board = startBoards[salinity - 1].toCharArray();
 		ArrayList<Integer> possibilities = new ArrayList<Integer>();
@@ -144,14 +152,38 @@ public class Board {
         return String.valueOf(board);
 	}
 	
-	public boolean isEmpty(double x, double y){
-		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o' || getCell((int)x, (int)y) == 'W' || getCell((int)x, (int)y) == '^');
+	/**
+	 * Checks if the space is open for the user to move to.  A space is open if it is not a wall.  
+	 * @param x the x-location
+	 * @param y the y-location
+	 * @return if the space is empty
+	 */
+	protected boolean isEmpty(double x, double y){
+		return (getCell((int)x, (int)y) == '.' ||
+				getCell((int)x, (int)y) == 'o' ||
+				getCell((int)x, (int)y) == 'W' ||
+				getCell((int)x, (int)y) == '^');
 	}
 	
-	public boolean isEmptyPred(double x, double y){
-		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o' || getCell((int)x, (int)y) == '^');
+	/**
+	 * Checks if the space is open for a predator to move to.  A space is open if it is not a wall or the exit.
+	 * @param x the x-location
+	 * @param y the y-location
+	 * @return if the space is empty
+	 */
+	protected boolean isEmptyPred(double x, double y){
+		return (getCell((int)x, (int)y) == '.' ||
+				getCell((int)x, (int)y) == 'o' ||
+				getCell((int)x, (int)y) == '^');
 	}
 	
+	/**
+	 * Tries to eat the food at a location.  If the location is food, the food is removed and true is returned.  
+	 * Otherwise false is returned.  
+	 * @param x the x-location
+	 * @param y the y-location
+	 * @return if food was successfully eaten
+	 */
 	protected boolean eatFood(double x, double y){
 		if (getCell((int)x, (int)y) == 'o'){
 			boardArr.get((int)y).set((int)x, '.');
@@ -161,21 +193,32 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Checks if the user has won the game.  The user wins if the location is the goal.  
+	 * @param x the x-location
+	 * @param y the y-location
+	 * @return if the user has won the game.  
+	 */
 	protected boolean winGame(double x, double y){
-		if (getCell((int)x, (int)y) == 'W' || getCell((int)x, (int)y) == 'E' ){
+		if (getCell((int)x, (int)y) == 'W'){
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
+	/**
+	 * Updates the board by a frame
+	 */
 	public void update(){
 		user.update();
 		for(Predator x : hunters){
 			x.move();
 		}
 	}
-	
+	/**
+	 * Opens the goal to all the user to win.  Called when the user collects all the food.  
+	 */
 	protected void openGate(){
 		int x = 0;
 		int y = 0;
@@ -191,12 +234,49 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Sets the "eaten" flag to true, called when the user has been eaten
+	 */
+	protected void eatUser(){
+		isEaten = true;
+	}
+	
+	/**
+	 * Returns the character value of the specified location
+	 * @param x the x-location
+	 * @param y the y-location
+	 * @return the character cell at the specified location
+	 */
+	public char getCell(int x, int y) {	
+		return boardArr.get(y).get(x);
+	}
+	
 	public int getGoalFood(){
 		return goalFood[salinity - 1];
 	}
 	
 	public int getSalinity(){
 		return salinity;
+	}
+	
+	public int getHeight() {
+		return HEIGHT;
+	}
+
+	public int getWidth() {
+		return WIDTH;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public List<Predator> getPredator() {
+		return hunters;
+	}
+	
+	public boolean getIsEaten(){
+		return isEaten;
 	}
 	
 }
