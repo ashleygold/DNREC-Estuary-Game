@@ -10,6 +10,7 @@ import g4.beachGame.controller.BeachCont;
 public class Board {
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
 	final static int WIDTH = 1100; 
+	final static int SHORELINE_WIDTH = WIDTH-100; 
 	final static int HEIGHT = 600;
 	public static int shoreline = HEIGHT/2; //where the shore starts
 	private boolean shoreDestroyed = false; 
@@ -119,17 +120,6 @@ public class Board {
 		}
 	}
 	
-	
-//	public void checkWaves(){
-//		Iterator<Wave> waveIt = getCurrWaves().iterator();
-//		while (waveIt.hasNext()){
-//			Wave currWave = waveIt.next();
-//			if (currWave.getX()>WIDTH ||currWave.getX()<0||currWave.getY()>shoreline){
-//				currWaves.remove(currWave);
-//			}
-//		}
-//	}
-	
 	/*creates a new wave based on the boat*/
 	public void createWave(Boat boat){
 		getCurrWaves().add(new Wave(boat));
@@ -137,7 +127,7 @@ public class Board {
 	
 	public void wavehit(int x){
 		int depth = 0;
-		int spot = (int)(SPACES_OF_SHORE*x/(WIDTH - 100));//the spot along the shoreline
+		int spot = (int)(SPACES_OF_SHORE*x/SHORELINE_WIDTH);//the spot along the shoreline
 		if (x < (int)(WIDTH-100)){
 			while (depth < beach.length && beach[depth][spot] == WATER)
 				depth++;
@@ -151,13 +141,12 @@ public class Board {
 				//some code that reduces the life of a protector
 				beach[depth][spot] = SHORE;
 			}
-			System.out.println("wavehit");
 		}
 	}
 
 	
 	public int chooseProtector() {
-		if ((int)(user.getxLoc()+user_width)*12/(WIDTH-100) == 11){ //need to change magic number
+		if ((int)(user.getxLoc()+user_width)*12/SHORELINE_WIDTH == 11){ //need to change magic number
 			if (user.getyLoc() <4*HEIGHT/6 - 15)
 				protector = GRASS;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
@@ -167,25 +156,25 @@ public class Board {
 		}
 		return protector;
 	}
+	
 	public int getProtector(){
 		return protector;
 	}
 	
-	//if the user is close to the shoreline, place protector in current x location
+	//if the user is close to the shoreline, place protector in current "spot" along the shore
 	public void placeProtector(){
-		int x = 0;
 		int depth = 0;
 		//if (user.getyLoc() < shoreline + 50)
-		x = (int)user.getxLoc()*12/(WIDTH-100);
-		while (depth < beach.length && beach[depth][(int)(12*x/(WIDTH - 100))] == 1)
+		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
+		while (depth < beach.length && beach[depth][(int)(SPACES_OF_SHORE*spot/SHORELINE_WIDTH)] != SHORE)
 			depth++;
-		System.out.println("x location of protector: " + x + "ylocation of protector: " + depth);
-		if (getProtector()==1) //grass
-			beach[depth][x] = 2;
-		else if (getProtector()==2) //gabion
-			beach[depth][x] = 3;
-		else if (getProtector()==3) //wall
-			beach[depth][x] = 4;
+		System.out.println("x location of protector: " + spot + "ylocation of protector: " + depth);
+		if (getProtector()== GRASS)
+			beach[depth][spot] = SHORE;
+		else if (getProtector()== GABION)
+			beach[depth][spot] = 3;
+		else if (getProtector()==WALL)
+			beach[depth][spot] = 4;
 		protector = -1;
 	}
 	
@@ -199,6 +188,16 @@ public class Board {
 	public void setCurrWaves(ArrayList<Wave> currWaves) {
 		this.currWaves = currWaves;
 	}
+	
+//	public void checkWaves(){
+//	Iterator<Wave> waveIt = getCurrWaves().iterator();
+//	while (waveIt.hasNext()){
+//		Wave currWave = waveIt.next();
+//		if (currWave.getX()>WIDTH ||currWave.getX()<0||currWave.getY()>shoreline){
+//			currWaves.remove(currWave);
+//		}
+//	}
+//}
 }
 
 
