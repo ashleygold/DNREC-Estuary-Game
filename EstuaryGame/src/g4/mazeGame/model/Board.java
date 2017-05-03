@@ -8,37 +8,36 @@ public class Board {
 	
 	private User user;
 	public boolean eaten=false;
-	
 	static Random rand; // Global variable
 	public final int HEIGHT = 17;
 	public final int WIDTH = 19;
-	private final int[] goalFood = {15, 10, 5};
+	private final int[] goalFood = {10, 7, 5};
 	private int salinity = 3;
 	public static final int MAX_SALINITY = 3;
-	private final int[] NUM_PREDATORS = {4, 2, 1};
+	private final int[] NUM_PREDATORS = {3, 2, 1};
 	int totalFood;
 	private String startboard1 =
 			 "##########*########\n"
-			+"###...#.....#.....#\n"
-			+"#...........#..####\n"
+			+"###...#...^.#.....#\n"
+			+"#...........#..#.##\n"
 			+"#...##..#...#..#..#\n"
 			+"#...##..#.........#\n"
-			+"#.......#.....#####\n"
+			+"#.......#.....###.#\n"
 			+"#..#...####.......#\n"
 			+"#..#........#.##..#\n"
 			+"#..####.....#.....#\n"
 			+"#........#######..#\n"
 			+"#####.............#\n"
-			+"#...#.....######..#\n"
+			+"#.........######..#\n"
 			+"##..###........#..#\n"
 			+"#..............#..#\n"
 			+"#.######...#####..#\n"
 			+"#.................#\n"
 			+"###################\n";
 	private String startboard2 =
-			 "###################\n"
-			+"#####.........#####\n"
-			+"###...#######...###\n"
+			 "#########*#########\n"
+			+"#####....^....#####\n"
+			+"##....#######...###\n"
 			+"##..###.....#....##\n"
 			+"#...........#.....#\n"
 			+"####...###........#\n"
@@ -51,11 +50,11 @@ public class Board {
 			+"#..#...###...#..###\n"
 			+"#..#####....##..###\n"
 			+"#..........###....#\n"
-			+"###*###...........#\n"
+			+"#..####...........#\n"
 			+"###################\n";
 	private String startboard3 =
-			 "##########*########\n"
-			+"#.....#.....#.....#\n"
+			 "#########*#########\n"
+			+"#.....#..^..#.....#\n"
 			+"####........#..####\n"
 			+"#.......#...#..#..#\n"
 			+"#..###..#.........#\n"
@@ -146,11 +145,11 @@ public class Board {
 	}
 	
 	public boolean isEmpty(double x, double y){
-		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o' || getCell((int)x, (int)y) == 'W');
+		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o' || getCell((int)x, (int)y) == 'W' || getCell((int)x, (int)y) == '^');
 	}
 	
 	public boolean isEmptyPred(double x, double y){
-		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o');
+		return (getCell((int)x, (int)y) == '.' || getCell((int)x, (int)y) == 'o' || getCell((int)x, (int)y) == '^');
 	}
 	
 	protected boolean eatFood(double x, double y){
@@ -163,7 +162,7 @@ public class Board {
 	}
 	
 	protected boolean winGame(double x, double y){
-		if (getCell((int)x, (int)y) == 'W'){
+		if (getCell((int)x, (int)y) == 'W' || getCell((int)x, (int)y) == 'E' ){
 			return true;
 		} else {
 			return false;
@@ -183,9 +182,8 @@ public class Board {
 		while (x < HEIGHT){
 			y = 0;
 			while (y < WIDTH){
-				if (boardArr.get(x).get(y) == '*') {
+				if (boardArr.get(x).get(y) == '*' || boardArr.get(x).get(y) == '^' ) {
 					boardArr.get(x).set(y, 'W');
-					return;
 				}
 				y++;
 			}

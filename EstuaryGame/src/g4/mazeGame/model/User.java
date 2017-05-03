@@ -7,6 +7,7 @@ import g4.mainController.MainMenu;
 public class User {
 	//reference to board
 	private final Board board;
+	private boolean dispose;
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
@@ -43,8 +44,13 @@ public class User {
 			board.openGate();
 			gateOpened = true;
 		}
-		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
-			JOptionPane.showMessageDialog(null, "You win! Press OK to advance to Stage 2 (when it exists).");
+		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG) && board.getGoalFood()<10){
+			JOptionPane.showMessageDialog(null, "Great job! The salinity has decreased by 25%. Press OK to advance to the next stage.");
+			return true;
+		}
+		else if ((board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG) && board.getGoalFood()==10)){
+			JOptionPane.showMessageDialog(null, "You win! You made it to an area of lower salinity, so now you can grow big and strong!");
+			dispose = true;
 			return true;
 		}
 		else{
@@ -209,7 +215,6 @@ public class User {
 		direction = d;
 	}
 	
-	
 	public int getFoodCount() {
 		return foodCount;
 	}
@@ -218,5 +223,9 @@ public class User {
 	}
 	public void increaseFood(){
 		setFoodCount(foodCount+1);
+	}
+	
+	public boolean getDispose(){
+		return dispose;
 	}
 }

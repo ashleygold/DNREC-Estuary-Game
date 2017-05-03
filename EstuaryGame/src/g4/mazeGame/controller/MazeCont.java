@@ -1,6 +1,7 @@
 package g4.mazeGame.controller;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import g4.mainController.MiniGameController;
 import g4.mazeGame.model.Board;
@@ -58,8 +59,8 @@ public class MazeCont implements MiniGameController {
 			} else if (board.eaten==true){
 				lowerDifficulty();
 			}
-		} else {
-			//victory thing
+		} else if (board.getUser().getDispose()==true) {
+			dispose();
 		}
 	}
 

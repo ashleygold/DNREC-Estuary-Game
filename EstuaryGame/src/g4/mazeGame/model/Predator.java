@@ -11,7 +11,7 @@ public class Predator {
 	
 	//movement variables
 	private double xLoc, yLoc;
-	private final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
+	private final double MOVE_SPEED = 3.5/MainMenu.MAZE_FPS;
 	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
