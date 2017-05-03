@@ -173,9 +173,8 @@ public class Board {
 		int depth = 0;
 		//if (user.getyLoc() < shoreline + 50)
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
-		while (depth < beach.length && beach[depth][(int)(SPACES_OF_SHORE*spot/SHORELINE_WIDTH)] == WATER)
+		while (depth < beach.length && beach[depth][spot] == WATER)
 			depth++;
-		System.out.println("x location of protector: " + spot + "ylocation of protector: " + depth);
 		beach[depth][spot] = getProtector();
 		protector = -1;
 	}
