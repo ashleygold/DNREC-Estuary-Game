@@ -8,22 +8,38 @@ import java.util.TimerTask;
 import g4.beachGame.controller.BeachCont;
 
 public class Board {
+	/** the amount of seconds that is equals 1 hour on the time of the game**/
 	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
+	
+	/**width of the board**/
 	final static int WIDTH = 1100; 
+	
+	/**width of the shore (not including the last column reserved for protectors)**/
 	final static int SHORELINE_WIDTH = WIDTH-100; 
+
+	/**the number of spots along the shore where the user can place protectors**/
+	final static int SPACES_OF_SHORE = 12;
+	
+	/**height of the board**/
 	final static int HEIGHT = 600;
+	
+	/**the x location where the shoreline is **/
 	public static int shoreline = HEIGHT/2; //where the shore starts
-	private boolean shoreDestroyed = false; 
+	
+	/**whether or not the a spot along the shore has receded to the bottom of the screen**/
+	private boolean isShoreDestroyed = false; 
+	
+	//DELETE THIS EVENTUALLY
+	/**how much the shore recedes every time**/
 	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
+	
+	/**which protect is currently being used placed**/
 	private int protector = -1;
+	
+	/**the width of the user, which may change depending on the state**/
 	public int user_width = 100;
 	
-//	final static int GRASS = 1;
-//	final static int GABION = 2;
-//	final static int WALL = 3;
-
-//	final static int PROTECTOR = 2;
-	
+	/**final fields that represents types of objects on the board**/
 	final static int SHORE = 0; 
 	final static int WATER = 1; 
 	final static int GRASS = 2; 
@@ -33,26 +49,43 @@ public class Board {
 	final static int GABION_L = 6;
 	final static int GABION_2L = 7;
 	
-	final static int SPACES_OF_SHORE = 12;
-	
+	/**the array representing what was originally the shore**/
 	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
+	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
+	/**the array representing the protectors**/
 	public int[] posArr = {HEIGHT/2, 4*HEIGHT/6 - 15, 5*HEIGHT/6 - 30};
 	
+	/**how much time is left in the game**/
 	int hoursLeft; 
 	
+	/**nano seconds per second conversion**/
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
-	final static long START_TIME= System.nanoTime(); 
+	/**time when user starts playing**/
+	final static long START_TIME= System.nanoTime();
+	
+	/**how much time has passed in seconds since user started playing**/
 	public double elapsedTime=0;
 	
+	//THIS SHOULD BE ABLE TO BE DELETED, RIGHT JORDAN? 
+	/**ArrayList of protectors along the shore**/
 	ArrayList<Protector> protectorLine;
+	
+	/**current Waves on the screen moving towards the shore**/
 	private ArrayList<Wave> currWaves;
+	
+	/**current Boats on the screen**/
 	ArrayList<Boat> currBoats;
 	
+	/**the user**/
 	public User user;
+	
+	/**the game should get easier as people keep losing**/
 	int difficulty;
 	
-	/**creates a new board of waves and protectors*/
+	/**
+	 * creates a new board of waves and protectors
+	 * */
 	public Board(){
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
@@ -61,14 +94,18 @@ public class Board {
 		hoursLeft = 24;
 	}
 
-	/*returns how much time has elapsed in the game in seconds*/
+	/**
+	 * updates how much time has elapsed in the game in seconds
+	 * */
 	public void updateElapsedTime(){
 		long currTime=System.nanoTime();
 		elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
 		hoursLeft = (int) (elapsedTime /GAMESEC_PER_HOUR);
 	}
 
-	/*checks to see if player has won*/
+	/**
+	 * @return true if player has won, false if player has lost
+	 * */
 	public boolean win(){
 		if (hoursLeft==0 && shoreline>0)
 			return true;
@@ -76,15 +113,19 @@ public class Board {
 			return false;
 	}
 	
-	/*return true if the player has lost*/
+	/**
+	 * 
+	 * @return true if player has lost, false if player has not lost
+	 */
 	public boolean checkLost(){
-		return shoreDestroyed;
+		return isShoreDestroyed;
 	}
 	
 	
-	/*Checks to see if the waves has hit a protector along the shoreline.
+	/**Checks to see if the waves has hit a protector along the shoreline.
 	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
-	 *drops. */
+	 *drops. 
+	 **/
 	public void checkHitProtector(){
 		Iterator<Wave> wavesIt = getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
@@ -105,7 +146,10 @@ public class Board {
 		}
 	}
 	
-	/*creates a random new boat*/
+	/**
+	 * creates a random new boat of a random variety
+	 * Boats from most frequent to least frequent: Sailboat, Speedboats,and CruiseLiner
+	 */
 	public void createBoat(){
 		int randomNum = 1 + (int)(Math.random() * 7); 
 		if (randomNum>0 && randomNum<4)
@@ -116,7 +160,9 @@ public class Board {
 			currBoats.add(new CruiseLiner());
 	}
 	
-	/*remove boats from list of current Boats to paint*/
+	/**
+	 * remove boats from list of current Boats to paint
+	 */
 	public void checkBoats(){
 		Iterator<Boat> boatIt = getCurrBoats().iterator();
 		while (boatIt.hasNext()){
@@ -128,8 +174,9 @@ public class Board {
 	}
 	
 	/**
-	 * 
-	 * @param boat
+	 * @param boat : the boat that creates the wave
+	 * creates a new wave generated by the input parameter boat and adds it to the
+	 * of arrayList of waves currently on the board
 	 */
 	public void createWave(Boat boat){
 		getCurrWaves().add(new Wave(boat));
@@ -148,7 +195,7 @@ public class Board {
 			while (depth < beach.length && beach[depth][spot] == WATER)
 				depth++;
 			if (depth == beach.length) // the shore has reached the bottom of the screen
-				shoreDestroyed = true;
+				isShoreDestroyed = true;
 			else if (beach[depth][spot] == SHORE){
 				System.out.println();
 				beach[depth][spot] = WATER;
