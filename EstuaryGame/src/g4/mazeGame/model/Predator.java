@@ -21,7 +21,7 @@ public class Predator {
 	public final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	public final double BUFFER = 0.45;
+	public final double BUFFER = 0.36;
 	
 	public Predator(Board b, User u, int x, int y){
 		board = b;
@@ -112,7 +112,7 @@ public class Predator {
 	
 	private boolean checkEat(){
 		if (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5){
-			JOptionPane.showMessageDialog(null, "You lose :(");
+			JOptionPane.showMessageDialog(null, "You were eaten! You'll now restart the stage you were on.");
 			board.eaten=true;
 			return true;
 		}
@@ -120,7 +120,10 @@ public class Predator {
 			return false;
 		}
 	}
-		
+	
+	public int getDirection(){
+		return direction;
+	}
 	
 	public double getXLoc(){
 		return xLoc;

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import g4.beachGame.controller.BeachCont;
@@ -82,6 +83,9 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(game != null)
 					game.dispose();
+				JOptionPane.showMessageDialog(null, "You are a crab trying to grow bigger and stronger!\nCollect food"
+						+ " and progress through the three stages to go from areas of high salinity to lower salinity.\n"
+						+ "Don't get eaten by predators!");
 				game = new MazeCont();
 				fps = MAZE_FPS;
 			}

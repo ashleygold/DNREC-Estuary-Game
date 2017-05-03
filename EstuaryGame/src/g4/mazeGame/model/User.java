@@ -8,10 +8,12 @@ public class User {
 	//reference to board
 	private final Board board;
 	private boolean dispose;
+	private double picNum = 0;
+	int frameCount = 3;
 	
 	//movement variables
 	private double xLoc=15, yLoc=15;
-	private static final double MOVE_SPEED = 4.5/MainMenu.MAZE_FPS;
+	private static final double MOVE_SPEED = 5.5/MainMenu.MAZE_FPS;
 	private static final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
@@ -21,7 +23,7 @@ public class User {
 	public static final double CENTER_IMG = 0.5;
 	
 	//hitbox buffer
-	private static final double BUFFER = 0.36;
+	private static final double BUFFER = 0.27;
 	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
 	private int foodCount;
@@ -29,6 +31,10 @@ public class User {
 	
 	public User(Board b){
 		board = b;
+	}
+	
+	public int getPicNum(){
+		return (int) picNum;
 	}
 	
 	public void checkFood(){
@@ -66,6 +72,7 @@ public class User {
 	
 	private boolean tryMove(int tryDir){
 		//checks nested in the interest of efficiency
+		picNum = (picNum + .2) % frameCount;
 		switch(tryDir) {
 			case LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 

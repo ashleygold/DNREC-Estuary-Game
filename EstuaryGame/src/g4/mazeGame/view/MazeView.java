@@ -16,16 +16,29 @@ public class MazeView extends JPanel{
 	
 	private Board board;
 	public final int SLOT_SPACE=40;
+	private static final String[] crabImagesLoc = {"bluecrab_0.png",
+			"bluecrab_1.png", "bluecrab_2.png"};
+	private static final String[] turtleImagesLoc = {"turtle_east.png", "turtle_north.png",
+			"turtle_northeast.png", "turtle_northwest.png", "turtle_south.png", "turtle_southeast.png",
+			"turtle_southwest.png", "turtle_west.png"};
+	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
+	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
 	BufferedImage water = createImage("waterblock.jpg");
 	BufferedImage seaWall = createImage("seaweed2.jpg");
 	BufferedImage winGateUp = createImage("uparrow.png");
 	BufferedImage winGateLeft = createImage("leftarrow.png");
+	BufferedImage food = createImage("food.png");
+	BufferedImage salinity = createImage("salinity.png");
 			
 	
 	public MazeView(Board board) {
 		this.board = board;
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 		setFocusable(true);
+		for (int i = 0; i < crabImages.length; i++)
+			crabImages[i] = createImage(crabImagesLoc[i]);
+		for (int i = 0; i < turtleImages.length; i++)
+			turtleImages[i] = createImage(turtleImagesLoc[i]);
 	}
 	
 	public void changeBoard(Board board){
@@ -69,16 +82,39 @@ public class MazeView extends JPanel{
 				}
 			}
 		}
-		g.setColor(Color.LIGHT_GRAY);
+		
+		//spawning all predators
 		for(Predator x : board.getPredator()){
-			g.fillOval((int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), 
-					(int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), 5*SLOT_SPACE/6, 5*SLOT_SPACE/6);
+			if (x.getDirection()==1){
+				g.drawImage(turtleImages[7], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==2){
+				g.drawImage(turtleImages[0], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==3){
+				g.drawImage(turtleImages[1], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==4){
+				g.drawImage(turtleImages[4], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==5){
+				g.drawImage(turtleImages[2], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==6){
+				g.drawImage(turtleImages[3], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==7){
+				g.drawImage(turtleImages[5], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
+			if (x.getDirection()==8){
+				g.drawImage(turtleImages[6], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			}
 		}
 		
-		g.setColor(Color.RED);
-		g.fillOval((int)(board.getUser().getXLoc()*SLOT_SPACE + SLOT_SPACE/8), 
-				(int)(board.getUser().getYLoc()*SLOT_SPACE + SLOT_SPACE/8), 3*SLOT_SPACE/4, 3*SLOT_SPACE/4);
+		//spawning user
+		g.drawImage(crabImages[board.getUser().getPicNum()], (int)(board.getUser().getXLoc()*SLOT_SPACE + SLOT_SPACE/8), (int)(board.getUser().getYLoc()*SLOT_SPACE + SLOT_SPACE/8), null, this);
 		
+		//creating food bar
 		g.setColor(Color.GRAY);
 		g.fillRect(5, 5, board.getGoalFood()*20, 25);
 		
@@ -88,6 +124,9 @@ public class MazeView extends JPanel{
 		g.setColor(Color.WHITE);
 		g.drawRect(5, 5, board.getGoalFood()*20, 25);
 		
+		g.drawImage(food, 5, 5, null, this);
+		
+		//creating salinity bar
 		g.setColor(Color.BLUE);
 		g.fillRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
 		
@@ -98,5 +137,9 @@ public class MazeView extends JPanel{
 		
 		g.setColor(Color.GREEN);
 		g.drawRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
+		
+		g.drawImage(salinity, 530, 6, null, this);
+		
+		
 	}
 }
