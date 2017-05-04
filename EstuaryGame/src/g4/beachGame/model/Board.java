@@ -110,6 +110,7 @@ public class Board {
 	}
 	
 	/*remove boats from list of current Boats to paint*/
+	
 	public void checkBoats(){
 		Iterator<Boat> boatIt = getCurrBoats().iterator();
 		while (boatIt.hasNext()){
