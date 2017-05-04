@@ -19,24 +19,24 @@ import g4.storyGame.controller.StoryCont;
 public class MainMenu extends JPanel{
 	
 	//Exit program flag
-	static boolean exitFlag = false;
+	private static boolean exitFlag = false;
 	
 	//Current MiniGame
-	static MiniGameController game = null;
+	private static MiniGameController game = null;
 	
 	//Frame rate 
 	//Number of times models are updated and frames are repainted per second
-	static int fps = 24;
+	private static int fps = 24;
 	//allows for different games to process at different rates
 	public static final int MAZE_FPS = 60;
 	public static final int BEACH_FPS = 60;
 	public static final int STORY_FPS = 24;
 	
 	//State selection
-	static int curState = 0;
-	static final int DE = 0;
-	static final int TX = 1;
-	static final int FL = 2;
+	private static int curState = 0;
+	private static final int DE = 0;
+	private static final int TX = 1;
+	private static final int FL = 2;
 	
 	//Colors for menus
 	public static final Color SEA_GREEN = new Color(26, 255, 139);
@@ -44,7 +44,7 @@ public class MainMenu extends JPanel{
 	public static final Color TEXT_BROWN = new Color(101, 67, 33);
 	
 	//Text for label
-	static final String[] LABEL_NAMES = {"Delaware", "Texas", "Florida"};
+	private static final String[] LABEL_NAMES = {"Delaware", "Texas", "Florida"};
 	
 	public static void main(String [] args){
 		//create and set up frame defaults
