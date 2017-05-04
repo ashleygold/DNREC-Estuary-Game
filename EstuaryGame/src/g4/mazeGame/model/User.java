@@ -1,7 +1,5 @@
 package g4.mazeGame.model;
 
-import javax.swing.JOptionPane;
-
 import g4.mainController.MainMenu;
 
 public class User {
@@ -22,7 +20,7 @@ public class User {
 	private double picNum = 0;
 	
 	/**
-	 * the frame count of the game
+	 * the frame count of the user's images
 	 */
 	int frameCount = 3;
 	
@@ -65,7 +63,7 @@ public class User {
 	/**
 	 * hit box buffer
 	 */
-	private static final double BUFFER = 0.27;
+	private static final double BUFFER = 0.36;
 	
 	/**
 	 * diagonal hit box buffer
@@ -109,16 +107,11 @@ public class User {
 			board.openGate();
 			gateOpened = true;
 		}
-		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG) && board.getGoalFood()<10){
-			JOptionPane.showMessageDialog(null, "Great job! The salinity has decreased by 25%. Press OK to advance to the next stage.");
+		if (board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
+			if (board.getSalinity() == 1)
+				dispose = true;
 			return true;
-		}
-		else if ((board.winGame(xLoc + CENTER_IMG, yLoc + CENTER_IMG) && board.getGoalFood()==10)){
-			JOptionPane.showMessageDialog(null, "You win! You made it to an area of lower salinity, so now you can grow big and strong!");
-			dispose = true;
-			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
@@ -127,7 +120,8 @@ public class User {
 	 * updates user once per frame
 	 */
 	public void update() {
-		tryMove(direction);
+		if (tryMove(direction))
+			picNum = (picNum + .2) % frameCount;
 		checkFood();
 	}
 	
@@ -138,7 +132,6 @@ public class User {
 	 */
 	private boolean tryMove(int tryDir){
 		//checks nested in the interest of efficiency
-		picNum = (picNum + .2) % frameCount;
 		switch(tryDir) {
 			case LEFT:
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 

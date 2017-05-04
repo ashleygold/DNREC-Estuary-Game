@@ -31,6 +31,7 @@ public class MazeCont implements MiniGameController {
 	}
 	
 	private void nextGame(){
+		JOptionPane.showMessageDialog(null, "Great job! The salinity has decreased by 33%. Press OK to advance to the next stage.");
 		deaths = 0;
 		level++;
 		board = new Board(3 - level, deaths);
@@ -39,6 +40,7 @@ public class MazeCont implements MiniGameController {
 	}
 	
 	private void lowerDifficulty(){
+		JOptionPane.showMessageDialog(null, "You were eaten! You'll now restart the stage you were on.");
 		deaths++;
 		board = new Board(3 - level, deaths);
 		screen.changeBoard(board);
@@ -55,6 +57,7 @@ public class MazeCont implements MiniGameController {
 					nextGame();
 				} else {
 					checkWin = true;
+					JOptionPane.showMessageDialog(null, "You win! You made it to an area of lower salinity, so now you can grow big and strong!");
 				}
 			} else if (board.getIsEaten()){
 				lowerDifficulty();

@@ -26,7 +26,7 @@ public class MazeView extends JPanel{
 	BufferedImage water = createImage("waterblock.jpg");
 	BufferedImage seaWall = createImage("seaweed2.jpg");
 	BufferedImage winGateUp = createImage("uparrow.png");
-	BufferedImage winGateLeft = createImage("leftarrow.png");
+	//BufferedImage winGateLeft = createImage("leftarrow.png");
 	BufferedImage food = createImage("food.png");
 	BufferedImage salinity = createImage("salinity.png");
 			
@@ -85,34 +85,15 @@ public class MazeView extends JPanel{
 		
 		//spawning all predators
 		for(Predator x : board.getPredator()){
-			if (x.getDirection()==x.LEFT){
-				g.drawImage(turtleImages[x.LEFT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.RIGHT){
-				g.drawImage(turtleImages[x.RIGHT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.UP){
-				g.drawImage(turtleImages[x.UP], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.DOWN){
-				g.drawImage(turtleImages[x.DOWN], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.UP_RIGHT){
-				g.drawImage(turtleImages[x.UP_RIGHT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.UP_LEFT){
-				g.drawImage(turtleImages[x.UP_LEFT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.DOWN_RIGHT){
-				g.drawImage(turtleImages[x.DOWN_RIGHT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
-			if (x.getDirection()==x.DOWN_LEFT){
-				g.drawImage(turtleImages[x.DOWN_LEFT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
-			}
+			g.drawImage(turtleImages[x.getDirection()],
+					(int)(x.getXLoc()*SLOT_SPACE),
+					(int)(x.getYLoc()*SLOT_SPACE), null, this);
 		}
 		
 		//spawning user
-		g.drawImage(crabImages[board.getUser().getPicNum()], (int)(board.getUser().getXLoc()*SLOT_SPACE + SLOT_SPACE/8), (int)(board.getUser().getYLoc()*SLOT_SPACE + SLOT_SPACE/8), null, this);
+		g.drawImage(crabImages[board.getUser().getPicNum()],
+				(int)(board.getUser().getXLoc()*SLOT_SPACE),
+				(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
 		
 		//creating food bar
 		g.setColor(Color.GRAY);

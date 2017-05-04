@@ -89,7 +89,7 @@ public class Board {
 	/** all of the Predators on the board */
 	private List<Predator> hunters = new ArrayList<Predator>();
 	/** the salinity (level) for the board */
-	private int salinity = 3;
+	private int salinity;
 	
 	/**
 	 * Constructs a board with the specified level (salinity) and difficulty (deaths).
@@ -213,11 +213,13 @@ public class Board {
 	public void update(){
 		user.update();
 		for(Predator x : hunters){
-			x.move();
+			 if (x.move()){
+				 isEaten = true;
+			 }
 		}
 	}
 	/**
-	 * Opens the goal to all the user to win.  Called when the user collects all the food.  
+	 * Opens the goal to allow the user to win.  Called when the user collects all the food.  
 	 */
 	protected void openGate(){
 		int x = 0;
@@ -232,13 +234,6 @@ public class Board {
 			}
 			x++;
 		}
-	}
-	
-	/**
-	 * Sets the "eaten" flag to true, called when the user has been eaten
-	 */
-	protected void eatUser(){
-		isEaten = true;
 	}
 	
 	/**
