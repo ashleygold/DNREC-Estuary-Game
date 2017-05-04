@@ -20,7 +20,7 @@ public class Listener implements KeyListener {
 	private User user;
 	
 	/**
-	 * contructs a listener associated to the user
+	 * Constructs a listener associated to the user
 	 * @param user the user that the listener should modify
 	 */
 	public Listener(User user) {
@@ -36,6 +36,10 @@ public class Listener implements KeyListener {
 		keysDown = new boolean[4];
 	}
 
+	/**
+	 * runs when a key is pressed, updates user's direction through setUserDirection()
+	 * @param ke contains data of key pressed
+	 */
 	@Override
 	public void keyPressed(KeyEvent ke) {
 		int code = ke.getKeyCode();
@@ -47,6 +51,10 @@ public class Listener implements KeyListener {
 		setUserDirection();
 	}
 
+	/**
+	 * runs when a key is released, updates user's direction through setUserDirection()
+	 * @param ke contains data of key released
+	 */
 	@Override
 	public void keyReleased(KeyEvent ke) {
 		int code = ke.getKeyCode();
@@ -58,13 +66,17 @@ public class Listener implements KeyListener {
 		setUserDirection();
 	}
 
+	/**
+	 * Override normal key-typed functionality
+	 * @param arg0 ignored
+	 */
 	//@Override
 	public void keyTyped(KeyEvent arg0) {}
 	
 	/**
 	 * sets the direction of the associated user to the correct direction based on which keys are depressed 
 	 */
-	public void setUserDirection(){
+	private void setUserDirection(){
 		if (keysDown[UP_ARROW] && keysDown[LEFT_ARROW])
 			user.setDirection(User.UP_LEFT);
 		else if (keysDown[DOWN_ARROW] && keysDown[LEFT_ARROW])
