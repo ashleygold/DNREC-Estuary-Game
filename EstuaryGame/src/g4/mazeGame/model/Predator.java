@@ -13,9 +13,8 @@ public class Predator {
 	private double xLoc, yLoc;
 	private final double MOVE_SPEED = 3.5/MainMenu.MAZE_FPS;
 	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
-	public final int RIGHT = 0, UP = 1, UP_RIGHT = 2, UP_LEFT = 3, DOWN = 4, 
-			 DOWN_RIGHT = 5, DOWN_LEFT = 6, STILL = 8, LEFT = 7; 
-			 
+	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
+			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
 	private int direction = STILL;
 	
 	//use the center of the user for wall detection
@@ -108,7 +107,7 @@ public class Predator {
 	}
 	
 	private void newDirection(){
-		direction = (int)(8*Math.random());
+		direction = (int)(1 + 8*Math.random());
 	}
 	
 	private boolean checkEat(){

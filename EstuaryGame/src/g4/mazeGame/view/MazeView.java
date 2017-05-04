@@ -85,29 +85,29 @@ public class MazeView extends JPanel{
 		
 		//spawning all predators
 		for(Predator x : board.getPredator()){
-			if (x.getDirection()==x.LEFT){
-				g.drawImage(turtleImages[x.LEFT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==1){
+				g.drawImage(turtleImages[7], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.RIGHT){
-				g.drawImage(turtleImages[x.RIGHT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==2){
+				g.drawImage(turtleImages[0], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.UP){
-				g.drawImage(turtleImages[x.UP], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==3){
+				g.drawImage(turtleImages[1], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.DOWN){
-				g.drawImage(turtleImages[x.DOWN], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==4){
+				g.drawImage(turtleImages[4], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.UP_RIGHT){
-				g.drawImage(turtleImages[x.UP_RIGHT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==5){
+				g.drawImage(turtleImages[2], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.UP_LEFT){
-				g.drawImage(turtleImages[x.UP_LEFT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==6){
+				g.drawImage(turtleImages[3], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.DOWN_RIGHT){
-				g.drawImage(turtleImages[x.DOWN_RIGHT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==7){
+				g.drawImage(turtleImages[5], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
-			if (x.getDirection()==x.DOWN_LEFT){
-				g.drawImage(turtleImages[x.DOWN_LEFT], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
+			if (x.getDirection()==8){
+				g.drawImage(turtleImages[6], (int)(x.getXLoc()*SLOT_SPACE + SLOT_SPACE/12), (int)(x.getYLoc()*SLOT_SPACE + SLOT_SPACE/12), null, this);
 			}
 		}
 		
