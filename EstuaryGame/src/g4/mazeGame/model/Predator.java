@@ -114,7 +114,7 @@ public class Predator {
 	private boolean checkEat(){
 		if (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5){
 			JOptionPane.showMessageDialog(null, "You were eaten! You'll now restart the stage you were on.");
-			board.eaten=true;
+			board.eatUser();
 			return true;
 		}
 		else{

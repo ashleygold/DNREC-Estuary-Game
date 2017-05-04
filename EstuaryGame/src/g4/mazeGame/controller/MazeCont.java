@@ -56,10 +56,10 @@ public class MazeCont implements MiniGameController {
 				} else {
 					checkWin = true;
 				}
-			} else if (board.eaten==true){
+			} else if (board.getIsEaten()){
 				lowerDifficulty();
 			}
-		} else if (board.getUser().getDispose()==true) {
+		} else if (board.getUser().getDispose()) {
 			dispose();
 		}
 	}
