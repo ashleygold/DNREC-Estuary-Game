@@ -86,8 +86,6 @@ public class BeachCont implements MiniGameController{
 				currWave.activateWind();
 			else if (frameCounterWind>= framesBetweenWind+300){
 				currWave.ceaseWind();
-				frameCounterWind=0;
-				framesBetweenWind-=100;
 			}
 			currWave.move();
 			if (currWave.isOutOfRange()){
@@ -98,6 +96,11 @@ public class BeachCont implements MiniGameController{
 				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
 				wavesIt.remove();
 			}
+		}
+		
+		if (frameCounterWind<=framesBetweenWind+300){
+			frameCounterWind=0; //fix this
+			framesBetweenWind-=100;
 		}
 		
 		
