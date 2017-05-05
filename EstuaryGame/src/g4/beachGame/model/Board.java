@@ -29,10 +29,6 @@ public class Board {
 	/**whether or not the a spot along the shore has receded to the bottom of the screen**/
 	private boolean isShoreDestroyed = false; 
 	
-	//DELETE THIS EVENTUALLY
-	/**how much the shore recedes every time**/
-	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
-	
 	/**which protect is currently being used placed**/
 	private int protector = -1;
 	
@@ -40,14 +36,14 @@ public class Board {
 	public int user_width = 100;
 	
 	/**final fields that represents types of objects on the board**/
-	final static int SHORE = 0; 
-	final static int WATER = 1; 
-	final static int GRASS = 2; 
-	final static int GRASS_L =3; 
-	final static int WALL = 4;
-	final static int GABION = 5;
-	final static int GABION_L = 6;
-	final static int GABION_2L = 7;
+	public final static int SHORE = 0; 
+	public final static int WATER = 1; 
+	public final static int GRASS = 2; 
+	public final static int GRASS_L =3; 
+	public final static int WALL = 4;
+	public final static int GABION = 5;
+	public final static int GABION_L = 6;
+	public final static int GABION_2L = 7;
 	
 	/**the array representing what was originally the shore**/
 	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
@@ -66,10 +62,6 @@ public class Board {
 	
 	/**how much time has passed in seconds since user started playing**/
 	public double elapsedTime=0;
-	
-	//THIS SHOULD BE ABLE TO BE DELETED, RIGHT JORDAN? 
-	/**ArrayList of protectors along the shore**/
-	ArrayList<Protector> protectorLine;
 	
 	/**current Waves on the screen moving towards the shore**/
 	private ArrayList<Wave> currWaves;
@@ -90,7 +82,6 @@ public class Board {
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
 		user = new User();
-		protectorLine = new ArrayList<Protector>();
 		hoursLeft = 24;
 	}
 
@@ -119,31 +110,6 @@ public class Board {
 	 */
 	public boolean checkLost(){
 		return isShoreDestroyed;
-	}
-	
-	
-	/**Checks to see if the waves has hit a protector along the shoreline.
-	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
-	 *drops. 
-	 **/
-	public void checkHitProtector(){
-		Iterator<Wave> wavesIt = getCurrWaves().iterator();
-		while (wavesIt.hasNext()){
-			Wave currWave = wavesIt.next();
-			if (currWave.yloc >= shoreline){
-				Iterator<Protector> protit = protectorLine.iterator();
-				while (protit.hasNext()){
-					Protector currProt = protit.next();
-					if (currProt==null){
-						shoreline-=SHORELINE_RECEDING;
-					}
-					//if either end of the protector is within the bounds of wave, wave has hit it
-					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)
-							||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
-						currProt.loseLife();
-				}
-			}
-		}
 	}
 	
 	/**
@@ -188,22 +154,36 @@ public class Board {
 	 * water. If the wave hits a protector, the cell becomes the shore.
 	 * @param x the x location of the wave
 	 */
-	public void wavehit(int x){
+	public void wavehit(int l, int r){
 		int depth = 0;
-		int spot = (int)(SPACES_OF_SHORE*x/SHORELINE_WIDTH);//the spot along the shoreline
-		if (x < (int)(WIDTH-100)){
-			while (depth < beach.length && beach[depth][spot] == WATER)
-				depth++;
-			if (depth == beach.length) // the shore has reached the bottom of the screen
-				isShoreDestroyed = true;
-			else if (beach[depth][spot] == SHORE){
-				System.out.println();
-				beach[depth][spot] = WATER;
+		
+		//where the leftmost and right most portion of the wave hits
+		int left = (int)(SPACES_OF_SHORE*l/SHORELINE_WIDTH);
+		int right = (int)(SPACES_OF_SHORE*r/SHORELINE_WIDTH);
+		System.out.println("left length" + l + "spot" + left);
+		System.out.println("wave lenght" + r + "spot" +right);
+		for (int i = left; i<right; i++){
+			if (i < SHORELINE_WIDTH){
+				while (depth < beach.length && beach[depth][i] == WATER)
+					depth++;
+				if (depth == beach.length) // the shore has reached the bottom of the screen
+					isShoreDestroyed = true;
+				else if (beach[depth][i] == SHORE){
+					System.out.println();
+					beach[depth][i] = WATER;
+				}
+				else if (beach[depth][i] != WATER || beach[depth][i]!=SHORE){
+					replaceProtector(depth,i,beach[depth][i]);
+				}
 			}
-			else if (beach[depth][spot] != WATER || beach[depth][spot]!=SHORE){
-				//some code that reduces the life of a protector
-				beach[depth][spot] = SHORE;
-			}
+		}
+	}
+	
+	public void replaceProtector(int depth, int spot, int protector){
+		if (beach[depth][spot]==GRASS || beach[depth][spot]==GABION || beach[depth][spot]==WALL)
+			beach[depth][spot]=SHORE;
+		else {
+			beach[depth][spot]--;
 		}
 	}
 
@@ -213,21 +193,13 @@ public class Board {
 	 */
 	public int chooseProtector() {
 		if ((int)(user.getxLoc()+user_width)*12/SHORELINE_WIDTH == 11){ //need to change magic number
-			if (user.getyLoc() <4*HEIGHT/6 - 15)
+			if (user.getyLoc() <4*HEIGHT/6-15)
 				protector = GRASS_L;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
 				protector = GABION_2L; 
 			else
 				protector = WALL; 
 		}
-		return protector;
-	}
-	
-	/**
-	 * Returns the current protector.
-	 * @return the integer representing the current protector
-	 */
-	public int getProtector(){
 		return protector;
 	}
 	
@@ -242,6 +214,9 @@ public class Board {
 		beach[depth][spot] = getProtector();
 		protector = -1;
 	}
+	
+	/** @return the integer representing the current protector */
+	public int getProtector(){return protector;}
 	
 	/**
 	 * Returns the array of current boats on the screen.

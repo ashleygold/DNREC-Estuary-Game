@@ -1,11 +1,13 @@
 package g4.beachGame.model;
 
 
-
 public abstract class Boat{
+	/** x and y location of the boat **/
+	int xloc;
 	
-	int xloc; 
 	int yloc; 
+	
+	
 	int speed;
 	boolean direction; //true=right, false=left;
 	boolean hasEmittedWave;
