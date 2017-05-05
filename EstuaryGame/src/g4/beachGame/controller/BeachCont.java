@@ -33,7 +33,6 @@ public class BeachCont implements MiniGameController{
 	private int framesBetweenWind;
 	final int timeBetweenBoats= 6;
 	private int[] waveCounter= new int[12];
-	private ArrayList<Wave> trash = new ArrayList<Wave>();
 	
 	public BeachCont() {
 		bView.addKeyListener(new Listener(board1));
@@ -91,13 +90,17 @@ public class BeachCont implements MiniGameController{
 				framesBetweenWind-=100;
 			}
 			currWave.move();
-			currWave.isOutOfRange();
+			if (currWave.isOutOfRange()){
+				wavesIt.remove();
+			}
 			if (currWave.getY() >= Board.shoreline){
 				//board1.splitWave(currWave);
 				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
 				wavesIt.remove();
 			}
 		}
+		
+		
 		
 //		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
 //		while (splitWavesIt.hasNext()){
