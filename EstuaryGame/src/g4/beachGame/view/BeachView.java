@@ -144,7 +144,7 @@ public class BeachView extends JPanel{
 		g.setColor(Color.WHITE);
 		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
 		
-		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), null, this);
+		g.drawImage(crabImages[user.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), user.getxLoc(), user.getyLoc(), null, this);
 		
 		g.setColor(Color.DARK_GRAY);
 		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
@@ -159,19 +159,6 @@ public class BeachView extends JPanel{
 			Wave currWave = wavesIt.next();
 			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
 		}
-		/*
-		if (board.placeProtectorX() == 1){
-			g.setColor(Color.GREEN);
-			g.drawRect(board.placeProtectorX()+10, board.shoreline, 12/board.getWidth() - 100, 10);
-		}
-		else if (board.placeProtectorX() == 2){
-			g.setColor(Color.BLACK);
-			g.drawRect(board.placeProtectorX()+10, board.shoreline, 12/board.getWidth() - 100, 10);
-		}
-		else if (board.placeProtectorX() == 3){
-			g.setColor(Color.GRAY);
-			g.drawRect(board.placeProtectorX()+10, board.shoreline, 12/board.getWidth() - 100, 10);
-		}*/	
 	}
 }
 
