@@ -117,15 +117,15 @@ public class BeachView extends JPanel{
 		
 		for (int row = 0; row < board.beach.length; row++){
 			for (int col = 0; col < board.beach[0].length; col++){
-				if (board.beach[row][col] == 0)
+				if (board.beach[row][col] == Board.SHORE)
 					g.setColor(Color.YELLOW);
-				else if (board.beach[row][col] == 1)
+				else if (board.beach[row][col] == Board.WATER)
 					g.setColor(Color.BLUE);
-				else if (board.beach[row][col] == 2) //grass
+				else if (board.beach[row][col] == Board.GRASS || board.beach[row][col]==Board.GRASS_L)
 					g.setColor(Color.GREEN);
-				else if (board.beach[row][col] == 3) //gabion
+				else if (board.beach[row][col] >= Board.GABION || board.beach[row][col] <= Board.GABION_2L)
 					g.setColor(Color.LIGHT_GRAY);
-				else if (board.beach[row][col] == 4) //wall
+				else if (board.beach[row][col] == Board.WALL)
 					g.setColor(Color.WHITE);
 				
 				g.fillRect(col*(board.getWidth() - 100)/12, 
@@ -157,7 +157,7 @@ public class BeachView extends JPanel{
 		Iterator<Wave> wavesIt = board.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
-			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength()*20, 10);
+			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
 		}
 		/*
 		if (board.placeProtectorX() == 1){

@@ -29,7 +29,7 @@ public class BeachCont implements MiniGameController{
 	public BeachCont() {
 		bView.addKeyListener(new Listener(board1));
 		frameCounter=0;
-		framesBetweenBoats=180;
+		framesBetweenBoats=230;
 	} 
 
 	public void couldCreateWave(Boat boat){
@@ -54,7 +54,7 @@ public class BeachCont implements MiniGameController{
 		if (frameCounter==framesBetweenBoats){
 			board1.createBoat();
 			frameCounter=0;
-			framesBetweenBoats-=5;
+			framesBetweenBoats-=3;
 		}
 		
 		//waves move down screen
@@ -63,7 +63,7 @@ public class BeachCont implements MiniGameController{
 			Wave currWave = wavesIt.next();
 			currWave.move();
 			if (currWave.getY() >= Board.shoreline){
-				board1.wavehit(currWave.getX());
+				board1.wavehit(currWave.getX(),currWave.getX()+currWave.getLength());
 				wavesIt.remove();
 			}
 		}

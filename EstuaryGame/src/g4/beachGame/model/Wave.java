@@ -8,9 +8,9 @@ public class Wave {
 	int xloc;
 	int yloc;
 	 
-	final int CRUISELINER_LENGTH =10;
-	final int SAILBOAT_LENGTH=4;
-	final int SPEEDBOAT_LENGTH=2;
+	final int CRUISELINER_LENGTH = 200;
+	final int SAILBOAT_LENGTH = 80;
+	final int SPEEDBOAT_LENGTH = 40;
 	
 	final int CRUISELINER_DAMAGE = 3;
 	final int SAILBOAT_DAMAGE=2; 
