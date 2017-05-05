@@ -126,25 +126,25 @@ public class Board {
 	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
 	 *drops. 
 	 **/
-	public void checkHitProtector(){
-		Iterator<Wave> wavesIt = getCurrWaves().iterator();
-		while (wavesIt.hasNext()){
-			Wave currWave = wavesIt.next();
-			if (currWave.yloc >= shoreline){
-				Iterator<Protector> protit = protectorLine.iterator();
-				while (protit.hasNext()){
-					Protector currProt = protit.next();
-					if (currProt==null){
-						shoreline-=SHORELINE_RECEDING;
-					}
-					//if either end of the protector is within the bounds of wave, wave has hit it
-					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)
-							||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
-						currProt.loseLife();
-				}
-			}
-		}
-	}
+//	public void checkHitProtector(){
+//		Iterator<Wave> wavesIt = getCurrWaves().iterator();
+//		while (wavesIt.hasNext()){
+//			Wave currWave = wavesIt.next();
+//			if (currWave.yloc >= shoreline){
+//				Iterator<Protector> protit = protectorLine.iterator();
+//				while (protit.hasNext()){
+//					Protector currProt = protit.next();
+//					if (currProt==null){
+//						shoreline-=SHORELINE_RECEDING;
+//					}
+//					//if either end of the protector is within the bounds of wave, wave has hit it
+//					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)
+//							||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
+//						currProt.loseLife();
+//				}
+//			}
+//		}
+//	}
 	
 	/**
 	 * creates a random new boat of a random variety
