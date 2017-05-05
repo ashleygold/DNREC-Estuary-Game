@@ -29,10 +29,6 @@ public class Board {
 	/**whether or not the a spot along the shore has receded to the bottom of the screen**/
 	private boolean isShoreDestroyed = false; 
 	
-	//DELETE THIS EVENTUALLY
-	/**how much the shore recedes every time**/
-	final static int SHORELINE_RECEDING = shoreline/3; //how much the shore drops everytime
-	
 	/**which protect is currently being used placed**/
 	private int protector = -1;
 	
@@ -67,10 +63,6 @@ public class Board {
 	/**how much time has passed in seconds since user started playing**/
 	public double elapsedTime=0;
 	
-	//THIS SHOULD BE ABLE TO BE DELETED, RIGHT JORDAN? 
-	/**ArrayList of protectors along the shore**/
-	ArrayList<Protector> protectorLine;
-	
 	/**current Waves on the screen moving towards the shore**/
 	private ArrayList<Wave> currWaves;
 	
@@ -90,7 +82,6 @@ public class Board {
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
 		user = new User();
-		protectorLine = new ArrayList<Protector>();
 		hoursLeft = 24;
 	}
 
@@ -120,31 +111,6 @@ public class Board {
 	public boolean checkLost(){
 		return isShoreDestroyed;
 	}
-	
-	
-	/**Checks to see if the waves has hit a protector along the shoreline.
-	 *If there is a protector, it's life decreases by 1. If not, level of difficulty 
-	 *drops. 
-	 **/
-//	public void checkHitProtector(){
-//		Iterator<Wave> wavesIt = getCurrWaves().iterator();
-//		while (wavesIt.hasNext()){
-//			Wave currWave = wavesIt.next();
-//			if (currWave.yloc >= shoreline){
-//				Iterator<Protector> protit = protectorLine.iterator();
-//				while (protit.hasNext()){
-//					Protector currProt = protit.next();
-//					if (currProt==null){
-//						shoreline-=SHORELINE_RECEDING;
-//					}
-//					//if either end of the protector is within the bounds of wave, wave has hit it
-//					else if ((currProt.xloc1 >= currWave.xloc && currProt.xloc1 <= currWave.xloc + currWave.length)
-//							||(currProt.xloc2 >= currWave.xloc && currProt.xloc2 <= currWave.xloc + currWave.length))
-//						currProt.loseLife();
-//				}
-//			}
-//		}
-//	}
 	
 	/**
 	 * creates a random new boat of a random variety
