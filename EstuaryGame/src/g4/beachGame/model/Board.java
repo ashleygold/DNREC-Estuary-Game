@@ -174,33 +174,30 @@ public class Board {
 	 * @param l the left most spot on the shore the wave hits
 	 * @param r the right most spot on the shore the wave hits
 	 */
-	public void waveHit(int l, int r){
-		int depth = 0;
-		//where the leftmost and right most portion of the wave hits
-		int left = (int)(SPACES_OF_SHORE*l/SHORELINE_WIDTH);
-		int right = (int)(SPACES_OF_SHORE*r/SHORELINE_WIDTH);
+	public void waveHit(int l, int r) {
+		// where the leftmost and right most portion of the wave hits
+		int left = (int) (SPACES_OF_SHORE * l / SHORELINE_WIDTH);
+		int right = (int) (SPACES_OF_SHORE * r / SHORELINE_WIDTH);
 		System.out.println("left length" + l + "spot" + left);
-		System.out.println("wave length" + r + "spot" +right);
-		for (int i = left; i<right; i++){
-			if (i < SHORELINE_WIDTH){
-				while (depth < beach.length && beach[depth][i] == WATER)
-					depth++;
-				if (depth == beach.length) // the shore has reached the bottom of the screen
-					isShoreDestroyed = true;
-				else if (beach[depth][i] == SHORE){
-					beach[depth][i] = WATER;
-				}
-				else if (beach[depth][i] != WATER || beach[depth][i]!=SHORE){
-					int protectorHit = beach[depth][i];
-					if (protectorHit == GRASS_L || protectorHit == GABION_2L || protectorHit == GABION_L)
-						beach[depth][i]--; //protector loses a life
-					else
-						beach[depth][i] = SHORE;
-				}
+		System.out.println("wave length" + r + "spot" + right);
+		for (int i = left; i < right; i++) {
+			int depth = 0;
+			while (depth < beach.length && beach[depth][i] == WATER)
+				depth++;
+			if (depth == beach.length) // the shore has reached the bottom of the screen
+				isShoreDestroyed = true;
+			else if (beach[depth][i] == SHORE) {
+				beach[depth][i] = WATER;
+			} else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) {
+				int protectorHit = beach[depth][i];
+				if (protectorHit == GRASS_L || protectorHit == GABION_2L || protectorHit == GABION_L)
+					beach[depth][i]--; // protector loses a life
+				else
+					beach[depth][i] = SHORE;
 			}
 		}
 	}
-	
+
 	public void replaceProtector(int depth, int spot, int protector){
 		if (beach[depth][spot]==GRASS || beach[depth][spot]==GABION || beach[depth][spot]==WALL)
 			beach[depth][spot]=SHORE;
