@@ -14,23 +14,37 @@ import g4.mazeGame.model.Predator;
 
 public class MazeView extends JPanel{
 	
+	/** the board to be displayed */
 	private Board board;
+	/** the width/height of each square of the maze */ 
 	public final int SLOT_SPACE=40;
+	/** crab image locations */
 	private static final String[] crabImagesLoc = {"bluecrab_0.png",
 			"bluecrab_1.png", "bluecrab_2.png"};
+	/** turtle image locations */
 	private static final String[] turtleImagesLoc = {"turtle_east.png", "turtle_north.png",
 			"turtle_northeast.png", "turtle_northwest.png", "turtle_south.png", "turtle_southeast.png",
 			"turtle_southwest.png", "turtle_west.png"};
+	/** images for crab */
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
+	/** images for turtles */
 	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
-	BufferedImage water = createImage("waterblock.jpg");
-	BufferedImage seaWall = createImage("seaweed2.jpg");
-	BufferedImage winGateUp = createImage("uparrow.png");
+	/** image of water tiles */
+	private BufferedImage water = createImage("waterblock.jpg");
+	/** image of wall tiles */
+	private BufferedImage seaWall = createImage("seaweed2.jpg");
+	/** image of goal tiles */
+	private BufferedImage winGateUp = createImage("uparrow.png");
 	//BufferedImage winGateLeft = createImage("leftarrow.png");
-	BufferedImage food = createImage("food.png");
-	BufferedImage salinity = createImage("salinity.png");
+	/** image of food text label */
+	private BufferedImage food = createImage("food.png");
+	/** image of salinity text label */
+	private BufferedImage salinity = createImage("salinity.png");
 			
-	
+	/**
+	 * Constructs a MazeView object set up to display the parameter board
+	 * @param board the board which the view displays
+	 */
 	public MazeView(Board board) {
 		this.board = board;
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
@@ -41,11 +55,20 @@ public class MazeView extends JPanel{
 			turtleImages[i] = createImage(turtleImagesLoc[i]);
 	}
 	
+	/**
+	 * Changes the board that this object is set up to display
+	 * @param board the board which the view should display
+	 */
 	public void changeBoard(Board board){
 		this.board = board;
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 	}
 	
+	/**
+	 * Creates an image from a file path to the requested image
+	 * @param file path to the wanted image
+	 * @return the image object of the requested image
+	 */
 	private BufferedImage createImage(String file){
     	BufferedImage bufferedImage;
     	try {
@@ -56,6 +79,11 @@ public class MazeView extends JPanel{
     	}
     	return null;
     }
+	
+	/**
+	 * Draws all the information from the board onto the screen, called once per tick
+	 * @param g object which does the actual painting
+	 */
 	@Override
 	public void paint(Graphics g)
 	{
