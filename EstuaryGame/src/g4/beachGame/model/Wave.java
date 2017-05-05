@@ -63,7 +63,7 @@ public class Wave {
 	public void move(){
 		this.yloc += speed;
 		if (direction == LEFT && (this.xloc>=WAVE_MOVEMENT_W_WIND)){
-			this.xloc-=-WAVE_MOVEMENT_W_WIND;
+			this.xloc-=WAVE_MOVEMENT_W_WIND;
 		}
 		else if (direction == RIGHT && this.xloc<=Board.SHORELINE_WIDTH -WAVE_MOVEMENT_W_WIND){
 			this.xloc+=WAVE_MOVEMENT_W_WIND; 
