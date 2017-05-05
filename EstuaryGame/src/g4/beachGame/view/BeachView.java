@@ -16,35 +16,40 @@ import java.util.Iterator;
 
 import g4.beachGame.model.Board;
 import g4.beachGame.model.Boat;
+import g4.beachGame.model.Turtle;
 import g4.beachGame.model.User;
 import g4.beachGame.model.Wave;
 import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
 	//This game's window
-	public JFrame frame;	
+	public JFrame frame;
 	private final int USER_WIDTH = 100;
 	private final int USER_HEIGHT = 100;
 	private final int IMG_WIDTH = 100;
 	private final int IMG_HEIGHT = 100;
 	private Board board;
 	private User user;
+	private Turtle turtle;
 
+	//index for the image's location in turtle[i]
+	
 	//Dimensions & locations of images
 	private static final String[] crabImagesLoc = {"images/BeachImages/bluecrab_0.png",
 	"images/BeachImages/bluecrab_1.png", "images/BeachImages/bluecrab_2.png"};
 	
-	private static final String[] turtleImagesLoc = {"images/BeachImages/bogturtle_left_0.png",
-		"images/BeachImages/bogturtle_left_1.png", "images/BeachImages/bogturtle_left_2.png",
-		"images/BeachImages/bogturtle_right_0.png", "images/BeachImages/bogturtle_right_1.png",
-		"images/BeachImages/bogturtle_right_2.png"};
+	private static final String[] leftTurtleImagesLoc = {"images/BeachImages/bogturtle_left_0.png",
+		"images/BeachImages/bogturtle_left_1.png", "images/BeachImages/bogturtle_left_2.png"};
+	private static final String[] rightTurtleImagesLoc = {"images/BeachImages/bogturtle_right_0.png",
+		"images/BeachImages/bogturtle_right_1.png", "images/BeachImages/bogturtle_right_2.png"};
 	
 	private static final String[] protectorsLoc = {"images/BeachImages/grass.png", 
 			"images/BeachImages/oysters.png", "images/BeachImages/seawall.png"};
 	
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
 	private JLabel[] protectors = new JLabel[protectorsLoc.length];
-	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
+	private BufferedImage[] leftTurtleImages = new BufferedImage[leftTurtleImagesLoc.length];
+	private BufferedImage[] rightTurtleImages = new BufferedImage[rightTurtleImagesLoc.length];
 	
 	//converts filename to buffered image
 	private BufferedImage createImage(String fileName){ 
@@ -70,10 +75,12 @@ public class BeachView extends JPanel{
 		}
 		for (int i = 0; i < crabImages.length; i++)
 			crabImages[i] = createImage(crabImagesLoc[i]);
-		/*
-		for (int i = 0; i < turtleImages.length; i++)
-			turtleImages[i] = createImage(turtleImagesLoc[i]);
-		BufferedImage beachBackground = createImage("images/BeachImages/beach.png");
+		
+		for (int i = 0; i < leftTurtleImages.length; i++)
+			leftTurtleImages[i] = createImage(leftTurtleImagesLoc[i]);
+		for (int i = 0; i < rightTurtleImages.length; i++)
+			rightTurtleImages[i] = createImage(rightTurtleImagesLoc[i]);
+		/*BufferedImage beachBackground = createImage("images/BeachImages/beach.png");
 		*/
 		//creates Jlabels to create background in two parts
 		//JLabel wavesImage = new JLabel();
@@ -145,7 +152,19 @@ public class BeachView extends JPanel{
 		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
 		
 		g.drawImage(crabImages[user.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), user.getxLoc(), user.getyLoc(), null, this);
-		
+		Iterator<Turtle> turtleIt = board.getCurrTurtles().iterator();
+		while (turtleIt.hasNext()){
+			Turtle turtle = turtleIt.next();
+			if (turtle.getDirection() == 0)
+				g.drawImage(leftTurtleImages[turtle.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
+			else
+				g.drawImage(rightTurtleImages[turtle.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
+			if (turtle.getGotToOcean()){
+				//JOptionPane.showMessageDialog(null, "Turtle got to ocean!");
+				board.getCurrTurtles().remove(turtle);
+			}
+		}
+	
 		g.setColor(Color.DARK_GRAY);
 		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
 		while (boatIt.hasNext()){

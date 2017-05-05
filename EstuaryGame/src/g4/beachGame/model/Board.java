@@ -46,7 +46,7 @@ public class Board {
 	public final static int GABION_2L = 7;
 	
 	/**the array representing what was originally the shore**/
-	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
+	public static int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
 	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
@@ -69,6 +69,9 @@ public class Board {
 	/**current Boats on the screen**/
 	ArrayList<Boat> currBoats;
 	
+	/**current Turtles on the screen**/
+	ArrayList<Turtle> turtles;
+	
 	/**the user**/
 	public User user;
 	
@@ -82,6 +85,7 @@ public class Board {
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
 		user = new User();
+		turtles = new ArrayList<Turtle>();
 		hoursLeft = 24;
 	}
 
@@ -117,7 +121,7 @@ public class Board {
 	 * Boats from most frequent to least frequent: Sailboat, Speedboats,and CruiseLiner
 	 */
 	public void createBoat(){
-		int randomNum = 1 + (int)(Math.random() * 7); 
+		int randomNum = 1 + (int)(Math.random() * 7);
 		if (randomNum>0 && randomNum<4)
 			currBoats.add(new Sailboat());
 		else if(randomNum<=6)
@@ -148,6 +152,9 @@ public class Board {
 		getCurrWaves().add(new Wave(boat));
 	}
 	
+	public void createTurtle(){
+		turtles.add(new Turtle());
+	}
 	
 	/**
 	 * This method sets the beach grid when the wave hits the shore.  If the shore is already at
@@ -162,7 +169,7 @@ public class Board {
 		int left = (int)(SPACES_OF_SHORE*l/SHORELINE_WIDTH);
 		int right = (int)(SPACES_OF_SHORE*r/SHORELINE_WIDTH);
 		System.out.println("left length" + l + "spot" + left);
-		System.out.println("wave lenght" + r + "spot" +right);
+		System.out.println("wave length" + r + "spot" +right);
 		for (int i = left; i<right; i++){
 			if (i < SHORELINE_WIDTH){
 				while (depth < beach.length && beach[depth][i] == WATER)
@@ -252,6 +259,10 @@ public class Board {
 	 */
 	public void setCurrWaves(ArrayList<Wave> currWaves) {
 		this.currWaves = currWaves;
+	}
+	
+	public ArrayList<Turtle> getCurrTurtles(){
+		return turtles;
 	}
 	
 }
