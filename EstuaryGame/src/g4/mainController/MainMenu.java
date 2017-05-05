@@ -174,7 +174,7 @@ public class MainMenu extends JPanel{
 		//game loop
 		//repaints on tick		
 		while(!exitFlag){
-			double current = System.currentTimeMillis();
+			long current = System.currentTimeMillis();
 			
 			state.setText(LABEL_NAMES[curState]);
 			if(game != null)
@@ -182,10 +182,11 @@ public class MainMenu extends JPanel{
 			frame.repaint();
 			
 			//if there is extra time left in the frame, sleep the thread
-			double elapsed = System.currentTimeMillis() - current;
-			if ((int)(1000/fps - elapsed) >= 0)
+			long elapsed = System.currentTimeMillis() - current;
+			long timeToWait = 1000/fps - elapsed;
+			if (timeToWait > 0)
 				try {
-					Thread.sleep((int)(1000/fps - elapsed));
+					Thread.sleep(timeToWait);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
