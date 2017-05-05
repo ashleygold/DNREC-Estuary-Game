@@ -148,15 +148,16 @@ public class Board {
 		getCurrWaves().add(new Wave(boat));
 	}
 	
+	
 	/**
 	 * This method sets the beach grid when the wave hits the shore.  If the shore is already at
 	 * the bottom of the screen, the shore is destroyed. If the wave hits the shore, that cell becomes 
 	 * water. If the wave hits a protector, the cell becomes the shore.
-	 * @param x the x location of the wave
+	 * @param l the left most spot on the shore the wave hits
+	 * @param r the right most spot on the shore the wave hits
 	 */
-	public void wavehit(int l, int r){
+	public void waveHit(int l, int r){
 		int depth = 0;
-		
 		//where the leftmost and right most portion of the wave hits
 		int left = (int)(SPACES_OF_SHORE*l/SHORELINE_WIDTH);
 		int right = (int)(SPACES_OF_SHORE*r/SHORELINE_WIDTH);
