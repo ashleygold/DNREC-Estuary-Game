@@ -132,13 +132,16 @@ public class BeachView extends JPanel{
 					g.setColor(Color.GREEN);
 				else if (board.beach[row][col] >= Board.GABION && board.beach[row][col] <= Board.GABION_2L)
 					g.setColor(Color.LIGHT_GRAY);
-				else if (board.beach[row][col] == Board.WALL)
+				else if (board.beach[row][col] == Board.WALL){
 					g.setColor(Color.WHITE);
+
+				}
 				
 				g.fillRect(col*(board.getWidth() - 100)/12, 
 						board.posArr[row], (board.getWidth() - 100)/12, board.getHeight()/6);
 			}
 		}
+		
 		//g.setColor(Color.YELLOW);
 		//g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
 		

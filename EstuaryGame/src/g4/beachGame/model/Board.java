@@ -15,13 +15,13 @@ public class Board {
 	final static int WIDTH = 1100; 
 	
 	/**width of the shore (not including the last column reserved for protectors)**/
-	final static int SHORELINE_WIDTH = WIDTH-100; 
+	public final static int SHORELINE_WIDTH = WIDTH-100; 
 
 	/**the number of spots along the shore where the user can place protectors**/
-	final static int SPACES_OF_SHORE = 12;
+	public final static int SPACES_OF_SHORE = 12;
 	
 	/**height of the board**/
-	final static int HEIGHT = 600;
+	public final static int HEIGHT = 600;
 	
 	/**the x location where the shoreline is **/
 	public static int shoreline = HEIGHT/2; //where the shore starts
@@ -180,7 +180,7 @@ public class Board {
 		int right = (int) (SPACES_OF_SHORE * r / SHORELINE_WIDTH);
 		System.out.println("left length" + l + "spot" + left);
 		System.out.println("wave length" + r + "spot" + right);
-		for (int i = left; i < right; i++) {
+		for (int i = left; i < right+1; i++) {
 			int depth = 0;
 			while (depth < beach.length && beach[depth][i] == WATER)
 				depth++;
