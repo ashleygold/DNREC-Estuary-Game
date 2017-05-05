@@ -25,6 +25,7 @@ public class BeachCont implements MiniGameController{
 	private int frameCounter;
 	private int framesBetweenBoats;
 	final int timeBetweenBoats= 6;
+	private int[] waveCounter= new int[12];
 	
 	public BeachCont() {
 		bView.addKeyListener(new Listener(board1));
@@ -63,10 +64,17 @@ public class BeachCont implements MiniGameController{
 			Wave currWave = wavesIt.next();
 			currWave.move();
 			if (currWave.getY() >= Board.shoreline){
+				//board1.splitWave(currWave);
 				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
 				wavesIt.remove();
 			}
 		}
+		
+//		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
+//		while (splitWavesIt.hasNext()){
+//			Wave swave = splitWavesIt.next();
+//			board1.addCurrWave(swave);
+//		}
 		
 		//moves boats across screen
 		Iterator<Boat> boatIt = board1.getCurrBoats().iterator();

@@ -7,6 +7,8 @@ public class Wave {
 	int speed;
 	int xloc;
 	int yloc;
+	public int left;
+	public int right;
 	 
 	final int CRUISELINER_LENGTH = 200;
 	final int SAILBOAT_LENGTH = 80;
@@ -48,6 +50,14 @@ public class Wave {
 		boat.emittedWave();
 	}
 	
+	public Wave(int speed, int length, int x, int y){
+		this.damage=3;
+		this.length=length;
+		this.speed=speed;
+		this.xloc=x;
+		this.yloc=y;
+	}
+	
 	public void move(){
 		this.yloc += speed;
 	}
@@ -63,4 +73,7 @@ public class Wave {
 	public int getLength(){
 		return length;
 	}
+	
+	public int getLeft(){return left;}
+	public int getRight(){return right;}
 }
