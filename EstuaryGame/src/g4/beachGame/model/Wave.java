@@ -22,7 +22,7 @@ public class Wave {
 	
 	final int RIGHT=1;
 	final int LEFT=-1; 
-	final int FORWARD=1;
+	final int FORWARD=0;
 	
 	final int BOAT_SPEED = 1;
 	final int CRUISELINER_SPEED=2; 
@@ -70,6 +70,11 @@ public class Wave {
 			if (BeachCont.frameCounterWind % 3 ==0)
 				this.yloc+=speed;
 		}
+		else{
+			this.xloc-=direction;
+			if (BeachCont.frameCounterWind % 3 ==0)
+				this.yloc+=speed;
+		}
 	}
 	
 	public boolean isOutOfRange(){
@@ -77,15 +82,21 @@ public class Wave {
 			return true;
 		else if (this.direction ==RIGHT && this.getX()>Board.WIDTH)
 			return true; 
-		return false; 
+		else if (this.xloc>Board.SHORELINE_WIDTH && this.yloc>Board.HEIGHT/2)
+			return true; 
+		else if (this.xloc<0)
+			return true;
+		return false;
 	}
 	
-	public void activateWind(){
-		int randomDir = 1+ (int) (Math.random() * 2);
-		if (randomDir==1)
-			this.direction=RIGHT;
-		else
-			this.direction=LEFT;
+	public void activateWind() {
+		if (direction == FORWARD) {
+			int randomDir = (int) (Math.random() * 2) + 1;
+			if (randomDir == 1)
+				this.direction = RIGHT;
+			else
+				this.direction = LEFT;
+		}
 	}
 	
 	public void ceaseWind(){

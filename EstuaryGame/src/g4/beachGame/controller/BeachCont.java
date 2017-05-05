@@ -82,9 +82,9 @@ public class BeachCont implements MiniGameController{
 		Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
-			if (frameCounterWind== framesBetweenWind)
+			if (frameCounterWind >= framesBetweenWind)
 				currWave.activateWind();
-			else if (frameCounterWind== framesBetweenWind+300){
+			else if (frameCounterWind>= framesBetweenWind+300){
 				currWave.ceaseWind();
 				frameCounterWind=0;
 				framesBetweenWind-=100;
