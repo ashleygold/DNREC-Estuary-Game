@@ -25,6 +25,8 @@ public class Wave {
 	final int BOAT_SPEED = 1;
 	final int CRUISELINER_SPEED=2; 
 	
+	final int WAVE_MOVEMENT_W_WIND =5; 
+	
 	
 	
 	public Wave(Boat boat){
@@ -60,6 +62,24 @@ public class Wave {
 	
 	public void move(){
 		this.yloc += speed;
+		if (direction == LEFT && (this.xloc>=WAVE_MOVEMENT_W_WIND)){
+			this.xloc-=-WAVE_MOVEMENT_W_WIND;
+		}
+		else if (direction == RIGHT && this.xloc<=Board.SHORELINE_WIDTH -WAVE_MOVEMENT_W_WIND){
+			this.xloc+=WAVE_MOVEMENT_W_WIND; 
+		}
+	}
+	
+	public void activateWind(){
+		int randomDir = 1+ (int) (Math.random() * 2);
+		if (randomDir==1)
+			this.direction=RIGHT;
+		else
+			this.direction=LEFT;
+	}
+	
+	public void ceaseWind(){
+		this.direction=FORWARD;
 	}
 	
 	public int getX(){

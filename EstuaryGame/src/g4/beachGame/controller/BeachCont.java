@@ -24,6 +24,7 @@ public class BeachCont implements MiniGameController{
 	private boolean hasWon=false;
 	private boolean hasLost=false;
 	private int frameCounter;
+	private int frameCounterWind;
 	private int frameCounterTurtles;
 	private int framesBetweenBoats;
 	private int framesBetweenTurtles;
@@ -33,6 +34,7 @@ public class BeachCont implements MiniGameController{
 	public BeachCont() {
 		bView.addKeyListener(new Listener(board1));
 		frameCounter=0;
+		frameCounterWind=0;
 		frameCounterTurtles=0;
 		framesBetweenBoats=230;
 		framesBetweenTurtles=600;
@@ -53,6 +55,7 @@ public class BeachCont implements MiniGameController{
 	@Override
 	public void update() {
 		frameCounter++;
+		frameCounterWind++;
 		frameCounterTurtles++;
 		/*user*/
 		board1.user.move();
@@ -70,10 +73,17 @@ public class BeachCont implements MiniGameController{
 			frameCounterTurtles=0;
 		}
 		
+		
 		//waves move down screen
 		Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
+			if (frameCounterWind>40 && frameCounterWind<400)
+				currWave.activateWind();
+			else if (frameCounterWind==400){
+				currWave.ceaseWind();
+				frameCounterWind=0;
+			}
 			currWave.move();
 			if (currWave.getY() >= Board.shoreline){
 				//board1.splitWave(currWave);
