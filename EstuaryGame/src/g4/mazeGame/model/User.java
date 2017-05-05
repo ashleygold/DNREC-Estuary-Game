@@ -185,15 +185,13 @@ public class User {
 				} else if (tryMove(RIGHT)){
 					return true;
 					//see if x/y can be slightly changed to allow movement
-					/*
 				} else if (xLoc - (int)xLoc < 1 -(yLoc - (int)yLoc)){
-					System.out.println("UP");
 					xLoc -= DIAG_MOVE_SPEED;
 					return tryMove(UP_RIGHT);
 				} else {
 					System.out.println("RIGHT");
 					yLoc += DIAG_MOVE_SPEED;
-					return tryMove(UP_RIGHT); */
+					return tryMove(UP_RIGHT); 
 				}
 				//break; //unreachable
 			case UP_LEFT:
