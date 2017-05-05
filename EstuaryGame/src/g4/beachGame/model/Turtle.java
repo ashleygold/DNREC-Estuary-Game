@@ -2,6 +2,9 @@ package g4.beachGame.model;
 
 import java.util.Random;
 
+//FIGURE OUT HOW TO DO CORNERS
+//MAKE TURTLE DIE IF NO WAY OUT
+
 public class Turtle {
 	private final int TURTLE_HEIGHT=115;
 	private final int TURTLE_WIDTH=245;

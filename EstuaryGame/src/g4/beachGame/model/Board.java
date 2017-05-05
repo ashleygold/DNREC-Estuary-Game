@@ -65,6 +65,7 @@ public class Board {
 	
 	/**current Waves on the screen moving towards the shore**/
 	private ArrayList<Wave> currWaves;
+	private ArrayList<Wave> splitWaves;
 	
 	/**current Boats on the screen**/
 	ArrayList<Boat> currBoats;
@@ -156,6 +157,16 @@ public class Board {
 		turtles.add(new Turtle());
 	}
 	
+	public void splitWave(Wave wave){
+		int left = (int)(SPACES_OF_SHORE*wave.getX()/SHORELINE_WIDTH);
+		int right = (int)(SPACES_OF_SHORE*(wave.getX()+wave.getLength())/SHORELINE_WIDTH);
+		splitWaves.add(new Wave(wave.speed, wave.getLength()-wave.getX(), wave.getX(), wave.getY()));
+		for (int i = left+1; i<right;i++){
+			splitWaves.add(new Wave( wave.speed,SHORELINE_WIDTH/SPACES_OF_SHORE,i*SPACES_OF_SHORE,wave.getY()));
+		}
+		splitWaves.add(new Wave(wave.speed,wave.getLength()-(right-1)*SPACES_OF_SHORE,right*SPACES_OF_SHORE,wave.getY()));
+	}
+
 	/**
 	 * This method sets the beach grid when the wave hits the shore.  If the shore is already at
 	 * the bottom of the screen, the shore is destroyed. If the wave hits the shore, that cell becomes 
@@ -203,7 +214,7 @@ public class Board {
 	 * @return the integer representing the protector chosen
 	 */
 	public int chooseProtector() {
-		if ((int)(user.getxLoc()+user_width)*12/SHORELINE_WIDTH == 11){ //need to change magic number
+		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORELINE_WIDTH == SPACES_OF_SHORE){ //need to change magic number
 			if (user.getyLoc() <4*HEIGHT/6-15)
 				protector = GRASS_L;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
@@ -220,7 +231,7 @@ public class Board {
 	public void placeProtector(){
 		int depth = 0;
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
-		while (depth < beach.length && beach[depth][spot] == WATER)
+		while (depth < beach.length && beach[depth][spot] != SHORE)
 			depth++;
 		beach[depth][spot] = getProtector();
 		protector = -1;
@@ -252,7 +263,8 @@ public class Board {
 	 * @return the arraylist of current waves on the screen
 	 */
 	public ArrayList<Wave> getCurrWaves() {return currWaves;}
-
+	
+	public ArrayList<Wave> getSplitWaves(){return splitWaves;}
 	/**
 	 * Sets the attribute currWaves to the parameter currWaves.
 	 * @param currWaves the arraylist to replace the attribute currWaves
@@ -264,6 +276,7 @@ public class Board {
 	public ArrayList<Turtle> getCurrTurtles(){
 		return turtles;
 	}
+	public void addCurrWave(Wave wave){currWaves.add(wave);}
 	
 }
 

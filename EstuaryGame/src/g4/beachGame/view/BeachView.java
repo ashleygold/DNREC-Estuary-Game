@@ -126,7 +126,7 @@ public class BeachView extends JPanel{
 			for (int col = 0; col < board.beach[0].length; col++){
 				if (board.beach[row][col] == Board.SHORE)
 					g.setColor(Color.YELLOW);
-				else if (board.beach[row][col] == Board.WATER)
+				else if (board.beach[row][col] == Board.WATER) //probably have to pass these numbers in via controller
 					g.setColor(Color.BLUE);
 				else if (board.beach[row][col] == Board.GRASS || board.beach[row][col]==Board.GRASS_L)
 					g.setColor(Color.GREEN);
@@ -151,7 +151,8 @@ public class BeachView extends JPanel{
 		g.setColor(Color.WHITE);
 		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
 		
-		g.drawImage(crabImages[user.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), user.getxLoc(), user.getyLoc(), null, this);
+
+		g.drawImage(crabImages[user.getPicNum()].getScaledInstance(user.CRAB_WIDTH, user.CRAB_HEIGHT, Image.SCALE_DEFAULT), user.getxLoc(), user.getyLoc(), null, this);
 		Iterator<Turtle> turtleIt = board.getCurrTurtles().iterator();
 		while (turtleIt.hasNext()){
 			Turtle turtle = turtleIt.next();
@@ -164,7 +165,6 @@ public class BeachView extends JPanel{
 				board.getCurrTurtles().remove(turtle);
 			}
 		}
-	
 		g.setColor(Color.DARK_GRAY);
 		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
 		while (boatIt.hasNext()){

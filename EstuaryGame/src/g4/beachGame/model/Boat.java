@@ -4,7 +4,6 @@ package g4.beachGame.model;
 public abstract class Boat{
 	/** x and y location of the boat **/
 	int xloc;
-	
 	int yloc; 
 	
 	
