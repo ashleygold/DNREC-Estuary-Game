@@ -35,6 +35,8 @@ public class MazeView extends JPanel{
 	private BufferedImage seaWall = createImage("seaweed2.jpg");
 	/** image of goal tiles */
 	private BufferedImage winGateUp = createImage("uparrow.png");
+	/** image of algae (food) tiles */
+	private BufferedImage algae = createImage("algae_good.png");
 	//BufferedImage winGateLeft = createImage("leftarrow.png");
 	/** image of food text label */
 	private BufferedImage food = createImage("food.png");
@@ -101,8 +103,7 @@ public class MazeView extends JPanel{
 						break;
 					case 'o':
 						g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
-						g.setColor(Color.BLACK);
-						g.fillOval(x*SLOT_SPACE+(SLOT_SPACE/2 - 5), y*SLOT_SPACE+(SLOT_SPACE/2 - 5), 10, 10);
+						g.drawImage(algae, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
 						break;
 					case 'W':
 						g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
