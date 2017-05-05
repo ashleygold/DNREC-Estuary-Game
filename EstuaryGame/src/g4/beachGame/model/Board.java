@@ -196,7 +196,8 @@ public class Board {
 	 * @return the integer representing the protector chosen
 	 */
 	public int chooseProtector() {
-		if ((int)(user.getxLoc()+user_width)*12/SHORELINE_WIDTH == 11){ //need to change magic number
+		//if the crab is in the last column of the shore (SPACES_OF_SHORE is also the index of the last spot)
+		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORELINE_WIDTH == SPACES_OF_SHORE){
 			if (user.getyLoc() <4*HEIGHT/6-15)
 				protector = GRASS_L;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
