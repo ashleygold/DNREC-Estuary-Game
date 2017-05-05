@@ -1,5 +1,7 @@
 package g4.beachGame.model;
 
+import g4.beachGame.controller.BeachCont;
+
 public class Wave {
 	int damage;
 	int length;
@@ -18,8 +20,8 @@ public class Wave {
 	final int SAILBOAT_DAMAGE=2; 
 	final int SPEEDBOAT_DAMAGE=1; 
 	
-	final int RIGHT=0;
-	final int LEFT=2; 
+	final int RIGHT=1;
+	final int LEFT=-1; 
 	final int FORWARD=1;
 	
 	final int BOAT_SPEED = 1;
@@ -61,13 +63,21 @@ public class Wave {
 	}
 	
 	public void move(){
-		this.yloc += speed;
-		if (direction == LEFT && (this.xloc>=WAVE_MOVEMENT_W_WIND)){
-			this.xloc-=WAVE_MOVEMENT_W_WIND;
+		if (direction == FORWARD)
+			this.yloc += speed;
+		else if (direction == LEFT){
+			this.xloc+=direction;
+			if (BeachCont.frameCounterWind % 3 ==0)
+				this.yloc+=speed;
 		}
-		else if (direction == RIGHT && this.xloc<=Board.SHORELINE_WIDTH -WAVE_MOVEMENT_W_WIND){
-			this.xloc+=WAVE_MOVEMENT_W_WIND; 
-		}
+	}
+	
+	public boolean isOutOfRange(){
+		if (this.direction == LEFT && this.getX()<1)
+			return true;
+		else if (this.direction ==RIGHT && this.getX()>Board.WIDTH)
+			return true; 
+		return false; 
 	}
 	
 	public void activateWind(){

@@ -2,6 +2,7 @@ package g4.beachGame.controller;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
@@ -17,19 +18,22 @@ import g4.mainController.MiniGameController;
 
 
 public class BeachCont implements MiniGameController{
-	
+
+
 	private Board board1 = new Board();
 
 	private BeachView bView = new BeachView(board1);
 	private boolean hasWon=false;
 	private boolean hasLost=false;
 	private int frameCounter;
-	private int frameCounterWind;
-	private int frameCounterTurtles;
+	public static int frameCounterWind;
+	public int frameCounterTurtles;
 	private int framesBetweenBoats;
 	private int framesBetweenTurtles;
+	private int framesBetweenWind;
 	final int timeBetweenBoats= 6;
 	private int[] waveCounter= new int[12];
+	private ArrayList<Wave> trash = new ArrayList<Wave>();
 	
 	public BeachCont() {
 		bView.addKeyListener(new Listener(board1));
@@ -38,6 +42,7 @@ public class BeachCont implements MiniGameController{
 		frameCounterTurtles=0;
 		framesBetweenBoats=230;
 		framesBetweenTurtles=600;
+		framesBetweenWind=900;
 	} 
 
 	public void couldCreateWave(Boat boat){
@@ -78,13 +83,15 @@ public class BeachCont implements MiniGameController{
 		Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
-			if (frameCounterWind==700)
+			if (frameCounterWind== framesBetweenWind)
 				currWave.activateWind();
-			else if (frameCounterWind==1000){
+			else if (frameCounterWind== framesBetweenWind+300){
 				currWave.ceaseWind();
 				frameCounterWind=0;
+				framesBetweenWind-=100;
 			}
 			currWave.move();
+			currWave.isOutOfRange();
 			if (currWave.getY() >= Board.shoreline){
 				//board1.splitWave(currWave);
 				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());

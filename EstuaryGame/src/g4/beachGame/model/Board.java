@@ -178,17 +178,19 @@ public class Board {
 		// where the leftmost and right most portion of the wave hits
 		int left = (int) (SPACES_OF_SHORE * l / SHORELINE_WIDTH);
 		int right = (int) (SPACES_OF_SHORE * r / SHORELINE_WIDTH);
-		System.out.println("left length" + l + "spot" + left);
-		System.out.println("wave length" + r + "spot" + right);
-		for (int i = left; i < right+1; i++) {
+		
+		for (int i = left; i < right + 1; i++) {
 			int depth = 0;
-			while (depth < beach.length && beach[depth][i] == WATER)
+			while (depth < beach.length && beach[depth][i] == WATER && i<13) {
+				System.out.println(depth + " " + i);
 				depth++;
-			if (depth == beach.length) // the shore has reached the bottom of the screen
+			}
+			if (depth == beach.length) // the shore has reached the bottom of
+				// the screen
 				isShoreDestroyed = true;
-			else if (beach[depth][i] == SHORE) {
+			else if (beach[depth][i] == SHORE)
 				beach[depth][i] = WATER;
-			} else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) {
+			else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) {
 				int protectorHit = beach[depth][i];
 				if (protectorHit == GRASS_L || protectorHit == GABION_2L || protectorHit == GABION_L)
 					beach[depth][i]--; // protector loses a life
