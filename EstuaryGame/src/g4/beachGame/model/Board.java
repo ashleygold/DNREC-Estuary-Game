@@ -169,11 +169,14 @@ public class Board {
 				if (depth == beach.length) // the shore has reached the bottom of the screen
 					isShoreDestroyed = true;
 				else if (beach[depth][i] == SHORE){
-					System.out.println();
 					beach[depth][i] = WATER;
 				}
 				else if (beach[depth][i] != WATER || beach[depth][i]!=SHORE){
-					replaceProtector(depth,i,beach[depth][i]);
+					int protectorHit = beach[depth][i];
+					if (protectorHit == GRASS_L || protectorHit == GABION_2L || protectorHit == GABION_L)
+						beach[depth][i]--; //protector loses a life
+					else
+						beach[depth][i] = SHORE;
 				}
 			}
 		}
