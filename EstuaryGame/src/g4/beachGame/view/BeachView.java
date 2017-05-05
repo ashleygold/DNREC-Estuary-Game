@@ -130,7 +130,7 @@ public class BeachView extends JPanel{
 					g.setColor(Color.BLUE);
 				else if (board.beach[row][col] == Board.GRASS || board.beach[row][col]==Board.GRASS_L)
 					g.setColor(Color.GREEN);
-				else if (board.beach[row][col] >= Board.GABION || board.beach[row][col] <= Board.GABION_2L)
+				else if (board.beach[row][col] >= Board.GABION && board.beach[row][col] <= Board.GABION_2L)
 					g.setColor(Color.LIGHT_GRAY);
 				else if (board.beach[row][col] == Board.WALL)
 					g.setColor(Color.WHITE);
@@ -161,7 +161,7 @@ public class BeachView extends JPanel{
 			else
 				g.drawImage(rightTurtleImages[turtle.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
 			if (turtle.getGotToOcean()){
-				//JOptionPane.showMessageDialog(null, "Turtle got to ocean!");
+				
 				board.getCurrTurtles().remove(turtle);
 			}
 		}

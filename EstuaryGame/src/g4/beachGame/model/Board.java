@@ -219,8 +219,10 @@ public class Board {
 				protector = GRASS_L;
 			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
 				protector = GABION_2L; 
-			else
-				protector = WALL; 
+			else{
+				protector = WALL;
+				System.out.println("choosing wall");
+			}
 		}
 		return protector;
 	}
@@ -231,7 +233,7 @@ public class Board {
 	public void placeProtector(){
 		int depth = 0;
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
-		while (depth < beach.length && beach[depth][spot] != SHORE)
+		while (depth < beach.length && beach[depth][spot] == WATER)
 			depth++;
 		beach[depth][spot] = getProtector();
 		protector = -1;
