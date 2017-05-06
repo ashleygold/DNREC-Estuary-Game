@@ -189,7 +189,6 @@ public class User {
 					xLoc -= DIAG_MOVE_SPEED;
 					return tryMove(UP_RIGHT);
 				} else {
-					System.out.println("RIGHT");
 					yLoc += DIAG_MOVE_SPEED;
 					return tryMove(UP_RIGHT); 
 				}
