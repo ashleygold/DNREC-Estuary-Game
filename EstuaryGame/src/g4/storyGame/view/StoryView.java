@@ -19,30 +19,38 @@ import g4.storyGame.model.Table;
 
 public class StoryView extends JPanel{
 
-	//reference to Model, used to get data
+	/** pointer to Model, used to get data */
 	private final Table refTable;
 	
-	//This game's window
+	/** Window for this game */
 	private final JFrame frame;
+	/** Width of the window */
 	private final int FRAME_WIDTH = 950;
+	/** Height of the window */
 	private final int FRAME_HEIGHT = 500;
 	
-	//Dimensions & locations of images
+	/** Width of images */
 	private final int IMG_WIDTH = 100;
+	/** Height of images */
 	private final int IMG_HEIGHT = 100;
+	/** files locations of images */
 	private static final String[] imagesLoc = {"images/StoryImages/TestImage.png",
 			"images/StoryImages/TestImage2.png",
 			"images/StoryImages/TestImage3.png",
 			"images/StoryImages/TestImage4.png"};
-	//The number of possible sides of cubes (total number of images)
+	/** The number of possible sides of cubes (total number of images) */
 	public static final int NUM_SIDES = imagesLoc.length;
 	
-	//Every possible image
+	/** Every possible image */
 	private final BufferedImage[] images = new BufferedImage[imagesLoc.length];
 	
-	//Buttons for Cubes
+	/** Buttons representing Cubes */
 	private final JButton[] cubes;
 	
+	/**
+	 * Constructor which initializes a View to display the model parameter
+	 * @param t The model which this View should display
+	 */
 	public StoryView(Table t){
 		//create all images
 		for (int i = 0; i < imagesLoc.length; i++){
@@ -76,19 +84,35 @@ public class StoryView extends JPanel{
 		}
 	}
 	
-	//This private class allows the Cube JButtons to trigger when clicked
+	/** 
+	 * This private class allows the Cube JButtons to trigger when clicked
+	 * @author Joseph Buxton
+	 *
+	 */
 	private class CubeActionListener implements ActionListener{
+		/** the cube which should be activated by this */
 		private final int cubeNum; 
+		/**
+		 * Constructs an object which can activate the cube at the index (parameter)
+		 * @param i the index of the cube which should be activated by this
+		 */
 		CubeActionListener(int i){
 			cubeNum = i;
 		}
+		/**
+		 * When the JButton is clicked, this calls the clicked() function to handle this 
+		 * @param e the object containing the data of the click
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			clicked(cubeNum);
 		}
 	}
 	
-	//Runs when a Cube's JButton is clicked
+	/**
+	 * Runs when a Cube's JButton is clicked, activates the Cube and checks if an Exit button should be displayed
+	 * @param i the index of the JButton was clicked
+	 */
 	private void clicked(int i) {
 		refTable.activateCube(i);
 		if (refTable.getCubeAt(i, true).isMoved()){
@@ -114,6 +138,11 @@ public class StoryView extends JPanel{
 		}
 	}
 
+	/**
+	 * Creates an image from a file path to the requested image
+	 * @param file path to the wanted image
+	 * @return the image object of the requested image
+	 */
 	private BufferedImage createImage(String fileName){ //converts filename to buffered image
 		BufferedImage bufferedImage;
 		try {
@@ -125,6 +154,10 @@ public class StoryView extends JPanel{
 		return null;
 	}
 	
+	/**
+	 * Draws all the information from the table onto the screen, called once per tick
+	 * @param g object which does the actual painting
+	 */
 	@Override
 	public void paint(Graphics g) {
 
@@ -138,10 +171,16 @@ public class StoryView extends JPanel{
 		}
 	}
 	
+	/**
+	 * Disposes of the JFrame which holds the view
+	 */
 	public void dispose() {
 		frame.dispose();
 	}
 
+	/**
+	 * Updates the view by repainting the JFrame
+	 */
 	public void update() {
 		frame.repaint();
 	}

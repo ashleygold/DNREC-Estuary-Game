@@ -35,7 +35,7 @@ public class Cube {
 	/**
 	 * prevents the image from changing again
 	 */
-	public void fix(){
+	protected void fix(){
 		fixed = true;
 	}
 	
