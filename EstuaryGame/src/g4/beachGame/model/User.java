@@ -3,8 +3,8 @@ package g4.beachGame.model;
 import g4.mainController.MainMenu;
 
 public class User {
-	public final int CRAB_HEIGHT=50;
-	public final int CRAB_WIDTH=70;
+	public final static int CRAB_HEIGHT=50;
+	public final static int CRAB_WIDTH=70;
 	
 	private final int DEFAULTX = 15;
 	private final int DEFAULTY = 450;
@@ -26,10 +26,15 @@ public class User {
 	}
 	
 	
-	/*checks to see if the user is on the shore*/
-	public boolean isShore(double x, double y){
-		return (x>0 && x<Board.SHORELINE_WIDTH -CRAB_WIDTH && y>Board.shoreline && y<Board.HEIGHT-CRAB_HEIGHT);
-	}
+//	/*checks to see if the user is on the shore*/
+//	public boolean isShore(double x, double y){
+//		int crabSpot = (int)(Board.SPACES_OF_SHORE*y/Board.SHORELINE_WIDTH);
+//		int crabDepth = (int)(6*x/Board.HEIGHT);
+//		if (Board.beach[crabDepth][crabSpot]!=WATER){
+//			
+//		}
+//		return (x>0 && x<Board.SHORELINE_WIDTH -CRAB_WIDTH && y>Board.shoreline && y<Board.HEIGHT-CRAB_HEIGHT);
+//	}
 	
 	public int getPicNum(){
 		return (int) picNum;
@@ -40,41 +45,41 @@ public class User {
 		picNum = (picNum + .2) % frameCount;
 		switch(direction) {
 			case LEFT:
-				if (isShore(xLoc - XINCR, yLoc))
+				if (Board.isShore(xLoc - XINCR, yLoc))
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
-				if (isShore(xLoc + XINCR, yLoc))
+				if (Board.isShore(xLoc + XINCR, yLoc))
 					xLoc+=XINCR;
 				break;
 			case UP:
-				if (isShore(xLoc, yLoc - YINCR))
+				if (Board.isShore(xLoc, yLoc - YINCR))
 					yLoc-=YINCR;
 				break;
 			case DOWN:
-				if (isShore(xLoc, yLoc+YINCR))
+				if (Board.isShore(xLoc, yLoc+YINCR))
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
-				if (isShore(xLoc + XINCR, yLoc-YINCR)){
+				if (Board.isShore(xLoc + XINCR, yLoc-YINCR)){
 					xLoc+=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case UP_LEFT:
-				if (isShore(xLoc-XINCR,yLoc-YINCR)){
+				if (Board.isShore(xLoc-XINCR,yLoc-YINCR)){
 					xLoc-=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (isShore(xLoc + XINCR, yLoc + YINCR)){
+				if (Board.isShore(xLoc + XINCR, yLoc + YINCR)){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}
 				break;
 			case DOWN_LEFT:
-				if (isShore(xLoc - XINCR, yLoc + YINCR)){
+				if (Board.isShore(xLoc - XINCR, yLoc + YINCR)){
 					xLoc-= XINCR;
 					yLoc+= YINCR;
 				}

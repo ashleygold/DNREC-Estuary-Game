@@ -189,7 +189,6 @@ public class Board {
 		for (int i = left; i < right + 1; i++) {
 			int depth = 0;
 			while (depth < beach.length && beach[depth][i] == WATER && i<13) {
-				System.out.println(depth + " " + i);
 				depth++;
 			}
 			if (depth == beach.length) // the shore has reached the bottom of
@@ -227,11 +226,12 @@ public class Board {
 				protector = GABION_2L; 
 			else{
 				protector = WALL;
-				System.out.println("choosing wall");
 			}
 		}
 		return protector;
 	}
+	
+	
 	
 	/**
 	 * Sets specific cell of beachgrid on the shoreline at user's xlocation to a protector.
@@ -243,6 +243,21 @@ public class Board {
 			depth++;
 		beach[depth][spot] = getProtector();
 		protector = -1;
+	}
+	
+	
+	/**checks to see if the user is on the shore*/
+	public static boolean isShore(double x, double y){
+		if (x>0 && x<SHORELINE_WIDTH -User.CRAB_WIDTH && y>shoreline && y<HEIGHT-User.CRAB_HEIGHT){
+			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORELINE_WIDTH);
+			int crabDepth = (int)(6*y/Board.HEIGHT);
+			System.out.println(crabSpot + " " +crabDepth);
+			if (beach[crabDepth-3][crabSpot]!=WATER){
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 	
 	/** @return the integer representing the current protector */

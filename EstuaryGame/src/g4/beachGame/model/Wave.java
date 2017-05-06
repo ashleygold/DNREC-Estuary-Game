@@ -65,19 +65,16 @@ public class Wave {
 	public void move(){
 		if (direction == FORWARD){
 			this.yloc += speed;
-			System.out.println("A");
 		}
 		else if (direction == LEFT){
 			this.xloc-=direction;
 			if (BeachCont.frameCounterWind % 3 ==0)
 				this.yloc+=speed;
-			System.out.println("B");
 		}
 		else{
 			this.xloc-=direction;
 			if (BeachCont.frameCounterWind % 3 ==0)
 				this.yloc+=speed;
-			System.out.println("C");
 		}
 	}
 	
