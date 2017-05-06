@@ -25,17 +25,6 @@ public class User {
 		this.yLoc = DEFAULTY;
 	}
 	
-	
-//	/*checks to see if the user is on the shore*/
-//	public boolean isShore(double x, double y){
-//		int crabSpot = (int)(Board.SPACES_OF_SHORE*y/Board.SHORELINE_WIDTH);
-//		int crabDepth = (int)(6*x/Board.HEIGHT);
-//		if (Board.beach[crabDepth][crabSpot]!=WATER){
-//			
-//		}
-//		return (x>0 && x<Board.SHORELINE_WIDTH -CRAB_WIDTH && y>Board.shoreline && y<Board.HEIGHT-CRAB_HEIGHT);
-//	}
-	
 	public int getPicNum(){
 		return (int) picNum;
 	}
@@ -49,7 +38,7 @@ public class User {
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
-				if (Board.isShore(xLoc + XINCR, yLoc))
+				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc))
 					xLoc+=XINCR;
 				break;
 			case UP:
@@ -61,7 +50,7 @@ public class User {
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
-				if (Board.isShore(xLoc + XINCR, yLoc-YINCR)){
+				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)){
 					xLoc+=XINCR;
 					yLoc-=YINCR;
 				}
@@ -73,7 +62,7 @@ public class User {
 				}
 				break;
 			case DOWN_RIGHT:
-				if (Board.isShore(xLoc + XINCR, yLoc + YINCR)){
+				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR)){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}

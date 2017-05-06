@@ -248,7 +248,7 @@ public class Board {
 	
 	/**checks to see if the user is on the shore*/
 	public static boolean isShore(double x, double y){
-		if (x>0 && x<SHORELINE_WIDTH -User.CRAB_WIDTH && y>shoreline && y<HEIGHT-User.CRAB_HEIGHT){
+		if (x>0 && x<SHORELINE_WIDTH && y>shoreline && y<HEIGHT-User.CRAB_HEIGHT){
 			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORELINE_WIDTH);
 			int crabDepth = (int)(6*y/Board.HEIGHT);
 			System.out.println(crabSpot + " " +crabDepth);
