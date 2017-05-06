@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import g4.beachGame.model.Board;
 import g4.beachGame.model.Boat;
@@ -28,6 +29,7 @@ public class BeachCont implements MiniGameController{
 	private int frameCounter;
 	public static int frameCounterWind;
 	public int frameCounterTurtles;
+	public int frameCounterTurtleLife;
 	private int framesBetweenBoats;
 	private int framesBetweenTurtles;
 	private int framesBetweenWind;
@@ -39,6 +41,7 @@ public class BeachCont implements MiniGameController{
 		frameCounter=0;
 		frameCounterWind=0;
 		frameCounterTurtles=0;
+		frameCounterTurtleLife = 0;
 		framesBetweenBoats=230;
 		framesBetweenTurtles=600;
 		framesBetweenWind=900;
@@ -61,13 +64,14 @@ public class BeachCont implements MiniGameController{
 		frameCounter++;
 		frameCounterWind++;
 		frameCounterTurtles++;
+		frameCounterTurtleLife++;
 		/*user*/
 		board1.user.move();
 		
 		//spawn boats
 		if (frameCounter==framesBetweenBoats){
 			board1.createBoat();
-			frameCounter=0;
+			//frameCounter=0;
 			framesBetweenBoats-=3;
 		}
 		
@@ -123,12 +127,20 @@ public class BeachCont implements MiniGameController{
 		Iterator<Turtle> turtleIt = board1.getCurrTurtles().iterator();
 		while (turtleIt.hasNext()){
 			Turtle turtle = turtleIt.next();
-			turtle.move();	
+			turtle.move();
+			turtle.setFramesLeft(turtle.getFramesLeft()-1);
+			if (turtle.getGotToOcean()){
+				turtleIt.remove();
+			}
 		}
 		
 		bView.frame.repaint();
 		if (board1.checkLost()){
 			hasLost=true;
+			if (board1.getIsShoreDestroyed())
+				JOptionPane.showMessageDialog(bView.frame, "Sorry, you lost :( The shore receded too much.");
+			else
+				JOptionPane.showMessageDialog(bView.frame, "Sorry, you lost :( The turtle wasn't able to make it to the ocean.");
 			this.dispose();
 		}
 	}
