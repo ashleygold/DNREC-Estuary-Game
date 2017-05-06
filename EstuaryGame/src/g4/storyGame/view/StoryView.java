@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -42,9 +40,8 @@ public class StoryView extends JPanel{
 	//Every possible image
 	private final BufferedImage[] images = new BufferedImage[imagesLoc.length];
 	
-	//Buttons/Images for Cubes
+	//Buttons for Cubes
 	private final JButton[] cubes;
-	private List<BufferedImage> finalized = new ArrayList<BufferedImage>();
 	
 	public StoryView(Table t){
 		//create all images
@@ -52,7 +49,7 @@ public class StoryView extends JPanel{
 			images[i] = createImage(imagesLoc[i]);
 		}
 		
-		//set refernce
+		//set reference
 		refTable = t;
 		
 		//set up window
@@ -70,7 +67,7 @@ public class StoryView extends JPanel{
 		cubes = new JButton[refTable.NUM_DICE];
 		
 		for (int i = 0; i < refTable.NUM_DICE; i++){
-			cubes[i] = new JButton(new ImageIcon(images[refTable.getCubeAt(i).getImg()]));
+			cubes[i] = new JButton(new ImageIcon(images[refTable.getCubeAt(i, true).getImg()]));
 			cubes[i].setBackground(MainMenu.BACKGROUND_BLUE);
 			cubes[i].addActionListener(new CubeActionListener(i));
 			frame.add(cubes[i]);
@@ -93,21 +90,13 @@ public class StoryView extends JPanel{
 	
 	//Runs when a Cube's JButton is clicked
 	private void clicked(int i) {
-		if (!refTable.getCubeAt(i).isFixed())
-			//if not fixed
-			refTable.getCubeAt(i).fix();
-		else if (!refTable.getCubeAt(i).isMoved()){
-			//if not moved
-			//move
-			refTable.getCubeAt(i).move();
-			//and disable the button
+		refTable.activateCube(i);
+		if (refTable.getCubeAt(i, true).isMoved()){
+			//if moved, disable the button
 			cubes[i].setEnabled(false);
 			
-			//add to lower list of displayed cubes
-			finalized.add(images[refTable.getCubeAt(i).getImg()]);
-			
 			//If everything has been added, display a close button
-			if (finalized.size() == refTable.NUM_DICE){
+			if (refTable.areAllMoved()){
 				JButton quit = new JButton("Return to Menu");
 				quit.setFont(new Font("SansSerif", Font.BOLD, 20));
 				quit.setBackground(MainMenu.SEA_GREEN);
@@ -141,11 +130,11 @@ public class StoryView extends JPanel{
 
 		//set icons to JButtons
 		for (int i = 0; i < cubes.length; i++){
-			cubes[i].setIcon(new ImageIcon(images[refTable.getCubeAt(i).getImg()]));
+			cubes[i].setIcon(new ImageIcon(images[refTable.getCubeAt(i, true).getImg()]));
 		}
 		//draw finalized images
-		for (int i = 0; i < finalized.size(); i++){
-			g.drawImage(finalized.get(i),IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), 2*IMG_HEIGHT, null, this);
+		for (int i = 0; i < refTable.getFinishedSize(); i++){
+			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), 2*IMG_HEIGHT, null, this);
 		}
 	}
 	

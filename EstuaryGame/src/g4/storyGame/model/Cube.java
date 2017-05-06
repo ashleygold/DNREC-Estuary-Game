@@ -42,7 +42,7 @@ public class Cube {
 	/**
 	 * Sets the cube as having been moved to the story row
 	 */
-	public void move(){
+	protected void move(){
 		moved = true;
 	}
 	
