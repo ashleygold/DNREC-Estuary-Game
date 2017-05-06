@@ -64,11 +64,7 @@ public class BeachCont implements MiniGameController{
 		frameCounter++;
 		frameCounterWind++;
 		frameCounterTurtles++;
-<<<<<<< HEAD
-		
-=======
 		frameCounterTurtleLife++;
->>>>>>> f72f757de7e8ef91faf0a34fc3ea826c741d21e9
 		/*user*/
 		board1.user.move();
 		
