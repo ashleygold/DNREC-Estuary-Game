@@ -53,7 +53,7 @@ public class Wave {
 		
 		boat.emittedWave();
 	}
-	
+
 	public Wave(int speed, int length, int x, int y){
 		this.damage=3;
 		this.length=length;

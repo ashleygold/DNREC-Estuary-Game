@@ -97,7 +97,7 @@ public class BeachCont implements MiniGameController{
 			if (currWave.isOutOfRange()){
 				wavesIt.remove();
 			}
-			if (currWave.getY() >= Board.shoreline){
+			if (currWave.getY() >= Board.shoreline - Board.RAISE){
 				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
 				wavesIt.remove();
 			}

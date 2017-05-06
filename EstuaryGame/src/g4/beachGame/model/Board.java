@@ -45,12 +45,21 @@ public class Board {
 	public final static int GABION_L = 6;
 	public final static int GABION_2L = 7;
 	
+	/**final fields that represent the depth of the shore**/
+	public final static int TOP_ROW1=3;
+	public final static int TOP_ROW2=4;
+	public final static int TOP_ROW3=5;
+	public final static int TOTALROWS=6;
+	
+	public final static int RAISE=15; //how much high it is?
+	
+	
 	/**the array representing what was originally the shore**/
 	public static int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
 	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
-	public int[] posArr = {HEIGHT/2, 4*HEIGHT/6 - 15, 5*HEIGHT/6 - 30};
+	public int[] posArr = {HEIGHT/2, TOP_ROW2*HEIGHT/TOTALROWS - RAISE, TOP_ROW3*HEIGHT/TOTALROWS - 2*RAISE};
 	
 	/**how much time is left in the game**/
 	int hoursLeft; 
@@ -185,10 +194,9 @@ public class Board {
 		// where the leftmost and right most portion of the wave hits
 		int left = (int) (SPACES_OF_SHORE * l / SHORELINE_WIDTH);
 		int right = (int) (SPACES_OF_SHORE * r / SHORELINE_WIDTH);
-		
 		for (int i = left; i < right + 1; i++) {
 			int depth = 0;
-			while (depth < beach.length && beach[depth][i] == WATER && i<13) {
+			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
 				depth++;
 			}
 			if (depth == beach.length) // the shore has reached the bottom of
@@ -220,9 +228,10 @@ public class Board {
 	 */
 	public int chooseProtector() {
 		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORELINE_WIDTH == SPACES_OF_SHORE){
-			if (user.getyLoc() <4*HEIGHT/6-15)
+			if (user.getyLoc() <TOP_ROW3*HEIGHT/TOTALROWS-RAISE)
 				protector = GRASS_L;
-			else if (user.getyLoc() >= 4*HEIGHT/6 -15 && user.getyLoc() < 5*HEIGHT/6 -30)
+			else if (user.getyLoc() >= TOP_ROW2*HEIGHT/TOTALROWS -RAISE 
+					&& user.getyLoc() < TOP_ROW3*HEIGHT/TOTALROWS -2*RAISE)
 				protector = GABION_2L; 
 			else{
 				protector = WALL;
