@@ -68,7 +68,7 @@ public class Wave {
 			System.out.println("A");
 		}
 		else if (direction == LEFT){
-			this.xloc+=direction;
+			this.xloc-=direction;
 			if (BeachCont.frameCounterWind % 3 ==0)
 				this.yloc+=speed;
 			System.out.println("B");
@@ -93,12 +93,14 @@ public class Wave {
 		return false;
 	}
 	
-	public static void activateWind() {
-		int randomDir = (int) (Math.random() * 2) + 1;
-		if (randomDir == 1)
-			direction = RIGHT;
-		else
-			direction = LEFT;
+	public static void activateWind(int number) {
+		if (direction == FORWARD) {
+			int randomDir = number %2 ;
+			if (randomDir == 1)
+				direction = RIGHT;
+			else
+				direction = LEFT;
+		}
 	}
 	
 	public static void ceaseWind(){
@@ -117,6 +119,7 @@ public class Wave {
 		return length;
 	}
 	
+	public static int getDirection(){return direction;}
 	public int getLeft(){return left;}
 	public int getRight(){return right;}
 }

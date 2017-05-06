@@ -25,7 +25,7 @@ public class BeachCont implements MiniGameController{
 	private BeachView bView = new BeachView(board1);
 	private boolean hasWon=false;
 	private boolean hasLost=false;
-	private int frameCounter;
+	public int frameCounter;
 	public static int frameCounterWind;
 	public int frameCounterTurtles;
 	private int framesBetweenBoats;
@@ -40,7 +40,7 @@ public class BeachCont implements MiniGameController{
 		frameCounterWind=0;
 		frameCounterTurtles=0;
 		framesBetweenBoats=230;
-		framesBetweenTurtles=600;
+		framesBetweenTurtles=605;
 		framesBetweenWind=600;
 	} 
 
@@ -61,6 +61,7 @@ public class BeachCont implements MiniGameController{
 		frameCounter++;
 		frameCounterWind++;
 		frameCounterTurtles++;
+		
 		/*user*/
 		board1.user.move();
 		
@@ -79,10 +80,10 @@ public class BeachCont implements MiniGameController{
 		
 		if (frameCounterWind > framesBetweenWind){
 			System.out.println("this happened");
-			Wave.activateWind();
+			Wave.activateWind(frameCounterTurtles);
 		}
 		
-		if (frameCounterWind == framesBetweenWind + 300){
+		if (frameCounterWind == framesBetweenWind + 700){
 			Wave.ceaseWind();
 			frameCounterWind=0;
 		}
@@ -134,6 +135,10 @@ public class BeachCont implements MiniGameController{
 	@Override
 	public void dispose() {
 		bView.frame.dispose();
+	}
+	
+	public int getFrameCount(){
+		return frameCounter;
 	}
 
 }
