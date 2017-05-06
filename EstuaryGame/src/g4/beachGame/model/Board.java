@@ -15,7 +15,7 @@ public class Board {
 	final static int WIDTH = 1100; 
 	
 	/**width of the shore (not including the last column reserved for protectors)**/
-	public final static int SHORELINE_WIDTH = WIDTH-100; 
+	public final static int SHORE_WIDTH = WIDTH-100; 
 
 	/**the number of spots along the shore where the user can place protectors**/
 	public final static int SPACES_OF_SHORE = 12;
@@ -24,7 +24,7 @@ public class Board {
 	public final static int HEIGHT = 600;
 	
 	/**the x location where the shoreline is **/
-	public static int shoreline = HEIGHT/2; //where the shore starts
+	public final static int SHORE_HEIGHT = HEIGHT/2; //where the shore starts
 	
 	/**whether or not the a spot along the shore has receded to the bottom of the screen**/
 	private boolean isShoreDestroyed = false; 
@@ -111,12 +111,12 @@ public class Board {
 	/**
 	 * @return true if player has won, false if player has lost
 	 * */
-	public boolean win(){
-		if (hoursLeft==0 && shoreline>0)
-			return true;
-		else 
-			return false;
-	}
+//	public boolean win(){
+//		if (hoursLeft==0 && SHORE_HEIGHT>0)
+//			return true;
+//		else 
+//			return false;
+//	}
 	
 	/**
 	 * 
@@ -174,11 +174,11 @@ public class Board {
 	}
 	
 	public void splitWave(Wave wave){
-		int left = (int)(SPACES_OF_SHORE*wave.getX()/SHORELINE_WIDTH);
-		int right = (int)(SPACES_OF_SHORE*(wave.getX()+wave.getLength())/SHORELINE_WIDTH);
+		int left = (int)(SPACES_OF_SHORE*wave.getX()/SHORE_WIDTH);
+		int right = (int)(SPACES_OF_SHORE*(wave.getX()+wave.getLength())/SHORE_WIDTH);
 		splitWaves.add(new Wave(wave.speed, wave.getLength()-wave.getX(), wave.getX(), wave.getY()));
 		for (int i = left+1; i<right;i++){
-			splitWaves.add(new Wave( wave.speed,SHORELINE_WIDTH/SPACES_OF_SHORE,i*SPACES_OF_SHORE,wave.getY()));
+			splitWaves.add(new Wave( wave.speed,SHORE_WIDTH/SPACES_OF_SHORE,i*SPACES_OF_SHORE,wave.getY()));
 		}
 		splitWaves.add(new Wave(wave.speed,wave.getLength()-(right-1)*SPACES_OF_SHORE,right*SPACES_OF_SHORE,wave.getY()));
 	}
@@ -192,8 +192,8 @@ public class Board {
 	 */
 	public void waveHit(int l, int r) {
 		// where the leftmost and right most portion of the wave hits
-		int left = (int) (SPACES_OF_SHORE * l / SHORELINE_WIDTH);
-		int right = (int) (SPACES_OF_SHORE * r / SHORELINE_WIDTH);
+		int left = (int) (SPACES_OF_SHORE * l / SHORE_WIDTH);
+		int right = (int) (SPACES_OF_SHORE * r / SHORE_WIDTH);
 		for (int i = left; i < right + 1; i++) {
 			int depth = 0;
 			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
@@ -227,7 +227,7 @@ public class Board {
 	 * @return the integer representing the protector chosen
 	 */
 	public int chooseProtector() {
-		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORELINE_WIDTH == SPACES_OF_SHORE){
+		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE){
 			if (user.getyLoc() <TOP_ROW3*HEIGHT/TOTALROWS-RAISE)
 				protector = GRASS_L;
 			else if (user.getyLoc() >= TOP_ROW2*HEIGHT/TOTALROWS -RAISE 
@@ -247,7 +247,7 @@ public class Board {
 	 */
 	public void placeProtector(){
 		int depth = 0;
-		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
+		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORE_WIDTH;
 		while (depth < beach.length && beach[depth][spot] == WATER)
 			depth++;
 		beach[depth][spot] = getProtector();
@@ -261,8 +261,8 @@ public class Board {
 	 * @return whether or not the x and y location is a shore or not
 	 */
 	public static boolean isShore(double x, double y){
-		if (x>0 && x<SHORELINE_WIDTH && y>shoreline && y<HEIGHT-User.CRAB_HEIGHT){
-			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORELINE_WIDTH);
+		if (x>0 && x<SHORE_WIDTH && y>SHORE_HEIGHT && y<HEIGHT-User.CRAB_HEIGHT){
+			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORE_WIDTH);
 			int crabDepth = (int)(6*y/Board.HEIGHT);
 			if (beach[crabDepth-3][crabSpot]!=WATER){
 				return true;

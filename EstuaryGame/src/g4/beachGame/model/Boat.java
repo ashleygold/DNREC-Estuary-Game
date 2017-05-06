@@ -10,7 +10,7 @@ public abstract class Boat{
 	int speed;
 	boolean direction; //true=right, false=left;
 	boolean hasEmittedWave;
-	int waveLocation = (int)(Math.random() * (Board.SHORELINE_WIDTH)-200);
+	int waveLocation = (int)(Math.random() * (Board.SHORE_WIDTH)-200);
 
 	
 	public void move() {

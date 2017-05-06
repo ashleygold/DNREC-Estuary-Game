@@ -83,7 +83,7 @@ public class Wave {
 			return true;
 		else if (direction ==RIGHT && this.getX()>Board.WIDTH)
 			return true; 
-		else if (this.xloc>Board.SHORELINE_WIDTH && this.yloc>Board.HEIGHT/2)
+		else if (this.xloc>Board.SHORE_WIDTH && this.yloc>Board.HEIGHT/2)
 			return true; 
 		else if (this.xloc<0)
 			return true;

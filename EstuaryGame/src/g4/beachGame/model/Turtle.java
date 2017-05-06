@@ -61,7 +61,7 @@ public class Turtle {
 	}
 	/*checks to see if the turtle is on the shore*/
 	public boolean isShore(double xLoc, double yLoc){
-		int x = (int) xLoc*12/Board.SHORELINE_WIDTH;
+		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell;
 		try{
@@ -72,7 +72,7 @@ public class Turtle {
 		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.SHORE);
 	}
 	public boolean isWater(double xLoc, double yLoc){
-		int x = (int) xLoc*12/Board.SHORELINE_WIDTH;
+		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell = 0;
 		try{

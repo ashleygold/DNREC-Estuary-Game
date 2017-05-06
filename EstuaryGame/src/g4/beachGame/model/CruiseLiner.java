@@ -8,7 +8,7 @@ public class CruiseLiner extends Boat{
 	
 	public CruiseLiner(){
 		int randomDir = 1+ (int) (Math.random() * 2);
-		int randomHeight = 100 + (int) (Math.random()*Board.shoreline-MIN_DISTANCE_FROM_SHORE);
+		int randomHeight = 100 + (int) (Math.random()*(Board.SHORE_HEIGHT-MIN_DISTANCE_FROM_SHORE));
 		if (randomDir==1){
 			this.xloc=0;
 			this.direction=true;
