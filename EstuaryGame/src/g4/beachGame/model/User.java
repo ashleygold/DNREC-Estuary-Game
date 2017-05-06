@@ -5,6 +5,7 @@ import g4.mainController.MainMenu;
 public class User {
 	public final static int CRAB_HEIGHT=50;
 	public final static int CRAB_WIDTH=70;
+	private final static int BUFFER = 30;
 	
 	private final int DEFAULTX = 15;
 	private final int DEFAULTY = 450;
@@ -38,11 +39,13 @@ public class User {
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
-				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc))
+				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
+						&& Board.isShore(xLoc + XINCR, yLoc) )
 					xLoc+=XINCR;
 				break;
 			case UP:
-				if (Board.isShore(xLoc, yLoc - YINCR))
+				if (Board.isShore(xLoc, yLoc - YINCR)
+						&& Board.isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
 					yLoc-=YINCR;
 				break;
 			case DOWN:
