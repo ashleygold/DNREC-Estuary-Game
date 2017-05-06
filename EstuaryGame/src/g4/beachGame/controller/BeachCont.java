@@ -71,7 +71,7 @@ public class BeachCont implements MiniGameController{
 		//spawn boats
 		if (frameCounter==framesBetweenBoats){
 			board1.createBoat();
-			//frameCounter=0;
+			frameCounter=0;
 			framesBetweenBoats-=3;
 		}
 		
