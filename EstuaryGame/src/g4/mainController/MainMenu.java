@@ -18,34 +18,45 @@ import g4.storyGame.controller.StoryCont;
 
 public class MainMenu extends JPanel{
 	
-	//Exit program flag
+	/** Exit program flag */
 	private static boolean exitFlag = false;
 	
-	//Current MiniGame
+	/** Current MiniGame */
 	private static MiniGameController game = null;
 	
-	//Frame rate 
-	//Number of times models are updated and frames are repainted per second
+	/** Current frame rate, Number of times models are updated and frames are repainted per second */
 	private static int fps = 24;
-	//allows for different games to process at different rates
+	
+	/** Frame rates for maze game, allows it to process at different rates */
 	public static final int MAZE_FPS = 60;
+	/** Frame rates for beach game, allows it to process at different rates */
 	public static final int BEACH_FPS = 60;
+	/** Frame rates for story game, allows it to process at different rates */
 	public static final int STORY_FPS = 24;
 	
-	//State selection
+	/** Currently selected state */
 	private static int curState = 0;
+	/** State for Delaware images */
 	private static final int DE = 0;
+	/** State for Texas images */
 	private static final int TX = 1;
+	/** State for Florida images */
 	private static final int FL = 2;
 	
-	//Colors for menus
+	/** Green color for menus */
 	public static final Color SEA_GREEN = new Color(26, 255, 139);
+	/** Blue color for menus */
 	public static final Color BACKGROUND_BLUE = new Color(10,105,148);
+	/** Brown color for menus */
 	public static final Color TEXT_BROWN = new Color(101, 67, 33);
 	
-	//Text for label
+	/** Text names of states */
 	private static final String[] LABEL_NAMES = {"Delaware", "Texas", "Florida"};
 	
+	/**
+	 * Main method for entire collection of games, includes game loop
+	 * @param args line arguments
+	 */
 	public static void main(String [] args){
 		//create and set up frame defaults
 		JFrame frame = new JFrame();
@@ -199,12 +210,19 @@ public class MainMenu extends JPanel{
 		frame.dispose();
 	}
 	
+	/**
+	 * Overrides default repainting to ensure menu visibility
+	 * g object which does the actual painting
+	 */
 	@Override
 	public void paint(Graphics g) {
 		
 	}
 
-	protected static void quit() {
+	/**
+	 * Set the game flag to exit the game loop and quit 
+	 */
+	private static void quit() {
 		exitFlag = true;
 	}
 }
