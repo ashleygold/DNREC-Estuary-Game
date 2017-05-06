@@ -5,7 +5,7 @@ import g4.beachGame.controller.BeachCont;
 public class Wave {
 	int damage;
 	int length;
-	int direction;
+	static int direction = 0;
 	int speed;
 	int xloc;
 	int yloc;
@@ -20,9 +20,9 @@ public class Wave {
 	final int SAILBOAT_DAMAGE=2; 
 	final int SPEEDBOAT_DAMAGE=1; 
 	
-	final int RIGHT=1;
-	final int LEFT=-1; 
-	final int FORWARD=0;
+	final static int RIGHT=1;
+	final static int LEFT=-1; 
+	final static int FORWARD=0;
 	
 	final int BOAT_SPEED = 1;
 	final int CRUISELINER_SPEED=2; 
@@ -47,7 +47,7 @@ public class Wave {
 			this.length = SPEEDBOAT_LENGTH;
 			this.speed= BOAT_SPEED; 
 		}
-		this.direction = FORWARD; 
+		//direction = FORWARD; 
 		this.xloc=boat.getXLoc();
 		this.yloc=boat.getYLoc(); 
 		
@@ -63,24 +63,28 @@ public class Wave {
 	}
 	
 	public void move(){
-		if (direction == FORWARD)
+		if (direction == FORWARD){
 			this.yloc += speed;
+			System.out.println("A");
+		}
 		else if (direction == LEFT){
 			this.xloc+=direction;
 			if (BeachCont.frameCounterWind % 3 ==0)
 				this.yloc+=speed;
+			System.out.println("B");
 		}
 		else{
 			this.xloc-=direction;
 			if (BeachCont.frameCounterWind % 3 ==0)
 				this.yloc+=speed;
+			System.out.println("C");
 		}
 	}
 	
 	public boolean isOutOfRange(){
-		if (this.direction == LEFT && this.getX()<1)
+		if (direction == LEFT && this.getX()<1)
 			return true;
-		else if (this.direction ==RIGHT && this.getX()>Board.WIDTH)
+		else if (direction ==RIGHT && this.getX()>Board.WIDTH)
 			return true; 
 		else if (this.xloc>Board.SHORELINE_WIDTH && this.yloc>Board.HEIGHT/2)
 			return true; 
@@ -89,18 +93,16 @@ public class Wave {
 		return false;
 	}
 	
-	public void activateWind() {
-		if (direction == FORWARD) {
-			int randomDir = (int) (Math.random() * 2) + 1;
-			if (randomDir == 1)
-				this.direction = RIGHT;
-			else
-				this.direction = LEFT;
-		}
+	public static void activateWind() {
+		int randomDir = (int) (Math.random() * 2) + 1;
+		if (randomDir == 1)
+			direction = RIGHT;
+		else
+			direction = LEFT;
 	}
 	
-	public void ceaseWind(){
-		this.direction=FORWARD;
+	public static void ceaseWind(){
+		direction=FORWARD;
 	}
 	
 	public int getX(){

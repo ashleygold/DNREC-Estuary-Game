@@ -41,7 +41,7 @@ public class BeachCont implements MiniGameController{
 		frameCounterTurtles=0;
 		framesBetweenBoats=230;
 		framesBetweenTurtles=600;
-		framesBetweenWind=900;
+		framesBetweenWind=600;
 	} 
 
 	public void couldCreateWave(Boat boat){
@@ -77,32 +77,30 @@ public class BeachCont implements MiniGameController{
 			frameCounterTurtles=0;
 		}
 		
+		if (frameCounterWind > framesBetweenWind){
+			System.out.println("this happened");
+			Wave.activateWind();
+		}
+		
+		if (frameCounterWind == framesBetweenWind + 300){
+			Wave.ceaseWind();
+			frameCounterWind=0;
+		}
 		
 		//waves move down screen
 		Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 		while (wavesIt.hasNext()){
 			Wave currWave = wavesIt.next();
-			if (frameCounterWind >= framesBetweenWind)
-				currWave.activateWind();
-			else if (frameCounterWind>= framesBetweenWind+300){
-				currWave.ceaseWind();
-			}
 			currWave.move();
 			if (currWave.isOutOfRange()){
 				wavesIt.remove();
 			}
 			if (currWave.getY() >= Board.shoreline){
-				//board1.splitWave(currWave);
 				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
 				wavesIt.remove();
 			}
 		}
-		
-		if (frameCounterWind<=framesBetweenWind+300){
-			frameCounterWind=0; //fix this
-			framesBetweenWind-=100;
-		}
-		
+	
 		
 		
 //		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
