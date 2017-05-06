@@ -160,13 +160,14 @@ public class BeachView extends JPanel{
 		while (turtleIt.hasNext()){
 			Turtle turtle = turtleIt.next();
 			if (turtle.getDirection() == 0)
-				g.drawImage(leftTurtleImages[turtle.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
+				g.drawImage(leftTurtleImages[turtle.getPicNum()].getScaledInstance(turtle.getWidth(), turtle.getHeight(), Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
 			else
-				g.drawImage(rightTurtleImages[turtle.getPicNum()].getScaledInstance(70, 50, Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
-			if (turtle.getGotToOcean()){
-				
-				board.getCurrTurtles().remove(turtle);
-			}
+				g.drawImage(rightTurtleImages[turtle.getPicNum()].getScaledInstance(turtle.getWidth(), turtle.getHeight(), Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
+			g.setColor(Color.GRAY);
+			g.fillRect(turtle.getxLoc()+turtle.getWidth(), turtle.getyLoc(), turtle.DEFAULTFRAMES/60, 10);
+			
+			g.setColor(Color.GREEN);
+			g.fillRect(turtle.getxLoc()+turtle.getWidth(), turtle.getyLoc(), turtle.getFramesLeft()/60, 10);
 		}
 		g.setColor(Color.DARK_GRAY);
 		Iterator<Boat> boatIt = board.getCurrBoats().iterator();

@@ -114,7 +114,14 @@ public class Board {
 	 * @return true if player has lost, false if player has not lost
 	 */
 	public boolean checkLost(){
-		return isShoreDestroyed;
+		Iterator<Turtle> turtleIt = turtles.iterator();
+		boolean turtleDie = false;
+		while (turtleIt.hasNext()){
+			Turtle turtle = turtleIt.next();
+			if (turtle.getFramesLeft()<=0)
+				turtleDie = true;
+		}
+		return (isShoreDestroyed||turtleDie);
 	}
 	
 	/**
@@ -232,7 +239,7 @@ public class Board {
 	public void placeProtector(){
 		int depth = 0;
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORELINE_WIDTH;
-		while (depth < beach.length && beach[depth][spot] != SHORE)
+		while (depth < beach.length && beach[depth][spot] == WATER)
 			depth++;
 		beach[depth][spot] = getProtector();
 		protector = -1;
@@ -278,6 +285,10 @@ public class Board {
 		return turtles;
 	}
 	public void addCurrWave(Wave wave){currWaves.add(wave);}
+	
+	public boolean getIsShoreDestroyed(){
+		return isShoreDestroyed;
+	}
 	
 }
 

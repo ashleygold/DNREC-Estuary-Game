@@ -6,27 +6,29 @@ import java.util.Random;
 //MAKE TURTLE DIE IF NO WAY OUT
 
 public class Turtle {
-	private final int TURTLE_HEIGHT=115;
-	private final int TURTLE_WIDTH=245;
+	private final int TURTLE_HEIGHT=50;
+	private final int TURTLE_WIDTH=70;
 	
-	private final int DEFAULTX = 200;//(int)(Math.random() * Board.WIDTH);
+	private final int DEFAULTX = (int)(Math.random() * Board.WIDTH);
 	private final int DEFAULTY = Board.HEIGHT;
 	private final int XINCR = 1;
 	private final int YINCR = 1;
 	private final int[] directs = {0,1}; // left = 0, right = 1
-	private int direction = 1;//directs[new Random().nextInt(directs.length)];
+	private int direction = directs[new Random().nextInt(directs.length)];
 	private int xLoc;
 	private int yLoc;
 	private boolean gotToOcean = false;
 	private double picNum = 0;
 	private int numPics = 3;
+	public final int DEFAULTFRAMES = 1600;
+	private int framesLeft;
 	
 	public Turtle(){
 		xLoc = DEFAULTX;
 		yLoc = DEFAULTY;
+		setFramesLeft(DEFAULTFRAMES);
 	}
 	public void move(){
-		System.out.println(xLoc);
 		picNum = (picNum+.2)%numPics;
 		if (direction == 0){
 			if (isShore(xLoc-XINCR,yLoc-YINCR)){
@@ -47,7 +49,7 @@ public class Turtle {
 				xLoc+= XINCR;
 				yLoc-= YINCR;
 			}
-			else if (xLoc+XINCR >=Board.WIDTH-TURTLE_WIDTH)
+			else if (xLoc+XINCR >=Board.WIDTH-TURTLE_WIDTH-100)
 				direction = 0;
 			else if (isWater(xLoc+XINCR, yLoc-YINCR))
 				gotToOcean= true;
@@ -67,7 +69,7 @@ public class Turtle {
 		}catch(ArrayIndexOutOfBoundsException e){
 			return false;
 		}
-		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH && cell == Board.SHORE);
+		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.SHORE);
 	}
 	public boolean isWater(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORELINE_WIDTH;
@@ -101,5 +103,17 @@ public class Turtle {
 	}
 	public int getPicNum(){
 		return (int)picNum;
+	}
+	public int getFramesLeft() {
+		return framesLeft;
+	}
+	public void setFramesLeft(int framesLeft) {
+		this.framesLeft = framesLeft;
+	}
+	public int getWidth(){
+		return TURTLE_WIDTH;
+	}
+	public int getHeight(){
+		return TURTLE_HEIGHT;
 	}
 }
