@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import g4.beachGame.model.Board;
 import g4.beachGame.model.Boat;
-import g4.beachGame.model.Protector;
 import g4.beachGame.model.Turtle;
 import g4.beachGame.model.User;
 import g4.beachGame.model.Wave;
@@ -82,7 +81,6 @@ public class BeachCont implements MiniGameController{
 		}
 		
 		if (frameCounterWind > framesBetweenWind){
-			System.out.println("this happened");
 			Wave.activateWind(frameCounterTurtles);
 		}
 		
