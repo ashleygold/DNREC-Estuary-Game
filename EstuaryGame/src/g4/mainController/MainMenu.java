@@ -83,8 +83,10 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(game != null)
 					game.dispose();
-				JOptionPane.showMessageDialog(null, "You are a crab trying to grow bigger and stronger!\nCollect food"
-						+ " and progress through the three stages to go from areas of high salinity to lower salinity.\n"
+				JOptionPane.showMessageDialog(null, "You are a crab trying to grow bigger and stronger!"
+						+ "\nCollect food (algae, fish eggs, and mussels) and progress "
+						+ "\nthrough the three stages to go from areas of high salinity "
+						+ "\nto lower salinity.\n"
 						+ "Don't get eaten by predators!");
 				game = new MazeCont();
 				fps = MAZE_FPS;
