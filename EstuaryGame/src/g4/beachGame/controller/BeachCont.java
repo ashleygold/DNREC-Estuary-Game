@@ -108,9 +108,25 @@ public class BeachCont implements MiniGameController{
 				if (currWave.isOutOfRange()){
 					wavesIt.remove();
 				}
-				if (currWave.getY() >= Board.SHORE_HEIGHT - Board.RAISE){
-					board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
+				if (currWave.getY() >= Board.SHORE_HEIGHT){// - Board.RAISE){
+					int x = board1.splitWave(currWave);
+					if (x == 0){
+						board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
+					}
 					wavesIt.remove();
+				}
+			}
+			Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
+			while (splitWavesIt.hasNext()){
+				Wave swave = splitWavesIt.next();
+				swave.move();
+				try{
+					if (board1.beach[(int) (Math.ceil(swave.getY()*6/Board.HEIGHT))-3][swave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
+						board1.waveHit(swave.getX(), swave.getX()+swave.getLength());
+						splitWavesIt.remove();
+					}
+				}catch(ArrayIndexOutOfBoundsException e){
+					splitWavesIt.remove();
 				}
 			}
 		}

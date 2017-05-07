@@ -92,6 +92,9 @@ public class Board {
 	int difficulty;
 	
 	private boolean turtleDie = false;
+	public Wave newSplitWave1 = null;
+	public Wave newSplitWave2 = null;
+	public Wave newSplitWave3 = null;
 	
 	/**
 	 * creates a new board of waves and protectors
@@ -99,6 +102,7 @@ public class Board {
 	public Board(){
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
+		splitWaves = new ArrayList<Wave>();
 		user = new User();
 		turtles = new ArrayList<Turtle>();
 		hoursLeft = 24;
@@ -167,14 +171,62 @@ public class Board {
 		turtles.add(new Turtle());
 	}
 	
-	public void splitWave(Wave wave){
-		int left = (int)(SPACES_OF_SHORE*wave.getX()/SHORE_WIDTH);
-		int right = (int)(SPACES_OF_SHORE*(wave.getX()+wave.getLength())/SHORE_WIDTH);
+	public int splitWave(Wave wave){
+		//0: not split
+		//1: split wave once
+		//2: split wave twice
+		int timesSplit = 0;
+		boolean firstShore = true;;
+		int water = 0;
+		int waterLoc = 0;
+		int shoreLoc = 0;
+		boolean shoreAgain = false;
+		int x = wave.getX();
+		while (x < wave.getX()+wave.getLength()){
+			try{
+				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] == SHORE&&firstShore){
+					firstShore=false;
+				}
+				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] == WATER && water == 0 && !firstShore){
+					water++;
+					waterLoc = x;
+				}
+			}catch(ArrayIndexOutOfBoundsException e){
+				break;
+			}
+			if (water!= 0) //wave needs to be split at least once
+				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] == SHORE && !shoreAgain){ //wave needs to be split twice
+					shoreAgain = true;
+					shoreLoc = x;
+				}
+			x++;
+		}
+		if (water ==1)
+			System.out.println("shore water");
+		if (shoreAgain)
+			System.out.println("shore water shore");
+		System.out.println("Shore is " + shoreLoc);
+		if (water != 0){ //wave needs to be split
+			timesSplit++;
+			splitWaves.add(new Wave(wave.speed, waterLoc-wave.getX(), wave.getX(), wave.getY()));
+			if (!shoreAgain){ //wave only needs to be split once
+				splitWaves.add(new Wave(wave.speed, wave.getX()+wave.getLength()-waterLoc, waterLoc, wave.getY()));
+			}
+			else{ //wave needs to be split twice
+				timesSplit++;
+				splitWaves.add(new Wave(wave.speed, shoreLoc-waterLoc, shoreLoc, wave.getY()));
+				splitWaves.add(new Wave(wave.speed, wave.getX()+wave.getLength()-shoreLoc, shoreLoc, wave.getY()));
+			}
+		}
+		
+		/*
 		splitWaves.add(new Wave(wave.speed, wave.getLength()-wave.getX(), wave.getX(), wave.getY()));
 		for (int i = left+1; i<right;i++){
 			splitWaves.add(new Wave( wave.speed,SHORE_WIDTH/SPACES_OF_SHORE,i*SPACES_OF_SHORE,wave.getY()));
 		}
 		splitWaves.add(new Wave(wave.speed,wave.getLength()-(right-1)*SPACES_OF_SHORE,right*SPACES_OF_SHORE,wave.getY()));
+		*/
+		return timesSplit;
 	}
 
 	/**
@@ -197,14 +249,13 @@ public class Board {
 			}catch(ArrayIndexOutOfBoundsException e){
 				break;
 			}
-			if (depth == beach.length) // the shore has reached the bottom of
-				// the screen
+			if (depth == beach.length) // the shore has reached the bottom of the screen
 				isShoreDestroyed = true;
 			else if (beach[depth][i] == SHORE){
 				beach[depth][i] = WATER;
 				isInOcean(depth, i);
 			}
-			else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) {
+			else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) { //wave hits protector
 				int protectorHit = beach[depth][i];
 				if (protectorHit == GRASS_L || protectorHit == GABION_2L || protectorHit == GABION_L)
 					beach[depth][i]--; // protector loses a life

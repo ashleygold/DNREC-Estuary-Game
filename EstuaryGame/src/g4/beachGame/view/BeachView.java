@@ -206,6 +206,11 @@ public class BeachView extends JPanel{
 			Wave currWave = wavesIt.next();
 			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
 		}
+		Iterator<Wave> splitWavesIt = board.getSplitWaves().iterator();
+		while (splitWavesIt.hasNext()){
+			Wave sWave = splitWavesIt.next();
+			g.fillRect(sWave.getX()+10, sWave.getY()+10, sWave.getLength(), 10);
+		}
 	}
 	@Override
 	protected void paintComponent(Graphics g){
