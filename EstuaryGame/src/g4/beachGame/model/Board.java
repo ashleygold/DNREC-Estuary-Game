@@ -23,8 +23,8 @@ public class Board {
 	/**height of the board**/
 	public final static int HEIGHT = 600;
 	
-	/**the x location where the shoreline is **/
-	public final static int SHORE_HEIGHT = HEIGHT/2; //where the shore starts
+	/**where the shoreline starts**/
+	public final static int SHORE_HEIGHT = HEIGHT/2;
 	
 	/**whether or not the a spot along the shore has receded to the bottom of the screen**/
 	private boolean isShoreDestroyed = false; 
@@ -45,13 +45,16 @@ public class Board {
 	public final static int GABION_L = 6;
 	public final static int GABION_2L = 7;
 	
-	/**final fields that represent the depth of the shore**/
-	public final static int TOP_ROW1=3;
-	public final static int TOP_ROW2=4;
-	public final static int TOP_ROW3=5;
+	
 	public final static int TOTALROWS=6;
 	
 	public final static int RAISE=15; //how much high it is?
+	
+	/**final fields that represent the depth of the shore**/
+	public final static int TOP_ROW1=3;
+	public final static int TOP_ROW2=4*HEIGHT/TOTALROWS -RAISE ;
+	public final static int TOP_ROW3=5*HEIGHT/TOTALROWS -2*RAISE;
+
 	
 	
 	/**the array representing what was originally the shore**/
@@ -59,7 +62,7 @@ public class Board {
 	
 	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
-	public int[] posArr = {HEIGHT/2, TOP_ROW2*HEIGHT/TOTALROWS - RAISE, TOP_ROW3*HEIGHT/TOTALROWS - 2*RAISE};
+	public int[] posArr = {HEIGHT/2, TOP_ROW2, TOP_ROW3};
 	
 	/**how much time is left in the game**/
 	int hoursLeft; 
@@ -107,16 +110,6 @@ public class Board {
 		elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
 		hoursLeft = (int) (elapsedTime /GAMESEC_PER_HOUR);
 	}
-
-	/**
-	 * @return true if player has won, false if player has lost
-	 * */
-//	public boolean win(){
-//		if (hoursLeft==0 && SHORE_HEIGHT>0)
-//			return true;
-//		else 
-//			return false;
-//	}
 	
 	/**
 	 * 
@@ -202,14 +195,48 @@ public class Board {
 			if (depth == beach.length) // the shore has reached the bottom of
 				// the screen
 				isShoreDestroyed = true;
-			else if (beach[depth][i] == SHORE)
+			else if (beach[depth][i] == SHORE){
 				beach[depth][i] = WATER;
+				isInOcean(depth, i);
+			}
 			else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) {
 				int protectorHit = beach[depth][i];
 				if (protectorHit == GRASS_L || protectorHit == GABION_2L || protectorHit == GABION_L)
 					beach[depth][i]--; // protector loses a life
 				else
 					beach[depth][i] = SHORE;
+			}
+		}
+	}
+	
+	/**
+	 * helper function to waveHit. If the wave hits while the user is in the ocean, changes the 
+	 * isInOcean field to true so that when move() is called, the user can get out of the ocean
+	 * @param depth is which row down on the shore the wave hit
+	 * @param index is which column across on the shore the wave hit
+	 */
+	private void isInOcean(int depth, int index) {
+		if (!user.isInOcean) {
+			if (depth == 0) {
+				if ((user.getyLoc() >= SHORE_HEIGHT && user.getyLoc() <= TOP_ROW2)
+						|| user.getyLoc() + User.CRAB_HEIGHT >= SHORE_HEIGHT
+								&& user.getyLoc() + User.CRAB_HEIGHT <= TOP_ROW2) {
+					user.isInOcean = true;
+				}
+			}
+			else if (depth == 1) {
+				if ((user.getyLoc() >= TOP_ROW2 && user.getyLoc() <= TOP_ROW3)
+						|| user.getyLoc() + User.CRAB_HEIGHT >= TOP_ROW2
+								&& user.getyLoc() + User.CRAB_HEIGHT <= TOP_ROW3) {
+					user.isInOcean = true;
+				}
+			}
+			else if (depth == 2) {
+				if ((user.getyLoc() >= TOP_ROW3 && user.getyLoc() <= HEIGHT)
+						|| user.getyLoc() + User.CRAB_HEIGHT >= TOP_ROW3
+								&& user.getyLoc() + User.CRAB_HEIGHT <= HEIGHT) {
+					user.isInOcean = true;
+				}
 			}
 		}
 	}
@@ -228,10 +255,10 @@ public class Board {
 	 */
 	public int chooseProtector() {
 		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE){
-			if (user.getyLoc() <TOP_ROW3*HEIGHT/TOTALROWS-RAISE)
+			if (user.getyLoc() <TOP_ROW2)
 				protector = GRASS_L;
-			else if (user.getyLoc() >= TOP_ROW2*HEIGHT/TOTALROWS -RAISE 
-					&& user.getyLoc() < TOP_ROW3*HEIGHT/TOTALROWS -2*RAISE)
+			else if (user.getyLoc() >= TOP_ROW2
+					&& user.getyLoc() < TOP_ROW3)
 				protector = GABION_2L; 
 			else{
 				protector = WALL;
@@ -248,7 +275,7 @@ public class Board {
 	public void placeProtector(){
 		int depth = 0;
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORE_WIDTH;
-		while (depth < beach.length && beach[depth][spot] == WATER)
+		while (depth < beach.length && beach[depth][spot] != SHORE)
 			depth++;
 		beach[depth][spot] = getProtector();
 		protector = -1;
