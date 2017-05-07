@@ -1,7 +1,5 @@
 package g4.beachGame.model;
 
-import java.util.Random;
-
 public class Speedboat extends Boat{
 	final int HEIGHT=100;
 	final int SPEEDBOAT_SPEED=20;

@@ -140,7 +140,7 @@ public class StoryView extends JPanel{
 
 	/**
 	 * Creates an image from a file path to the requested image
-	 * @param file path to the wanted image
+	 * @param fileName path to the wanted image
 	 * @return the image object of the requested image
 	 */
 	private BufferedImage createImage(String fileName){ //converts filename to buffered image
