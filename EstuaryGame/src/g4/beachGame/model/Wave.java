@@ -12,7 +12,7 @@ public class Wave {
 	public int left;
 	public int right;
 	 
-	final int CRUISELINER_LENGTH = 200;
+	final int CRUISELINER_LENGTH = 150;
 	final int SAILBOAT_LENGTH = 80;
 	final int SPEEDBOAT_LENGTH = 40;
 	

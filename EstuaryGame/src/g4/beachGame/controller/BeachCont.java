@@ -56,6 +56,7 @@ public class BeachCont implements MiniGameController{
 	/*everything that changes every frame*/
 	@Override
 	public void update() {
+		System.out.println(board1.getCurrTurtles());
 		if (board1.checkLost()){
 			hasLost=true;
 			if (board1.getIsShoreDestroyed()){

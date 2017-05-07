@@ -202,7 +202,6 @@ public class Board {
 			System.out.println("shore water");
 		if (shoreAgain)
 			System.out.println("shore water shore");
-		System.out.println("Shore is " + shoreLoc);
 		if (water != 0){ //wave needs to be split
 			timesSplit++;
 			splitWaves.add(new Wave(wave.speed, waterLoc-wave.getX(), wave.getX(), wave.getY()));
