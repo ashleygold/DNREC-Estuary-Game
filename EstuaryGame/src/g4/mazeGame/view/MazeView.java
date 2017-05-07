@@ -145,7 +145,7 @@ public class MazeView extends JPanel{
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(-305+board.getWidth()*SLOT_SPACE + 
-				(board.MAX_SALINITY - board.getSalinity())*100,
+				(Board.MAX_SALINITY - board.getSalinity())*100,
 				5, board.getSalinity()*100, 25);
 		
 		g.setColor(Color.GREEN);
