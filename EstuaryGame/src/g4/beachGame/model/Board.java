@@ -189,8 +189,12 @@ public class Board {
 		int right = (int) (SPACES_OF_SHORE * r / SHORE_WIDTH);
 		for (int i = left; i < right + 1; i++) {
 			int depth = 0;
-			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
-				depth++;
+			try{
+				while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
+					depth++;
+				}
+			}catch(ArrayIndexOutOfBoundsException e){
+				break;
 			}
 			if (depth == beach.length) // the shore has reached the bottom of
 				// the screen
