@@ -91,6 +91,8 @@ public class Board {
 	/**the game should get easier as people keep losing**/
 	int difficulty;
 	
+	private boolean turtleDie = false;
+	
 	/**
 	 * creates a new board of waves and protectors
 	 * */
@@ -117,7 +119,6 @@ public class Board {
 	 */
 	public boolean checkLost(){
 		Iterator<Turtle> turtleIt = turtles.iterator();
-		boolean turtleDie = false;
 		while (turtleIt.hasNext()){
 			Turtle turtle = turtleIt.next();
 			if (turtle.getFramesLeft()<=0)
@@ -347,7 +348,13 @@ public class Board {
 	public boolean getIsShoreDestroyed(){
 		return isShoreDestroyed;
 	}
-	
+	public void setIsShoreDestroyed(boolean x){
+		System.out.println("changing boolean");
+		isShoreDestroyed = x;
+	}
+	public void setTurtleDie(boolean x){
+		turtleDie = x;
+	}
 }
 
 

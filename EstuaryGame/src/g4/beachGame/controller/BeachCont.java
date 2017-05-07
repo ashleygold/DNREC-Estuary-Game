@@ -60,49 +60,60 @@ public class BeachCont implements MiniGameController{
 	/*everything that changes every frame*/
 	@Override
 	public void update() {
-		frameCounter++;
-		frameCounterWind++;
-		frameCounterTurtles++;
-		frameCounterTurtleLife++;
-		/*user*/
-		board1.user.move();
-		
-		//spawn boats
-		if (frameCounter==framesBetweenBoats){
-			board1.createBoat();
-			frameCounter=0;
-			framesBetweenBoats-=3;
-		}
-		
-		//spawn turtles
-		if (frameCounterTurtles == framesBetweenTurtles){
-			board1.createTurtle();
-			frameCounterTurtles=0;
-		}
-		
-		if (frameCounterWind > framesBetweenWind){
-			Wave.activateWind(frameCounterTurtles);
-		}
-		
-		if (frameCounterWind == framesBetweenWind + 700){
-			Wave.ceaseWind();
-			frameCounterWind=0;
-		}
-		
-		//waves move down screen
-		Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
-		while (wavesIt.hasNext()){
-			Wave currWave = wavesIt.next();
-			currWave.move();
-			if (currWave.isOutOfRange()){
-				wavesIt.remove();
+		if (board1.checkLost()){
+			hasLost=true;
+			if (board1.getIsShoreDestroyed()){
+				JOptionPane.showMessageDialog(null, "Sorry, you lost :( The shore receded too much.");
 			}
-			if (currWave.getY() >= Board.SHORE_HEIGHT - Board.RAISE){
-				board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
-				wavesIt.remove();
+			else{
+				JOptionPane.showMessageDialog(null, "Sorry, you lost :( The turtle wasn't able to make it to the ocean.");
+			}
+			this.dispose();
+		}
+		else{
+			frameCounter++;
+			frameCounterWind++;
+			frameCounterTurtles++;
+			frameCounterTurtleLife++;
+			/*user*/
+			board1.user.move();
+			
+			//spawn boats
+			if (frameCounter==framesBetweenBoats){
+				board1.createBoat();
+				frameCounter=0;
+				framesBetweenBoats-=3;
+			}
+			
+			//spawn turtles
+			if (frameCounterTurtles == framesBetweenTurtles){
+				board1.createTurtle();
+				frameCounterTurtles=0;
+			}
+			
+			if (frameCounterWind > framesBetweenWind){
+				Wave.activateWind(frameCounterTurtles);
+			}
+			
+			if (frameCounterWind == framesBetweenWind + 700){
+				Wave.ceaseWind();
+				frameCounterWind=0;
+			}
+			
+			//waves move down screen
+			Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
+			while (wavesIt.hasNext()){
+				Wave currWave = wavesIt.next();
+				currWave.move();
+				if (currWave.isOutOfRange()){
+					wavesIt.remove();
+				}
+				if (currWave.getY() >= Board.SHORE_HEIGHT - Board.RAISE){
+					board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
+					wavesIt.remove();
+				}
 			}
 		}
-	
 		
 		
 //		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
@@ -131,16 +142,16 @@ public class BeachCont implements MiniGameController{
 		}
 		
 		bView.frame.repaint();
-		if (board1.checkLost()){
-			hasLost=true;
-			if (board1.getIsShoreDestroyed())
-				JOptionPane.showMessageDialog(bView.frame, "Sorry, you lost :( The shore receded too much.");
-			else
-				JOptionPane.showMessageDialog(bView.frame, "Sorry, you lost :( The turtle wasn't able to make it to the ocean.");
-			this.dispose();
+	}
+	public void reset(){
+		board1 = null;
+		for (int i = 0; i < board1.beach.length; i++){
+			for (int j = 0; j < board1.beach[0].length; j++){
+				board1.beach[i][j] = 0;
+			}
 		}
 	}
-
+	
 	@Override
 	public void dispose() {
 		bView.frame.dispose();
