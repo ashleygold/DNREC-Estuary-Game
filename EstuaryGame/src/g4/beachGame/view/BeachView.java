@@ -3,12 +3,8 @@ package g4.beachGame.view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import java.awt.Image;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,18 +17,18 @@ import g4.beachGame.model.Sailboat;
 import g4.beachGame.model.Turtle;
 import g4.beachGame.model.User;
 import g4.beachGame.model.Wave;
-import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
 	//This game's window
 	public JFrame frame;
+	/*
 	private final int USER_WIDTH = 100;
 	private final int USER_HEIGHT = 100;
 	private final int IMG_WIDTH = 100;
 	private final int IMG_HEIGHT = 100;
+	*/
 	private Board board;
 	private User user;
-	private Turtle turtle;
 
 	//index for the image's location in turtle[i]
 	
@@ -61,6 +57,8 @@ public class BeachView extends JPanel{
 	private BufferedImage[] rightTurtleImages = new BufferedImage[rightTurtleImagesLoc.length];
 	private BufferedImage[] shoreImages = new BufferedImage[shoreImagesLoc.length];
 	private BufferedImage[] boatImages = new BufferedImage[boatImagesLoc.length];
+	
+	private BufferedImage background = createImage("images/BeachImages/background.png");
 	
 	//converts filename to buffered image
 	private BufferedImage createImage(String fileName){ 
@@ -117,8 +115,8 @@ public class BeachView extends JPanel{
 		//g.fillRect(0, 0, board.getWidth(), board.getHeight());
 		//draws backgrounds
 		//g.drawImage(shoreImages[3].getScaledInstance(board.getWidth(), board.getHeight(), Image.SCALE_DEFAULT), 0, 0, null, this); //water
-		g.drawImage(createImage("images/BeachImages/background.png").getScaledInstance(board.getWidth(),  board.getHeight(), Image.SCALE_DEFAULT), 0, 0, this);
-		g.drawImage(shoreImages[0].getScaledInstance(board.getWidth(), board.getHeight()/6, Image.SCALE_DEFAULT), 0, board.getHeight()/2, null, this); //top layer of sand
+		g.drawImage(background, 0, 0, board.getWidth(),board.getHeight(),this);
+		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
 		//g.drawImage(shoreImages[1].getScaledInstance(board.getWidth(), board.getHeight(), Image.SCALE_DEFAULT), 0, 4*board.getHeight()/6, null, this); //rest of sand
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){
@@ -146,7 +144,7 @@ public class BeachView extends JPanel{
 
 				}
 				if (board.beach[row][col] != Board.SHORE)
-					g.drawImage(image.getScaledInstance((board.getWidth() - 100)/12, board.getHeight()/6, Image.SCALE_DEFAULT), col*(board.getWidth() - 100)/12, board.posArr[row], null, this);
+					g.drawImage(image, col*(board.getWidth() - 100)/12 -1, board.posArr[row] - 1, (board.getWidth() - 100)/12 +2, board.getHeight()/6 +2, null, this);
 				//g.fillRect(col*(board.getWidth() - 100)/12, 
 				//		board.posArr[row], (board.getWidth() - 100)/12, board.getHeight()/6);
 			}
@@ -156,7 +154,7 @@ public class BeachView extends JPanel{
 		//g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
 		//draws protectors
 		for (int i = 0; i < protectors.length; i++){
-			g.drawImage(protectors[i].getScaledInstance(100, board.getHeight()/6, Image.SCALE_DEFAULT), board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, null, this);
+			g.drawImage(protectors[i], board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
 		}
 		
 		
@@ -171,14 +169,14 @@ public class BeachView extends JPanel{
 		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
 		*/
 
-		g.drawImage(crabImages[user.getPicNum()].getScaledInstance(user.CRAB_WIDTH, user.CRAB_HEIGHT, Image.SCALE_DEFAULT), user.getxLoc(), user.getyLoc(), null, this);
+		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), User.CRAB_WIDTH, User.CRAB_HEIGHT, null, this);
 		Iterator<Turtle> turtleIt = board.getCurrTurtles().iterator();
 		while (turtleIt.hasNext()){
 			Turtle turtle = turtleIt.next();
 			if (turtle.getDirection() == 0)
-				g.drawImage(leftTurtleImages[turtle.getPicNum()].getScaledInstance(turtle.getWidth(), turtle.getHeight(), Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
+				g.drawImage(leftTurtleImages[turtle.getPicNum()], turtle.getxLoc(), turtle.getyLoc(), turtle.getWidth(), turtle.getHeight(), null, this);
 			else
-				g.drawImage(rightTurtleImages[turtle.getPicNum()].getScaledInstance(turtle.getWidth(), turtle.getHeight(), Image.SCALE_DEFAULT), turtle.getxLoc(), turtle.getyLoc(), null, this);
+				g.drawImage(rightTurtleImages[turtle.getPicNum()], turtle.getxLoc(), turtle.getyLoc(), turtle.getWidth(), turtle.getHeight(), null, this);
 			g.setColor(Color.GRAY);
 			g.fillRect(turtle.getxLoc()+turtle.getWidth(), turtle.getyLoc(), turtle.DEFAULTFRAMES/60, 10);
 			
@@ -196,7 +194,7 @@ public class BeachView extends JPanel{
 				boatImage = boatImages[1];
 			else
 				boatImage = boatImages[2];
-			g.drawImage(boatImage.getScaledInstance(60, 50, Image.SCALE_DEFAULT), currBoat.getXLoc()+10, currBoat.getYLoc()+10, null, this);
+			g.drawImage(boatImage, currBoat.getXLoc()+10, currBoat.getYLoc()+10, 60, 50, null, this);
 			//g.fillRect(currBoat.getXLoc()+10, currBoat.getYLoc()+10, 50, 50);
 		}
 		
@@ -207,10 +205,12 @@ public class BeachView extends JPanel{
 			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
 		}
 	}
+	
+	/*
 	@Override
 	protected void paintComponent(Graphics g){
 		System.out.println("drawing background");
-		g.drawImage(createImage("images/BeachImages/background.png").getScaledInstance(board.getWidth(),  board.getHeight(), Image.SCALE_DEFAULT), 0, 0, this);
-	}
+		g.drawImage(background, 0, 0, board.getWidth(),  board.getHeight(),this);
+	}*/
 }
 

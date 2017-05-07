@@ -23,7 +23,10 @@ public class Turtle {
 	public final int DEFAULTFRAMES = 1600;
 	private int framesLeft;
 	
-	public Turtle(){
+	private final Board board;
+	
+	public Turtle(Board b){
+		board = b;
 		xLoc = DEFAULTX;
 		yLoc = DEFAULTY;
 		setFramesLeft(DEFAULTFRAMES);
@@ -65,7 +68,7 @@ public class Turtle {
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell;
 		try{
-			cell = Board.beach[y-4][x];
+			cell = board.beach[y-4][x];
 		}catch(ArrayIndexOutOfBoundsException e){
 			return false;
 		}
@@ -76,7 +79,7 @@ public class Turtle {
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell = 0;
 		try{
-			cell = Board.beach[y-4][x];
+			cell = board.beach[y-4][x];
 		}catch(ArrayIndexOutOfBoundsException e){
 			if (y==3)
 				return true;

@@ -1,17 +1,13 @@
 package g4.beachGame.controller;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+
 import java.util.Iterator;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import g4.beachGame.model.Board;
 import g4.beachGame.model.Boat;
 import g4.beachGame.model.Turtle;
-import g4.beachGame.model.User;
 import g4.beachGame.model.Wave;
 import g4.beachGame.view.BeachView;
 import g4.mainController.MiniGameController;
@@ -129,6 +125,7 @@ public class BeachCont implements MiniGameController{
 			currBoat.move();
 			couldCreateWave(currBoat);	
 		}
+		board1.checkBoats();
 		
 		//moves turtles around screen
 		Iterator<Turtle> turtleIt = board1.getCurrTurtles().iterator();

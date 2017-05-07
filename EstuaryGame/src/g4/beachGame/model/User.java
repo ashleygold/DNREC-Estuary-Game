@@ -1,7 +1,5 @@
 package g4.beachGame.model;
 
-import g4.mainController.MainMenu;
-
 public class User {
 	public final static int CRAB_HEIGHT=50;
 	public final static int CRAB_WIDTH=70;
@@ -18,12 +16,15 @@ public class User {
 	
 	public boolean isInOcean = false;
 	
+	private final Board board;
+	
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
 	private int direction = STILL;
 	
 	
-	public User(){
+	public User(Board b){
+		this.board = b;
 		this.xLoc = DEFAULTX;
 		this.yLoc = DEFAULTY;
 	}
@@ -38,52 +39,52 @@ public class User {
 		// System.out.println(isInOcean);
 		switch(direction) {
 			case LEFT:
-				if (Board.isShore(xLoc - XINCR, yLoc) || isInOcean)
+				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean)
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
-				if ((Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
-						&& Board.isShore(xLoc + XINCR, yLoc)) || isInOcean)
+				if ((board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
+						&& board.isShore(xLoc + XINCR, yLoc)) || isInOcean)
 					xLoc+=XINCR;
 				break;
 			case UP:
-				if ((Board.isShore(xLoc, yLoc - YINCR)
-						&& Board.isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
+				if ((board.isShore(xLoc, yLoc - YINCR)
+						&& board.isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
 						|| isInOcean)
 					yLoc-=YINCR;
 				break;
 			case DOWN:
-				if (Board.isShore(xLoc, yLoc+YINCR) || isInOcean) 
+				if (board.isShore(xLoc, yLoc+YINCR) || isInOcean) 
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
-				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)
+				if (board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)
 						|| isInOcean){
 					xLoc+=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case UP_LEFT:
-				if (Board.isShore(xLoc-XINCR,yLoc-YINCR) || isInOcean){
+				if (board.isShore(xLoc-XINCR,yLoc-YINCR) || isInOcean){
 					xLoc-=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (Board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
+				if (board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
 						|| isInOcean){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}
 				break;
 			case DOWN_LEFT:
-				if (Board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
+				if (board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
 					xLoc-= XINCR;
 					yLoc+= YINCR;
 				}
 				break;
 		}
-		if (isInOcean && Board.isShore(xLoc, yLoc)){
+		if (isInOcean && board.isShore(xLoc, yLoc)){
 			isInOcean=false;
 		}
 	}

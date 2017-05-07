@@ -2,10 +2,6 @@ package g4.beachGame.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import g4.beachGame.controller.BeachCont;
 
 public class Board {
 	/** the amount of seconds that is equals 1 hour on the time of the game**/
@@ -58,7 +54,7 @@ public class Board {
 	
 	
 	/**the array representing what was originally the shore**/
-	public static int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
+	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
 	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
@@ -99,7 +95,7 @@ public class Board {
 	public Board(){
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
-		user = new User();
+		user = new User(this);
 		turtles = new ArrayList<Turtle>();
 		hoursLeft = 24;
 	}
@@ -149,7 +145,8 @@ public class Board {
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
 			if (currBoat.getXLoc()>WIDTH ||currBoat.getXLoc()<0){
-				currBoats.remove(currBoat);
+				System.out.println("Boat killed");
+				boatIt.remove();
 			}
 		}
 	}
@@ -164,7 +161,7 @@ public class Board {
 	}
 	
 	public void createTurtle(){
-		turtles.add(new Turtle());
+		turtles.add(new Turtle(this));
 	}
 	
 	public void splitWave(Wave wave){
@@ -292,7 +289,7 @@ public class Board {
 	 * @param y is the y location
 	 * @return whether or not the x and y location is a shore or not
 	 */
-	public static boolean isShore(double x, double y){
+	public boolean isShore(double x, double y){
 		if (x>0 && x<SHORE_WIDTH && y>SHORE_HEIGHT && y<HEIGHT-User.CRAB_HEIGHT){
 			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORE_WIDTH);
 			int crabDepth = (int)(6*y/Board.HEIGHT);
