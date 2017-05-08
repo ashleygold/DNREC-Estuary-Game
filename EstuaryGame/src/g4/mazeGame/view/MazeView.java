@@ -140,7 +140,7 @@ public class MazeView extends JPanel{
 		g.drawImage(food, 5, 5, null, this);
 		
 		//creating salinity bar
-		g.setColor(Color.BLUE);
+		g.setColor(Color.GRAY);
 		g.fillRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
 		
 		g.setColor(Color.WHITE);
