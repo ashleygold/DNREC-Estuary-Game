@@ -36,8 +36,9 @@ public class User {
 	}
 	
 	public void move() {
-		//checks nested in the interest of efficiency
-		picNum = (picNum + .2) % frameCount;
+		//checks nested in the interest of efficiencyc
+		if (direction != STILL)
+			picNum = (picNum + .2) % frameCount;
 		// System.out.println(isInOcean);
 		switch(direction) {
 			case LEFT:
