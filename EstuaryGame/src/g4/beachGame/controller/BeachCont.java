@@ -72,7 +72,7 @@ public class BeachCont implements MiniGameController{
 			System.out.println(board1.hoursLeft);
 			if (board1.hoursLeft==0){
 				JOptionPane.showMessageDialog(null, "You've protected the shore for a whole day!");
-				this.dispose();
+				dispose();
 			}
 			frameCounter++;
 			frameCounterWind++;
