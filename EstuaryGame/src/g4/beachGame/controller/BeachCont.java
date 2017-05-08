@@ -18,7 +18,7 @@ public class BeachCont implements MiniGameController{
 
 	private Board board1 = new Board();
 
-	private BeachView bView = new BeachView(board1);
+	private BeachView bView;
 	private boolean isGameOver = false;
 	public int frameCounter;
 	public static int frameCounterWind;
@@ -28,9 +28,9 @@ public class BeachCont implements MiniGameController{
 	private int framesBetweenTurtles;
 	private int framesBetweenWind;
 	final int timeBetweenBoats= 6;
-	private int[] waveCounter= new int[12];
 	
 	public BeachCont() {
+		bView = new BeachView(board1);
 		bView.addKeyListener(new Listener(board1));
 		frameCounter=0;
 		frameCounterWind=0;

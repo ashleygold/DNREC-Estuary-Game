@@ -66,7 +66,7 @@ public class Board {
 	/**nano seconds per second conversion**/
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
 	/**time when user starts playing**/
-	final static long START_TIME= System.nanoTime();
+	final long START_TIME= System.nanoTime();
 	
 	/**how much time has passed in seconds since user started playing**/
 	public double elapsedTime=0;
@@ -149,7 +149,6 @@ public class Board {
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
 			if (currBoat.getXLoc()>WIDTH ||currBoat.getXLoc()<0){
-				System.out.println("Boat killed");
 				boatIt.remove();
 			}
 		}

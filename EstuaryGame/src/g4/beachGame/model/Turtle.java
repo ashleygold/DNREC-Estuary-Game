@@ -9,7 +9,7 @@ public class Turtle {
 	private final int TURTLE_HEIGHT=50;
 	private final int TURTLE_WIDTH=70;
 	
-	private final int DEFAULTX = (int)(2+ Math.random() * Board.WIDTH);
+	private final int DEFAULTX = (int)(2+ Math.random() * Board.SHORE_WIDTH);
 	private final int DEFAULTY = Board.HEIGHT;
 	private final int XINCR = 1;
 	private final int YINCR = 1;
@@ -20,7 +20,7 @@ public class Turtle {
 	private boolean gotToOcean = false;
 	private double picNum = 0;
 	private int numPics = 3;
-	public final int DEFAULTFRAMES = 2500;
+	public final int DEFAULTFRAMES = 1600;
 	private int framesLeft;
 	
 	private final Board board;
@@ -34,14 +34,18 @@ public class Turtle {
 	public void move(){
 		picNum = (picNum+.2)%numPics;
 		if (direction == 0){
+			//if normal land
 			if (isShore(xLoc-XINCR,yLoc-YINCR)){
 				xLoc-=XINCR;
 				yLoc-=YINCR;
 			}
+			//if you've reached the left edge
 			else if (xLoc-XINCR<=0)
 				direction = 1;
+			//if this is water
 			else if (isWater(xLoc-XINCR,yLoc-YINCR))
 				gotToOcean = true;
+			//if this is a protector
 			else if (!isShore(xLoc-XINCR,yLoc))
 				yLoc+=YINCR;
 			else
@@ -74,29 +78,27 @@ public class Turtle {
 		}
 		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.SHORE);
 	}
+	
 	public boolean isWater(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
-		int cell = 0;
+		int cell = Board.SHORE;
 		try{
 			cell = board.beach[y-4][x];
 		}catch(ArrayIndexOutOfBoundsException e){
-			if (y==3)
+			if (y<=3 && xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100)
 				return true;
+			else
+				return false;
 		}
-		return (cell == Board.WATER);
+		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.WATER);
 	} 	
+	
 	public int getxLoc() {
 		return xLoc;
 	}
-	public void setxLoc(int x) {
-		this.xLoc = x;
-	}
 	public int getyLoc() {
 		return yLoc;
-	}
-	public void setyLoc(int y) {
-		this.yLoc = y;
 	}
 	public boolean getGotToOcean() {
 		return gotToOcean;
