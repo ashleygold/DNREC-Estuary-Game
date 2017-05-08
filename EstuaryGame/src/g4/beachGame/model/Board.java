@@ -214,14 +214,6 @@ public class Board {
 				splitWaves.add(new Wave(wave.speed, wave.getX()+wave.getLength()-shoreLoc, shoreLoc, wave.getY()));
 			}
 		}
-		
-		/*
-		splitWaves.add(new Wave(wave.speed, wave.getLength()-wave.getX(), wave.getX(), wave.getY()));
-		for (int i = left+1; i<right;i++){
-			splitWaves.add(new Wave( wave.speed,SHORE_WIDTH/SPACES_OF_SHORE,i*SPACES_OF_SHORE,wave.getY()));
-		}
-		splitWaves.add(new Wave(wave.speed,wave.getLength()-(right-1)*SPACES_OF_SHORE,right*SPACES_OF_SHORE,wave.getY()));
-		*/
 		return timesSplit;
 	}
 

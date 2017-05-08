@@ -133,13 +133,6 @@ public class BeachCont implements MiniGameController{
 				}
 			}
 			
-			
-	//		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
-	//		while (splitWavesIt.hasNext()){
-	//			Wave swave = splitWavesIt.next();
-	//			board1.addCurrWave(swave);
-	//		}
-			
 			//moves boats across screen
 			Iterator<Boat> boatIt = board1.getCurrBoats().iterator();
 			while (boatIt.hasNext()){
@@ -161,14 +154,6 @@ public class BeachCont implements MiniGameController{
 			}
 			
 			bView.frame.repaint();
-		}
-	}
-	public void reset(){
-		board1 = null;
-		for (int i = 0; i < board1.beach.length; i++){
-			for (int j = 0; j < board1.beach[0].length; j++){
-				board1.beach[i][j] = 0;
-			}
 		}
 	}
 	

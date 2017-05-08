@@ -22,12 +22,6 @@ import g4.beachGame.model.Wave;
 public class BeachView extends JPanel{
 	//This game's window
 	public JFrame frame;
-	/*
-	private final int USER_WIDTH = 100;
-	private final int USER_HEIGHT = 100;
-	private final int IMG_WIDTH = 100;
-	private final int IMG_HEIGHT = 100;
-	*/
 	private Board board;
 	private User user;
 
@@ -108,76 +102,39 @@ public class BeachView extends JPanel{
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
-		/*JLabel background = new JLabel();
-		background.setIcon(new ImageIcon(createImage("images/BeachImages/background.png")));
-		frame.setContentPane(background);*/
 		
 		displayHeight = b.getHeight()+100;
 	}
 	
 	public void paint(Graphics g){
-		//g.setColor(Color.BLUE);
-		//g.fillRect(0, 0, board.getWidth(), board.getHeight());
-		//draws backgrounds
-		//g.drawImage(shoreImages[3].getScaledInstance(board.getWidth(), board.getHeight(), Image.SCALE_DEFAULT), 0, 0, null, this); //water
 		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
 		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
 		g.setColor(Color.GREEN);
 		g.fillRect(0, board.getHeight() - Board.RAISE*2, board.getWidth(), 100); //goal to protect
 		g.setColor(Color.RED);
 		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)board.hoursLeft/board.TOTAL_HOURS)), 100);
-		//g.drawImage(shoreImages[1].getScaledInstance(board.getWidth(), board.getHeight(), Image.SCALE_DEFAULT), 0, 4*board.getHeight()/6, null, this); //rest of sand
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){
 			for (int col = 0; col < board.beach[0].length; col++){
-				/*if (board.beach[row][col] == Board.SHORE){
-					if (row == 0)
-						image = shoreImages[0];
-					else
-						image = shoreImages[1];
-					//g.setColor(Color.YELLOW);
-				}*/
-				if (board.beach[row][col] == Board.WATER){ //probably have to pass these numbers in via controller
+				if (board.beach[row][col] == Board.WATER) //probably have to pass these numbers in via controller
 					image = shoreImages[3];
-					//g.setColor(Color.BLUE);
-				}
 				else if (board.beach[row][col] == Board.GRASS || board.beach[row][col]==Board.GRASS_L)
 					image = shoreImages[4];
-					//g.setColor(Color.GREEN);
 				else if (board.beach[row][col] >= Board.GABION && board.beach[row][col] <= Board.GABION_2L)
 					image = protectors[1];
-					//g.setColor(Color.LIGHT_GRAY);
-				else if (board.beach[row][col] == Board.WALL){
+				else if (board.beach[row][col] == Board.WALL)
 					image = protectors[2];
-					//g.setColor(Color.WHITE);
 
-				}
 				if (board.beach[row][col] != Board.SHORE)
 					g.drawImage(image, col*(board.getWidth() - 100)/12 -1, board.posArr[row] - 1, (board.getWidth() - 100)/12 +2, board.getHeight()/6 +2, null, this);
-				//g.fillRect(col*(board.getWidth() - 100)/12, 
-				//		board.posArr[row], (board.getWidth() - 100)/12, board.getHeight()/6);
 			}
 		}
 		
-		//g.setColor(Color.YELLOW);
-		//g.fillRect(0, board.getHeight()/2, board.getWidth(), board.getHeight());
 		//draws protectors
 		for (int i = 0; i < protectors.length; i++){
 			g.drawImage(protectors[i], board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
 		}
 		
-		
-		/*
-		g.setColor(Color.GREEN);
-		g.fillRect(board.getWidth() - 100, board.getHeight()/2, 100, board.getHeight()/6);
-		
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(board.getWidth() - 100, 4*board.getHeight()/6 - 15, 100, board.getHeight()/6);
-		
-		g.setColor(Color.WHITE);
-		g.fillRect(board.getWidth() - 100, 5*board.getHeight()/6 - 30, 100, board.getHeight()/6);
-		*/
-
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), User.CRAB_WIDTH, User.CRAB_HEIGHT, null, this);
 		Iterator<Turtle> turtleIt = board.getCurrTurtles().iterator();
 		while (turtleIt.hasNext()){
@@ -204,7 +161,6 @@ public class BeachView extends JPanel{
 			else
 				boatImage = boatImages[2];
 			g.drawImage(boatImage, currBoat.getXLoc()+10, currBoat.getYLoc()+10, 60, 50, null, this);
-			//g.fillRect(currBoat.getXLoc()+10, currBoat.getYLoc()+10, 50, 50);
 		}
 		
 		g.setColor(Color.CYAN);
@@ -219,12 +175,5 @@ public class BeachView extends JPanel{
 			g.fillRect(sWave.getX()+10, sWave.getY()+10, sWave.getLength(), 10);
 		}
 	}
-	
-	/*
-	@Override
-	protected void paintComponent(Graphics g){
-		System.out.println("drawing background");
-		g.drawImage(background, 0, 0, board.getWidth(),  board.getHeight(),this);
-	}*/
 }
 
