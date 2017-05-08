@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class Board {
 	/** the amount of seconds that is equals 1 hour on the time of the game**/
-	final static int GAMESEC_PER_HOUR = 5; //sun time bar has 12 notches.
+	final static int GAMESEC_PER_HOUR = 3; //sun time bar has 12 notches.
 	
 	/**width of the board**/
 	final static int WIDTH = 1100; 
@@ -61,7 +61,7 @@ public class Board {
 	public int[] posArr = {HEIGHT/2, TOP_ROW2, TOP_ROW3};
 	
 	/**how much time is left in the game**/
-	int hoursLeft; 
+	public int hoursLeft; 
 	
 	/**nano seconds per second conversion**/
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
@@ -110,7 +110,7 @@ public class Board {
 	public void updateElapsedTime(){
 		long currTime=System.nanoTime();
 		elapsedTime = (currTime-START_TIME)/NANOSECOND_PER_SECOND;
-		hoursLeft = (int) (elapsedTime /GAMESEC_PER_HOUR);
+		hoursLeft = 24 - (int) (elapsedTime /GAMESEC_PER_HOUR);
 	}
 	
 	/**

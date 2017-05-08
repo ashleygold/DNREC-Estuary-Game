@@ -20,7 +20,7 @@ public class Turtle {
 	private boolean gotToOcean = false;
 	private double picNum = 0;
 	private int numPics = 3;
-	public final int DEFAULTFRAMES = 1600;
+	public final int DEFAULTFRAMES = 2500;
 	private int framesLeft;
 	
 	private final Board board;
