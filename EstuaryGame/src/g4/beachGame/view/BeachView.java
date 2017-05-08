@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -60,6 +61,8 @@ public class BeachView extends JPanel{
 	
 	private BufferedImage background = createImage("images/BeachImages/background.png");
 	
+	private int displayHeight;
+	
 	//converts filename to buffered image
 	private BufferedImage createImage(String fileName){ 
 		BufferedImage bufferedImage;
@@ -101,13 +104,15 @@ public class BeachView extends JPanel{
 		
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(b.getWidth(), b.getHeight());
+		frame.setSize(b.getWidth(), b.getHeight() + 100);
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
 		/*JLabel background = new JLabel();
 		background.setIcon(new ImageIcon(createImage("images/BeachImages/background.png")));
 		frame.setContentPane(background);*/
+		
+		displayHeight = b.getHeight()+100;
 	}
 	
 	public void paint(Graphics g){
@@ -115,8 +120,12 @@ public class BeachView extends JPanel{
 		//g.fillRect(0, 0, board.getWidth(), board.getHeight());
 		//draws backgrounds
 		//g.drawImage(shoreImages[3].getScaledInstance(board.getWidth(), board.getHeight(), Image.SCALE_DEFAULT), 0, 0, null, this); //water
-		g.drawImage(background, 0, 0, board.getWidth(),board.getHeight(),this);
+		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
 		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
+		g.setColor(Color.GREEN);
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, board.getWidth(), 100); //goal to protect
+		g.setColor(Color.RED);
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)board.hoursLeft/board.TOTAL_HOURS)), 100);
 		//g.drawImage(shoreImages[1].getScaledInstance(board.getWidth(), board.getHeight(), Image.SCALE_DEFAULT), 0, 4*board.getHeight()/6, null, this); //rest of sand
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){

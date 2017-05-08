@@ -59,9 +59,11 @@ public class Board {
 	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
 	public int[] posArr = {HEIGHT/2, TOP_ROW2, TOP_ROW3};
-	
+
+	/**The number of hours for which the game lasts */
+	public final int TOTAL_HOURS = 24;
 	/**how much time is left in the game**/
-	public int hoursLeft; 
+	public int hoursLeft = TOTAL_HOURS; 
 	
 	/**nano seconds per second conversion**/
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
@@ -101,7 +103,6 @@ public class Board {
 		splitWaves = new ArrayList<Wave>();
 		user = new User(this);
 		turtles = new ArrayList<Turtle>();
-		hoursLeft = 24;
 	}
 
 	/**

@@ -16,6 +16,8 @@ public class User {
 	
 	public boolean isInOcean = false;
 	
+	private boolean isOnEdge = false;
+	
 	private final Board board;
 	
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
@@ -39,22 +41,24 @@ public class User {
 		// System.out.println(isInOcean);
 		switch(direction) {
 			case LEFT:
-				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean)
+				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean
+						|| (isOnEdge && xLoc > 0))
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
 				if ((board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
-						&& board.isShore(xLoc + XINCR, yLoc)) || isInOcean)
+						&& board.isShore(xLoc + XINCR, yLoc)) || isInOcean
+						|| (isOnEdge && xLoc < Board.SHORE_WIDTH))
 					xLoc+=XINCR;
 				break;
 			case UP:
 				if ((board.isShore(xLoc, yLoc - YINCR)
 						&& board.isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
-						|| isInOcean)
+						|| isInOcean || isOnEdge)
 					yLoc-=YINCR;
 				break;
 			case DOWN:
-				if (board.isShore(xLoc, yLoc+YINCR) || isInOcean) 
+				if (board.isShore(xLoc, yLoc+YINCR) || isInOcean || isOnEdge) 
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
@@ -72,13 +76,13 @@ public class User {
 				break;
 			case DOWN_RIGHT:
 				if (board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
-						|| isInOcean){
+						|| isInOcean || isOnEdge){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}
 				break;
 			case DOWN_LEFT:
-				if (board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
+				if (board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean || isOnEdge){
 					xLoc-= XINCR;
 					yLoc+= YINCR;
 				}
@@ -87,6 +91,7 @@ public class User {
 		if (isInOcean && board.isShore(xLoc, yLoc)){
 			isInOcean=false;
 		}
+		isOnEdge = (yLoc >= board.getHeight() - CRAB_HEIGHT - 10);
 	}
 
 	public int getxLoc() {
