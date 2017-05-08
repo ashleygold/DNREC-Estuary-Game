@@ -19,8 +19,7 @@ public class BeachCont implements MiniGameController{
 	private Board board1 = new Board();
 
 	private BeachView bView = new BeachView(board1);
-	private boolean hasWon=false;
-	private boolean hasLost=false;
+	private boolean isGameOver = false;
 	public int frameCounter;
 	public static int frameCounterWind;
 	public int frameCounterTurtles;
@@ -56,112 +55,113 @@ public class BeachCont implements MiniGameController{
 	/*everything that changes every frame*/
 	@Override
 	public void update() {
-		System.out.println(board1.getCurrTurtles());
-		if (board1.checkLost()){
-			hasLost=true;
-			if (board1.getIsShoreDestroyed()){
-				JOptionPane.showMessageDialog(null, "Sorry, you lost :( The shore receded too much.");
+		if (!isGameOver) {
+			System.out.println(board1.getCurrTurtles());
+			if (board1.checkLost()){
+				if (board1.getIsShoreDestroyed()){
+					JOptionPane.showMessageDialog(null, "Sorry, you lost :( The shore receded too much.");
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Sorry, you lost :( The turtle wasn't able to make it to the ocean.");
+				}
+				this.dispose();
 			}
 			else{
-				JOptionPane.showMessageDialog(null, "Sorry, you lost :( The turtle wasn't able to make it to the ocean.");
-			}
-			this.dispose();
-		}
-		else{
-			board1.updateElapsedTime();
-			System.out.println(board1.hoursLeft);
-			if (board1.hoursLeft==0){
-				JOptionPane.showMessageDialog(null, "You've protected the shore for a whole day!");
-				dispose();
-			}
-			frameCounter++;
-			frameCounterWind++;
-			frameCounterTurtles++;
-			frameCounterTurtleLife++;
-			/*user*/
-			board1.user.move();
-			
-			//spawn boats
-			if (frameCounter==framesBetweenBoats){
-				board1.createBoat();
-				frameCounter=0;
-				framesBetweenBoats-=3;
-			}
-			
-			//spawn turtles
-			if (frameCounterTurtles == framesBetweenTurtles){
-				board1.createTurtle();
-				frameCounterTurtles=0;
-			}
-			
-			if (frameCounterWind > framesBetweenWind){
-				Wave.activateWind(frameCounterTurtles);
-			}
-			
-			if (frameCounterWind == framesBetweenWind + 700){
-				Wave.ceaseWind();
-				frameCounterWind=0;
-			}
-			
-			//waves move down screen
-			Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
-			while (wavesIt.hasNext()){
-				Wave currWave = wavesIt.next();
-				currWave.move();
-				if (currWave.isOutOfRange()){
-					wavesIt.remove();
+				board1.updateElapsedTime();
+				System.out.println(board1.hoursLeft);
+				if (board1.hoursLeft==0){
+					JOptionPane.showMessageDialog(null, "You've protected the shore for a whole day!");
+					dispose();
 				}
-				if (currWave.getY() >= Board.SHORE_HEIGHT){// - Board.RAISE){
-					int x = board1.splitWave(currWave);
-					if (x == 0){
-						board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
+				frameCounter++;
+				frameCounterWind++;
+				frameCounterTurtles++;
+				frameCounterTurtleLife++;
+				/*user*/
+				board1.user.move();
+				
+				//spawn boats
+				if (frameCounter==framesBetweenBoats){
+					board1.createBoat();
+					frameCounter=0;
+					framesBetweenBoats-=3;
+				}
+				
+				//spawn turtles
+				if (frameCounterTurtles == framesBetweenTurtles){
+					board1.createTurtle();
+					frameCounterTurtles=0;
+				}
+				
+				if (frameCounterWind > framesBetweenWind){
+					Wave.activateWind(frameCounterTurtles);
+				}
+				
+				if (frameCounterWind == framesBetweenWind + 700){
+					Wave.ceaseWind();
+					frameCounterWind=0;
+				}
+				
+				//waves move down screen
+				Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
+				while (wavesIt.hasNext()){
+					Wave currWave = wavesIt.next();
+					currWave.move();
+					if (currWave.isOutOfRange()){
+						wavesIt.remove();
 					}
-					wavesIt.remove();
+					if (currWave.getY() >= Board.SHORE_HEIGHT){// - Board.RAISE){
+						int x = board1.splitWave(currWave);
+						if (x == 0){
+							board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
+						}
+						wavesIt.remove();
+					}
 				}
-			}
-			Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
-			while (splitWavesIt.hasNext()){
-				Wave swave = splitWavesIt.next();
-				swave.move();
-				try{
-					if (board1.beach[(int) (Math.ceil(swave.getY()*6/Board.HEIGHT))-3][swave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
-						board1.waveHit(swave.getX(), swave.getX()+swave.getLength());
+				Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
+				while (splitWavesIt.hasNext()){
+					Wave swave = splitWavesIt.next();
+					swave.move();
+					try{
+						if (board1.beach[(int) (Math.ceil(swave.getY()*6/Board.HEIGHT))-3][swave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
+							board1.waveHit(swave.getX(), swave.getX()+swave.getLength());
+							splitWavesIt.remove();
+						}
+					}catch(ArrayIndexOutOfBoundsException e){
 						splitWavesIt.remove();
 					}
-				}catch(ArrayIndexOutOfBoundsException e){
-					splitWavesIt.remove();
 				}
 			}
-		}
-		
-		
-//		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
-//		while (splitWavesIt.hasNext()){
-//			Wave swave = splitWavesIt.next();
-//			board1.addCurrWave(swave);
-//		}
-		
-		//moves boats across screen
-		Iterator<Boat> boatIt = board1.getCurrBoats().iterator();
-		while (boatIt.hasNext()){
-			Boat currBoat = boatIt.next();
-			currBoat.move();
-			couldCreateWave(currBoat);	
-		}
-		board1.checkBoats();
-		
-		//moves turtles around screen
-		Iterator<Turtle> turtleIt = board1.getCurrTurtles().iterator();
-		while (turtleIt.hasNext()){
-			Turtle turtle = turtleIt.next();
-			turtle.move();
-			turtle.setFramesLeft(turtle.getFramesLeft()-1);
-			if (turtle.getGotToOcean()){
-				turtleIt.remove();
+			
+			
+	//		Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
+	//		while (splitWavesIt.hasNext()){
+	//			Wave swave = splitWavesIt.next();
+	//			board1.addCurrWave(swave);
+	//		}
+			
+			//moves boats across screen
+			Iterator<Boat> boatIt = board1.getCurrBoats().iterator();
+			while (boatIt.hasNext()){
+				Boat currBoat = boatIt.next();
+				currBoat.move();
+				couldCreateWave(currBoat);	
 			}
+			board1.checkBoats();
+			
+			//moves turtles around screen
+			Iterator<Turtle> turtleIt = board1.getCurrTurtles().iterator();
+			while (turtleIt.hasNext()){
+				Turtle turtle = turtleIt.next();
+				turtle.move();
+				turtle.setFramesLeft(turtle.getFramesLeft()-1);
+				if (turtle.getGotToOcean()){
+					turtleIt.remove();
+				}
+			}
+			
+			bView.frame.repaint();
 		}
-		
-		bView.frame.repaint();
 	}
 	public void reset(){
 		board1 = null;
@@ -174,6 +174,7 @@ public class BeachCont implements MiniGameController{
 	
 	@Override
 	public void dispose() {
+		isGameOver = true;
 		bView.frame.dispose();
 	}
 	
