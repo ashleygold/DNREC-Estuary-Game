@@ -21,11 +21,11 @@ public class Cube {
 	 */
 	public Cube() {
 		RAND_ID = StoryView.NUM_SIDES + (int)(200*Math.random());
-		imageNum = RAND_ID % StoryView.NUM_SIDES;
+		changeImg();
 	}
 	
 	/**
-	 * change to a new random image, if the image has not been set
+	 * change to a new random image, if the image has not been finalized yet
 	 */
 	protected void changeImg(){
 		if (!fixed)

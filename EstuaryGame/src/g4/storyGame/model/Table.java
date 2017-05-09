@@ -1,5 +1,7 @@
 package g4.storyGame.model;
 
+//Imported solely for use of constant NUM_SIDES
+import g4.storyGame.view.StoryView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +13,25 @@ public class Table {
 	/** list of finished Cubes on the table */
 	private List<Cube> finished = new ArrayList<Cube>();
 	
+	/** array which determines which images are being displayed by cubes */
+	private byte[] imgsInUse = new byte[StoryView.NUM_SIDES];
+	
+	/**	code used for imgsInUse array to signal that an image is unused */
+	private final byte FREE = 0;
+	
+	/**	code used for imgsInUse array to signal that an image is currently in use */
+	private final byte IN_USE = 1;
+	
+	/**	code used for imgsInUse array to signal that an image has been used finally */
+	private final byte FIXED = 2;
+	
 	/** Total quantity of cubes */
 	public final int NUM_DICE; 
 	
 	/** maximum allowed of number of cubes */ 
-	private static final int MAX_DICE = 7;
+	private static final int MAX_DICE = 4;
 	/** minimum allowed of number of cubes */ 
-	private static final int MIN_DICE = 4;
+	private static final int MIN_DICE = 7;
 	
 	/**
 	 * Adds a random number of Cubes to the table
@@ -32,11 +46,24 @@ public class Table {
 	/**
 	 * update the images in all the Cubes
 	 */
-	public void update(){
-		for (Cube x : dice)
-			x.changeImg();
+	public void update() {
+		//reset the used images array
+		for (int i = 0; i < imgsInUse.length; i++){
+			if (imgsInUse[i] == IN_USE)
+				imgsInUse[i] = FREE;
+		}
+		
+		//change to an unused image for each cube that isn't fixed
+		for (Cube x : dice) {
+			if (!x.isFixed()) {
+				do {
+					x.changeImg();
+				} while (imgsInUse[x.getImg()] != FREE);
+				imgsInUse[x.getImg()] = IN_USE;
+			}
+		}
 	}
-	
+
 	/**
 	 * retrieve a Cube at a specified location
 	 * @param i the index of the Cube that should be retrieved
@@ -55,10 +82,11 @@ public class Table {
 	 * @param i the index of the Cube that has been interacted with
 	 */
 	public void activateCube(int i){
-		if (!dice.get(i).isFixed())
+		if (!dice.get(i).isFixed()) {
 			//if not fixed
 			dice.get(i).fix();
-		else if (!dice.get(i).isMoved()){
+			imgsInUse[dice.get(i).getImg()] = FIXED;
+		} else if (!dice.get(i).isMoved()){
 			//if not moved
 			dice.get(i).move();
 			finished.add(dice.get(i));
@@ -73,6 +101,10 @@ public class Table {
 		return dice.size() == finished.size();
 	}
 	
+	/**
+	 * gets the number of finished Cubes
+	 * @return the number of finished Cubes 
+	 */
 	public int getFinishedSize(){
 		return finished.size();
 	}

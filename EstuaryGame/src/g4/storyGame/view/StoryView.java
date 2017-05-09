@@ -2,6 +2,7 @@ package g4.storyGame.view;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -33,16 +34,35 @@ public class StoryView extends JPanel{
 	private final int IMG_WIDTH = 100;
 	/** Height of images */
 	private final int IMG_HEIGHT = 100;
-	/** files locations of images */
-	private static final String[] imagesLoc = {"images/StoryImages/TestImage.png",
-			"images/StoryImages/TestImage2.png",
-			"images/StoryImages/TestImage3.png",
-			"images/StoryImages/TestImage4.png"};
+	/** directory of images */
+	private static final String imgDir = "images/StoryImages/";	
+	/** file names of images */
+	private static final String[] imagesLoc = {
+			"algae_good.png",
+			"bluecrab_0.png",
+			"bogturtle_left_0.png",
+			"denrec_standing.png",
+			"fish_bass_right.png",
+			"hotrod_vessel.png",
+			"mittencrab_0.png",
+			"sailboat.png",
+			"TestImage.png",
+			"TestImage2.png",
+			"TestImage3.png",
+			"TestImage4.png",
+			"turtle.png",
+			"vessel.png",
+			"volunteer_blue.png",
+			"volunteer_red.png"
+			};
 	/** The number of possible sides of cubes (total number of images) */
 	public static final int NUM_SIDES = imagesLoc.length;
 	
 	/** Every possible image */
-	private final BufferedImage[] images = new BufferedImage[imagesLoc.length];
+	private final Image[] images = new Image[imagesLoc.length];
+	
+	/** Every possible imageIcon */
+	private final ImageIcon[] icons = new ImageIcon[imagesLoc.length];
 	
 	/** Buttons representing Cubes */
 	private final JButton[] cubes;
@@ -54,7 +74,10 @@ public class StoryView extends JPanel{
 	public StoryView(Table t){
 		//create all images
 		for (int i = 0; i < imagesLoc.length; i++){
-			images[i] = createImage(imagesLoc[i]);
+			
+			images[i] = createImage(imagesLoc[i]).getScaledInstance(IMG_WIDTH, IMG_HEIGHT, Image.SCALE_SMOOTH);
+			
+			icons[i] = new ImageIcon(images[i]);
 		}
 		
 		//set reference
@@ -75,7 +98,7 @@ public class StoryView extends JPanel{
 		cubes = new JButton[refTable.NUM_DICE];
 		
 		for (int i = 0; i < refTable.NUM_DICE; i++){
-			cubes[i] = new JButton(new ImageIcon(images[refTable.getCubeAt(i, true).getImg()]));
+			cubes[i] = new JButton(icons[i]);
 			cubes[i].setBackground(MainMenu.BACKGROUND_BLUE);
 			cubes[i].addActionListener(new CubeActionListener(i));
 			frame.add(cubes[i]);
@@ -146,7 +169,7 @@ public class StoryView extends JPanel{
 	private BufferedImage createImage(String fileName){ //converts filename to buffered image
 		BufferedImage bufferedImage;
 		try {
-			bufferedImage = ImageIO.read(new File(fileName));
+			bufferedImage = ImageIO.read(new File(imgDir + fileName));
 			return bufferedImage;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -160,14 +183,16 @@ public class StoryView extends JPanel{
 	 */
 	@Override
 	public void paint(Graphics g) {
-
 		//set icons to JButtons
 		for (int i = 0; i < cubes.length; i++){
-			cubes[i].setIcon(new ImageIcon(images[refTable.getCubeAt(i, true).getImg()]));
+			cubes[i].setIcon(icons[refTable.getCubeAt(i, true).getImg()]);
 		}
+		
 		//draw finalized images
 		for (int i = 0; i < refTable.getFinishedSize(); i++){
-			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), 2*IMG_HEIGHT, null, this);
+			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],
+					IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), 2*IMG_HEIGHT,
+					null, this);
 		}
 	}
 	
