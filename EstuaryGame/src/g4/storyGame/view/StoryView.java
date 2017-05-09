@@ -1,5 +1,6 @@
 package g4.storyGame.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -28,14 +30,14 @@ public class StoryView extends JPanel{
 	/** Window for this game */
 	private final JFrame frame;
 	/** Width of the window */
-	private final int FRAME_WIDTH = 950;
+	private final int FRAME_WIDTH = 1000;
 	/** Height of the window */
-	private final int FRAME_HEIGHT = 500;
+	private final int FRAME_HEIGHT = 600;
 	
 	/** Width of images */
-	private final int IMG_WIDTH = 100;
+	private final int IMG_WIDTH = FRAME_WIDTH/10;
 	/** Height of images */
-	private final int IMG_HEIGHT = 100;
+	private final int IMG_HEIGHT = IMG_WIDTH;
 	/** directory of images */
 	private static final String imgDir = "images/StoryImages/";	
 	/** file names of images */
@@ -165,8 +167,8 @@ public class StoryView extends JPanel{
 					}
 				});
 				frame.add(quit);
-				quit.setBounds(IMG_WIDTH/2, (int)(3.5*IMG_HEIGHT), 300, 50);
-				quit.setSize(300, 50);
+				quit.setBounds(IMG_WIDTH/2, FRAME_HEIGHT - IMG_HEIGHT, 3*IMG_WIDTH, IMG_HEIGHT/2);
+				quit.setSize(3*IMG_WIDTH, IMG_HEIGHT/2);
 				
 				//submit
 				JButton submit = new JButton("Submit");
@@ -176,20 +178,38 @@ public class StoryView extends JPanel{
 				submit.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						//call a function which will print text on screen,
-						// remove the text box, and delete this button
+						frame.remove(submit);
+						handleText();
 					}
 				});
 				frame.add(submit);
-				submit.setBounds(IMG_WIDTH + 300, (int)(3.5*IMG_HEIGHT), 300, 50);
-				submit.setSize(300, 50);
+				submit.setBounds(IMG_WIDTH + 300, FRAME_HEIGHT - IMG_HEIGHT, 3*IMG_WIDTH, IMG_HEIGHT/2);
+				submit.setSize(3*IMG_WIDTH, IMG_HEIGHT/2);
 				
 				//add text box
-				scrollPane.setBounds(IMG_WIDTH/2, IMG_HEIGHT/2, FRAME_WIDTH - IMG_WIDTH, IMG_HEIGHT);
-				storyBox.setBounds(IMG_WIDTH/2, IMG_HEIGHT/2, FRAME_WIDTH - IMG_WIDTH, IMG_HEIGHT);
+				scrollPane.setBounds(IMG_WIDTH/2, IMG_HEIGHT/2,
+						FRAME_WIDTH - IMG_WIDTH, FRAME_HEIGHT - 7*IMG_HEIGHT/2);
+				storyBox.setBounds(IMG_WIDTH/2, IMG_HEIGHT/2,
+						FRAME_WIDTH - IMG_WIDTH, FRAME_HEIGHT - 7*IMG_HEIGHT/2);
 				frame.add(scrollPane);
 			}
 		}
+	}
+
+	private void handleText() {
+		String userInput = storyBox.getText();
+		userInput = "<html>"
+				+ userInput.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") 
+				+ "</html>";
+		JLabel storyText = new JLabel(userInput);
+		frame.remove(scrollPane);
+		
+		storyText.setBounds(IMG_WIDTH/2, IMG_HEIGHT/4,
+				FRAME_WIDTH - IMG_WIDTH, FRAME_HEIGHT - 6*IMG_HEIGHT/2);
+		storyText.setFont(new Font("SansSerif", Font.BOLD, 25));
+		storyText.setForeground(Color.WHITE);
+		
+		frame.add(storyText);
 	}
 
 	/**
@@ -222,7 +242,7 @@ public class StoryView extends JPanel{
 		//draw finalized images
 		for (int i = 0; i < refTable.getFinishedSize(); i++){
 			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],
-					IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), 2*IMG_HEIGHT,
+					IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), FRAME_HEIGHT - 5*IMG_HEIGHT/2,
 					null, this);
 		}
 	}
