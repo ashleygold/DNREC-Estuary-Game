@@ -12,22 +12,28 @@ public class MazeCont implements MiniGameController {
 	
 	/** current level of the game */
 	private int level = 0;
+	
 	/** number of times the user has died on the current level */
 	private int deaths = 0;
+	
 	/** the board on which the current level occurs */
 	private Board board=new Board(3 - level, deaths);
+	
 	/** swing window which displays the game */
 	private JFrame app=new JFrame("Minigame 1: Maze");
+	
 	/** view component associated with the maze game */
 	private MazeView screen=new MazeView(board);
+	
 	/** whether the game has been won yet */
 	private boolean gameWon=false;
+	
 	/** the listener used to react to keystrokes */
 	private Listener listen = new Listener(board.getUser());
 	
 	/** 
 	 * Constructs a new maze controller object 
-	 * */
+	 */
 	public MazeCont() {
 		app.setLayout(null);
 		app.getContentPane().add(screen);

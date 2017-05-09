@@ -16,33 +16,43 @@ public class MazeView extends JPanel{
 	
 	/** the board to be displayed */
 	private Board board;
-	/** the width/height of each square of the maze */ 
+	
+	/** the width/height in pixels of each square of the maze */ 
 	public final int SLOT_SPACE=40;
+	
 	/** crab image locations */
 	private static final String[] crabImagesLoc = {"bluecrab_0.png",
 			"bluecrab_1.png", "bluecrab_2.png"};
+	
 	/** turtle image locations */
 	private static final String[] turtleImagesLoc = {"turtle_east.png", "turtle_north.png",
 			"turtle_northeast.png", "turtle_northwest.png", "turtle_south.png", "turtle_southeast.png",
 			"turtle_southwest.png", "turtle_west.png"};
+	
 	/** images for crab */
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
+	
 	/** images for turtles */
 	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
+	
 	/** image of water tiles */
 	private BufferedImage water = createImage("waterblock.jpg");
+	
 	/** image of wall tiles */
 	private BufferedImage seaWall = createImage("seaweed2.jpg");
+	
 	/** image of goal tiles */
 	private BufferedImage winGateUp = createImage("uparrow.png");
+	
 	/** images of food tiles */
 	private BufferedImage[] foodTiles = {createImage("algae_good.png"), 
 			createImage("algae_medium.png"),
 			createImage("fish_eggs.png"),
 			createImage("zebramussel.png")};
-	//BufferedImage winGateLeft = createImage("leftarrow.png");
+	
 	/** image of food text label */
 	private BufferedImage food = createImage("food.png");
+	
 	/** image of salinity text label */
 	private BufferedImage salinity = createImage("salinity.png");
 			

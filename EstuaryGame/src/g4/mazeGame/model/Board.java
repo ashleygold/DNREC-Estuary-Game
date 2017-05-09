@@ -8,16 +8,19 @@ public class Board {
 	
 	/** the maximum allowable salinity, equivalently the number of levels */
 	public static final int MAX_SALINITY = 3;
-	/** the height of the board */
 	
+	/** the height of the board */
 	public final int HEIGHT = 17;
+	
 	/** the width of the board */
 	public final int WIDTH = 19;
 	
 	/** the goal food for the various levels */
 	private final int[] goalFood = {10, 7, 5};
+	
 	/** the number of predators for the various levels */
 	private final int[] NUM_PREDATORS = {3, 2, 1};
+	
 	/** the base board for the first level */
 	private final String startboard1 =
 			 "##########*########\n"
@@ -37,6 +40,7 @@ public class Board {
 			+"#..#####...#####..#\n"
 			+"#.................#\n"
 			+"###################\n";
+	
 	/** the base board for the second level */
 	private final String startboard2 =
 			 "#########*#########\n"
@@ -56,6 +60,7 @@ public class Board {
 			+"#..........###....#\n"
 			+"#..####...........#\n"
 			+"###################\n";
+	
 	/** the base board for the third level */
 	private final String startboard3 =
 			 "#########*#########\n"
@@ -75,19 +80,25 @@ public class Board {
 			+"########...########\n"
 			+"#.................#\n"
 			+"###################\n";
+	
 	/** the base boards for the various levels */
 	private final String[] startBoards = {startboard3, startboard2, startboard1};
 	
 	/** if the user has been eaten */
 	private boolean isEaten=false;
+	
 	/** the random generation for board */
 	private static Random rand; // Global variable
+	
 	/** the user in the board */
 	private User user;
+	
 	/** representation of the actual board */
 	private ArrayList<ArrayList<Character>> boardArr = new ArrayList<ArrayList<Character>>();
+	
 	/** all of the Predators on the board */
 	private List<Predator> hunters = new ArrayList<Predator>();
+	
 	/** the salinity (level) for the board */
 	private int salinity;
 	

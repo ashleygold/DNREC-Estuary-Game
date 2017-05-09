@@ -29,24 +29,31 @@ public class MainMenu extends JPanel{
 	
 	/** Frame rates for maze game, allows it to process at different rates */
 	public static final int MAZE_FPS = 60;
+	
 	/** Frame rates for beach game, allows it to process at different rates */
 	public static final int BEACH_FPS = 60;
+	
 	/** Frame rates for story game, allows it to process at different rates */
 	public static final int STORY_FPS = 24;
 	
 	/** Currently selected state */
 	private static int curState = 0;
+	
 	/** State for Delaware images */
 	private static final int DE = 0;
+	
 	/** State for Texas images */
 	private static final int TX = 1;
+	
 	/** State for Florida images */
 	private static final int FL = 2;
 	
 	/** Green color for menus */
 	public static final Color SEA_GREEN = new Color(26, 255, 139);
+	
 	/** Blue color for menus */
 	public static final Color BACKGROUND_BLUE = new Color(10,105,148);
+	
 	/** Brown color for menus */
 	public static final Color TEXT_BROWN = new Color(101, 67, 33);
 	
@@ -132,6 +139,7 @@ public class MainMenu extends JPanel{
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
+		
 		//puts buttons on screen
 		choices[0].setBounds(10, 10, 300, 100);
 		choices[1].setBounds(10, 120, 300, 100);
@@ -155,7 +163,6 @@ public class MainMenu extends JPanel{
 		choices[3].setSize(300, 30);
 		
 		//Add text Label for current state
-		//create label
 		JLabel state = new JLabel(LABEL_NAMES[curState]);
 		
 		frame.add(state);

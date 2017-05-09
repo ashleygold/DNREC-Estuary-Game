@@ -5,17 +5,22 @@ import g4.mainController.MainMenu;
 public class Predator {
 	/** the board that the predator is on*/
 	private final Board board;
+	
 	/** the user this predator tries to eat*/
 	private final User user;
 	
 	/** x-location of the predator */
 	private double xLoc;
+	
 	/** y-location of the predator */
 	private double yLoc;
+	
 	/** the move speed of the predator when moving up, down, left or right */
 	private final double MOVE_SPEED = 3.5/MainMenu.MAZE_FPS;
+	
 	/** the move speed of the predator when moving diagonally */
 	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
+	
 	/** references to possible directions the predator can go */
 	public final int RIGHT = 0, UP = 1, UP_RIGHT = 2, UP_LEFT = 3, DOWN = 4, 
 			 DOWN_RIGHT = 5, DOWN_LEFT = 6, STILL = 8, LEFT = 7; 
@@ -27,7 +32,10 @@ public class Predator {
 	public final double CENTER_IMG = 0.5;
 	
 	/** hit box buffer */
-	public final double BUFFER = 0.36;
+	public final static double BUFFER = 0.37;
+	
+	/**diagonal hit box buffer*/
+	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
 	/**
 	 * creates a predator at the apecifed location 
@@ -84,8 +92,8 @@ public class Predator {
 				}
 				break;
 			case UP_RIGHT:
-				if (board.isEmptyPred(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+				if (board.isEmptyPred(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				} else {
@@ -93,8 +101,8 @@ public class Predator {
 				}
 				break;
 			case UP_LEFT:
-				if (board.isEmptyPred(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
-						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER)){
+				if (board.isEmptyPred(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER,
+						yLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc-=DIAG_MOVE_SPEED;
 				} else {
@@ -102,8 +110,8 @@ public class Predator {
 				}
 				break;
 			case DOWN_RIGHT:
-				if (board.isEmptyPred(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER,
-						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+				if (board.isEmptyPred(xLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc+=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				} else {
@@ -111,8 +119,8 @@ public class Predator {
 				}
 				break;
 			case DOWN_LEFT:
-				if (board.isEmptyPred(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - BUFFER,
-						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + BUFFER)){
+				if (board.isEmptyPred(xLoc - DIAG_MOVE_SPEED + CENTER_IMG - DIAG_BUFFER,
+						yLoc + DIAG_MOVE_SPEED + CENTER_IMG + DIAG_BUFFER)){
 					xLoc-=DIAG_MOVE_SPEED;
 					yLoc+=DIAG_MOVE_SPEED;
 				} else {

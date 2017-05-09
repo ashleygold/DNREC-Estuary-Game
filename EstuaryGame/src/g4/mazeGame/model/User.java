@@ -4,80 +4,50 @@ import g4.mainController.MainMenu;
 
 public class User {
 	
-	/**
-	 * creating a reference to a board object 
-	 */
+	/** creating a reference to a board object */
 	private final Board board;
 	
-	/**
-	 * boolean to dispose the entire game on winning the third stage
-	 */
+	/**boolean to dispose the entire game on winning the third stage */
 	private boolean dispose;
 	
-	/**
-	 * picks which buffered image of the user is used
-	 */
+	/**picks which buffered image of the user is used*/
 	private double picNum = 0;
 	
-	/**
-	 * the frame count of the user's images
-	 */
+	/** the frame count of the user's images*/
 	int frameCount = 3;
 	
-	/**
-	 * the x location of the user
-	 */
+	/**the x location of the user*/
 	private double xLoc=15;
 	
-	/**
-	 * the y location of the user
-	 */
+	/** the y location of the user*/
 	private double yLoc=15;
 	
-	/**
-	 * the move speed of the user when moving up, down, left or right
-	 */
+	/**the move speed of the user when moving up, down, left or right*/
 	private static final double MOVE_SPEED = 5.5/MainMenu.MAZE_FPS;
 	
-	/**
-	 * the move speed of the user when moving diagonally
-	 */
+	/** the move speed of the user when moving diagonally*/
 	private static final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	
-	/**
-	 * references to possible directions the user can go
-	 */
+	/** references to possible directions the user can go*/
 	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
 			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
 	
-	/**
-	 * direction of the user
-	 */
+	/** direction of the user*/
 	private int direction = STILL;
 	
-	/**
-	 * center of the user image- used for collision detection
-	 */
+	/**center of the user image- used for collision detection */
 	public static final double CENTER_IMG = 0.5;
 	
-	/**
-	 * hit box buffer
-	 */
+	/**hit box buffer*/
 	private static final double BUFFER = 0.37;
 	
-	/**
-	 * diagonal hit box buffer
-	 */
+	/**diagonal hit box buffer*/
 	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
-	/**
-	 *  number of food the user has collected in the stage
-	 */
+	/** number of food the user has collected in the stage*/
 	private int foodCount;
 	
-	/**
-	 * true if the win gate is open, false otherwise
-	 */
+	/**true if the win gate is open, false otherwise*/
 	private boolean gateOpened = false;
 	
 	/**
@@ -134,6 +104,8 @@ public class User {
 		//checks nested in the interest of efficiency
 		switch(tryDir) {
 			case LEFT:
+
+				System.out.println(this.getXLoc()+" "+this.getYLoc());
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG + BUFFER) &&
 						board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
@@ -161,6 +133,7 @@ public class User {
 				}
 				break;
 			case DOWN:
+				System.out.println(this.getXLoc()+" "+this.getYLoc());
 				if (board.isEmpty(xLoc + CENTER_IMG + BUFFER,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
 						board.isEmpty(xLoc + CENTER_IMG - BUFFER,

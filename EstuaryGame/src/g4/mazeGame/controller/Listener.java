@@ -10,8 +10,10 @@ public class Listener implements KeyListener {
 	
 	/** stores which arrow keys are down*/
 	private boolean[] keysDown = new boolean[4];
+	
 	/** index of specified arrow key */
 	private final int UP_ARROW = 0, RIGHT_ARROW = 1, DOWN_ARROW = 2, LEFT_ARROW = 3;
+	
 	/** stores arrow key event numbers */
 	private final int[] ARROW_KEYS = {KeyEvent.VK_UP, 
 			KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
