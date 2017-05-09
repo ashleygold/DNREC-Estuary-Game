@@ -14,6 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import g4.mainController.MainMenu;
 import g4.storyGame.model.Table;
@@ -66,6 +68,12 @@ public class StoryView extends JPanel{
 	
 	/** Buttons representing Cubes */
 	private final JButton[] cubes;
+	
+	/** Text field for story input*/
+	private JTextArea storyBox = new JTextArea();
+	
+	/** Scrollable text box */
+	JScrollPane scrollPane = new JScrollPane(storyBox);
 	
 	/**
 	 * Constructor which initializes a View to display the model parameter
@@ -133,17 +141,19 @@ public class StoryView extends JPanel{
 	}
 	
 	/**
-	 * Runs when a Cube's JButton is clicked, activates the Cube and checks if an Exit button should be displayed
+	 * Runs when a Cube's JButton is clicked, activates the Cube and checks if
+	 * a text box and exit and submit buttons should be displayed
 	 * @param i the index of the JButton was clicked
 	 */
 	private void clicked(int i) {
 		refTable.activateCube(i);
 		if (refTable.getCubeAt(i, true).isMoved()){
-			//if moved, disable the button
-			cubes[i].setEnabled(false);
+			//if moved, remove the button
+			frame.remove(cubes[i]);
 			
-			//If everything has been added, display a close button
+			//If everything has been added, display close and submit buttons
 			if (refTable.areAllMoved()){
+				//quit button
 				JButton quit = new JButton("Return to Menu");
 				quit.setFont(new Font("SansSerif", Font.BOLD, 20));
 				quit.setBackground(MainMenu.SEA_GREEN);
@@ -157,6 +167,27 @@ public class StoryView extends JPanel{
 				frame.add(quit);
 				quit.setBounds(IMG_WIDTH/2, (int)(3.5*IMG_HEIGHT), 300, 50);
 				quit.setSize(300, 50);
+				
+				//submit
+				JButton submit = new JButton("Submit");
+				submit.setFont(new Font("SansSerif", Font.BOLD, 20));
+				submit.setBackground(MainMenu.SEA_GREEN);
+				submit.setForeground(MainMenu.TEXT_BROWN);
+				submit.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//call a function which will print text on screen,
+						// remove the text box, and delete this button
+					}
+				});
+				frame.add(submit);
+				submit.setBounds(IMG_WIDTH + 300, (int)(3.5*IMG_HEIGHT), 300, 50);
+				submit.setSize(300, 50);
+				
+				//add text box
+				scrollPane.setBounds(IMG_WIDTH/2, IMG_HEIGHT/2, FRAME_WIDTH - IMG_WIDTH, IMG_HEIGHT);
+				storyBox.setBounds(IMG_WIDTH/2, IMG_HEIGHT/2, FRAME_WIDTH - IMG_WIDTH, IMG_HEIGHT);
+				frame.add(scrollPane);
 			}
 		}
 	}
