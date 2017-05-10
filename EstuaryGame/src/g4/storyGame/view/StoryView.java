@@ -1,14 +1,20 @@
 package g4.storyGame.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,6 +29,9 @@ import g4.mainController.MainMenu;
 import g4.storyGame.model.Table;
 
 public class StoryView extends JPanel{
+	
+	/** dimension of the user's screen*/
+	private final static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	/** pointer to Model, used to get data */
 	private final Table refTable;
@@ -30,12 +39,12 @@ public class StoryView extends JPanel{
 	/** Window for this game */
 	private final JFrame frame;
 	/** Width of the window */
-	private final int FRAME_WIDTH = 1000;
+	private final int FRAME_WIDTH = screenSize.width;
 	/** Height of the window */
-	private final int FRAME_HEIGHT = 600;
+	private final int FRAME_HEIGHT = screenSize.height;
 	
 	/** Width of images */
-	private final int IMG_WIDTH = FRAME_WIDTH/10;
+	private final int IMG_WIDTH = FRAME_WIDTH/12;
 	/** Height of images */
 	private final int IMG_HEIGHT = IMG_WIDTH;
 	/** directory of images */
@@ -183,7 +192,7 @@ public class StoryView extends JPanel{
 					}
 				});
 				frame.add(submit);
-				submit.setBounds(IMG_WIDTH + 300, FRAME_HEIGHT - IMG_HEIGHT, 3*IMG_WIDTH, IMG_HEIGHT/2);
+				submit.setBounds(4*IMG_WIDTH, FRAME_HEIGHT - IMG_HEIGHT, 3*IMG_WIDTH, IMG_HEIGHT/2);
 				submit.setSize(3*IMG_WIDTH, IMG_HEIGHT/2);
 				
 				//add text box
@@ -196,14 +205,35 @@ public class StoryView extends JPanel{
 		}
 	}
 
+	/**
+	 * Handles removing the text box and instead displaying the user's input as a JLabel.  
+	 * Called when the submit button is pressed.  Also writes story to a file for extraction by 
+	 * game operators.  
+	 */
 	private void handleText() {
 		String userInput = storyBox.getText();
-		userInput = "<html>"
+		
+		//change endline characters for UTF-8 printing
+		String filePrint = userInput.replaceAll("\n", "\r\n");
+
+		//print to file
+		try {
+		    Files.write(Paths.get("Stories.txt"),
+		    		(filePrint + "\r\n=========\r\n").getBytes(StandardCharsets.UTF_8),
+		    		StandardOpenOption.CREATE,
+		    		StandardOpenOption.APPEND);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+		//convert to html for JLabel
+		String jLabelPrint = "<html>"
 				+ userInput.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") 
 				+ "</html>";
-		JLabel storyText = new JLabel(userInput);
+		JLabel storyText = new JLabel(jLabelPrint);
 		frame.remove(scrollPane);
 		
+		//add JLabel
 		storyText.setBounds(IMG_WIDTH/2, IMG_HEIGHT/4,
 				FRAME_WIDTH - IMG_WIDTH, FRAME_HEIGHT - 6*IMG_HEIGHT/2);
 		storyText.setFont(new Font("SansSerif", Font.BOLD, 25));
