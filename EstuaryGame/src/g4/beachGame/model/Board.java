@@ -90,9 +90,6 @@ public class Board {
 	int difficulty;
 	
 	private boolean turtleDie = false;
-	public Wave newSplitWave1 = null;
-	public Wave newSplitWave2 = null;
-	public Wave newSplitWave3 = null;
 	
 	/**
 	 * creates a new board of waves and protectors
@@ -168,53 +165,31 @@ public class Board {
 		turtles.add(new Turtle(this));
 	}
 	
-	public int splitWave(Wave wave){
-		//0: not split
-		//1: split wave once
-		//2: split wave twice
-		int timesSplit = 0;
-		boolean firstShore = true;;
-		int water = 0;
-		int waterLoc = 0;
-		int shoreLoc = 0;
-		boolean shoreAgain = false;
+	public void splitWave(Wave wave){
 		int x = wave.getX();
-		while (x < wave.getX()+wave.getLength()){
+		int[] xLocs = new int[4]; xLocs[0] = wave.getX();
+		int numxLocs = 1;
+		int shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH];
+		while (x<wave.getX()+wave.getLength()){
 			try{
-				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] == SHORE&&firstShore){
-					firstShore=false;
+				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] != shoreCellPrev){
+					xLocs[numxLocs] = x;
+					numxLocs++;
 				}
-				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] == WATER && water == 0 && !firstShore){
-					water++;
-					waterLoc = x;
-				}
+				shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH];
+				x++;
 			}catch(ArrayIndexOutOfBoundsException e){
 				break;
 			}
-			if (water!= 0) //wave needs to be split at least once
-				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] == SHORE && !shoreAgain){ //wave needs to be split twice
-					shoreAgain = true;
-					shoreLoc = x;
-				}
-			x++;
 		}
-		if (water ==1)
-			System.out.println("shore water");
-		if (shoreAgain)
-			System.out.println("shore water shore");
-		if (water != 0){ //wave needs to be split
-			timesSplit++;
-			splitWaves.add(new Wave(wave.speed, waterLoc-wave.getX(), wave.getX(), wave.getY()));
-			if (!shoreAgain){ //wave only needs to be split once
-				splitWaves.add(new Wave(wave.speed, wave.getX()+wave.getLength()-waterLoc, waterLoc, wave.getY()));
-			}
-			else{ //wave needs to be split twice
-				timesSplit++;
-				splitWaves.add(new Wave(wave.speed, shoreLoc-waterLoc, shoreLoc, wave.getY()));
-				splitWaves.add(new Wave(wave.speed, wave.getX()+wave.getLength()-shoreLoc, shoreLoc, wave.getY()));
+		xLocs[numxLocs]=x;
+		for (int i = 0; i < xLocs.length; i++){
+			if (i== xLocs.length-1 || (i!=0 && xLocs[i+1]==0))
+				break;
+			else{
+				splitWaves.add(new Wave(wave.speed, xLocs[i+1]-xLocs[i], xLocs[i], wave.getY()));
 			}
 		}
-		return timesSplit;
 	}
 
 	/**
@@ -241,7 +216,7 @@ public class Board {
 				isShoreDestroyed = true;
 			else if (beach[depth][i] == SHORE){
 				beach[depth][i] = WATER;
-				isInOcean(depth, i);
+				isInOcean(depth);
 			}
 			else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) { //wave hits protector
 				int protectorHit = beach[depth][i];
@@ -259,7 +234,7 @@ public class Board {
 	 * @param depth is which row down on the shore the wave hit
 	 * @param index is which column across on the shore the wave hit
 	 */
-	private void isInOcean(int depth, int index) {
+	private void isInOcean(int depth) {
 		if (!user.isInOcean) {
 			if (depth == 0) {
 				if ((user.getyLoc() >= SHORE_HEIGHT && user.getyLoc() <= TOP_ROW2)
@@ -285,13 +260,13 @@ public class Board {
 		}
 	}
 
-	public void replaceProtector(int depth, int spot, int protector){
+	/*public void replaceProtector(int depth, int spot, int protector){
 		if (beach[depth][spot]==GRASS || beach[depth][spot]==GABION || beach[depth][spot]==WALL)
 			beach[depth][spot]=SHORE;
 		else {
 			beach[depth][spot]--;
 		}
-	}
+	}*/
 
 	/**
 	 * Returns the protector closest to the user by the user's position on the grid.
@@ -382,13 +357,11 @@ public class Board {
 	public ArrayList<Turtle> getCurrTurtles(){
 		return turtles;
 	}
-	public void addCurrWave(Wave wave){currWaves.add(wave);}
 	
 	public boolean getIsShoreDestroyed(){
 		return isShoreDestroyed;
 	}
 	public void setIsShoreDestroyed(boolean x){
-		System.out.println("changing boolean");
 		isShoreDestroyed = x;
 	}
 	public void setTurtleDie(boolean x){

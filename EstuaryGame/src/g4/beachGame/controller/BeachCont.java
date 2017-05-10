@@ -56,7 +56,7 @@ public class BeachCont implements MiniGameController{
 	@Override
 	public void update() {
 		if (!isGameOver) {
-			System.out.println(board1.getCurrTurtles());
+			//System.out.println(board1.getCurrTurtles());
 			if (board1.checkLost()){
 				if (board1.getIsShoreDestroyed()){
 					JOptionPane.showMessageDialog(null, "Sorry, you lost :( The shore receded too much.");
@@ -68,7 +68,7 @@ public class BeachCont implements MiniGameController{
 			}
 			else{
 				board1.updateElapsedTime();
-				System.out.println(board1.hoursLeft);
+				//System.out.println(board1.hoursLeft);
 				if (board1.hoursLeft==0){
 					JOptionPane.showMessageDialog(null, "You've protected the shore for a whole day!");
 					dispose();
@@ -102,35 +102,44 @@ public class BeachCont implements MiniGameController{
 					frameCounterWind=0;
 				}
 				
-				//waves move down screen
+				//waves move on screen
 				Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 				while (wavesIt.hasNext()){
 					Wave currWave = wavesIt.next();
 					currWave.move();
-					if (currWave.isOutOfRange()){
+					if (currWave.isOutOfRange())
 						wavesIt.remove();
-					}
-					if (currWave.getY() >= Board.SHORE_HEIGHT){// - Board.RAISE){
-						int x = board1.splitWave(currWave);
-						if (x == 0){
-							board1.waveHit(currWave.getX(),currWave.getX()+currWave.getLength());
-						}
+					if (currWave.getY() >= Board.SHORE_HEIGHT){
+						board1.splitWave(currWave);
 						wavesIt.remove();
 					}
 				}
+				System.out.println("currWaves " + board1.getCurrWaves());
+				System.out.println("splitWaves " + board1.getSplitWaves());
+				
 				Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
 				while (splitWavesIt.hasNext()){
-					Wave swave = splitWavesIt.next();
-					swave.move();
+					Wave wave = splitWavesIt.next();
+					board1.getCurrWaves().add(wave);
+					splitWavesIt.remove();
+				}
+				
+				
+				
+				Iterator<Wave> wavesIt2 = board1.getCurrWaves().iterator();
+				while (wavesIt2.hasNext()){
+					Wave currWave = wavesIt2.next();
+					currWave.move();
 					try{
-						if (board1.beach[(int) (Math.ceil(swave.getY()*6/Board.HEIGHT))-3][swave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
-							board1.waveHit(swave.getX(), swave.getX()+swave.getLength());
-							splitWavesIt.remove();
+						if (currWave.getY() >= Board.SHORE_HEIGHT&&board1.beach[(int) (Math.ceil(currWave.getY()*6/Board.HEIGHT))-3][currWave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
+							board1.waveHit(currWave.getX(), currWave.getX()+currWave.getLength());
+							wavesIt2.remove();
 						}
 					}catch(ArrayIndexOutOfBoundsException e){
-						splitWavesIt.remove();
+						wavesIt2.remove();
 					}
 				}
+				
 			}
 			
 			//moves boats across screen
