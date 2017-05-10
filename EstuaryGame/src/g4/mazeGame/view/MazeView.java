@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import g4.mainController.MainMenu;
 import g4.mazeGame.model.Board;
 import g4.mazeGame.model.Predator;
 
@@ -20,20 +21,28 @@ public class MazeView extends JPanel{
 	/** the width/height in pixels of each square of the maze */ 
 	public final int SLOT_SPACE=40;
 	
-	/** crab image locations */
+	/** blue crab image locations */
 	private static final String[] crabImagesLoc = {"bluecrab_0.png",
 			"bluecrab_1.png", "bluecrab_2.png"};
+	
+	/** horseshoe crab image locations */
+	private static final String[] horseshoeImagesLoc = {"horseshoe_east.png", "horseshoe_north.png",
+			"horseshoe_northeast.png", "horseshoe_northwest.png", "horseshoe_south.png", "horseshoe_southeast.png",
+			"horseshoe_southwest.png", "horseshoe_west.png", "horseshoe_west.png"};
 	
 	/** turtle image locations */
 	private static final String[] turtleImagesLoc = {"turtle_east.png", "turtle_north.png",
 			"turtle_northeast.png", "turtle_northwest.png", "turtle_south.png", "turtle_southeast.png",
 			"turtle_southwest.png", "turtle_west.png"};
 	
-	/** images for crab */
+	/** images for blue crab */
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
 	
 	/** images for turtles */
 	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
+	
+	/** images for horseshoe crab */
+	private BufferedImage[] horseshoeImages = new BufferedImage[horseshoeImagesLoc.length];
 	
 	/** image of water tiles */
 	private BufferedImage water = createImage("waterblock.jpg");
@@ -64,6 +73,8 @@ public class MazeView extends JPanel{
 		this.board = board;
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 		setFocusable(true);
+		for (int i = 0; i < horseshoeImages.length; i++)
+			horseshoeImages[i] = createImage(horseshoeImagesLoc[i]);
 		for (int i = 0; i < crabImages.length; i++)
 			crabImages[i] = createImage(crabImagesLoc[i]);
 		for (int i = 0; i < turtleImages.length; i++)
@@ -133,9 +144,19 @@ public class MazeView extends JPanel{
 		}
 		
 		//spawning user
-		g.drawImage(crabImages[board.getUser().getPicNum()],
-				(int)(board.getUser().getXLoc()*SLOT_SPACE),
-				(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
+		if (MainMenu.getCurState()==MainMenu.getDe()){
+			if(board.getUser().getDirection()!=-1){
+				horseshoeImages[8]=horseshoeImages[board.getUser().getDirection()];
+			}
+			g.drawImage(horseshoeImages[board.getUser().getDirection()],
+					(int)(board.getUser().getXLoc()*SLOT_SPACE),
+					(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
+		}
+		else{
+			g.drawImage(crabImages[board.getUser().getPicNum()],
+					(int)(board.getUser().getXLoc()*SLOT_SPACE),
+					(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
+		}
 		
 		//creating food bar
 		g.setColor(Color.GRAY);

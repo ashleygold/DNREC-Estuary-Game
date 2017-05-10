@@ -163,7 +163,7 @@ public class MainMenu extends JPanel{
 		choices[3].setSize(300, 30);
 		
 		//Add text Label for current state
-		JLabel state = new JLabel(LABEL_NAMES[curState]);
+		JLabel state = new JLabel(LABEL_NAMES[getCurState()]);
 		
 		frame.add(state);
 		state.setBounds(340, 30, 300, 75);
@@ -175,19 +175,19 @@ public class MainMenu extends JPanel{
 		states[0].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				curState = DE;
+				setCurState(DE);
 			}
 		});
 		states[1].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				curState = TX;
+				setCurState(TX);
 			}
 		});
 		states[2].addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				curState = FL;
+				setCurState(FL);
 			}
 		});
 		
@@ -196,7 +196,7 @@ public class MainMenu extends JPanel{
 		while(!exitFlag){
 			long current = System.currentTimeMillis();
 			
-			state.setText(LABEL_NAMES[curState]);
+			state.setText(LABEL_NAMES[getCurState()]);
 			if(game != null)
 				game.update();
 			frame.repaint();
@@ -232,4 +232,17 @@ public class MainMenu extends JPanel{
 	private static void quit() {
 		exitFlag = true;
 	}
+
+	public static int getCurState() {
+		return curState;
+	}
+
+	public static void setCurState(int curState) {
+		MainMenu.curState = curState;
+	}
+	
+	public static int getDe() {
+		return DE;
+	}
+
 }

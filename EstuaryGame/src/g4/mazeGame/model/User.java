@@ -28,18 +28,21 @@ public class User {
 	/** the move speed of the user when moving diagonally*/
 	private static final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	
-	/** references to possible directions the user can go*/
-	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
-			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
+	/** references to possible directions the user can go when moving*/
+	public static final int RIGHT = 0, UP = 1, UP_RIGHT = 2, UP_LEFT = 3, DOWN = 4, 
+			 DOWN_RIGHT = 5, DOWN_LEFT = 6, LEFT = 7;
+
+	/**reference to possible state of when the user is still*/
+	public static int STILL=8; 
 	
 	/** direction of the user*/
 	private int direction = STILL;
 	
 	/**center of the user image- used for collision detection */
-	public static final double CENTER_IMG = 0.5;
+	public static double CENTER_IMG=0.5;
 	
 	/**hit box buffer*/
-	private static final double BUFFER = 0.37;
+	private static double BUFFER=0.37;
 	
 	/**diagonal hit box buffer*/
 	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
@@ -104,8 +107,6 @@ public class User {
 		//checks nested in the interest of efficiency
 		switch(tryDir) {
 			case LEFT:
-
-				System.out.println(this.getXLoc()+" "+this.getYLoc());
 				if (board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
 						yLoc + CENTER_IMG + BUFFER) &&
 						board.isEmpty(xLoc - MOVE_SPEED + CENTER_IMG - BUFFER, 
@@ -133,7 +134,6 @@ public class User {
 				}
 				break;
 			case DOWN:
-				System.out.println(this.getXLoc()+" "+this.getYLoc());
 				if (board.isEmpty(xLoc + CENTER_IMG + BUFFER,
 						yLoc + MOVE_SPEED + CENTER_IMG + BUFFER) &&
 						board.isEmpty(xLoc + CENTER_IMG - BUFFER,
@@ -265,5 +265,9 @@ public class User {
 	
 	public boolean getDispose(){
 		return dispose;
+	}
+
+	public int getDirection() {
+		return direction;
 	}
 }
