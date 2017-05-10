@@ -39,10 +39,10 @@ public class User {
 	private int direction = STILL;
 	
 	/**center of the user image- used for collision detection */
-	public static double CENTER_IMG=0.5;
+	public final static double CENTER_IMG=0.5;
 	
 	/**hit box buffer*/
-	private static double BUFFER=0.37;
+	private final static double BUFFER=0.375;
 	
 	/**diagonal hit box buffer*/
 	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));

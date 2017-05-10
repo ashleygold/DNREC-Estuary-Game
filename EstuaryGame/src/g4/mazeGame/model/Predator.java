@@ -29,7 +29,7 @@ public class Predator {
 	private int direction = STILL;
 	
 	/** center of the user image- used for collision detection */
-	public final double CENTER_IMG = 0.5;
+	public static final double CENTER_IMG = 0.5;
 	
 	/** hit box buffer */
 	public final static double BUFFER = 0.37;
