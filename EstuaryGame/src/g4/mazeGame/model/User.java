@@ -262,6 +262,10 @@ public class User {
 		return foodCount;
 	}
 	
+	public void setFoodCount(int food) {
+		foodCount=food;
+	}
+	
 	
 	public boolean getDispose(){
 		return dispose;

@@ -248,9 +248,10 @@ public class Board {
 		}
 	}
 	/**
-	 * Opens the goal to allow the user to win.  Called when the user collects all the food.  
+	 * Opens the goal to allow the user to win.  Called when the user collects all the food.
+	 * Returns true when gate is opened.  
 	 */
-	protected void openGate(){
+	protected boolean openGate(){
 		int x = 0;
 		int y = 0;
 		while (x < HEIGHT){
@@ -258,11 +259,13 @@ public class Board {
 			while (y < WIDTH){
 				if (boardArr.get(x).get(y) == '*' || boardArr.get(x).get(y) == '^' ) {
 					boardArr.get(x).set(y, 'W');
+					return true;
 				}
 				y++;
 			}
 			x++;
 		}
+		return false;
 	}
 	
 	/**
