@@ -41,8 +41,7 @@ public class User {
 		// System.out.println(isInOcean);
 		switch(direction) {
 			case LEFT:
-				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean
-						|| (isOnEdge && xLoc > 0))
+				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean || (isOnEdge && xLoc > 0))
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
