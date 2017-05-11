@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import g4.beachGame.controller.BeachCont;
@@ -40,13 +39,13 @@ public class MainMenu extends JPanel{
 	private static int curState = 0;
 	
 	/** State for Delaware images */
-	private static final int DE = 0;
+	public static final int DE = 0;
 	
 	/** State for Texas images */
-	private static final int TX = 1;
+	public static final int TX = 1;
 	
 	/** State for Florida images */
-	private static final int FL = 2;
+	public static final int FL = 2;
 	
 	/** Green color for menus */
 	public static final Color SEA_GREEN = new Color(26, 255, 139);
@@ -235,9 +234,4 @@ public class MainMenu extends JPanel{
 	public static void setCurState(int curState) {
 		MainMenu.curState = curState;
 	}
-	
-	public static int getDe() {
-		return DE;
-	}
-
 }

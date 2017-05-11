@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -21,6 +20,18 @@ public class MazeView extends JPanel{
 	
 	/** the width/height in pixels of each square of the maze */ 
 	public final int SLOT_SPACE=40;
+	
+	/** the buffer on the edge of the screen for progress bars */
+	private final int BAR_BUFFER = SLOT_SPACE/8;
+	
+	/** height of progress bars (salinity & food) */
+	private final int BAR_HEIGHT = SLOT_SPACE/2 + BAR_BUFFER;
+	
+	/** width of each block in the salinity bar */
+	private final int SALINITY_CHUNK_WIDTH = BAR_HEIGHT*4;
+	
+	/** default left corner of salinity bar */
+	private final int SALINITY_LEFT_CORNER;
 	
 	/** blue crab image locations */
 	private static final String[] crabImagesLoc = {"bluecrab_0.png",
@@ -91,6 +102,9 @@ public class MazeView extends JPanel{
 			crabImages[i] = createImage(crabImagesLoc[i]);
 		for (int i = 0; i < turtleImages.length; i++)
 			turtleImages[i] = createImage(turtleImagesLoc[i]);
+		
+		SALINITY_LEFT_CORNER = -(SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY + BAR_BUFFER)
+				+ board.getWidth()*SLOT_SPACE;
 	}
 	
 	/**
@@ -156,7 +170,7 @@ public class MazeView extends JPanel{
 		}
 		
 		//spawning user
-		if (MainMenu.getCurState()==MainMenu.getDe()){
+		if (MainMenu.getCurState()==MainMenu.DE){
 			if(board.getUser().getDirection()!=-1){
 				horseshoeImages[8]=horseshoeImages[board.getUser().getDirection()];
 			}
@@ -172,48 +186,38 @@ public class MazeView extends JPanel{
 		
 		//creating food bar
 		g.setColor(Color.GRAY);
-		g.fillRect(5, 5, board.getGoalFood()*20, 25);
+		g.fillRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
 		
 		g.setColor(Color.GREEN);
-		g.fillRect(5, 5, board.getUser().getFoodCount()*20, 25);
+		g.fillRect(BAR_BUFFER, BAR_BUFFER, board.getUser().getFoodCount()*SLOT_SPACE/2, BAR_HEIGHT);
 		
 		g.setColor(Color.WHITE);
-		g.drawRect(5, 5, board.getGoalFood()*20, 25);
+		g.drawRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
 		
-		g.drawImage(food, 5, 5, null, this);
+		g.drawImage(food, BAR_BUFFER, BAR_BUFFER, null, this);
 		
 		//creating salinity bar
-		if (board.getGoalFood()!=5){
-			g.setColor(Color.GRAY);
-			g.fillRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
-			
-			g.setColor(Color.WHITE);
-			g.fillRect(-305+board.getWidth()*SLOT_SPACE + 
-					(Board.MAX_SALINITY - board.getSalinity())*100,
-					5, board.getSalinity()*100, 25);
-			
-			g.setColor(Color.GREEN);
-			g.drawRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
-			
-			g.drawImage(salinity, 530, 6, null, this);
+		g.setColor(Color.GRAY);
+		g.fillRect(SALINITY_LEFT_CORNER, BAR_BUFFER, 
+				Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
+		g.setColor(Color.WHITE);
+		
+		if (board.getGoalFood() != 5){
+			g.fillRect(SALINITY_LEFT_CORNER + (Board.MAX_SALINITY - board.getSalinity())*SALINITY_CHUNK_WIDTH,
+					BAR_BUFFER, board.getSalinity()*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
 		}
 		else{
-			g.setColor(Color.GRAY);
-			g.fillRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
-			
-			g.setColor(Color.WHITE);
-			g.fillRect(-305+board.getWidth()*SLOT_SPACE + 
-					(Board.MAX_SALINITY - 3)*100, 5, 300, 25);
-			
-			g.setColor(Color.GREEN);
-			g.drawRect(-305+board.getWidth()*SLOT_SPACE, 5, 300, 25);
-			
-			g.drawImage(salinity, 530, 6, null, this);
+			g.fillRect(SALINITY_LEFT_CORNER,
+					BAR_BUFFER,	SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY, BAR_HEIGHT);
 		}
+		g.setColor(Color.GREEN);
+		g.drawRect(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
+		
+		g.drawImage(salinity, SALINITY_LEFT_CORNER + 70, BAR_BUFFER + 1, null, this);
 		
 		if(board.getSalinity()==4){
+			g.drawImage(tut1, 40, 300, Color.DARK_GRAY, this);
 			if(board.getUser().getXLoc()==15 && board.getUser().getYLoc()==15){
-				g.drawImage(tut1, 40, 200, Color.DARK_GRAY, this);
 				g.drawImage(tut2, 490, 520, Color.DARK_GRAY, this);
 			}
 			else if(board.getUser().getFoodCount()<board.getGoalFood()-2){
