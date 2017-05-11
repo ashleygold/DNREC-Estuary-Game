@@ -17,10 +17,10 @@ public class MazeCont implements MiniGameController {
 	private int deaths = 0;
 	
 	/** the board on which the current level occurs */
-	private Board board=new Board(3 - level, deaths);
+	private Board board=new Board(4 - level, deaths);
 	
 	/** swing window which displays the game */
-	private JFrame app=new JFrame("Minigame 1: Maze");
+	private JFrame app=new JFrame("Minigame 1: Estuary Maze");
 	
 	/** view component associated with the maze game */
 	private MazeView screen=new MazeView(board);
@@ -38,7 +38,6 @@ public class MazeCont implements MiniGameController {
 		app.setLayout(null);
 		app.getContentPane().add(screen);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//app.pack();
 		app.setSize(15+(board.getWidth()*screen.SLOT_SPACE), (1+board.getHeight())*screen.SLOT_SPACE);
 		
 		app.setVisible(true);
@@ -50,10 +49,15 @@ public class MazeCont implements MiniGameController {
 	 * Advances the game to the next level
 	 */
 	private void nextGame(){
-		JOptionPane.showMessageDialog(null, "Great job! The salinity has decreased by 33%. Press OK to advance to the next stage.");
+		if (level==1 || level==2){
+			JOptionPane.showMessageDialog(null, "Great job! The salinity has decreased by 33%. Press OK to advance to the next stage.");
+		}
+		if (level==0){
+			JOptionPane.showMessageDialog(null, "Great job! Press okay to start the first stage.");
+		}
 		deaths = 0;
 		level++;
-		board = new Board(3 - level, deaths);
+		board = new Board(4 - level, deaths);
 		screen.changeBoard(board);
 		listen.reset(board.getUser());
 	}
@@ -64,7 +68,7 @@ public class MazeCont implements MiniGameController {
 	private void lowerDifficulty(){
 		JOptionPane.showMessageDialog(null, "You were eaten! You'll now restart the stage you were on.");
 		deaths++;
-		board = new Board(3 - level, deaths);
+		board = new Board(4 - level, deaths);
 		screen.changeBoard(board);
 		listen.reset(board.getUser());
 	}
@@ -78,9 +82,9 @@ public class MazeCont implements MiniGameController {
 			board.update();
 			app.repaint();
 			if (board.getUser().checkWin()){
-				if (level < 2) {
+				if (level==0 || level==1 || level==2) {
 					nextGame();
-				} else {
+				} else if(level==3) {
 					gameWon = true;
 					JOptionPane.showMessageDialog(null, "You win! You made it to an area of lower salinity, so now you can grow big and strong!");
 				}
