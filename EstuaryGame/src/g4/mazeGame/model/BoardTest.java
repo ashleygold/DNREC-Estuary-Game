@@ -21,12 +21,6 @@ public class BoardTest {
 		assertTrue(board.openGate());
 	}
 	
-	public void testIsEmptyPred(){
-		Board board = new Board(3,0);
-		for (Predator x : board.getPredator()){
-			assertEquals(board.getCell((int)x.getXLoc(), (int)x.getYLoc()),'.');
-		}
-	}
 	
 	@Test
 	public void testEatFood() {
@@ -48,6 +42,38 @@ public class BoardTest {
 		assertEquals(board2.getSalinity(),2);
 		Board board3 = new Board(1,0);
 		assertEquals(board3.getSalinity(),1);
+	}
+	
+	@Test
+	public void testGetHeight(){
+		Board board = new Board(3,0);
+		assertEquals(board.getHeight(),17);
+	}
+	
+	@Test
+	public void testGetWidth(){
+		Board board = new Board(3,0);
+		assertEquals(board.getWidth(), 19);
+	}
+	
+	@Test
+	//WHY DOES THIS TEST FAIL?????????
+	public void testGetUser(){
+		Board board = new Board(3,0);
+		User user = new User(board);
+		assertSame(user, board.getUser());
+	}
+	
+	@Test
+	public void testGetIsEaten(){
+		Board board = new Board(3,0);
+		assertEquals(board.getIsEaten(), false);
+	}
+	
+	@Test
+	public void testGetPredator(){
+		Board board = new Board(3,0);
+		assertEquals(board.getPredator().size(), 1);
 	}
 
 }

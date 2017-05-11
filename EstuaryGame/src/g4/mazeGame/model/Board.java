@@ -23,8 +23,8 @@ public class Board {
 	
 	/** the base board for the first level */
 	private final String startboard0 =
-			 "#########**########\n"
-			+"#########^^########\n"
+			 "#########*#########\n"
+			+"#########..########\n"
 			+"#########..########\n"
 			+"#########..########\n"
 			+"#########..########\n"
@@ -42,7 +42,7 @@ public class Board {
 			+"###################\n";
 	private final String startboard1 =
 			 "##########*########\n"
-			+"###...#...^.#.....#\n"
+			+"###...#.....#.....#\n"
 			+"#...........#..#.##\n"
 			+"#...##..#...#..#..#\n"
 			+"#...##..#.........#\n"
@@ -62,7 +62,7 @@ public class Board {
 	/** the base board for the second level */
 	private final String startboard2 =
 			 "#########*#########\n"
-			+"####.....^.....####\n"
+			+"####...........####\n"
 			+"##....#######...###\n"
 			+"##..###.....#....##\n"
 			+"#...........#.....#\n"
@@ -82,7 +82,7 @@ public class Board {
 	/** the base board for the third level */
 	private final String startboard3 =
 			 "#########*#########\n"
-			+"#.....#..^..#.....#\n"
+			+"#.....#.....#.....#\n"
 			+"####........#..####\n"
 			+"#.......#...#..#..#\n"
 			+"#..###..#.........#\n"
@@ -190,8 +190,7 @@ public class Board {
 	protected boolean isEmpty(double x, double y){
 		return (getCell((int)x, (int)y) == '.' ||
 				getCell((int)x, (int)y) == 'o' ||
-				getCell((int)x, (int)y) == 'W' ||
-				getCell((int)x, (int)y) == '^');
+				getCell((int)x, (int)y) == 'W');
 	}
 	
 	/**
@@ -202,8 +201,7 @@ public class Board {
 	 */
 	protected boolean isEmptyPred(double x, double y){
 		return (getCell((int)x, (int)y) == '.' ||
-				getCell((int)x, (int)y) == 'o' ||
-				getCell((int)x, (int)y) == '^');
+				getCell((int)x, (int)y) == 'o');
 	}
 	
 	/**
@@ -257,7 +255,7 @@ public class Board {
 		while (x < HEIGHT){
 			y = 0;
 			while (y < WIDTH){
-				if (boardArr.get(x).get(y) == '*' || boardArr.get(x).get(y) == '^' ) {
+				if (boardArr.get(x).get(y) == '*' ) {
 					boardArr.get(x).set(y, 'W');
 					return true;
 				}

@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class UserTest {
-
+	Board board = new Board(3,0);
+	User user = new User(board);
+	
 	@Test
 	public void tryMoveLeftTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.LEFT);
@@ -22,8 +22,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveRightTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.RIGHT);
@@ -36,8 +34,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveUpTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.UP);
@@ -50,8 +46,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveDownTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.DOWN);
@@ -64,8 +58,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveDownLeftTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.DOWN_LEFT);
@@ -78,8 +70,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveDownRightTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.DOWN_LEFT);
@@ -92,8 +82,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveUpRightTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.DOWN_LEFT);
@@ -106,8 +94,6 @@ public class UserTest {
 	
 	@Test
 	public void tryMoveUpLeftTest() {
-		Board board = new Board (3,0);
-		User user = new User(board);
 		double userX = user.getXLoc();
 		double userY = user.getYLoc();
 		user.setDirection(User.DOWN_LEFT);
@@ -120,18 +106,28 @@ public class UserTest {
 	
 	@Test
 	public void getFoodCountTest(){
-		Board board = new Board (3,0);
-		User user = new User(board);
 		int foodCount = user.getFoodCount();
 		assertEquals(foodCount,0);
 	}
 	
 	@Test
 	public void getDisposeTest(){
-		Board board = new Board (3,0);
-		User user = new User(board);
 		boolean dispose = user.getDispose();
 		assertEquals(dispose,false);
+	}
+	
+	@Test
+	public void testGetDirection(){
+		assertEquals(user.getDirection(),User.STILL);
+	}
+	
+	@Test
+	public void testCheckWin(){
+		user.setFoodCount(5);
+		assertFalse(user.checkWin());
+		user.setYLoc(10);
+		user.setXLoc(1);
+		assertTrue(user.checkWin());
 	}
 
 }

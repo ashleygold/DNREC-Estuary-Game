@@ -1,5 +1,8 @@
 package g4.mazeGame.controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -35,6 +38,8 @@ public class MazeCont implements MiniGameController {
 	 * Constructs a new maze controller object 
 	 */
 	public MazeCont() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    app.setBounds(0,0,screenSize.width, screenSize.height);
 		app.setLayout(null);
 		app.getContentPane().add(screen);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

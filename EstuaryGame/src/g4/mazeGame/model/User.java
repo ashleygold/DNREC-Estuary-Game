@@ -242,6 +242,14 @@ public class User {
 		return false;
 	}
 	
+	public void setXLoc(double x){
+		xLoc=x;
+	}
+	
+	public void setYLoc(double y){
+		yLoc=y;
+	}
+	
 	public int getPicNum(){
 		return (int) picNum;
 	}
