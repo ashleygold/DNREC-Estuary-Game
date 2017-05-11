@@ -16,12 +16,30 @@ public class Board {
 	public final int WIDTH = 19;
 	
 	/** the goal food for the various levels */
-	private final int[] goalFood = {10, 7, 5};
+	private final int[] goalFood = {10, 7, 5, 5};
 	
 	/** the number of predators for the various levels */
-	private final int[] NUM_PREDATORS = {3, 2, 1};
+	private final int[] NUM_PREDATORS = {3, 2, 1, 0};
 	
 	/** the base board for the first level */
+	private final String startboard0 =
+			 "#########**########\n"
+			+"#########^^########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#########..########\n"
+			+"#.................#\n"
+			+"###################\n";
 	private final String startboard1 =
 			 "##########*########\n"
 			+"###...#...^.#.....#\n"
@@ -82,7 +100,7 @@ public class Board {
 			+"###################\n";
 	
 	/** the base boards for the various levels */
-	private final String[] startBoards = {startboard3, startboard2, startboard1};
+	private final String[] startBoards = {startboard3, startboard2, startboard1, startboard0};
 	
 	/** if the user has been eaten */
 	private boolean isEaten=false;
