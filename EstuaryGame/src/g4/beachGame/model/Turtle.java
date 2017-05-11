@@ -100,11 +100,20 @@ public class Turtle {
 	public int getyLoc() {
 		return yLoc;
 	}
+	public void setxLoc(int x){
+		xLoc = x;
+	}
+	public void setyLoc(int y){
+		yLoc = y;
+	}
 	public boolean getGotToOcean() {
 		return gotToOcean;
 	}
 	public int getDirection(){
 		return direction;
+	}
+	public void setDirection(int x){
+		direction = x;
 	}
 	public int getPicNum(){
 		return (int)picNum;
