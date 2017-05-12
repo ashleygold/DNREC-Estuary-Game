@@ -93,7 +93,7 @@ public class MazeView extends JPanel{
 	 */
 	public MazeView(Board board) {
 		this.board = board;
-		double initialX=board.getUser().getXLoc();
+		//double initialX=board.getUser().getXLoc();
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 		setFocusable(true);
 		for (int i = 0; i < horseshoeImages.length; i++)

@@ -231,7 +231,11 @@ public class MainMenu extends JPanel{
 		return curState;
 	}
 
-	public static void setCurState(int curState) {
-		MainMenu.curState = curState;
+	/**
+	 * Sets the current state to the parameter.  Called by JButtons on main menu.
+	 * @param newState the state that this should be changed to
+	 */
+	private static void setCurState(int newState) {
+		curState = newState;
 	}
 }
