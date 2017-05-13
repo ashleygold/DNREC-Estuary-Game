@@ -165,13 +165,16 @@ public class Board {
 		turtles.add(new Turtle(this));
 	}
 	
+	//when the
 	public void splitWave(Wave wave){
-		int xCoord = wave.getX();
-		int[] xLocs = new int[4]; xLocs[0] = wave.getX();
-		int numxLocs = 1;
+		int xCoord = wave.getX(); //current wave x coordinate
+		int[] xLocs = new int[4]; xLocs[0] = wave.getX(); //array holding the new x locations of split waves
+		int numxLocs = 1; //number of x locations in the array
 		if (!wave.isOutOfRange()){
+			//if wave is off screen
 			if (wave.getX()+wave.getLength() > Board.SHORE_WIDTH)
 				return;
+			//shoreCellPrev is used to see if the current cell differs from the previous cell 
 			int shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH];
 			while (xCoord<wave.getX()+wave.getLength()){
 				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH] != shoreCellPrev){
