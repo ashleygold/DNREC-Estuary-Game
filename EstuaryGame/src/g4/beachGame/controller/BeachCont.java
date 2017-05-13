@@ -29,6 +29,10 @@ public class BeachCont implements MiniGameController{
 	private int framesBetweenWind;
 	final int timeBetweenBoats= 6;
 	
+	
+	/**
+	 * a constructor that creates a new Beach controller
+	 */
 	public BeachCont() {
 		bView = new BeachView(board1);
 		bView.addKeyListener(new Listener(board1));
@@ -40,7 +44,11 @@ public class BeachCont implements MiniGameController{
 		framesBetweenTurtles=605;
 		framesBetweenWind=600;
 	} 
-
+	
+	/**
+	 * checks to see if boat is in a location where they are able to create a new wave
+	 * @param boat is the boat we check to see if it can create a boat
+	 */
 	public void couldCreateWave(Boat boat){
 		if (!boat.getHasEmittedWave()){
 			if (boat.getDirection() && boat.getXLoc()>=boat.getWaveLocation()){
@@ -52,7 +60,9 @@ public class BeachCont implements MiniGameController{
 		}
 	}
 	
-	/*everything that changes every frame*/
+	/**
+	 * everything that changes every frame
+	 */
 	@Override
 	public void update() {
 		//System.out.println(board1.getCurrTurtles());
@@ -163,6 +173,9 @@ public class BeachCont implements MiniGameController{
 		}
 	}
 	
+	/**
+	 * overriding the dispose method, gets ride of the View.
+	 */
 	@Override
 	public void dispose() {
 		isGameOver = true;
