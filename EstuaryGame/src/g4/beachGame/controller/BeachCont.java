@@ -55,6 +55,7 @@ public class BeachCont implements MiniGameController{
 	/*everything that changes every frame*/
 	@Override
 	public void update() {
+		//System.out.println(board1.getCurrTurtles());
 		if (!isGameOver) {
 			//System.out.println(board1.getCurrTurtles());
 			if (board1.checkLost()){
@@ -107,15 +108,14 @@ public class BeachCont implements MiniGameController{
 				while (wavesIt.hasNext()){
 					Wave currWave = wavesIt.next();
 					currWave.move();
-					if (currWave.isOutOfRange())
+					if (currWave.isOutOfRange()){
 						wavesIt.remove();
-					if (currWave.getY() >= Board.SHORE_HEIGHT){
+					}
+					else if (currWave.getY() >= Board.SHORE_HEIGHT){
 						board1.splitWave(currWave);
 						wavesIt.remove();
 					}
 				}
-				System.out.println("currWaves " + board1.getCurrWaves());
-				System.out.println("splitWaves " + board1.getSplitWaves());
 				
 				Iterator<Wave> splitWavesIt = board1.getSplitWaves().iterator();
 				while (splitWavesIt.hasNext()){
@@ -124,22 +124,19 @@ public class BeachCont implements MiniGameController{
 					splitWavesIt.remove();
 				}
 				
-				
-				
 				Iterator<Wave> wavesIt2 = board1.getCurrWaves().iterator();
 				while (wavesIt2.hasNext()){
-					Wave currWave = wavesIt2.next();
-					currWave.move();
-					try{
-						if (currWave.getY() >= Board.SHORE_HEIGHT&&board1.beach[(int) (Math.ceil(currWave.getY()*6/Board.HEIGHT))-3][currWave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
-							board1.waveHit(currWave.getX(), currWave.getX()+currWave.getLength());
-							wavesIt2.remove();
-						}
-					}catch(ArrayIndexOutOfBoundsException e){
+					Wave currWave2 = wavesIt2.next();
+					if (currWave2.isOutOfRange()){
 						wavesIt2.remove();
 					}
+					else{
+						if (currWave2.getY() >= Board.SHORE_HEIGHT&&board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
+							board1.waveHit(currWave2.getX(), currWave2.getX()+currWave2.getLength());
+							wavesIt2.remove();
+						}
+					}
 				}
-				
 			}
 			
 			//moves boats across screen

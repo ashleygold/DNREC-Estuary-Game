@@ -166,28 +166,25 @@ public class Board {
 	}
 	
 	public void splitWave(Wave wave){
-		int x = wave.getX();
+		int xCoord = wave.getX();
 		int[] xLocs = new int[4]; xLocs[0] = wave.getX();
 		int numxLocs = 1;
-		int shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH];
-		while (x<wave.getX()+wave.getLength()){
-			try{
-				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH] != shoreCellPrev){
-					xLocs[numxLocs] = x;
+		if (!wave.isOutOfRange()){
+			if (wave.getX()+wave.getLength() > Board.SHORE_WIDTH)
+				return;
+			int shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH];
+			while (xCoord<wave.getX()+wave.getLength()){
+				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH] != shoreCellPrev){
+					xLocs[numxLocs] = xCoord;
 					numxLocs++;
 				}
-				shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][x*SPACES_OF_SHORE/SHORE_WIDTH];
-				x++;
-			}catch(ArrayIndexOutOfBoundsException e){
-				break;
+				shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH];
+				xCoord++;
 			}
-		}
-		xLocs[numxLocs]=x;
-		for (int i = 0; i < xLocs.length; i++){
-			if (i== xLocs.length-1 || (i!=0 && xLocs[i+1]==0))
-				break;
-			else{
-				splitWaves.add(new Wave(wave.speed, xLocs[i+1]-xLocs[i], xLocs[i], wave.getY()));
+			xLocs[numxLocs]=xCoord;
+			for (int i = 0; i < xLocs.length-1; i++){
+				if (i==0 || xLocs[i+1]!=0)
+					splitWaves.add(new Wave(wave.speed, xLocs[i+1]-xLocs[i], xLocs[i], wave.getY()));
 			}
 		}
 	}
@@ -203,14 +200,12 @@ public class Board {
 		// where the leftmost and right most portion of the wave hits
 		int left = (int) (SPACES_OF_SHORE * l / SHORE_WIDTH);
 		int right = (int) (SPACES_OF_SHORE * r / SHORE_WIDTH);
+		if (left > 11 || right > 11)
+			return;
 		for (int i = left; i < right + 1; i++) {
 			int depth = 0;
-			try{
-				while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
-					depth++;
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-				break;
+			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
+				depth++;
 			}
 			if (depth == beach.length) // the shore has reached the bottom of the screen
 				isShoreDestroyed = true;
@@ -259,14 +254,6 @@ public class Board {
 			}
 		}
 	}
-
-	/*public void replaceProtector(int depth, int spot, int protector){
-		if (beach[depth][spot]==GRASS || beach[depth][spot]==GABION || beach[depth][spot]==WALL)
-			beach[depth][spot]=SHORE;
-		else {
-			beach[depth][spot]--;
-		}
-	}*/
 
 	/**
 	 * Returns the protector closest to the user by the user's position on the grid.

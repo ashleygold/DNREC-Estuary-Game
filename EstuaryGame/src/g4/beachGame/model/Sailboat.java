@@ -22,10 +22,5 @@ public class Sailboat extends Boat{
 		this.speed=SAILBOAT_SPEED;
 		System.out.println("Boat Height:" +yloc);
 	}
-	
-	public String toString(){
-		return "sailboat";
-	}
-
 
 }

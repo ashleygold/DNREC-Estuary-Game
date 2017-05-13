@@ -29,7 +29,7 @@ public class Wave {
 	
 	final int WAVE_MOVEMENT_W_WIND =5; 
 	
-	
+	private static int windFace = 0;
 	
 	public Wave(Boat boat){
 		if (boat instanceof CruiseLiner){
@@ -81,10 +81,10 @@ public class Wave {
 	public boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
-		else if (direction ==RIGHT && this.getX()>Board.WIDTH)
-			return true; 
+		else if ((direction ==RIGHT||direction == FORWARD) && this.getX()+this.getLength()>Board.WIDTH)
+			return true;
 		else if (this.xloc>Board.SHORE_WIDTH && this.yloc>Board.HEIGHT/2)
-			return true; 
+			return true;
 		else if (this.xloc<0)
 			return true;
 		return false;
@@ -93,15 +93,20 @@ public class Wave {
 	public static void activateWind(int number) {
 		if (direction == FORWARD) {
 			int randomDir = number %2 ;
-			if (randomDir == 1)
+			if (randomDir == 1){
 				direction = RIGHT;
-			else
+				windFace = LEFT;
+			}
+			else{
 				direction = LEFT;
+				windFace = RIGHT;
+			}
 		}
 	}
 	
 	public static void ceaseWind(){
 		direction=FORWARD;
+		windFace = FORWARD;
 	}
 	
 	public int getX(){
@@ -119,4 +124,6 @@ public class Wave {
 	public static int getDirection(){return direction;}
 	public int getLeft(){return left;}
 	public int getRight(){return right;}
+	
+	public static int getWindFace(){return windFace;}
 }

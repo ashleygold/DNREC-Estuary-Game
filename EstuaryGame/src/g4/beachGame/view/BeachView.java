@@ -41,8 +41,10 @@ public class BeachView extends JPanel{
 		"images/BeachImages/tile_sand_center.png", "images/BeachImages/tile_water_S.png", 
 		"images/BeachImages/tile_water_C.png", "images/BeachImages/tile_grass_north.png"};
 	
-	private static final String[] boatImagesLoc = {"images/BeachImages/cruiseliner.png", "images/BeachImages/sailboat.png",
-		"images/BeachImages/speedboat.png"};
+	private static final String[] boatImagesLoc = {"images/BeachImages/cruiseliner.png", "images/BeachImages/cruiselinerLeft.png", "images/BeachImages/sailboat.png",
+		"images/BeachImages/sailboatRight.png", "images/BeachImages/speedboat.png", "images/BeachImages/speedboatLeft.png"};
+	
+	private static final String[] windImagesLoc = {"images/BeachImages/windLeft.png", "images/BeachImages/windRight.png"};
 	
 	
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
@@ -51,6 +53,7 @@ public class BeachView extends JPanel{
 	private BufferedImage[] rightTurtleImages = new BufferedImage[rightTurtleImagesLoc.length];
 	private BufferedImage[] shoreImages = new BufferedImage[shoreImagesLoc.length];
 	private BufferedImage[] boatImages = new BufferedImage[boatImagesLoc.length];
+	private BufferedImage[] windImages = new BufferedImage[windImagesLoc.length];
 	
 	private BufferedImage background = createImage("images/BeachImages/background.png");
 	
@@ -90,6 +93,9 @@ public class BeachView extends JPanel{
 		
 		for (int i = 0; i < boatImages.length; i++)
 			boatImages[i] = createImage(boatImagesLoc[i]);
+		
+		for (int i = 0; i < windImages.length; i++)
+			windImages[i] = createImage(windImagesLoc[i]);
 		
 		//sets up frame
 		frame = new JFrame();
@@ -148,17 +154,29 @@ public class BeachView extends JPanel{
 			g.setColor(Color.GREEN);
 			g.fillRect(turtle.getxLoc()+turtle.getWidth(), turtle.getyLoc(), turtle.getFramesLeft()/60, 10);
 		}
-		g.setColor(Color.DARK_GRAY);
+		
 		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
 		BufferedImage boatImage = null;
 		while (boatIt.hasNext()){
 			Boat currBoat = boatIt.next();
-			if (currBoat instanceof CruiseLiner)
-				boatImage = boatImages[0];
-			else if (currBoat instanceof Sailboat)
-				boatImage = boatImages[1];
-			else
-				boatImage = boatImages[2];
+			if (currBoat instanceof CruiseLiner){
+				if (currBoat.getDirection())
+					boatImage = boatImages[0];
+				else
+					boatImage = boatImages[1];
+			}
+			else if (currBoat instanceof Sailboat){
+				if (currBoat.getDirection())
+					boatImage = boatImages[3];
+				else
+					boatImage = boatImages[2];
+			}
+			else{
+				if (currBoat.getDirection())
+					boatImage = boatImages[4];
+				else
+					boatImage = boatImages[5];
+			}
 			g.drawImage(boatImage, currBoat.getXLoc()+10, currBoat.getYLoc()+10, 60, 50, null, this);
 		}
 		
@@ -173,6 +191,11 @@ public class BeachView extends JPanel{
 			Wave sWave = splitWavesIt.next();
 			g.fillRect(sWave.getX()+10, sWave.getY()+10, sWave.getLength(), 10);
 		}
+		
+		if (Wave.getWindFace()==1)
+			g.drawImage(windImages[1], 0, 0, 70, 60, null, this);
+		else if (Wave.getWindFace()==-1)
+			g.drawImage(windImages[0], 1010, 0, 70, 60, null, this);
 	}
 }
 

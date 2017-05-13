@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class UserTest {
-	Board b1 = new Board();
+	/*Board b1 = new Board();
 	User user = new User(b1);
 	
 	@Test
@@ -192,5 +192,5 @@ public class UserTest {
 		
 		user.move();
 		assertEquals(608, user.getyLoc());
-	}
+	}*/
 }
