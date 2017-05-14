@@ -40,7 +40,7 @@ public class Table {
 		//put a random number of Cubes in dice
 		NUM_DICE = MIN_DICE + (int)((1 + MAX_DICE - MIN_DICE)*Math.random());
 		for(int i = 0; i< NUM_DICE; i++)
-			getDice().add(new Cube());
+			dice.add(new Cube());
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class Table {
 		}
 		
 		//change to an unused image for each cube that isn't fixed
-		for (Cube x : getDice()) {
+		for (Cube x : dice) {
 			if (!x.isFixed()) {
 				do {
 					x.changeImg();
@@ -72,9 +72,9 @@ public class Table {
 	 */
 	public Cube getCubeAt(int i, boolean active){
 		if (active)
-			return getDice().get(i);
+			return dice.get(i);
 		else
-			return getFinished().get(i);
+			return finished.get(i);
 	}
 	
 	/**
@@ -82,14 +82,14 @@ public class Table {
 	 * @param i the index of the Cube that has been interacted with
 	 */
 	public void activateCube(int i){
-		if (!getDice().get(i).isFixed()) {
+		if (!dice.get(i).isFixed()) {
 			//if not fixed
-			getDice().get(i).fix();
-			imgsInUse[getDice().get(i).getImg()] = FIXED;
-		} else if (!getDice().get(i).isMoved()){
+			dice.get(i).fix();
+			imgsInUse[dice.get(i).getImg()] = FIXED;
+		} else if (!dice.get(i).isMoved()){
 			//if not moved
-			getDice().get(i).move();
-			getFinished().add(getDice().get(i));
+			dice.get(i).move();
+			finished.add(dice.get(i));
 		}
 	}
 	
@@ -98,17 +98,14 @@ public class Table {
 	 * @return true if all cubes have been moved, false otherwise
 	 */
 	public boolean areAllMoved(){
-		return getDice().size() == getFinished().size();
+		return dice.size() == finished.size();
 	}
 	
-
-	public List<Cube> getDice() {
-		return dice;
+	/**
+	 * gets the number of finished Cubes
+	 * @return the number of finished Cubes 
+	 */
+	public int getFinishedSize(){
+		return finished.size();
 	}
-
-
-	public List<Cube> getFinished() {
-		return finished;
-	}
-
 }
