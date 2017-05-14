@@ -299,7 +299,7 @@ public class Board {
 	public void placeProtector(){
 		int depth = 0;
 		//places protector using only user's x location
-		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORE_WIDTH;
+		int spot = (int) (user.getxLoc()+(User.CRAB_WIDTH/2))*SPACES_OF_SHORE/SHORE_WIDTH;
 		while (depth < beach.length && beach[depth][spot] != SHORE)
 			depth++;
 		beach[depth][spot] = getProtector();

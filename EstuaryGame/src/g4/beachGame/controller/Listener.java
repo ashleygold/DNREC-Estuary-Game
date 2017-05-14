@@ -37,10 +37,8 @@ public class Listener implements KeyListener {
 		this.user = board.user;
 		this.board = board;
 	}
-<<<<<<< HEAD
-	
-	//@Override
-=======
+
+
 
 	
 	/**
@@ -48,7 +46,6 @@ public class Listener implements KeyListener {
 	 * @param ke contains data of key pressed
 	 */
 	@Override
->>>>>>> 8cb6f34f476bfd4b2e24f0093ec2a332dbf8845a
 	public void keyPressed(KeyEvent ke) {
 		int code = ke.getKeyCode();
 		int loc = 0;
