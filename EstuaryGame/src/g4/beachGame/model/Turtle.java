@@ -9,7 +9,7 @@ public class Turtle {
 	private final int TURTLE_HEIGHT=50;
 	private final int TURTLE_WIDTH=70;
 	
-	private final int DEFAULTX = (int)(2+ Math.random() * Board.SHORE_WIDTH);
+	private final int DEFAULTX = 2+ (int)Math.random() * Board.SHORE_WIDTH;
 	private final int DEFAULTY = Board.HEIGHT;
 	private final int XINCR = 1;
 	private final int YINCR = 1;

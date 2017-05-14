@@ -65,7 +65,7 @@ public class BeachCont implements MiniGameController{
 	 */
 	@Override
 	public void update() {
-		//System.out.println(board1.getCurrTurtles());
+		System.out.println(board1.getCurrTurtles());
 		if (!isGameOver) {
 			//System.out.println(board1.getCurrTurtles());
 			if (board1.checkLost()){
