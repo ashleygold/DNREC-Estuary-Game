@@ -122,8 +122,10 @@ public class BeachCont implements MiniGameController{
 						wavesIt.remove();
 					}
 					else if (currWave.getY() >= Board.SHORE_HEIGHT && Wave.getDirection()==0){
-						board1.splitWave(currWave);
-						wavesIt.remove();
+						if ((int) (Math.ceil(currWave.getY()*6/Board.HEIGHT))-3 <= 2){
+							board1.splitWave(currWave);
+							wavesIt.remove();
+						}
 					}
 				}
 				
@@ -141,7 +143,8 @@ public class BeachCont implements MiniGameController{
 						wavesIt2.remove();
 					}
 					else{
-						if (currWave2.getY() >= Board.SHORE_HEIGHT&&board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE){
+						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 ||
+								(currWave2.getY() >= Board.SHORE_HEIGHT && board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE)){
 							board1.waveHit(currWave2.getX(), currWave2.getX()+currWave2.getLength());
 							wavesIt2.remove();
 						}
