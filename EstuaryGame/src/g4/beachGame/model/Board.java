@@ -196,9 +196,6 @@ public class Board {
 				xCoord++;
 			}
 			xLocs[numxLocs]=xCoord;
-			for (int i = 0; i < xLocs.length; i++)
-				System.out.print(xLocs[i]+ ", ");
-			System.out.println();
 			for (int i = 0; i < xLocs.length-1; i++){
 				if (i==0 || xLocs[i+1]!=0)
 					splitWaves.add(new Wave(wave.speed, xLocs[i+1]-xLocs[i], xLocs[i], wave.getY()));
@@ -228,7 +225,7 @@ public class Board {
 				isShoreDestroyed = true;
 				beach[depth][i] = WATER;
 			}
-			else if (beach[depth][i] == SHORE){
+			else if (beach[depth][i] == SHORE){ //shore erodes
 				beach[depth][i] = WATER;
 				isInOcean(depth);
 			}
@@ -279,7 +276,9 @@ public class Board {
 	 * @return the integer representing the protector chosen
 	 */
 	public int chooseProtector() {
+		//if user is close enough to protectors
 		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE){
+			//uses y location to determine which protector is chosen
 			if (user.getyLoc() <TOP_ROW2)
 				protector = GRASS_L;
 			else if (user.getyLoc() >= TOP_ROW2
@@ -299,6 +298,7 @@ public class Board {
 	 */
 	public void placeProtector(){
 		int depth = 0;
+		//places protector using only user's x location
 		int spot = (int) user.getxLoc()*SPACES_OF_SHORE/SHORE_WIDTH;
 		while (depth < beach.length && beach[depth][spot] != SHORE)
 			depth++;

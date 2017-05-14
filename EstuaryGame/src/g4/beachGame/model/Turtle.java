@@ -25,12 +25,20 @@ public class Turtle {
 	
 	private final Board board;
 	
+	/**
+	 * Constructs a turtle using the given board
+	 * @param b - board on which the turtle is placed
+	 */
 	public Turtle(Board b){
 		board = b;
 		xLoc = DEFAULTX;
 		yLoc = DEFAULTY;
 		setFramesLeft(DEFAULTFRAMES);
 	}
+	
+	/**
+	 * Moves the turtle in upward motion and around protectors to get to ocean
+	 */
 	public void move(){
 		picNum = (picNum+.2)%numPics;
 		if (direction == 0){
@@ -66,16 +74,20 @@ public class Turtle {
 				xLoc+=XINCR;
 		}
 	}
-	/*checks to see if the turtle is on the shore*/
+	/**
+	 * Checks to see if turtle is on the shore
+	 * @param xLoc
+	 * @param yLoc
+	 * @return
+	 */
 	public boolean isShore(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell;
-		try{
-			cell = board.beach[y-4][x];
-		}catch(ArrayIndexOutOfBoundsException e){
+		if (x>11 || y>6 || y<=3)
 			return false;
-		}
+		else
+			cell = board.beach[y-4][x];
 		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.SHORE);
 	}
 	
@@ -83,14 +95,12 @@ public class Turtle {
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell = Board.SHORE;
-		try{
+		if (y<=3 && xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100)
+			return true;
+		else if (x>11 || y>6)
+			return false;
+		else
 			cell = board.beach[y-4][x];
-		}catch(ArrayIndexOutOfBoundsException e){
-			if (y<=3 && xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100)
-				return true;
-			else
-				return false;
-		}
 		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.WATER);
 	} 	
 	
