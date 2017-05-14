@@ -99,7 +99,7 @@ public class BoardTest {
 		assertEquals(5, b1.getSplitWaves().size());
 		
 		b1.splitWave(new Wave(10, 200, b1.SHORE_WIDTH-100, b1.SHORE_HEIGHT+30));
-		assertEquals(6, b1.getSplitWaves().size());
+		assertEquals(5, b1.getSplitWaves().size());
 	}
 	
 	@Test

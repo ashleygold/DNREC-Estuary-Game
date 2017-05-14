@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TurtleTest {
-	/*Board b1 = new Board();
+	Board b1 = new Board();
 	Turtle turtle = new Turtle(b1);
 	
 	@Test
@@ -83,5 +83,5 @@ public class TurtleTest {
 	@Test
 	public void testGetHeight(){
 		assertEquals(50, turtle.getHeight());
-	}*/
+	}
 }

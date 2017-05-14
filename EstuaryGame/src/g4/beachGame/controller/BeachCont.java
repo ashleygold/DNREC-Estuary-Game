@@ -143,7 +143,7 @@ public class BeachCont implements MiniGameController{
 						wavesIt2.remove();
 					}
 					else{
-						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 ||
+						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 || currWave2.getX()>Board.SHORE_WIDTH ||
 								(currWave2.getY() >= Board.SHORE_HEIGHT && board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE)){
 							board1.waveHit(currWave2.getX(), currWave2.getX()+currWave2.getLength());
 							wavesIt2.remove();
