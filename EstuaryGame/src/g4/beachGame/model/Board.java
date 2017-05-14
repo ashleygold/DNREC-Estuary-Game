@@ -41,17 +41,16 @@ public class Board {
 	public final static int GABION_L = 6;
 	public final static int GABION_2L = 7;
 	
-	
+	/**The total rows on the board */
 	public final static int TOTALROWS=6;
 	
+	/** WHAT IS THIS SOMEBODY FILL THIS IN*/
 	public final static int RAISE=15; //how much high it is?
 	
 	/**final fields that represent the depth of the shore**/
 	public final static int TOP_ROW1=3;
 	public final static int TOP_ROW2=4*HEIGHT/TOTALROWS -RAISE ;
 	public final static int TOP_ROW3=5*HEIGHT/TOTALROWS -2*RAISE;
-
-	
 	
 	/**the array representing what was originally the shore**/
 	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
@@ -62,11 +61,13 @@ public class Board {
 
 	/**The number of hours for which the game lasts */
 	public final int TOTAL_HOURS = 24;
+	
 	/**how much time is left in the game**/
 	public int hoursLeft = TOTAL_HOURS; 
 	
 	/**nano seconds per second conversion**/
 	final static double NANOSECOND_PER_SECOND=1000000000.0;
+	
 	/**time when user starts playing**/
 	final long START_TIME= System.nanoTime();
 	
@@ -89,11 +90,12 @@ public class Board {
 	/**the game should get easier as people keep losing**/
 	int difficulty;
 	
+	/**represents if the turtle died or not*/
 	private boolean turtleDie = false;
 	
 	/**
-	 * Creates a new board of waves and protectors
-	 * */
+	 * Constructor to create a new board of waves and protectors
+	 */
 	public Board(){
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
@@ -290,8 +292,6 @@ public class Board {
 		}
 		return protector;
 	}
-	
-	
 	
 	/**
 	 * Sets specific cell of beachgrid on the shoreline at user's xlocation to a protector.

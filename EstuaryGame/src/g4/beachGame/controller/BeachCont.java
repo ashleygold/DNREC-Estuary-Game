@@ -15,18 +15,38 @@ import g4.mainController.MiniGameController;
 
 public class BeachCont implements MiniGameController{
 
-
+	/**Creating an instance of a board for the beach game*/
 	private Board board1 = new Board();
-
+	
+	/**Creating an instance of beach view */
 	private BeachView bView;
+	
+	/**Variable to declare if the game is over*/
 	private boolean isGameOver = false;
+	
+	/**The frame counter for the entire game*/
 	public int frameCounter;
+	
+	/**The frame counter for the wind */
 	public static int frameCounterWind;
+	
+	/**The frame counter for the turtles*/
 	public int frameCounterTurtles;
+	
+	/**The frame counter for the turtle's life bar */
 	public int frameCounterTurtleLife;
+	
+	
+	/**The frame counter for the frames between boat instances */
 	private int framesBetweenBoats;
+	
+	/**The frame counter for the frames between turtle instances*/
 	private int framesBetweenTurtles;
+	
+	/**The frame counter for the frames between wind instances */
 	private int framesBetweenWind;
+	
+	/**The time between each boat occurrence*/
 	final int timeBetweenBoats= 6;
 	
 	
@@ -46,7 +66,7 @@ public class BeachCont implements MiniGameController{
 	} 
 	
 	/**
-	 * checks to see if boat is in a location where they are able to create a new wave
+	 * Checks to see if boat is in a location where they are able to create a new wave
 	 * @param boat is the boat we check to see if it can create a boat
 	 */
 	public void couldCreateWave(Boat boat){
@@ -61,7 +81,7 @@ public class BeachCont implements MiniGameController{
 	}
 	
 	/**
-	 * everything that changes every frame
+	 * Updates the game each frame
 	 */
 	@Override
 	public void update() {
@@ -86,7 +106,6 @@ public class BeachCont implements MiniGameController{
 				frameCounterWind++;
 				frameCounterTurtles++;
 				frameCounterTurtleLife++;
-				/*user*/
 				board1.user.move();
 				
 				//spawn boats
@@ -116,7 +135,7 @@ public class BeachCont implements MiniGameController{
 				while (wavesIt.hasNext()){
 					Wave currWave = wavesIt.next();
 					if (currWave.getY()<board1.getHeight()/2 || 
-							(currWave.getY()<board1.HEIGHT && board1.beach[(int) (Math.ceil(currWave.getY()*6/Board.HEIGHT))-3][currWave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]!= board1.SHORE))
+							(currWave.getY()<Board.HEIGHT && board1.beach[(int) (Math.ceil(currWave.getY()*6/Board.HEIGHT))-3][currWave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]!=Board.SHORE))
 						currWave.move();
 					if (currWave.isOutOfRange()){
 						wavesIt.remove();
@@ -177,7 +196,7 @@ public class BeachCont implements MiniGameController{
 	}
 	
 	/**
-	 * Overrides the dispose method, gets rid of the View.
+	 * Overrides the dispose method to dispose the view when game is over
 	 */
 	@Override
 	public void dispose() {
