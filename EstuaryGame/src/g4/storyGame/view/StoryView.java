@@ -40,10 +40,8 @@ public class StoryView extends JPanel{
 	private final JFrame frame;
 	/** Width of the window */
 	private final int FRAME_WIDTH = screenSize.width;
-	/** Offset from bottom of screen */
-	private final int OFFSET = 30;
 	/** Height of the window */
-	private final int FRAME_HEIGHT = screenSize.height - OFFSET;
+	private final int FRAME_HEIGHT = screenSize.height;
 	
 	/** Width of images */
 	private final int IMG_WIDTH = FRAME_WIDTH/12;
@@ -109,7 +107,7 @@ public class StoryView extends JPanel{
 		frame.getContentPane().add(this);
 		frame.setBackground(MainMenu.BACKGROUND_BLUE);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(0,0,FRAME_WIDTH, FRAME_HEIGHT);
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
@@ -272,7 +270,7 @@ public class StoryView extends JPanel{
 		}
 		
 		//draw finalized images
-		for (int i = 0; i < refTable.getFinishedSize(); i++){
+		for (int i = 0; i < refTable.getFinished().size(); i++){
 			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],
 					IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), FRAME_HEIGHT - 5*IMG_HEIGHT/2,
 					null, this);
