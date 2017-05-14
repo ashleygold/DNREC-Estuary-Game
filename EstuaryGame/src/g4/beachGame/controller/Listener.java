@@ -22,7 +22,7 @@ public class Listener implements KeyListener {
 		this.user = board.user;
 		this.board = board;
 	}
-
+	
 	//@Override
 	public void keyPressed(KeyEvent ke) {
 		int code = ke.getKeyCode();

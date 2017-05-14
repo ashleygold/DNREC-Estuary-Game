@@ -15,10 +15,11 @@ import g4.mainController.MiniGameController;
 
 public class BeachCont implements MiniGameController{
 
-
+	/**board for the game*/
 	private Board board1 = new Board();
-
+	/**view for the game*/
 	private BeachView bView;
+	/**true for whether or not the game is over*/
 	private boolean isGameOver = false;
 	public int frameCounter;
 	public static int frameCounterWind;
@@ -121,7 +122,7 @@ public class BeachCont implements MiniGameController{
 					if (currWave.isOutOfRange()){
 						wavesIt.remove();
 					}
-					else if (currWave.getY() >= Board.SHORE_HEIGHT && Wave.getDirection()==0){
+					else if (currWave.getY() >= Board.SHORE_HEIGHT){
 						board1.splitWave(currWave);
 						wavesIt.remove();
 					}

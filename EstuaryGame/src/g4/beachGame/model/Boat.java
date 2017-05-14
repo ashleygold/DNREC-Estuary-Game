@@ -6,13 +6,20 @@ public abstract class Boat{
 	int xloc;
 	int yloc; 
 	
-	
+	/** the speed the boat is traveling*/
 	int speed;
+	/** the direction that the boat is traveling*/
 	boolean direction; //true=right, false=left;
+	
+	/**whether or not the boat as emitted a wave*/
 	boolean hasEmittedWave;
+	
+	/**where along the x axis the boat will emit the wave*/
 	int waveLocation = (int)(Math.random() * (Board.SHORE_WIDTH)-200);
 
-	
+	/**
+	 * moves the boat across the screen
+	 */
 	public void move() {
 		if (direction)
 			xloc+=speed; 
