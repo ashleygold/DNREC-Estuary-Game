@@ -144,7 +144,6 @@ public class BeachCont implements MiniGameController{
 					else{
 						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 || currWave2.getX()+currWave2.getLength()>Board.SHORE_WIDTH ||
 								(currWave2.getY() >= Board.SHORE_HEIGHT && board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE)){
-							System.out.println("CALLING WAVE HIT " + currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH);
 							board1.waveHit(currWave2.getX(), currWave2.getX()+currWave2.getLength());
 							wavesIt2.remove();
 						}
@@ -177,7 +176,7 @@ public class BeachCont implements MiniGameController{
 	}
 	
 	/**
-	 * overriding the dispose method, gets rid of the View.
+	 * Overrides the dispose method, gets rid of the View.
 	 */
 	@Override
 	public void dispose() {
