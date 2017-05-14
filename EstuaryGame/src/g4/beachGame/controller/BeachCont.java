@@ -65,9 +65,7 @@ public class BeachCont implements MiniGameController{
 	 */
 	@Override
 	public void update() {
-		System.out.println(board1.getCurrTurtles());
 		if (!isGameOver) {
-			//System.out.println(board1.getCurrTurtles());
 			if (board1.checkLost()){
 				if (board1.getIsShoreDestroyed()){
 					JOptionPane.showMessageDialog(null, "Sorry, you lost :( The shore receded too much.");
@@ -79,8 +77,7 @@ public class BeachCont implements MiniGameController{
 			}
 			else{
 				board1.updateElapsedTime();
-				//System.out.println(board1.hoursLeft);
-				if (board1.hoursLeft==0){
+				if (board1.hoursLeft==-1){
 					JOptionPane.showMessageDialog(null, "You've protected the shore for a whole day!");
 					dispose();
 				}
@@ -117,7 +114,9 @@ public class BeachCont implements MiniGameController{
 				Iterator<Wave> wavesIt = board1.getCurrWaves().iterator();
 				while (wavesIt.hasNext()){
 					Wave currWave = wavesIt.next();
-					currWave.move();
+					if (currWave.getY()<board1.getHeight()/2 || 
+							(currWave.getY()<board1.HEIGHT && board1.beach[(int) (Math.ceil(currWave.getY()*6/Board.HEIGHT))-3][currWave.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]!= board1.SHORE))
+						currWave.move();
 					if (currWave.isOutOfRange()){
 						wavesIt.remove();
 					}
@@ -135,7 +134,7 @@ public class BeachCont implements MiniGameController{
 					board1.getCurrWaves().add(wave);
 					splitWavesIt.remove();
 				}
-				
+				//System.out.println(board1.getCurrWaves());
 				Iterator<Wave> wavesIt2 = board1.getCurrWaves().iterator();
 				while (wavesIt2.hasNext()){
 					Wave currWave2 = wavesIt2.next();
@@ -143,8 +142,9 @@ public class BeachCont implements MiniGameController{
 						wavesIt2.remove();
 					}
 					else{
-						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 || currWave2.getX()>Board.SHORE_WIDTH ||
+						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 || currWave2.getX()+currWave2.getLength()>Board.SHORE_WIDTH ||
 								(currWave2.getY() >= Board.SHORE_HEIGHT && board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.SHORE)){
+							System.out.println("CALLING WAVE HIT " + currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH);
 							board1.waveHit(currWave2.getX(), currWave2.getX()+currWave2.getLength());
 							wavesIt2.remove();
 						}
@@ -177,7 +177,7 @@ public class BeachCont implements MiniGameController{
 	}
 	
 	/**
-	 * overriding the dispose method, gets ride of the View.
+	 * overriding the dispose method, gets rid of the View.
 	 */
 	@Override
 	public void dispose() {

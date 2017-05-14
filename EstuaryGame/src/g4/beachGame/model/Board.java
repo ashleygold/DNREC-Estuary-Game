@@ -189,13 +189,16 @@ public class Board {
 			int shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH];
 			while (xCoord<wave.getX()+wave.getLength()){
 				if (beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH] != shoreCellPrev){
-					xLocs[numxLocs] = xCoord-1;
+					xLocs[numxLocs] = xCoord;
 					numxLocs++;
 				}
 				shoreCellPrev = beach[(int) (Math.ceil(wave.getY()*6/Board.HEIGHT))-3][xCoord*SPACES_OF_SHORE/SHORE_WIDTH];
 				xCoord++;
 			}
 			xLocs[numxLocs]=xCoord;
+			for (int i = 0; i < xLocs.length; i++)
+				System.out.print(xLocs[i]+ ", ");
+			System.out.println();
 			for (int i = 0; i < xLocs.length-1; i++){
 				if (i==0 || xLocs[i+1]!=0)
 					splitWaves.add(new Wave(wave.speed, xLocs[i+1]-xLocs[i], xLocs[i], wave.getY()));
@@ -221,8 +224,10 @@ public class Board {
 			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
 				depth++;
 			}
-			if (depth == beach.length) // the shore has reached the bottom of the screen
+			if (depth == beach.length-1){ // the shore has reached the bottom of the screen
 				isShoreDestroyed = true;
+				beach[depth][i] = WATER;
+			}
 			else if (beach[depth][i] == SHORE){
 				beach[depth][i] = WATER;
 				isInOcean(depth);

@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -58,6 +59,7 @@ public class BeachView extends JPanel{
 	private BufferedImage background = createImage("images/BeachImages/background.png");
 	
 	private int displayHeight;
+	JLabel time; 
 	
 	//converts filename to buffered image
 	private BufferedImage createImage(String fileName){ 
@@ -100,7 +102,6 @@ public class BeachView extends JPanel{
 		//sets up frame
 		frame = new JFrame();
 		frame.getContentPane().add(this);
-		
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(b.getWidth(), b.getHeight() + 100);
@@ -114,10 +115,10 @@ public class BeachView extends JPanel{
 	public void paint(Graphics g){
 		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
 		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
-		g.setColor(Color.GREEN);
+		g.setColor(Color.darkGray);
 		g.fillRect(0, board.getHeight() - Board.RAISE*2, board.getWidth(), 100); //goal to protect
-		g.setColor(Color.RED);
-		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)board.hoursLeft/board.TOTAL_HOURS)), 100);
+		g.setColor(Color.GREEN);
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)(board.TOTAL_HOURS-board.hoursLeft)/board.TOTAL_HOURS)), 100);
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){
 			for (int col = 0; col < board.beach[0].length; col++){
