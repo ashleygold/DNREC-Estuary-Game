@@ -10,20 +10,45 @@ import g4.beachGame.model.User;
 
 public class Listener implements KeyListener {
 	
+	/** stores which arrow keys are down*/
 	private boolean[] keysDown = new boolean[4];
-	private final int UP_ARROW = 0, RIGHT_ARROW = 1, DOWN_ARROW = 2, LEFT_ARROW = 3;
-	private final int[] ARROW_KEYS = {KeyEvent.VK_UP, 
-			KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
 	
+	/** index of specified arrow key */
+	private final int UP_ARROW = 0, RIGHT_ARROW = 1, DOWN_ARROW = 2, LEFT_ARROW = 3;
+	
+	/** stores arrow key event numbers */
+	private final int[] ARROW_KEYS = {KeyEvent.VK_UP, KeyEvent.VK_RIGHT, 
+			KeyEvent.VK_DOWN, KeyEvent.VK_LEFT};
+	
+	/** stores the space bar event number */
 	private int SPACEBAR = KeyEvent.VK_SPACE;
+	
+	/** the user associated to the listener */
 	private User user;
+	
+	/**The board associated with the listener*/
 	private Board board;
+	
+	/**
+	 * Constructs a listener associated to the board
+	 * @param board: the board that the listener should modify
+	 */
 	public Listener(Board board) {
 		this.user = board.user;
 		this.board = board;
 	}
+<<<<<<< HEAD
 	
 	//@Override
+=======
+
+	
+	/**
+	 * runs when a key is pressed, updates user's direction through setUserDirection()
+	 * @param ke contains data of key pressed
+	 */
+	@Override
+>>>>>>> 8cb6f34f476bfd4b2e24f0093ec2a332dbf8845a
 	public void keyPressed(KeyEvent ke) {
 		int code = ke.getKeyCode();
 		int loc = 0;
@@ -34,7 +59,11 @@ public class Listener implements KeyListener {
 		setUserDirection();
 	}
 
-	//@Override
+	/**
+	 * runs when a key is released, updates user's direction through setUserDirection()
+	 * @param ke contains data of key released
+	 */
+	@Override
 	public void keyReleased(KeyEvent ke) {
 		int code = ke.getKeyCode();
 		int loc = 0;
@@ -49,6 +78,11 @@ public class Listener implements KeyListener {
 		setUserDirection();
 	}
 
+	
+	/**
+	 * Override normal key-typed functionality
+	 * @param arg0 ignored
+	 */
 	//@Override
 	public void keyTyped(KeyEvent arg0) {}
 	

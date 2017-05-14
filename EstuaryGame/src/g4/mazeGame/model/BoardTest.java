@@ -5,26 +5,23 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class BoardTest {
+	Board board = new Board(3,0);
+	User user = new User(board);
 
 	@Test
 	public void testIsEmpty(){
-		Board board = new Board(3,0);
-		User user = new User(board);
-		assertEquals(board.getCell((int)user.getXLoc(), (int)user.getYLoc()),'.');
+		assertTrue(board.isEmpty(user.getXLoc(), user.getYLoc()));
 	}
 	
 	@Test
 	public void testOpenGate(){
-		Board board = new Board(3,0);
-		User user=new User(board);
 		user.setFoodCount(5);
 		assertTrue(board.openGate());
 	}
 	
 	
 	@Test
-	public void testEatFood() {
-		Board board = new Board(3,0);
+	public void testGetGoalFood() {
 		assertEquals(board.getGoalFood(),5);
 		Board board2 = new Board(2,0);
 		assertEquals(board2.getGoalFood(),7);
@@ -36,7 +33,6 @@ public class BoardTest {
 	
 	@Test
 	public void testGetSalinity(){
-		Board board = new Board(3,0);
 		assertEquals(board.getSalinity(),3);
 		Board board2 = new Board(2,0);
 		assertEquals(board2.getSalinity(),2);
@@ -46,34 +42,54 @@ public class BoardTest {
 	
 	@Test
 	public void testGetHeight(){
-		Board board = new Board(3,0);
 		assertEquals(board.getHeight(),17);
 	}
 	
 	@Test
 	public void testGetWidth(){
-		Board board = new Board(3,0);
 		assertEquals(board.getWidth(), 19);
 	}
 	
 	@Test
-	//WHY DOES THIS TEST FAIL?????????
 	public void testGetUser(){
-		Board board = new Board(3,0);
-		User user = new User(board);
-		assertSame(user, board.getUser());
+		//WHY DOES THIS FAIL???????
+		assertEquals(user.hashCode(), board.getUser().hashCode());
 	}
 	
 	@Test
 	public void testGetIsEaten(){
-		Board board = new Board(3,0);
 		assertEquals(board.getIsEaten(), false);
 	}
 	
 	@Test
 	public void testGetPredator(){
-		Board board = new Board(3,0);
 		assertEquals(board.getPredator().size(), 1);
 	}
+	
+	@Test
+	public void testWinGame(){
+		assertEquals(board.winGame(user.getXLoc(), user.getYLoc()), false);
+		user.setFoodCount(5);
+		board.openGate();
+		user.setXLoc(10);
+		user.setYLoc(0);
+		assertTrue(user.checkWin());
+	}
+	
+	@Test
+	public void testEatFood(){
+		assertEquals(board.eatFood(user.getXLoc(), user.getYLoc()), false);
+	}
+	
+	@Test
+	public void testUpdate(){
+		board.update();
+		for(Predator x : board.getPredator()){
+			int beforeX = (int) x.getXLoc();
+			int beforeY = (int) x.getYLoc();
+			assertTrue((x.getXLoc()!= beforeX) || x.getYLoc()!= beforeY);
+		}
+	}
+
 
 }

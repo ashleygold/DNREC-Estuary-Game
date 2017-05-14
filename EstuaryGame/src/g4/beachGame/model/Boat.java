@@ -2,29 +2,37 @@ package g4.beachGame.model;
 
 
 public abstract class Boat{
-	/** x and y location of the boat **/
+	/** x location of the boat **/
 	int xloc;
+	
+
+	/**y location of the boat */
 	int yloc; 
 	
-	/** the speed the boat is traveling*/
+	/**The speed of a boat*/
 	int speed;
-	/** the direction that the boat is traveling*/
+	
+	/**The direction of a boat. true = right, false = left */
 	boolean direction; //true=right, false=left;
 	
-	/**whether or not the boat as emitted a wave*/
+	/**if the boat has emitted a wave or not */
 	boolean hasEmittedWave;
 	
-	/**where along the x axis the boat will emit the wave*/
+	/**the horizontal location that the wave is emitted*/
 	int waveLocation = (int)(Math.random() * (Board.SHORE_WIDTH)-200);
 
-	/**
-	 * moves the boat across the screen
-	 */
+	/** Moves the boat across the screen*/
+
 	public void move() {
 		if (direction)
 			xloc+=speed; 
 		else 
 			xloc-=speed;
+	}
+	
+	/** is called when the boat has emitted a wave to change hasEmittedWave field */
+	public void emittedWave(){
+		hasEmittedWave = true;
 	}
 	
 	//getter for X Location of boat
@@ -43,10 +51,6 @@ public abstract class Boat{
 	
 	public int getWaveLocation(){
 		return waveLocation;
-	}
-	
-	public void emittedWave(){
-		hasEmittedWave = true;
 	}
 	
 	public boolean getDirection(){

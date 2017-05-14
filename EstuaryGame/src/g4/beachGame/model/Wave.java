@@ -9,8 +9,6 @@ public class Wave {
 	int speed;
 	int xloc;
 	int yloc;
-	public int left;
-	public int right;
 	 
 	final int CRUISELINER_LENGTH = 150;
 	final int SAILBOAT_LENGTH = 80;
@@ -31,6 +29,10 @@ public class Wave {
 	
 	private static int windFace = 0;
 	
+	/**
+	 * Constructs a wave using the instance of boat to set damage, length, and speed
+	 * @param boat - the boat which creates the wave
+	 */
 	public Wave(Boat boat){
 		if (boat instanceof CruiseLiner){
 			this.damage = CRUISELINER_DAMAGE;
@@ -122,8 +124,6 @@ public class Wave {
 	}
 	
 	public static int getDirection(){return direction;}
-	public int getLeft(){return left;}
-	public int getRight(){return right;}
 	
 	public static int getWindFace(){return windFace;}
 }

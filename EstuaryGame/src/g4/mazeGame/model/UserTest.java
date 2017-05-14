@@ -123,11 +123,17 @@ public class UserTest {
 	
 	@Test
 	public void testCheckWin(){
-		user.setFoodCount(5);
+		Board board2 = new Board (1,0);
+		user.setFoodCount(10);
 		assertFalse(user.checkWin());
 		user.setYLoc(10);
 		user.setXLoc(1);
 		assertTrue(user.checkWin());
+	}
+	
+	@Test
+	public void testGetPicNum(){
+		assertEquals(0,user.getPicNum());
 	}
 
 }

@@ -21,7 +21,7 @@ public class Sailboat extends Boat{
 		this.yloc=randomHeight;
 		this.hasEmittedWave=false;
 		this.speed=SAILBOAT_SPEED;
-		System.out.println("Boat Height:" +yloc);
+		//System.out.println("Boat Height:" +yloc);
 	}
 
 }
