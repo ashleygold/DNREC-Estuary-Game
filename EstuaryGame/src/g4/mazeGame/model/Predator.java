@@ -22,7 +22,7 @@ public class Predator {
 	private final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	
 	/** references to possible directions the predator can go */
-	public final int RIGHT = 0, UP = 1, UP_RIGHT = 2, UP_LEFT = 3, DOWN = 4, 
+	public static final int RIGHT = 0, UP = 1, UP_RIGHT = 2, UP_LEFT = 3, DOWN = 4, 
 			 DOWN_RIGHT = 5, DOWN_LEFT = 6, STILL = 8, LEFT = 7; 
 	
 	/** direction of the predator */
@@ -142,7 +142,7 @@ public class Predator {
 	 * checks if the predator is close enough to eat the user
 	 * @return true if the predator has eaten the user, false otherwise
 	 */
-	private boolean checkEat(){
+	boolean checkEat(){
 		return (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5);
 	}
 	
@@ -157,4 +157,9 @@ public class Predator {
 	public double getYLoc(){
 		return yLoc;
 	}
+
+	public void setDirection(int dir) {
+		direction = dir;
+	}
+
 }
