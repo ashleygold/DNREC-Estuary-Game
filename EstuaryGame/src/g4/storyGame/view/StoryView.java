@@ -103,7 +103,8 @@ public class StoryView extends JPanel{
 		//create all images
 		for (int i = 0; i < imagesLoc.length; i++){
 			
-			images[i] = createImage(imagesLoc[i]).getScaledInstance(IMG_WIDTH, IMG_HEIGHT, Image.SCALE_SMOOTH);
+			images[i] = createImage(imagesLoc[i])
+					.getScaledInstance(IMG_WIDTH, IMG_HEIGHT, Image.SCALE_SMOOTH);
 			
 			icons[i] = new ImageIcon(images[i]);
 		}

@@ -13,6 +13,8 @@ import g4.mazeGame.view.MazeView;
 
 public class MazeCont implements MiniGameController {
 	
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	/** current level of the game */
 	private int level = 0;
 	
@@ -38,12 +40,13 @@ public class MazeCont implements MiniGameController {
 	 * Constructs a new maze controller object 
 	 */
 	public MazeCont() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    app.setBounds(0,0,screenSize.width, screenSize.height);
+	    //app.setBounds(0,0,screenSize.width, screenSize.height);
+		app.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		app.setLayout(null);
 		app.getContentPane().add(screen);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		app.setSize(15+(board.getWidth()*screen.SLOT_SPACE), (1+board.getHeight())*screen.SLOT_SPACE);
+		//app.setSize(screenSize.width, screenSize.height);
+		//app.setSize(15+(board.getWidth()*screen.SLOT_SPACE), (1+board.getHeight())*screen.SLOT_SPACE);
 		
 		app.setVisible(true);
 		

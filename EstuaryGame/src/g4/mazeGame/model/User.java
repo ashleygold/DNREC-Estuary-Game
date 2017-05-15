@@ -29,9 +29,21 @@ public class User {
 	private static final double DIAG_MOVE_SPEED = Math.sqrt(.5*Math.pow(MOVE_SPEED, 2));
 	
 	/** references to possible directions the user can go when moving*/
-	public static final int RIGHT = 0, UP = 1, UP_RIGHT = 2, UP_LEFT = 3, DOWN = 4, 
-			 DOWN_RIGHT = 5, DOWN_LEFT = 6, LEFT = 7;
-
+	public static final int RIGHT = 0, UP = 1, DOWN = 2, LEFT = 3, UP_RIGHT = 4,
+			UP_LEFT = 5, DOWN_RIGHT = 6, DOWN_LEFT = 7;
+	
+	/** array which handles vector movement checks **/
+	private static final double[][] MOVE_VECTOR = {
+			{+ 1, 0}, 							//RIGHT
+			{0, + 1},							//UP
+			{0, - 1},							//DOWN
+			{- 1, 0},							//LEFT
+			{+ 1, + 1},							//UP_RIGHT
+			{- 1, + 1},							//UP_LEFT
+			{+ 1, - 1},							//DOWN_RIGHT
+			{+ 1, - 1}							//DOWN_LEFT
+			};
+	
 	/**reference to possible state of when the user is still*/
 	public static int STILL=8; 
 	
@@ -104,6 +116,29 @@ public class User {
 	 * @return true if the user is currently moving and not hitting a wall, false otherwise
 	 */
 	private boolean tryMove(int tryDir){
+		/*
+		if (tryDir <= 3){
+			//movement in a cardinal direction
+			if (board.isEmpty(xLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][0] 
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][0], 
+						yLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][1]
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][1]) &&
+					board.isEmpty(xLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][0] 
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][0], 
+						yLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][1] 
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][1])){
+				xLoc-=MOVE_SPEED;
+				return true;
+			}
+		} else if (tryDir <= 7) {
+			//movement in a diagonal direction
+		} else {
+			//no movement
+			return false;
+		}
+		*/
+		
+		
 		//checks nested in the interest of efficiency
 		switch(tryDir) {
 			case LEFT:

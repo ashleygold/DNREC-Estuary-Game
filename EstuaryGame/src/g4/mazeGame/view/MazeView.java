@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import g4.mainController.MainMenu;
+import g4.mazeGame.controller.MazeCont;
 import g4.mazeGame.model.Board;
 import g4.mazeGame.model.Predator;
 
@@ -19,16 +20,16 @@ public class MazeView extends JPanel{
 	private Board board;
 	
 	/** the width/height in pixels of each square of the maze */ 
-	public final int SLOT_SPACE=40;
+	public final int SLOT_SPACE;
 	
 	/** the buffer on the edge of the screen for progress bars */
-	private final int BAR_BUFFER = SLOT_SPACE/8;
+	private final int BAR_BUFFER;
 	
 	/** height of progress bars (salinity & food) */
-	private final int BAR_HEIGHT = SLOT_SPACE/2 + BAR_BUFFER;
+	private final int BAR_HEIGHT;
 	
 	/** width of each block in the salinity bar */
-	private final int SALINITY_CHUNK_WIDTH = BAR_HEIGHT*4;
+	private final int SALINITY_CHUNK_WIDTH;
 	
 	/** default left corner of salinity bar */
 	private final int SALINITY_LEFT_CORNER;
@@ -39,8 +40,9 @@ public class MazeView extends JPanel{
 	
 	/** horseshoe crab image locations */
 	private static final String[] horseshoeImagesLoc = {"horseshoe_east.png", "horseshoe_north.png",
-			"horseshoe_northeast.png", "horseshoe_northwest.png", "horseshoe_south.png", "horseshoe_southeast.png",
-			"horseshoe_southwest.png", "horseshoe_west.png", "horseshoe_west.png"};
+			"horseshoe_south.png", "horseshoe_west.png", 
+			"horseshoe_northeast.png", "horseshoe_northwest.png",
+			"horseshoe_southeast.png", "horseshoe_southwest.png", "horseshoe_west.png"};
 	
 	/** turtle image locations */
 	private static final String[] turtleImagesLoc = {"turtle_east.png", "turtle_north.png",
@@ -94,6 +96,9 @@ public class MazeView extends JPanel{
 	public MazeView(Board board) {
 		this.board = board;
 		//double initialX=board.getUser().getXLoc();
+		
+		SLOT_SPACE = (int)((MazeCont.screenSize.getHeight() - 55)/board.getHeight());
+		
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 		setFocusable(true);
 		for (int i = 0; i < horseshoeImages.length; i++)
@@ -103,8 +108,13 @@ public class MazeView extends JPanel{
 		for (int i = 0; i < turtleImages.length; i++)
 			turtleImages[i] = createImage(turtleImagesLoc[i]);
 		
+		BAR_BUFFER = SLOT_SPACE/8;
+		BAR_HEIGHT = SLOT_SPACE/2 + BAR_BUFFER;
+		SALINITY_CHUNK_WIDTH = BAR_HEIGHT*4;
+		
 		SALINITY_LEFT_CORNER = -(SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY + BAR_BUFFER)
 				+ board.getWidth()*SLOT_SPACE;
+		
 	}
 	
 	/**
