@@ -20,48 +20,80 @@ import g4.beachGame.model.User;
 import g4.beachGame.model.Wave;
 
 public class BeachView extends JPanel{
-	//This game's window
+	/**Beach game's window */
 	public JFrame frame;
+
+	/**Board for the game*/
 	private Board board;
+	
+	/**User for the game*/
 	private User user;
 
 	//index for the image's location in turtle[i]
 	
-	//Dimensions & locations of images
+	/**locations of blue crab images*/
 	private static final String[] crabImagesLoc = {"images/BeachImages/bluecrab_0.png",
 	"images/BeachImages/bluecrab_1.png", "images/BeachImages/bluecrab_2.png"};
 	
+	/**locations of left facing turtle's images */
 	private static final String[] leftTurtleImagesLoc = {"images/BeachImages/bogturtle_left_0.png",
 		"images/BeachImages/bogturtle_left_1.png", "images/BeachImages/bogturtle_left_2.png"};
+	
+	/**locations of right facing turtle's images*/
 	private static final String[] rightTurtleImagesLoc = {"images/BeachImages/bogturtle_right_0.png",
 		"images/BeachImages/bogturtle_right_1.png", "images/BeachImages/bogturtle_right_2.png"};
 	
+	/** locations of protector images*/
 	private static final String[] protectorsLoc = {"images/BeachImages/grass.png", 
 		"images/BeachImages/oysters.png", "images/BeachImages/seawall.png"};
+	
+	/**locations of shore images */
 	private static final String[] shoreImagesLoc = {"images/BeachImages/tile_sand_north.png",
 		"images/BeachImages/tile_sand_center.png", "images/BeachImages/tile_water_S.png", 
 		"images/BeachImages/tile_water_C.png", "images/BeachImages/tile_grass_north.png"};
 	
+	/**locations of boat images */
 	private static final String[] boatImagesLoc = {"images/BeachImages/cruiseliner.png", "images/BeachImages/cruiselinerLeft.png", "images/BeachImages/sailboat.png",
 		"images/BeachImages/sailboatRight.png", "images/BeachImages/speedboat.png", "images/BeachImages/speedboatLeft.png"};
 	
+	/**locations of wind images */
 	private static final String[] windImagesLoc = {"images/BeachImages/windLeft.png", "images/BeachImages/windRight.png"};
 	
-	
+	/**array of blue crab images */
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
+	
+	/**array of protector images */
 	private BufferedImage[] protectors = new BufferedImage[protectorsLoc.length];
+	
+	/**array of left facing turtle images */
 	private BufferedImage[] leftTurtleImages = new BufferedImage[leftTurtleImagesLoc.length];
+	
+	/**array of right facing turtle images */
 	private BufferedImage[] rightTurtleImages = new BufferedImage[rightTurtleImagesLoc.length];
+	
+	/**array of shore images */
 	private BufferedImage[] shoreImages = new BufferedImage[shoreImagesLoc.length];
+	
+	/**array of boat images */
 	private BufferedImage[] boatImages = new BufferedImage[boatImagesLoc.length];
+	
+	/**array of wind images */
 	private BufferedImage[] windImages = new BufferedImage[windImagesLoc.length];
 	
+	/**the  background image*/
 	private BufferedImage background = createImage("images/BeachImages/background.png");
 	
+	/**the height of the display*/
 	private int displayHeight;
+	
+	/** */
 	JLabel time; 
 	
-	//converts filename to buffered image
+	/**
+	 * Converts file name/location to Buffered Image
+	 * @param fileName: filename/location of the image to be created 
+	 * @return: a BufferedImage of the input file
+	 */
 	private BufferedImage createImage(String fileName){ 
 		BufferedImage bufferedImage;
 		try {
@@ -73,6 +105,10 @@ public class BeachView extends JPanel{
 		return null;
 	}
 	
+	/**
+	 *Constructor to create a new beachView 
+	 * @param b: board for the current game
+	 */
 	public BeachView(Board b){
 		board = b;
 		this.setFocusable(true);
@@ -112,6 +148,9 @@ public class BeachView extends JPanel{
 		displayHeight = b.getHeight()+100;
 	}
 	
+	/**
+	 * Paints all graphics to the screen
+	 */
 	public void paint(Graphics g){
 		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
 		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
