@@ -6,23 +6,53 @@ import java.util.Random;
 //MAKE TURTLE DIE IF NO WAY OUT
 
 public class Turtle {
+	
+	/**Height of the turtle*/
 	private final int TURTLE_HEIGHT=50;
+	
+	/**Width of the turtle*/
 	private final int TURTLE_WIDTH=70;
 	
+	/**Starting x location */
 	private final int DEFAULTX = 2+ (int)Math.random() * Board.SHORE_WIDTH;
+	
+	/**Starting y location */
 	private final int DEFAULTY = Board.HEIGHT;
+	
+	/**x-increment that the turtle moves*/
 	private final int XINCR = 1;
+	
+	/**y-increment that the turtle moves*/
 	private final int YINCR = 1;
+	
+	/**possible directions of the turtle, left=0, right=1 */
 	private final int[] directs = {0,1}; // left = 0, right = 1
+	
+	/**current direction of the turtle, randomly selected*/
 	private int direction = directs[new Random().nextInt(directs.length)];
+	
+	/**turtle's x location*/
 	private int xLoc;
+	
+	/**turtle's y location */
 	private int yLoc;
+	
+	/**tells whether the turtle has gotten to the ocean */
 	private boolean gotToOcean = false;
+	
+	/**picture number of current animation */
 	private double picNum = 0;
+	
+	/**number of turtle pictures */
 	private int numPics = 3;
+	
+	/** */
 	public final int DEFAULTFRAMES = 1600;
+	
+	/** */
 	private int framesLeft;
 	
+	/**The board the turtle is on */
 	private final Board board;
 	
 	/**
@@ -78,7 +108,7 @@ public class Turtle {
 	 * Checks to see if turtle is on the shore
 	 * @param xLoc
 	 * @param yLoc
-	 * @return
+	 * @return true if turtle is on shore, false otherwise
 	 */
 	public boolean isShore(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
@@ -91,6 +121,12 @@ public class Turtle {
 		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.SHORE);
 	}
 	
+	/**
+	 * Checks to see if turtle is on the water
+	 * @param xLoc
+	 * @param yLoc
+	 * @return true if turtle is on the water, false otherwise
+	 */
 	public boolean isWater(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
