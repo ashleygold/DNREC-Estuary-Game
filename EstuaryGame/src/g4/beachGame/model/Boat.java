@@ -4,7 +4,6 @@ package g4.beachGame.model;
 public abstract class Boat{
 	/** x location of the boat **/
 	int xloc;
-	
 
 	/**y location of the boat */
 	int yloc; 
@@ -22,7 +21,6 @@ public abstract class Boat{
 	int waveLocation = (int)(Math.random() * (Board.SHORE_WIDTH)-200);
 
 	/** Moves the boat across the screen*/
-
 	public void move() {
 		if (direction)
 			xloc+=speed; 

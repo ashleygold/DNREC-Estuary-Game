@@ -5,10 +5,14 @@ public class Speedboat extends Boat{
 	/** height of the boat*/
 	final int HEIGHT=100;
 	
+	/**speed of the speedboat*/
 	final int SPEEDBOAT_SPEED=20;
-	final int MIN_DISTANCE=100; //minimum distance from starting shoreline
+	
+	/**minimum distance from starting shoreline*/
+	final int MIN_DISTANCE=100; 
+	
 	/**
-	 * constructor a speedboat
+	 * constructor for a speedboat
 	 */
 	public Speedboat(){
 		int randomDir = 1+ (int) (Math.random() * 2);
