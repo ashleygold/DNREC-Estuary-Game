@@ -79,7 +79,7 @@ public class MazeView extends JPanel{
 	private final Image[] foodTiles = new Image[foodImgLoc.length];
 	
 	/** font used for game logo*/
-	private final Font logoF = new Font("Findet Nemo", Font.PLAIN, 50);
+	private final Font logoF = new Font("Findet Nemo", Font.PLAIN, 100);
 	
 	/** font used for bar labels*/
 	private final Font labelF;
@@ -87,8 +87,10 @@ public class MazeView extends JPanel{
 	/** font used for tutorial text and messages */
 	private final Font textF = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
 	
+	/** color used for logo & tutorial text */
+	private final Color textColor = new Color(0,105,172);
+	
 	/** images for tutorial */
-	private BufferedImage tut1 = createImage("Tut1.png");
 	private BufferedImage tut2 = createImage("Tut2.png");
 	private BufferedImage tut3 = createImage("Tut3.png");
 	private BufferedImage tut4 = createImage("Tut4.png");
@@ -143,12 +145,6 @@ public class MazeView extends JPanel{
 		winGateUp = createImage("uparrow.png").getScaledInstance(
 				SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
 		
-		tut1 = createImage("Tut1.png");
-		tut2 = createImage("Tut2.png");
-		tut3 = createImage("Tut3.png");
-		tut4 = createImage("Tut4.png");
-		tut5 = createImage("Tut5.png");
-		tut6 = createImage("Tut6.png");
 		arrow = createImage("arrow.png");
 		arrowRight = createImage("arrowRight.png");		
 	}
@@ -286,7 +282,17 @@ public class MazeView extends JPanel{
 		
 		//tutorial
 		if(board.getSalinity()==4){
-			g.drawImage(tut1, 40, 300, Color.DARK_GRAY, this);
+			//logo
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE*3);
+			g.setColor(textColor);
+			g.setFont(textF);
+			drawCenteredString(g,"Welcome to the", new Rectangle(SLOT_SPACE*4, SLOT_SPACE*9 + SLOT_SPACE/3,0,0));
+			g.setFont(logoF);
+			drawCenteredString(g,"ESTUARY", new Rectangle(SLOT_SPACE*4, SLOT_SPACE*10,0,0));
+			drawCenteredString(g,"MAZE!", new Rectangle(SLOT_SPACE*4, SLOT_SPACE*11,0,0));
+			
+			//g.drawImage(tut1, 40, 300, Color.DARK_GRAY, this);
 			if(board.getUser().getXLoc()==15 && board.getUser().getYLoc()==15){
 				g.drawImage(tut2, 490, 520, Color.DARK_GRAY, this);
 			}
