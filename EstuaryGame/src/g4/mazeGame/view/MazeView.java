@@ -118,7 +118,7 @@ public class MazeView extends JPanel{
 		//set font sizes
 		labelF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/5);
 		logoF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/2);
-		textF = new Font(Font.SANS_SERIF, Font.PLAIN, SLOT_SPACE/3);
+		textF = new Font(Font.SANS_SERIF, Font.BOLD, SLOT_SPACE/2);
 		
 		//setup size
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
@@ -317,21 +317,30 @@ public class MazeView extends JPanel{
 			g.setFont(textF);
 			drawCenteredLine(g,"Welcome to the",
 					new Rectangle(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE/2));
+			g.setColor(Color.DARK_GRAY);
 			
 			if(board.getUser().getXLoc()==15 && board.getUser().getYLoc()==15){
-				g.setColor(Color.DARK_GRAY);
-				g.fillRect(SLOT_SPACE*14, 25*SLOT_SPACE/2, SLOT_SPACE*3, 4*SLOT_SPACE/3);
+				//first instructions (movement)
+				g.fillRect(SLOT_SPACE*13, 12*SLOT_SPACE, SLOT_SPACE*5, 5*SLOT_SPACE/3);
 				g.setColor(textColor);
 				drawCenteredParagraph(g,"This is you, a crab.\nTry moving with\nthe arrow keys.",
-						new Rectangle(SLOT_SPACE*14, 25*SLOT_SPACE/2, SLOT_SPACE*3, SLOT_SPACE));
+						new Rectangle(SLOT_SPACE*13, 12*SLOT_SPACE, SLOT_SPACE*5, SLOT_SPACE));
 				g.drawImage(arrowDown, SLOT_SPACE*15, SLOT_SPACE*14, null, this);
-			}
-			else if(board.getUser().getFoodCount()<board.getGoalFood()-2){
-				g.drawImage(tut3,20,100, Color.DARK_GRAY, this);
-				g.drawImage(arrowUp,40,40, null, this);
+			} else if(board.getUser().getFoodCount()<board.getGoalFood()-2){
+				//food instructions
+				g.fillRect(SLOT_SPACE/2, 5*SLOT_SPACE/2, SLOT_SPACE*5, 4*SLOT_SPACE);
+				g.setColor(textColor);
+				drawCenteredParagraph(g,"These are food\nsources for your\n"
+						+ "crab. Collect them\nall and watch your\nfood bar fill!",
+						new Rectangle(SLOT_SPACE/2, 5*SLOT_SPACE/2, SLOT_SPACE*5, SLOT_SPACE));
+				for (int i = 0; i < foodTiles.length; i++){
+					g.drawImage(foodTiles[i], 2*(i+1)*SLOT_SPACE/2, 11*SLOT_SPACE/2, null, this);
+				}
+				g.drawImage(arrowUp,SLOT_SPACE,SLOT_SPACE, null, this);
 			}
 			else if(board.getUser().getFoodCount()>=board.getGoalFood()-2 &&
 					board.getUser().getFoodCount()<board.getGoalFood()){
+				//salinity instructions
 				g.drawImage(tut4,450,100, Color.DARK_GRAY, this);
 				g.drawImage(arrowUp,575,40, null, this);
 				g.drawImage(tut5,500,300, Color.DARK_GRAY, this);

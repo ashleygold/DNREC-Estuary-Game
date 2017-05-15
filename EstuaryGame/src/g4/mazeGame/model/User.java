@@ -34,14 +34,14 @@ public class User {
 	
 	/** array which handles vector movement checks **/
 	private static final double[][] MOVE_VECTOR = {
-			{+ 1, 0}, 							//RIGHT
-			{0, + 1},							//UP
-			{0, - 1},							//DOWN
-			{- 1, 0},							//LEFT
-			{+ 1, + 1},							//UP_RIGHT
-			{- 1, + 1},							//UP_LEFT
-			{+ 1, - 1},							//DOWN_RIGHT
-			{+ 1, - 1}							//DOWN_LEFT
+			{+1,  0, 0, 1}, 							//RIGHT
+			{0 , -1, 1, 0},							//UP
+			{0 , +1, 1, 0},							//DOWN
+			{-1,  0, 0, 1},							//LEFT
+			{+1, +1},							//UP_RIGHT
+			{-1, +1},							//UP_LEFT
+			{+1, -1},							//DOWN_RIGHT
+			{+1, -1}							//DOWN_LEFT
 			};
 	
 	/**reference to possible state of when the user is still*/
@@ -119,25 +119,27 @@ public class User {
 		/*
 		if (tryDir <= 3){
 			//movement in a cardinal direction
-			if (board.isEmpty(xLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][0] 
-							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][0], 
-						yLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][1]
-							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][1]) &&
-					board.isEmpty(xLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][0] 
-							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][0], 
-						yLoc + MOVE_SPEED * MOVE_VECTOR[tryDir][1] 
-							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][1])){
-				xLoc-=MOVE_SPEED;
+			if (board.isEmpty(xLoc + (MOVE_SPEED + BUFFER) * MOVE_VECTOR[tryDir][0] 
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][2], 
+						yLoc + (MOVE_SPEED + BUFFER) * MOVE_VECTOR[tryDir][1]
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][3]) &&
+					board.isEmpty(xLoc + (MOVE_SPEED + BUFFER) * MOVE_VECTOR[tryDir][0] 
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][2], 
+						yLoc + (MOVE_SPEED + BUFFER) * MOVE_VECTOR[tryDir][1] 
+							+ CENTER_IMG + BUFFER * MOVE_VECTOR[tryDir][3])){
+				xLoc += MOVE_SPEED * MOVE_VECTOR[tryDir][0];
+				yLoc += MOVE_SPEED * MOVE_VECTOR[tryDir][1];
 				return true;
 			}
+			return false;
 		} else if (tryDir <= 7) {
 			//movement in a diagonal direction
+			return false;
 		} else {
 			//no movement
 			return false;
 		}
 		*/
-		
 		
 		//checks nested in the interest of efficiency
 		switch(tryDir) {
