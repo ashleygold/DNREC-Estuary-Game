@@ -79,7 +79,7 @@ public class MazeView extends JPanel{
 	private final Image[] foodTiles = new Image[foodImgLoc.length];
 	
 	/** font used for game logo*/
-	private final Font logoF = new Font("Findet Nemo", Font.PLAIN, 100);
+	private final Font logoF;
 	
 	/** font used for bar labels*/
 	private final Font labelF;
@@ -117,6 +117,7 @@ public class MazeView extends JPanel{
 		
 		//set font sizes
 		labelF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/5);
+		logoF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/2);
 		
 		//setup size
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
@@ -180,7 +181,7 @@ public class MazeView extends JPanel{
 	 * @param text The String to draw.
 	 * @param rect The Rectangle to center the text in.
 	 */
-	private void drawCenteredString(Graphics g, String text, Rectangle rect) {
+	private void drawCenteredLine(Graphics g, String text, Rectangle rect) {
 	    // Get the FontMetrics
 	    FontMetrics metrics = g.getFontMetrics(g.getFont());
 	    // Determine the X coordinate for the text
@@ -193,12 +194,33 @@ public class MazeView extends JPanel{
 	}
 	
 	/**
+	 * Draw a text paragraph with the first line centered in the middle of a Rectangle.
+	 * Please note that the rectangle parameter is modified by this function.  
+	 *
+	 * @param g The Graphics instance.
+	 * @param text The String to draw.
+	 * @param rect The Rectangle to center the text in.
+	 */
+	private void drawCenteredParagraph(Graphics g, String text, Rectangle rect){
+		// Get the FontMetrics
+	    FontMetrics metrics = g.getFontMetrics(g.getFont());
+	    //adjust first line upwards
+	    rect.setLocation(rect.x, rect.y - metrics.getHeight());
+	    String[] lines = text.split("\n");
+	    for (int i = 0; i < lines.length; i++) {
+	    	rect.setLocation(rect.x, rect.y + 2*metrics.getHeight()/3);
+	    	drawCenteredLine(g, lines[i], rect);
+	    }
+	}
+	
+	/**
 	 * Draws all the information from the board onto the screen, called once per tick
 	 * @param g object which does the actual painting
 	 */
 	@Override
 	public void paint(Graphics g)
 	{
+		long time = System.currentTimeMillis();
 		for(int x=0; x<board.getWidth();x++){
 			for(int y=0;y<board.getHeight();y++)
 			{
@@ -256,7 +278,7 @@ public class MazeView extends JPanel{
 		
 		g.setFont(labelF);
 		g.setColor(Color.BLACK);
-		drawCenteredString(g, "F O O D", new Rectangle(BAR_BUFFER,BAR_BUFFER,board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT));
+		drawCenteredLine(g, "F O O D", new Rectangle(BAR_BUFFER,BAR_BUFFER,board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT));
 		
 		//creating salinity bar
 		g.setColor(Color.GRAY);
@@ -278,7 +300,7 @@ public class MazeView extends JPanel{
 		
 		g.setFont(labelF);
 		g.setColor(Color.BLACK);
-		drawCenteredString(g, "S A L I N I T Y", new Rectangle(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT));
+		drawCenteredLine(g, "S A L I N I T Y", new Rectangle(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT));
 		
 		//tutorial
 		if(board.getSalinity()==4){
@@ -287,10 +309,9 @@ public class MazeView extends JPanel{
 			g.fillRect(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE*3);
 			g.setColor(textColor);
 			g.setFont(textF);
-			drawCenteredString(g,"Welcome to the", new Rectangle(SLOT_SPACE*4, SLOT_SPACE*9 + SLOT_SPACE/3,0,0));
+			drawCenteredLine(g,"Welcome to the", new Rectangle(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE/2));
 			g.setFont(logoF);
-			drawCenteredString(g,"ESTUARY", new Rectangle(SLOT_SPACE*4, SLOT_SPACE*10,0,0));
-			drawCenteredString(g,"MAZE!", new Rectangle(SLOT_SPACE*4, SLOT_SPACE*11,0,0));
+			drawCenteredParagraph(g,"ESTUARY\nMAZE!", new Rectangle(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE*3));
 			
 			//g.drawImage(tut1, 40, 300, Color.DARK_GRAY, this);
 			if(board.getUser().getXLoc()==15 && board.getUser().getYLoc()==15){
@@ -312,6 +333,8 @@ public class MazeView extends JPanel{
 			}
 			
 		}
+		
+		System.out.println(System.currentTimeMillis() - time);
 		
 	}
 }
