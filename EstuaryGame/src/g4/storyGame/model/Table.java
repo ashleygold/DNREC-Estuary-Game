@@ -30,6 +30,7 @@ public class Table {
 	
 	/** maximum allowed of number of cubes */ 
 	private static final int MAX_DICE = 9;
+	
 	/** minimum allowed of number of cubes */ 
 	private static final int MIN_DICE = 4;
 	

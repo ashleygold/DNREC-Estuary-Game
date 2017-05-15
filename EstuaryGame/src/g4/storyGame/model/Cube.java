@@ -13,6 +13,7 @@ public class Cube {
 	
 	/** control finalization of cube image */
 	private boolean fixed = false;
+	
 	/** control location of cubes (movement to story row)*/
 	private boolean moved = false;
 	

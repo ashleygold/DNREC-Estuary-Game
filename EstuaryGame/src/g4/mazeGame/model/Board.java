@@ -21,7 +21,7 @@ public class Board {
 	/** the number of predators for the various levels */
 	private final int[] NUM_PREDATORS = {3, 2, 1, 0};
 	
-	/** the base board for the first level */
+	/** the base board for the tutorial level */
 	private final String startboard0 =
 			 "#########*#########\n"
 			+"#########..########\n"
@@ -40,6 +40,8 @@ public class Board {
 			+"#########..########\n"
 			+"#.................#\n"
 			+"###################\n";
+	
+	/**the base board for the first level */
 	private final String startboard1 =
 			 "##########*########\n"
 			+"###...#.....#.....#\n"

@@ -8,6 +8,7 @@ public class StoryCont implements MiniGameController{
 
 	/** The model for the story game, holds cubes */
 	private Table stTable = new Table();
+	
 	/** the view for the story game */
 	private StoryView stView = new StoryView(stTable);
 
