@@ -2,9 +2,13 @@ package g4.mainController;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -64,6 +68,20 @@ public class MainMenu extends JPanel{
 	 * @param args line arguments
 	 */
 	public static void main(String [] args){
+		//import fonts
+		try {
+		    //create the font to use. Specify the size!
+		    //Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\custom_font.ttf")).deriveFont(12f);
+		    //GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		    //register the font
+		    GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(
+		    		Font.createFont(Font.TRUETYPE_FONT, new File("fonts/FindetNemo.ttf")));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(FontFormatException e) {
+		    e.printStackTrace();
+		}
+		
 		//create and set up frame defaults
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new MainMenu());
@@ -162,7 +180,7 @@ public class MainMenu extends JPanel{
 		frame.add(state);
 		state.setBounds(340, 30, 300, 75);
 		state.setSize(300, 75);
-		state.setFont(new Font("SansSerif", Font.BOLD, 50));
+		state.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
 		state.setForeground(SEA_GREEN);
 		
 		//creates action on click for each state button
@@ -183,8 +201,9 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				setCurState(FL);
 			}
-		});
+		});		
 		
+		//-------------------------------------------
 		//game loop
 		//repaints on tick		
 		while(!exitFlag){

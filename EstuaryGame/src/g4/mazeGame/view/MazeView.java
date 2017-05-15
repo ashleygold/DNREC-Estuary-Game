@@ -78,11 +78,14 @@ public class MazeView extends JPanel{
 	/** images of food tiles */
 	private final Image[] foodTiles = new Image[foodImgLoc.length];
 	
-	/** image of food text label */
-	private final Image food;
+	/** font used for game logo*/
+	private final Font logoF = new Font("Findet Nemo", Font.PLAIN, 50);
 	
-	/** image of salinity text label */
-	private final Image salinity;
+	/** font used for bar labels*/
+	private final Font labelF;
+	
+	/** font used for tutorial text and messages */
+	private final Font textF = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
 	
 	/** images for tutorial */
 	private BufferedImage tut1 = createImage("Tut1.png");
@@ -109,6 +112,9 @@ public class MazeView extends JPanel{
 		
 		SALINITY_LEFT_CORNER = -(SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY + BAR_BUFFER)
 				+ board.getWidth()*SLOT_SPACE;
+		
+		//set font sizes
+		labelF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/5);
 		
 		//setup size
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
@@ -137,10 +143,6 @@ public class MazeView extends JPanel{
 		winGateUp = createImage("uparrow.png").getScaledInstance(
 				SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
 		
-		food = createImage("food.png");
-		
-		salinity = createImage("salinity.png");
-		
 		tut1 = createImage("Tut1.png");
 		tut2 = createImage("Tut2.png");
 		tut3 = createImage("Tut3.png");
@@ -157,7 +159,6 @@ public class MazeView extends JPanel{
 	 */
 	public void changeBoard(Board board){
 		this.board = board;
-		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 	}
 	
 	/**
@@ -257,7 +258,9 @@ public class MazeView extends JPanel{
 		g.setColor(Color.WHITE);
 		g.drawRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
 		
-		g.drawImage(food, BAR_BUFFER, BAR_BUFFER, null, this);
+		g.setFont(labelF);
+		g.setColor(Color.BLACK);
+		drawCenteredString(g, "F O O D", new Rectangle(BAR_BUFFER,BAR_BUFFER,board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT));
 		
 		//creating salinity bar
 		g.setColor(Color.GRAY);
@@ -277,10 +280,11 @@ public class MazeView extends JPanel{
 		g.setColor(Color.GREEN);
 		g.drawRect(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
 		
-		g.drawImage(salinity, SALINITY_LEFT_CORNER + SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY/5,
-				BAR_BUFFER + 1, null, this);
+		g.setFont(labelF);
+		g.setColor(Color.BLACK);
+		drawCenteredString(g, "S A L I N I T Y", new Rectangle(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT));
 		
-		
+		//tutorial
 		if(board.getSalinity()==4){
 			g.drawImage(tut1, 40, 300, Color.DARK_GRAY, this);
 			if(board.getUser().getXLoc()==15 && board.getUser().getYLoc()==15){
