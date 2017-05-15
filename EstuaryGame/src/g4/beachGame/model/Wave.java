@@ -3,30 +3,58 @@ package g4.beachGame.model;
 import g4.beachGame.controller.BeachCont;
 
 public class Wave {
+	
+	/**damage a wave inflicts */
 	int damage;
+	
+	/**length of wave */
 	int length;
+	
+	/**direction of wave*/
 	static int direction = 0;
+	
+	/**speed of wave*/
 	int speed;
+	
+	/** x location of the wave*/
 	int xloc;
+	
+	/**y location of the wave */
 	int yloc;
 	 
+	/**length of a cruise liner */
 	final int CRUISELINER_LENGTH = 150;
+	
+	/**length of a sailboat*/
 	final int SAILBOAT_LENGTH = 80;
+	
+	/**length of a speed boat*/
 	final int SPEEDBOAT_LENGTH = 40;
 	
+	/**damage inflicted by a cruise liner wave */
 	final int CRUISELINER_DAMAGE = 3;
+	
+	/**damage inflicted by a sailboat wave */
 	final int SAILBOAT_DAMAGE=2; 
+	
+	/**damage inflicted by a speed boat wave*/
 	final int SPEEDBOAT_DAMAGE=1; 
 	
+	/**possible directions of a wave*/
 	final static int RIGHT=1;
 	final static int LEFT=-1; 
 	final static int FORWARD=0;
 	
+	/** */
 	final int BOAT_SPEED = 1;
-	final int CRUISELINER_SPEED=2; 
+
+	/** */
+	int CRUISELINER_SPEED=2; 
 	
-	final int WAVE_MOVEMENT_W_WIND =5; 
+	/** */
+	final int WAVE_MOVEMENT_W_WIND =5;
 	
+	/** */
 	private static int windFace = 0;
 	
 	/**
@@ -56,6 +84,13 @@ public class Wave {
 		boat.emittedWave();
 	}
 
+	/**
+	 * Constructor to create a wave
+	 * @param speed: speed of wave
+	 * @param length: length of wave
+	 * @param x: x location of wave
+	 * @param y: y location of wave
+	 */
 	public Wave(int speed, int length, int x, int y){
 		this.damage=3;
 		this.length=length;
@@ -64,6 +99,7 @@ public class Wave {
 		this.yloc=y;
 	}
 	
+	/** moves a wave toward the shore*/
 	public void move(){
 		if (direction == FORWARD){
 			this.yloc += speed;
@@ -80,6 +116,7 @@ public class Wave {
 		}
 	}
 	
+	/**tells if a wave is out of the range of the game*/
 	public boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
@@ -92,6 +129,10 @@ public class Wave {
 		return false;
 	}
 	
+	
+	/**activates wind, which blows waves and offsets them left or right 
+	 * @param number: ???
+	 */
 	public static void activateWind(int number) {
 		if (direction == FORWARD) {
 			int randomDir = number %2 ;
@@ -106,6 +147,7 @@ public class Wave {
 		}
 	}
 	
+	/**stops the wind from blowing waves*/
 	public static void ceaseWind(){
 		direction=FORWARD;
 		windFace = FORWARD;
