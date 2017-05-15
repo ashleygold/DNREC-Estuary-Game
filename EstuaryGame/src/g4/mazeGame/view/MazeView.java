@@ -1,7 +1,11 @@
 package g4.mazeGame.view;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -49,35 +53,36 @@ public class MazeView extends JPanel{
 			"turtle_northeast.png", "turtle_northwest.png", "turtle_south.png", "turtle_southeast.png",
 			"turtle_southwest.png", "turtle_west.png"};
 	
+	/** food image locations **/
+	private static final String[] foodImgLoc = {"algae_good.png",
+			"algae_medium.png", "fish_eggs.png", "zebramussel.png"};
+	
 	/** images for blue crab */
-	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
+	private final Image[] crabImages = new Image[crabImagesLoc.length];
 	
 	/** images for turtles */
-	private BufferedImage[] turtleImages = new BufferedImage[turtleImagesLoc.length];
+	private final Image[] turtleImages = new Image[turtleImagesLoc.length];
 	
 	/** images for horseshoe crab */
-	private BufferedImage[] horseshoeImages = new BufferedImage[horseshoeImagesLoc.length];
+	private final Image[] horseshoeImages = new Image[horseshoeImagesLoc.length];
 	
 	/** image of water tiles */
-	private BufferedImage water = createImage("waterblock.jpg");
+	private final Image water;
 	
 	/** image of wall tiles */
-	private BufferedImage seaWall = createImage("seaweed2.jpg");
+	private final Image seaWall;
 	
 	/** image of goal tiles */
-	private BufferedImage winGateUp = createImage("uparrow.png");
+	private final Image winGateUp;
 	
 	/** images of food tiles */
-	private BufferedImage[] foodTiles = {createImage("algae_good.png"), 
-			createImage("algae_medium.png"),
-			createImage("fish_eggs.png"),
-			createImage("zebramussel.png")};
+	private final Image[] foodTiles = new Image[foodImgLoc.length];
 	
 	/** image of food text label */
-	private BufferedImage food = createImage("food.png");
+	private final Image food;
 	
 	/** image of salinity text label */
-	private BufferedImage salinity = createImage("salinity.png");
+	private final Image salinity;
 	
 	/** images for tutorial */
 	private BufferedImage tut1 = createImage("Tut1.png");
@@ -95,19 +100,9 @@ public class MazeView extends JPanel{
 	 */
 	public MazeView(Board board) {
 		this.board = board;
-		//double initialX=board.getUser().getXLoc();
 		
+		//set display constants
 		SLOT_SPACE = (int)((MazeCont.screenSize.getHeight() - 55)/board.getHeight());
-		
-		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
-		setFocusable(true);
-		for (int i = 0; i < horseshoeImages.length; i++)
-			horseshoeImages[i] = createImage(horseshoeImagesLoc[i]);
-		for (int i = 0; i < crabImages.length; i++)
-			crabImages[i] = createImage(crabImagesLoc[i]);
-		for (int i = 0; i < turtleImages.length; i++)
-			turtleImages[i] = createImage(turtleImagesLoc[i]);
-		
 		BAR_BUFFER = SLOT_SPACE/8;
 		BAR_HEIGHT = SLOT_SPACE/2 + BAR_BUFFER;
 		SALINITY_CHUNK_WIDTH = BAR_HEIGHT*4;
@@ -115,6 +110,45 @@ public class MazeView extends JPanel{
 		SALINITY_LEFT_CORNER = -(SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY + BAR_BUFFER)
 				+ board.getWidth()*SLOT_SPACE;
 		
+		//setup size
+		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
+		setFocusable(true);
+		
+		//load images
+		for (int i = 0; i < horseshoeImages.length; i++)
+			horseshoeImages[i] = createImage(horseshoeImagesLoc[i]).getScaledInstance(
+					SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		for (int i = 0; i < crabImages.length; i++)
+			crabImages[i] = createImage(crabImagesLoc[i]).getScaledInstance(
+					SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		for (int i = 0; i < turtleImages.length; i++)
+			turtleImages[i] = createImage(turtleImagesLoc[i]).getScaledInstance(
+					SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		for (int i = 0; i < foodImgLoc.length; i++)
+			foodTiles[i] = createImage(foodImgLoc[i]).getScaledInstance(
+					SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		
+		water = createImage("waterblock.jpg").getScaledInstance(
+				SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		
+		seaWall = createImage("seaweed2.jpg").getScaledInstance(
+				SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		
+		winGateUp = createImage("uparrow.png").getScaledInstance(
+				SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
+		
+		food = createImage("food.png");
+		
+		salinity = createImage("salinity.png");
+		
+		tut1 = createImage("Tut1.png");
+		tut2 = createImage("Tut2.png");
+		tut3 = createImage("Tut3.png");
+		tut4 = createImage("Tut4.png");
+		tut5 = createImage("Tut5.png");
+		tut6 = createImage("Tut6.png");
+		arrow = createImage("arrow.png");
+		arrowRight = createImage("arrowRight.png");		
 	}
 	
 	/**
@@ -141,6 +175,25 @@ public class MazeView extends JPanel{
     	}
     	return null;
     }
+	
+	/**
+	 * Draw a String centered in the middle of a Rectangle.
+	 *
+	 * @param g The Graphics instance.
+	 * @param text The String to draw.
+	 * @param rect The Rectangle to center the text in.
+	 */
+	private void drawCenteredString(Graphics g, String text, Rectangle rect) {
+	    // Get the FontMetrics
+	    FontMetrics metrics = g.getFontMetrics(g.getFont());
+	    // Determine the X coordinate for the text
+	    int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+	    // Determine the Y coordinate for the text 
+	    //(note we add the ascent, as in java 2d 0 is top of the screen)
+	    int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+	    // Draw the String
+	    g.drawString(text, x, y);
+	}
 	
 	/**
 	 * Draws all the information from the board onto the screen, called once per tick
@@ -213,7 +266,8 @@ public class MazeView extends JPanel{
 		g.setColor(Color.WHITE);
 		
 		if (board.getGoalFood() != 5){
-			g.fillRect(SALINITY_LEFT_CORNER + (Board.MAX_SALINITY - board.getSalinity())*SALINITY_CHUNK_WIDTH,
+			g.fillRect(SALINITY_LEFT_CORNER + 
+					(Board.MAX_SALINITY - board.getSalinity())*SALINITY_CHUNK_WIDTH,
 					BAR_BUFFER, board.getSalinity()*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
 		}
 		else{
@@ -223,7 +277,9 @@ public class MazeView extends JPanel{
 		g.setColor(Color.GREEN);
 		g.drawRect(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
 		
-		g.drawImage(salinity, SALINITY_LEFT_CORNER + 70, BAR_BUFFER + 1, null, this);
+		g.drawImage(salinity, SALINITY_LEFT_CORNER + SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY/5,
+				BAR_BUFFER + 1, null, this);
+		
 		
 		if(board.getSalinity()==4){
 			g.drawImage(tut1, 40, 300, Color.DARK_GRAY, this);
@@ -234,7 +290,8 @@ public class MazeView extends JPanel{
 				g.drawImage(tut3,20,100, Color.DARK_GRAY, this);
 				g.drawImage(arrow,40,40, null, this);
 			}
-			else if(board.getUser().getFoodCount()>=board.getGoalFood()-2 && board.getUser().getFoodCount()<board.getGoalFood()){
+			else if(board.getUser().getFoodCount()>=board.getGoalFood()-2 &&
+					board.getUser().getFoodCount()<board.getGoalFood()){
 				g.drawImage(tut4,450,100, Color.DARK_GRAY, this);
 				g.drawImage(arrow,575,40, null, this);
 				g.drawImage(tut5,500,300, Color.DARK_GRAY, this);
