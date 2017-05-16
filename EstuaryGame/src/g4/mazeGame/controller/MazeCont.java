@@ -57,24 +57,24 @@ public class MazeCont implements MiniGameController {
 	 * Advances the game to the next level
 	 */
 	private void nextGame(){
-		if (level==1 || level==2){
-			JOptionPane.showMessageDialog(null, "Great job! The salinity has decreased by 33%. Press OK to advance to the next stage.");
-		}
-		if (level==0){
-			JOptionPane.showMessageDialog(null, "Great job! Press okay to start the first stage.");
-		}
 		deaths = 0;
 		level++;
 		board = new Board(4 - level, deaths);
 		screen.changeBoard(board);
 		listen.reset(board.getUser());
+		if (level==2 || level==3){
+			screen.messageInterrupt(MazeView.MESSAGE_STAGE);
+		}
+		if (level==1){
+			screen.messageInterrupt(MazeView.MESSAGE_TUTORIAL);
+		}
 	}
 	
 	/**
 	 * Resets the game if the user dies
 	 */
 	private void lowerDifficulty(){
-		JOptionPane.showMessageDialog(null, "You were eaten! You'll now restart the stage you were on.");
+		screen.messageInterrupt(MazeView.MESSAGE_FAILURE);
 		deaths++;
 		board = new Board(4 - level, deaths);
 		screen.changeBoard(board);
@@ -87,19 +87,20 @@ public class MazeCont implements MiniGameController {
 	@Override
 	public void update() {
 		if (gameWon==false){
-			board.update();
+			if (!screen.isTransitionActive())
+				board.update();
 			app.repaint();
-			if (board.getUser().checkWin()){
+			if (board.getUser().checkWin() && !screen.isTransitionActive()){
 				if (level==0 || level==1 || level==2) {
 					nextGame();
 				} else if(level==3) {
 					gameWon = true;
-					JOptionPane.showMessageDialog(null, "You win! You made it to an area of lower salinity, so now you can grow big and strong!");
+					screen.messageInterrupt(MazeView.MESSAGE_VICTORY);
 				}
-			} else if (board.getIsEaten()){
+			} else if (board.getIsEaten() && !screen.isTransitionActive()){
 				lowerDifficulty();
 			}
-		} else if (board.getUser().getDispose()) {
+		} else if (board.getUser().getDispose() && !screen.isTransitionActive()) {
 			dispose();
 		}
 	}

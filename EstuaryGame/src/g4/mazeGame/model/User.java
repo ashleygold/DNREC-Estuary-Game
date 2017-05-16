@@ -148,7 +148,7 @@ public class User {
 			} else if (tryMove(MOVE_VECTOR[tryDir][3])){
 				return true;
 				//see if x/y can be slightly changed to allow movement
-			} else if (MOVE_VECTOR[tryDir][0] * (2 * (xLoc - (int)xLoc) - 1) >
+			} else if (MOVE_VECTOR[tryDir][0] * (2 * (xLoc - (int)xLoc) - 1) <
 						MOVE_VECTOR[tryDir][1] * (2 * (yLoc - (int)yLoc) - 1)){
 				xLoc -= DIAG_MOVE_SPEED * MOVE_VECTOR[tryDir][0];
 				return tryMove(tryDir);
