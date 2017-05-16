@@ -71,7 +71,7 @@ public class Turtle {
 	 */
 	public void move(){
 		picNum = (picNum+.2)%numPics;
-		if (direction == 0){
+		if (direction == 0){ //left
 			//if normal land
 			if (isShore(xLoc-XINCR,yLoc-YINCR)){
 				xLoc-=XINCR;
@@ -83,9 +83,24 @@ public class Turtle {
 			//if this is water
 			else if (isWater(xLoc-XINCR,yLoc-YINCR))
 				gotToOcean = true;
+			//if grass at diagonal location
+			else if (board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
+					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
+				System.out.println("going left hit grass");
+				xLoc-=XINCR;
+				yLoc-=YINCR;
+			}
 			//if this is a protector
-			else if (!isShore(xLoc-XINCR,yLoc))
-				yLoc+=YINCR;
+			else if (!isShore(xLoc-XINCR,yLoc)){
+				//if grass at horizontal location
+				if (board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
+						board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
+					xLoc-=XINCR;
+					yLoc-=YINCR;
+				}
+				else
+					yLoc+=YINCR;
+			}
 			else
 				xLoc-=XINCR;
 		}
@@ -98,8 +113,20 @@ public class Turtle {
 				direction = 0;
 			else if (isWater(xLoc+XINCR, yLoc-YINCR))
 				gotToOcean= true;
+			else if (board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
+					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
+				System.out.println("going right hit grass");
+				xLoc+= XINCR;
+				yLoc-= YINCR;
+			}
 			else if (!isShore(xLoc+XINCR,yLoc))
-				yLoc+=YINCR;
+				if (board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
+						board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
+					xLoc+=XINCR;
+					yLoc-=YINCR;
+				}
+				else
+					yLoc+=YINCR;
 			else
 				xLoc+=XINCR;
 		}
