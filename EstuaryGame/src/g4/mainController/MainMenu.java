@@ -94,7 +94,7 @@ public class MainMenu extends JPanel{
 		//create buttons
 		JButton[] choices = new JButton[4];
 		choices[0] = new JButton("Maze");
-		choices[1] = new JButton("<html><center>Shore<br>Defence</center></html>");
+		choices[1] = new JButton("<html><center>Shore<br>Defense</center></html>");
 		choices[2] = new JButton("<html><center>Story<br>Cubes</center></html>");
 		choices[3] = new JButton("Exit");
 		

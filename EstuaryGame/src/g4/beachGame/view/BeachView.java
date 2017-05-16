@@ -104,6 +104,7 @@ public class BeachView extends JPanel{
 	BufferedImage tut4 = createImage("Tut5.png");
 	BufferedImage tut5 = createImage("Tut6.png");
 	BufferedImage arrowDown = createImage("arrowDown.png");
+	BufferedImage waveImage;
 	
 	/**the height of the display*/
 	private int displayHeight;
@@ -159,6 +160,7 @@ public class BeachView extends JPanel{
 		
 		for (int i = 0; i < horseshoeImages.length; i++)
 			horseshoeImages[i] = createImage(horseshoeImagesLoc[i]);
+		waveImage = createImage("wave.png");
 		
 		//sets up frame
 		frame = new JFrame();
@@ -303,11 +305,10 @@ public class BeachView extends JPanel{
 				g.drawImage(boatImage, currBoat.getXLoc()+10, currBoat.getYLoc()+10, 60, 50, null, this);
 			}
 			
-			g.setColor(Color.CYAN);
 			Iterator<Wave> wavesIt = board.getCurrWaves().iterator();
 			while (wavesIt.hasNext()){
 				Wave currWave = wavesIt.next();
-				g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
+				g.drawImage(waveImage, currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 30, null, this);
 			}
 			Iterator<Wave> splitWavesIt = board.getSplitWaves().iterator();
 			while (splitWavesIt.hasNext()){
