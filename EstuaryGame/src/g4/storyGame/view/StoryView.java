@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import g4.mainController.MainMenu;
+import g4.storyGame.model.Cube;
 import g4.storyGame.model.Table;
 
 public class StoryView extends JPanel{
@@ -76,6 +77,12 @@ public class StoryView extends JPanel{
 			"volunteer_blue.png",
 			"volunteer_red.png"
 			};
+	
+	/**tutorial images*/
+	private final Image title = createImage("Title.png");
+	private final Image tut1 = createImage("Tut1.png");
+	private final Image tut2 = createImage("Tut2.png");
+	private final Image tut3 = createImage("Tut3.png");
 	
 	/** The number of possible sides of cubes (total number of images) */
 	public static final int NUM_SIDES = imagesLoc.length;
@@ -283,6 +290,19 @@ public class StoryView extends JPanel{
 			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],
 					IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), FRAME_HEIGHT - 5*IMG_HEIGHT/2,
 					null, this);
+		}
+		
+		for (Cube i : refTable.getDice()){
+			if (!i.isFixed()){
+				g.drawImage(title, 75, 200, Color.DARK_GRAY, this);
+				g.drawImage(tut1, 375, 225, Color.DARK_GRAY, this);
+			}
+			else if(refTable.getDice().size()==refTable.getFinished().size())
+				g.drawImage(tut3, 820, 610, Color.DARK_GRAY, this);
+			else if(i.isFixed()){
+				g.drawImage(title, 75, 200, Color.DARK_GRAY, this);
+				g.drawImage(tut2, 375, 225, Color.DARK_GRAY, this);
+			}	
 		}
 	}
 	
