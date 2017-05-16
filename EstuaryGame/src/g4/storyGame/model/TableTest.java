@@ -52,9 +52,10 @@ public class TableTest {
 	public void testUpdate(){
 		table.update();
 		table.update();
-		for (Cube x: table.getDice()){
+		for (Cube x : table.getDice()){
 			int img = x.getImg();
-			x.changeImg();
+			while (img == x.getImg())
+				x.changeImg();
 			int img2 = x.getImg();
 			assertTrue(img != img2);
 		}

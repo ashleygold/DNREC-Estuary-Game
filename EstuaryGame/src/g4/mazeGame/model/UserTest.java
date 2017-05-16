@@ -124,11 +124,12 @@ public class UserTest {
 	@Test
 	public void testCheckWin(){
 		Board board2 = new Board (1,0);
-		user.setFoodCount(10);
-		assertFalse(user.checkWin());
-		user.setYLoc(10);
-		user.setXLoc(1);
-		assertTrue(user.checkWin());
+		User user2 = new User(board2);
+		user2.setFoodCount(10);
+		assertFalse(user2.checkWin());
+		user2.setYLoc(0);
+		user2.setXLoc(9);
+		assertTrue(user2.checkWin());
 	}
 	
 	@Test
