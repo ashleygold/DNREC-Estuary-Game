@@ -17,6 +17,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCreateWave() {
+		b1.hoursLeft=17;
 		b1.createWave(new Sailboat());
 		assertEquals(1, b1.getCurrWaves().size());
 	}
@@ -44,6 +45,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCreateBoat(){
+		b1.hoursLeft=17;
 		for (int i = 0; i < 1000; i++)
 			b1.createBoat();
 		assertTrue(b1.currBoats.size()!=0);
