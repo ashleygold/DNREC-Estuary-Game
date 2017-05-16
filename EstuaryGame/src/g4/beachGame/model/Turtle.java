@@ -3,7 +3,6 @@ package g4.beachGame.model;
 import java.util.Random;
 
 //FIGURE OUT HOW TO DO CORNERS
-//MAKE TURTLE DIE IF NO WAY OUT
 
 public class Turtle {
 	
@@ -83,23 +82,9 @@ public class Turtle {
 			//if this is water
 			else if (isWater(xLoc-XINCR,yLoc-YINCR))
 				gotToOcean = true;
-			//if grass at diagonal location
-			else if (xLoc>=0 &&yLoc-YINCR>=Board.SHORE&&(board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
-					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS)){
-				xLoc-=XINCR;
-				yLoc-=YINCR;
-			}
 			//if this is a protector
-			else if (!isShore(xLoc-XINCR,yLoc)){
-				//if grass at horizontal location
-				if (board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
-						board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
-					xLoc-=XINCR;
-					yLoc-=YINCR;
-				}
-				else
-					yLoc+=YINCR;
-			}
+			else if (!isShore(xLoc-XINCR,yLoc))
+				yLoc+=YINCR;
 			else
 				xLoc-=XINCR;
 		}
@@ -112,19 +97,8 @@ public class Turtle {
 				direction = 0;
 			else if (isWater(xLoc+XINCR, yLoc-YINCR))
 				gotToOcean= true;
-			else if (xLoc+XINCR<=Board.SHORE_WIDTH && yLoc-YINCR<=Board.HEIGHT&&(board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
-					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS)){
-				xLoc+= XINCR;
-				yLoc-= YINCR;
-			}
 			else if (!isShore(xLoc+XINCR,yLoc))
-				if (xLoc>=0 && yLoc<=Board.HEIGHT&&(board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
-						board.beach[(int) (Math.ceil(yLoc*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS)){
-					xLoc+=XINCR;
-					yLoc-=YINCR;
-				}
-				else
-					yLoc+=YINCR;
+				yLoc+=YINCR;
 			else
 				xLoc+=XINCR;
 		}
@@ -143,7 +117,7 @@ public class Turtle {
 			return false;
 		else
 			cell = board.beach[y-4][x];
-		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.SHORE);
+		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && (cell == Board.SHORE||cell == Board.GRASS || cell == Board.GRASS_L));
 	}
 	
 	/**

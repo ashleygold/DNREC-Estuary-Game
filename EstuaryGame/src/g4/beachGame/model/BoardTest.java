@@ -241,16 +241,16 @@ public class BoardTest {
 		assertEquals(-1, b1.getProtector());
 	}
 	
-	@Test
-	public void testIsShore(){
-		assertFalse(b1.isShore(-1, 350));
-		assertTrue(b1.isShore(370, 350));
-		b1.beach[0][4] = Board.WATER;
-		assertFalse(b1.isShore(370, 350));
-		assertFalse(b1.isShore(Board.SHORE_WIDTH+1, 350));
-		assertFalse(b1.isShore(370, 200));
-		assertFalse(b1.isShore(370, Board.HEIGHT+100));
-	}
+	//@Test
+	//public void testIsShore(){
+	//	assertFalse(b1.isShore(-1, 350));
+	//	assertTrue(b1.isShore(370, 350));
+	//	b1.beach[0][4] = Board.WATER;
+	//	assertFalse(b1.isShore(370, 350));
+	//	assertFalse(b1.isShore(Board.SHORE_WIDTH+1, 350));
+	//	assertFalse(b1.isShore(370, 200));
+	//	assertFalse(b1.isShore(370, Board.HEIGHT+100));
+	//}
 	
 	@Test
 	public void testGetWidth(){
