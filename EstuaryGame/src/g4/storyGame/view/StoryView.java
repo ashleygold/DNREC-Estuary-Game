@@ -60,21 +60,30 @@ public class StoryView extends JPanel{
 	/** file names of images */
 	private static final String[] imagesLoc = {
 			"algae_good.png",
+			"blackduck_right.png",
 			"bluecrab_0.png",
 			"bogturtle_left_0.png",
+			"butterfly_right.png",
 			"denrec_standing.png",
+			"estuary_meadow_with_river.jpg",
 			"fish_bass_right.png",
+			"fish_eggs.png",
+			"fisherman_walk_left_2.png",
+			"fullHeart.png",
+			"grass.png",
+			"horseshoe_northeast.png",
 			"hotrod_vessel.png",
 			"mittencrab_0.png",
+			"mittencrabs_spawn_2.png",
+			"researcher_withClipboard.png",
 			"sailboat.png",
-			"TestImage.png",
-			"TestImage2.png",
-			"TestImage3.png",
-			"TestImage4.png",
+			"speedboat.png",
 			"turtle.png",
 			"vessel.png",
 			"volunteer_blue.png",
-			"volunteer_red.png"
+			"volunteer_red.png",
+			"windRight.png",
+			"zebramussel.png"
 			};
 	
 	/**tutorial images*/
@@ -108,7 +117,6 @@ public class StoryView extends JPanel{
 	public StoryView(Table t){
 		//create all images
 		for (int i = 0; i < imagesLoc.length; i++){
-			
 			images[i] = createImage(imagesLoc[i])
 					.getScaledInstance(IMG_WIDTH, IMG_HEIGHT, Image.SCALE_SMOOTH);
 			
