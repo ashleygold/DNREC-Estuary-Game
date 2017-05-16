@@ -303,7 +303,7 @@ public class StoryView extends JPanel{
 		if (refTable.areAllMoved()) {
 			g.drawImage(tut3, 15*IMG_WIDTH/2, FRAME_HEIGHT - IMG_HEIGHT, Color.DARK_GRAY, this);
 		} else {
-			g.drawImage(title, 2*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
+			g.drawImage(title, IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
 			if (refTable.areAllFixed()){
 				//movement prompt
 				g.drawImage(tut2, 4*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
