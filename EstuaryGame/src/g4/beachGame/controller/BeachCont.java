@@ -121,7 +121,7 @@ public class BeachCont implements MiniGameController{
 				}
 				
 				if (frameCounterWind > framesBetweenWind){
-					Wave.activateWind(frameCounterTurtles);
+					Wave.activateWind(frameCounterTurtles,board1.getCurrWaves());
 				}
 				
 				if (frameCounterWind == framesBetweenWind + 700){

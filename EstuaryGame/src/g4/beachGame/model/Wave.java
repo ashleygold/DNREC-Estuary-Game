@@ -1,5 +1,8 @@
 package g4.beachGame.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import g4.beachGame.controller.BeachCont;
 
 public class Wave {
@@ -133,8 +136,16 @@ public class Wave {
 	/**activates wind, which blows waves and offsets them left or right 
 	 * @param number: ???
 	 */
-	public static void activateWind(int number) {
-		if (direction == FORWARD) {
+	public static void activateWind(int number, ArrayList<Wave> waves) {
+		boolean isWaveBelowStartingShoreline=false;
+		Iterator<Wave> currWaves = waves.iterator();
+		while (currWaves.hasNext()){
+			Wave wave  = currWaves.next();
+			if (wave.getX()>Board.SHORE_HEIGHT){
+				isWaveBelowStartingShoreline=true;
+			}
+		}
+		if (direction == FORWARD && isWaveBelowStartingShoreline) {
 			int randomDir = number %2 ;
 			if (randomDir == 1){
 				direction = RIGHT;
