@@ -2,6 +2,8 @@ package g4.beachGame.model;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import g4.beachGame.controller.BeachCont;
@@ -69,16 +71,18 @@ public class WaveTest {
 
 	@Test
 	public void testActivateWind(){
+		ArrayList<Wave> waves = new ArrayList<Wave>();
+		waves.add(new Wave(cruiseliner));
 		Wave.direction = Wave.FORWARD;
-		Wave.activateWind(3);
+		Wave.activateWind(3,waves);
 		assertEquals(Wave.RIGHT, Wave.direction);
 		
 		Wave.direction = Wave.FORWARD;
-		Wave.activateWind(4);
+		Wave.activateWind(4,waves);
 		assertEquals(Wave.LEFT, Wave.direction);
 		
 		Wave.direction = Wave.RIGHT;
-		Wave.activateWind(3);
+		Wave.activateWind(3,waves);
 		assertEquals(Wave.RIGHT, Wave.getDirection());
 	}
 	

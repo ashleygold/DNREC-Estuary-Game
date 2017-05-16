@@ -9,7 +9,7 @@ public class CruiseLiner extends Boat{
 	final int BOAT_HEIGHT = 100;
 	
 	/**the distance away from shore the closest boat can spawn*/
-	final int MIN_DISTANCE_FROM_SHORE = 200;
+	final int MIN_DISTANCE_FROM_SHORE = 400;
 	
 	/** constructor for a new CruiseLiner*/
 	public CruiseLiner(){

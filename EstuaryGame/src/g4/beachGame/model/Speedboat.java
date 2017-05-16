@@ -9,7 +9,7 @@ public class Speedboat extends Boat{
 	final int SPEEDBOAT_SPEED=20;
 	
 	/**minimum distance from starting shoreline*/
-	final int MIN_DISTANCE=100; 
+	final int MIN_DISTANCE=300; 
 	
 	/**
 	 * constructor for a speedboat
