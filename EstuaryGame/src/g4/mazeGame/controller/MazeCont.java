@@ -87,9 +87,6 @@ public class MazeCont implements MiniGameController {
 	@Override
 	public void update() {
 		if (gameWon==false){
-			if (!screen.isTransitionActive())
-				board.update();
-			app.repaint();
 			if (board.getUser().checkWin() && !screen.isTransitionActive()){
 				if (level==0 || level==1 || level==2) {
 					nextGame();
@@ -100,6 +97,10 @@ public class MazeCont implements MiniGameController {
 			} else if (board.getIsEaten() && !screen.isTransitionActive()){
 				lowerDifficulty();
 			}
+			
+			if (!screen.isTransitionActive())
+				board.update();
+			app.repaint();
 		} else if (board.getUser().getDispose() && !screen.isTransitionActive()) {
 			dispose();
 		}
