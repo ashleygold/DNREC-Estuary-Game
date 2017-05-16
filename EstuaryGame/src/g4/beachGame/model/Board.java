@@ -303,22 +303,22 @@ public class Board {
 	}
 	
 	
-	/**
-	 * @param x is the x location
-	 * @param y is the y location
-	 * @return whether or not the x and y location is a shore or not
-	 */
-	public boolean isShore(double x, double y){
-		if (x>0 && x<SHORE_WIDTH && y>SHORE_HEIGHT && y<HEIGHT-User.CRAB_HEIGHT){
-			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORE_WIDTH);
-			int crabDepth = (int)(6*y/Board.HEIGHT);
-			if (beach[crabDepth-3][crabSpot]!=WATER){
-				return true;
-			}
-			return false;
-		}
-		return false;
-	}
+//	/**
+//	 * @param x is the x location
+//	 * @param y is the y location
+//	 * @return whether or not the x and y location is a shore or not
+//	 */
+//	public boolean isShore(double x, double y){
+//		if (x>0 && x<SHORE_WIDTH && y>SHORE_HEIGHT && y<HEIGHT-User.CRAB_HEIGHT){
+//			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORE_WIDTH);
+//			int crabDepth = (int)(6*y/Board.HEIGHT);
+//			if (beach[crabDepth-3][crabSpot]!=WATER){
+//				return true;
+//			}
+//			return false;
+//		}
+//		return false;
+//	}
 	
 	/** @return the integer representing the current protector */
 	public int getProtector(){return protector;}

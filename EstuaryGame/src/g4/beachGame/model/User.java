@@ -66,6 +66,10 @@ public class User {
 		this.yLoc = DEFAULTY;
 	}
 	
+	public boolean isShore(double x, double y){
+		return (x>0 && x<Board.SHORE_WIDTH && y>Board.SHORE_HEIGHT && y<Board.HEIGHT-CRAB_HEIGHT);
+	}
+	
 	/**
 	 * Moves the user by changing the direction of the user
 	 */
@@ -75,53 +79,53 @@ public class User {
 			picNum = (picNum + .2) % frameCount;
 		switch(direction) {
 			case LEFT:
-				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean || (isOnEdge && xLoc > 0))
+				if (isShore(xLoc - XINCR, yLoc) || isInOcean || (isOnEdge && xLoc > 0))
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
-				if ((board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
-						&& board.isShore(xLoc + XINCR, yLoc)) || isInOcean
+				if ((isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
+						&& isShore(xLoc + XINCR, yLoc)) || isInOcean
 						|| (isOnEdge && xLoc < Board.SHORE_WIDTH))
 					xLoc+=XINCR;
 				break;
 			case UP:
-				if ((board.isShore(xLoc, yLoc - YINCR)
-						&& board.isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
+				if ((isShore(xLoc, yLoc - YINCR)
+						&& isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
 						|| isInOcean || isOnEdge)
 					yLoc-=YINCR;
 				break;
 			case DOWN:
-				if (board.isShore(xLoc, yLoc+YINCR) || isInOcean) 
+				if (isShore(xLoc, yLoc+YINCR) || isInOcean) 
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
-				if (board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)
+				if (isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)
 						|| isInOcean){
 					xLoc+=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case UP_LEFT:
-				if (board.isShore(xLoc-XINCR,yLoc-YINCR) || isInOcean){
+				if (isShore(xLoc-XINCR,yLoc-YINCR) || isInOcean){
 					xLoc-=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
+				if (isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
 						|| isInOcean){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}
 				break;
 			case DOWN_LEFT:
-				if (board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
+				if (isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
 					xLoc-= XINCR;
 					yLoc+= YINCR;
 				}
 				break;
 		}
-		if (isInOcean && board.isShore(xLoc, yLoc)){
+		if (isInOcean && isShore(xLoc, yLoc)){
 			isInOcean=false;
 		}
 	}
