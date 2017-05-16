@@ -47,6 +47,20 @@ public class TableTest {
 		assertEquals(cube2, table.getDice().get(0));
 	}
 
+	@Test
+	public void testAreAllFixed(){
+		Table table2 = new Table();
+		assertTrue(!table2.areAllFixed());
+		for (Cube x : table2.getDice())
+			x.fix();
+		assertTrue(table2.areAllFixed());
+	}
+	
+	@Test
+	public void testgetFinishedSize(){
+		Table table2 = new Table();
+		assertEquals(table2.getFinishedSize(), 0);
+	}
 	
 	@Test
 	public void testUpdate(){
