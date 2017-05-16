@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -78,26 +80,18 @@ public class MazeView extends JPanel{
 	/** images of food tiles */
 	private final Image[] foodTiles = new Image[foodImgLoc.length];
 	
-	/** font used for game logo*/
-	private final Font logoF;
-	
 	/** font used for bar labels*/
 	private final Font labelF;
 	
-	/** font used for tutorial text and messages */
-	private final Font textF;
-	
-	/** color used for logo & tutorial text */
-	private final Color textColor = new Color(0,105,172);
-	
 	/** images for tutorial */
-	private BufferedImage tut3 = createImage("Tut3.png");
-	private BufferedImage tut4 = createImage("Tut4.png");
-	private BufferedImage tut5 = createImage("Tut5.png");
-	private BufferedImage tut6 = createImage("Tut6.png");
+	private BufferedImage tut1;
+	private BufferedImage tut2;
+	private BufferedImage tut3;
+	private BufferedImage tut4;
+	private BufferedImage tut5;
+	private BufferedImage tut6;
 	private BufferedImage arrowUp;
 	private BufferedImage arrowRight;
-	private BufferedImage arrowDown;
 			
 	/**
 	 * Constructs a MazeView object set up to display the parameter board
@@ -117,8 +111,6 @@ public class MazeView extends JPanel{
 		
 		//set font sizes
 		labelF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/5);
-		logoF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/2);
-		textF = new Font(Font.SANS_SERIF, Font.BOLD, SLOT_SPACE/2);
 		
 		//setup size
 		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
@@ -147,9 +139,15 @@ public class MazeView extends JPanel{
 		winGateUp = createImage("uparrow.png").getScaledInstance(
 				SLOT_SPACE, SLOT_SPACE, Image.SCALE_SMOOTH);
 		
+		tut1 = createImage("Tut1.png");
+		tut2 = createImage("Tut2.png");
+		tut3 = createImage("Tut3.png");
+		tut4 = createImage("Tut4.png");
+		tut5 = createImage("Tut5.png");
+		tut6 = createImage("Tut6.png");
+		
 		arrowUp = createImage("arrowUp.png");
-		arrowRight = createImage("arrowRight.png");	
-		arrowDown = createImage("arrowDown.png");	
+		arrowRight = createImage("arrowRight.png");
 	}
 	
 	/**
@@ -196,33 +194,15 @@ public class MazeView extends JPanel{
 	}
 	
 	/**
-	 * Draw a text paragraph with the first line centered in the middle of a Rectangle.
-	 * Please note that the rectangle parameter is modified by this function.  
-	 *
-	 * @param g The Graphics instance.
-	 * @param text The String to draw.
-	 * @param rect The Rectangle to center the text in.
-	 */
-	private void drawCenteredParagraph(Graphics g, String text, Rectangle rect){
-		// Get the FontMetrics
-	    FontMetrics metrics = g.getFontMetrics(g.getFont());
-	    //adjust first line upwards
-	    rect.setLocation(rect.x, rect.y - rect.height/2);
-	    String[] lines = text.split("\n");
-	    for (int i = 0; i < lines.length; i++) {
-	    	rect.setLocation(rect.x, rect.y + 2*metrics.getHeight()/3);
-	    	drawCenteredLine(g, lines[i], rect);
-	    }
-	}
-	
-	/**
 	 * Draws all the information from the board onto the screen, called once per tick
 	 * @param g object which does the actual painting
 	 */
 	@Override
 	public void paint(Graphics g)
 	{
-		long time = System.currentTimeMillis();
+		//fix antialiasing for text
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		for(int x=0; x<board.getWidth();x++){
 			for(int y=0;y<board.getHeight();y++)
 			{
@@ -308,51 +288,30 @@ public class MazeView extends JPanel{
 		//tutorial
 		if(board.getSalinity()==4){
 			//logo
-			g.setColor(Color.DARK_GRAY);
-			g.fillRect(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE*3);
-			g.setColor(textColor);
-			g.setFont(logoF);
-			drawCenteredParagraph(g,"ESTUARY\nMAZE!",
-					new Rectangle(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE*3));
-			g.setFont(textF);
-			drawCenteredLine(g,"Welcome to the",
-					new Rectangle(SLOT_SPACE/2, SLOT_SPACE*9, SLOT_SPACE*7, SLOT_SPACE/2));
+			g.drawImage(tut1, SLOT_SPACE, SLOT_SPACE*9, Color.DARK_GRAY, this);
 			g.setColor(Color.DARK_GRAY);
 			
-			if(board.getUser().getXLoc()==15 && board.getUser().getYLoc()==15){
+			if(board.getUser().getXLoc() == 15 && board.getUser().getYLoc()==15){
 				//first instructions (movement)
-				g.fillRect(SLOT_SPACE*13, 12*SLOT_SPACE, SLOT_SPACE*5, 5*SLOT_SPACE/3);
-				g.setColor(textColor);
-				drawCenteredParagraph(g,"This is you, a crab.\nTry moving with\nthe arrow keys.",
-						new Rectangle(SLOT_SPACE*13, 12*SLOT_SPACE, SLOT_SPACE*5, SLOT_SPACE));
-				g.drawImage(arrowDown, SLOT_SPACE*15, SLOT_SPACE*14, null, this);
+				g.drawImage(tut2, SLOT_SPACE*13, 13*SLOT_SPACE, Color.DARK_GRAY, this);
 			} else if(board.getUser().getFoodCount()<board.getGoalFood()-2){
 				//food instructions
-				g.fillRect(SLOT_SPACE/2, 5*SLOT_SPACE/2, SLOT_SPACE*5, 4*SLOT_SPACE);
-				g.setColor(textColor);
-				drawCenteredParagraph(g,"These are food\nsources for your\n"
-						+ "crab. Collect them\nall and watch your\nfood bar fill!",
-						new Rectangle(SLOT_SPACE/2, 5*SLOT_SPACE/2, SLOT_SPACE*5, SLOT_SPACE));
-				for (int i = 0; i < foodTiles.length; i++){
-					g.drawImage(foodTiles[i], 2*(i+1)*SLOT_SPACE/2, 11*SLOT_SPACE/2, null, this);
-				}
-				g.drawImage(arrowUp,SLOT_SPACE,SLOT_SPACE, null, this);
+				g.drawImage(tut3, SLOT_SPACE/2, 5*SLOT_SPACE/2, Color.DARK_GRAY, this);
+				g.drawImage(arrowUp, SLOT_SPACE, SLOT_SPACE, null, this);
 			}
 			else if(board.getUser().getFoodCount()>=board.getGoalFood()-2 &&
 					board.getUser().getFoodCount()<board.getGoalFood()){
 				//salinity instructions
-				g.drawImage(tut4,450,100, Color.DARK_GRAY, this);
-				g.drawImage(arrowUp,575,40, null, this);
-				g.drawImage(tut5,500,300, Color.DARK_GRAY, this);
+				g.drawImage(tut4, 23*SLOT_SPACE/2, 5*SLOT_SPACE/2, Color.DARK_GRAY, this);
+				g.drawImage(arrowUp, 29*SLOT_SPACE/2, SLOT_SPACE, null, this);
+				g.drawImage(tut5, 12*SLOT_SPACE, 7*SLOT_SPACE, Color.DARK_GRAY, this);
 			}
 			else if(board.getUser().getFoodCount()==board.getGoalFood()){
-				g.drawImage(tut6,120,30, Color.DARK_GRAY, this);
-				g.drawImage(arrowRight,300,30, null, this);
+				//exit instructions
+				g.drawImage(tut6, 7*SLOT_SPACE/2, SLOT_SPACE/2, Color.DARK_GRAY, this);
+				g.drawImage(arrowRight, 15*SLOT_SPACE/2, SLOT_SPACE/3, null, this);
 			}
 			
-		}
-		
-		System.out.println(System.currentTimeMillis() - time);
-		
+		}		
 	}
 }
