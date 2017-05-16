@@ -67,11 +67,9 @@ public class User {
 	 * Moves the user by changing the direction of the user
 	 */
 	public void move() {
-		System.out.println(yLoc);
 		//checks nested in the interest of efficiency
 		if(direction!=STILL)
 			picNum = (picNum + .2) % frameCount;
-		// System.out.println(isInOcean);
 		switch(direction) {
 			case LEFT:
 				if (board.isShore(xLoc - XINCR, yLoc) || isInOcean || (isOnEdge && xLoc > 0))
