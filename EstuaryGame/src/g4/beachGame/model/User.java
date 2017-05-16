@@ -46,8 +46,11 @@ public class User {
 	private final Board board;
 	
 	/**possible directions of user */
-	public final static int STILL = 0, LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4,
-			UP_RIGHT = 5, UP_LEFT = 6, DOWN_RIGHT = 7, DOWN_LEFT = 8;
+	public static final int RIGHT = 0, UP = 1, DOWN = 2, LEFT = 3, UP_RIGHT = 4,
+			UP_LEFT = 5, DOWN_RIGHT = 6, DOWN_LEFT = 7;
+	
+	/**reference to possible state of when the user is still*/
+	public static int STILL=8; 
 	
 	/**direction of user */
 	private int direction = STILL;
@@ -144,6 +147,10 @@ public class User {
 	
 	public void setDirection(int direct){
 		this.direction = direct;
+	}
+	
+	public int getDirection(){
+		return direction;
 	}
 
 }

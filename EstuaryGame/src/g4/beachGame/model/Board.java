@@ -134,7 +134,7 @@ public class Board {
 	 * Boats from most frequent to least frequent: Sailboat, Speedboats,and CruiseLiner
 	 */
 	public void createBoat(){
-		if (this.elapsedTime>=18){
+		if (this.hoursLeft<=17){
 			int randomNum = 1 + (int)(Math.random() * 7);
 			if (randomNum>0 && randomNum<4)
 				currBoats.add(new Sailboat());
@@ -165,7 +165,7 @@ public class Board {
 	 * @param boat - the boat that creates the wave
 	 */
 	public void createWave(Boat boat){
-		if (this.elapsedTime>=18)
+		if (this.hoursLeft<=17)
 			getCurrWaves().add(new Wave(boat));
 	}
 	
