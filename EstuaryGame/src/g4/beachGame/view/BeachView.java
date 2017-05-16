@@ -175,6 +175,22 @@ public class BeachView extends JPanel{
 			}
 		}
 		
+		//if user is holding a protector, draw it attached to user
+		if (board.getProtector()!= -1){
+			switch(board.getProtector()){
+			case Board.GABION_2L:
+				image = protectors[1];
+				break;
+			case Board.GRASS_L:
+				image = shoreImages[4];
+				break;
+			case Board.WALL:
+				image = protectors[2];
+				break;
+			}
+			g.drawImage(image, user.getxLoc(), user.getyLoc()-30, User.CRAB_WIDTH, 40, null, this);
+		}
+		
 		//draws protectors
 		for (int i = 0; i < protectors.length; i++){
 			g.drawImage(protectors[i], board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
