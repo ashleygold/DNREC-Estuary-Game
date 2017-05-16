@@ -44,7 +44,7 @@ public class Board {
 	/**The total rows on the board */
 	public final static int TOTALROWS=6;
 	
-	/** WHAT IS THIS SOMEBODY FILL THIS IN*/
+	/**Amount by which to raise height of board due to timer*/
 	public final static int RAISE=15; //how much high it is?
 	
 	/**final fields that represent the depth of the shore**/

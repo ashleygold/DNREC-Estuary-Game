@@ -84,8 +84,8 @@ public class Turtle {
 			else if (isWater(xLoc-XINCR,yLoc-YINCR))
 				gotToOcean = true;
 			//if grass at diagonal location
-			else if (board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
-					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
+			else if (xLoc>=0 &&yLoc-YINCR>=Board.SHORE&&(board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
+					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS)){
 				xLoc-=XINCR;
 				yLoc-=YINCR;
 			}
@@ -112,7 +112,7 @@ public class Turtle {
 				direction = 0;
 			else if (isWater(xLoc+XINCR, yLoc-YINCR))
 				gotToOcean= true;
-			else if (xLoc>=0 && yLoc<=Board.HEIGHT&&(board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
+			else if (xLoc+XINCR<=Board.SHORE_WIDTH && yLoc-YINCR<=Board.HEIGHT&&(board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
 					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS)){
 				xLoc+= XINCR;
 				yLoc-= YINCR;
