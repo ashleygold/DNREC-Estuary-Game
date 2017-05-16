@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import g4.beachGame.model.Sailboat;
 import g4.beachGame.model.Turtle;
 import g4.beachGame.model.User;
 import g4.beachGame.model.Wave;
+import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
 	/**Beach game's window */
@@ -32,32 +34,43 @@ public class BeachView extends JPanel{
 	//index for the image's location in turtle[i]
 	
 	/**locations of blue crab images*/
-	private static final String[] crabImagesLoc = {"images/BeachImages/bluecrab_0.png",
-	"images/BeachImages/bluecrab_1.png", "images/BeachImages/bluecrab_2.png"};
+	private static final String[] crabImagesLoc = {"bluecrab_0.png",
+	"bluecrab_1.png", "bluecrab_2.png"};
+	
+	/** horseshoe crab image locations */
+	private static final String[] horseshoeImagesLoc = {"horseshoe_east.png", 
+			"horseshoe_north.png",
+			"horseshoe_south.png", "horseshoe_west.png", 
+			"horseshoe_northeast.png", "horseshoe_northwest.png",
+			"horseshoe_southeast.png", "horseshoe_southwest.png", 
+			"horseshoe_east.png"};
 	
 	/**locations of left facing turtle's images */
-	private static final String[] leftTurtleImagesLoc = {"images/BeachImages/bogturtle_left_0.png",
-		"images/BeachImages/bogturtle_left_1.png", "images/BeachImages/bogturtle_left_2.png"};
+	private static final String[] leftTurtleImagesLoc = {"bogturtle_left_0.png",
+		"bogturtle_left_1.png", "bogturtle_left_2.png"};
 	
 	/**locations of right facing turtle's images*/
-	private static final String[] rightTurtleImagesLoc = {"images/BeachImages/bogturtle_right_0.png",
-		"images/BeachImages/bogturtle_right_1.png", "images/BeachImages/bogturtle_right_2.png"};
+	private static final String[] rightTurtleImagesLoc = {"bogturtle_right_0.png",
+		"bogturtle_right_1.png", "bogturtle_right_2.png"};
 	
 	/** locations of protector images*/
-	private static final String[] protectorsLoc = {"images/BeachImages/grass.png", 
-		"images/BeachImages/oysters.png", "images/BeachImages/seawall.png"};
+	private static final String[] protectorsLoc = {"grass.png", 
+		"oysters.png", "seawall.png"};
 	
 	/**locations of shore images */
-	private static final String[] shoreImagesLoc = {"images/BeachImages/tile_sand_north.png",
-		"images/BeachImages/tile_sand_center.png", "images/BeachImages/tile_water_S.png", 
-		"images/BeachImages/tile_water_C.png", "images/BeachImages/tile_grass_north.png"};
+	private static final String[] shoreImagesLoc = {"tile_sand_north.png",
+		"tile_sand_center.png", "tile_water_S.png", 
+		"tile_water_C.png", "tile_grass_north.png"};
 	
 	/**locations of boat images */
-	private static final String[] boatImagesLoc = {"images/BeachImages/cruiseliner.png", "images/BeachImages/cruiselinerLeft.png", "images/BeachImages/sailboat.png",
-		"images/BeachImages/sailboatRight.png", "images/BeachImages/speedboat.png", "images/BeachImages/speedboatLeft.png"};
+	private static final String[] boatImagesLoc = {"cruiseliner.png", "cruiselinerLeft.png", "sailboat.png",
+		"sailboatRight.png", "speedboat.png", "speedboatLeft.png"};
+	
+	/** images for horseshoe crab */
+	private BufferedImage[] horseshoeImages = new BufferedImage[horseshoeImagesLoc.length];
 	
 	/**locations of wind images */
-	private static final String[] windImagesLoc = {"images/BeachImages/windLeft.png", "images/BeachImages/windRight.png"};
+	private static final String[] windImagesLoc = {"windLeft.png", "windRight.png"};
 	
 	/**array of blue crab images */
 	private BufferedImage[] crabImages = new BufferedImage[crabImagesLoc.length];
@@ -81,16 +94,16 @@ public class BeachView extends JPanel{
 	private BufferedImage[] windImages = new BufferedImage[windImagesLoc.length];
 	
 	/**the  background image*/
-	private BufferedImage background = createImage("images/BeachImages/background.png");
+	private BufferedImage background = createImage("background.png");
 	
 	/**tutorial images*/
-	BufferedImage title = createImage("images/BeachImages/Title.png");
-	BufferedImage tut1 = createImage("images/BeachImages/Tut2.png");
-	BufferedImage tut2 = createImage("images/BeachImages/Tut3.png");
-	BufferedImage tut3 = createImage("images/BeachImages/Tut4.png");
-	BufferedImage tut4 = createImage("images/BeachImages/Tut5.png");
-	BufferedImage tut5 = createImage("images/BeachImages/Tut6.png");
-	BufferedImage arrowDown = createImage("images/BeachImages/arrowDown.png");
+	BufferedImage title = createImage("Title.png");
+	BufferedImage tut1 = createImage("Tut2.png");
+	BufferedImage tut2 = createImage("Tut3.png");
+	BufferedImage tut3 = createImage("Tut4.png");
+	BufferedImage tut4 = createImage("Tut5.png");
+	BufferedImage tut5 = createImage("Tut6.png");
+	BufferedImage arrowDown = createImage("arrowDown.png");
 	
 	/**the height of the display*/
 	private int displayHeight;
@@ -106,7 +119,7 @@ public class BeachView extends JPanel{
 	private BufferedImage createImage(String fileName){ 
 		BufferedImage bufferedImage;
 		try {
-			bufferedImage = ImageIO.read(new File(fileName));
+			bufferedImage = ImageIO.read(new File("images/BeachImages/"+fileName));
 			return bufferedImage;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -123,7 +136,6 @@ public class BeachView extends JPanel{
 		this.setFocusable(true);
 		user = board.user;
 		//loads images into imageIcons
-		
 		for (int i = 0; i < protectors.length; i++){
 			protectors[i] = createImage(protectorsLoc[i]);
 		}
@@ -132,6 +144,7 @@ public class BeachView extends JPanel{
 		
 		for (int i = 0; i < leftTurtleImages.length; i++)
 			leftTurtleImages[i] = createImage(leftTurtleImagesLoc[i]);
+		
 		for (int i = 0; i < rightTurtleImages.length; i++)
 			rightTurtleImages[i] = createImage(rightTurtleImagesLoc[i]);
 		
@@ -143,6 +156,9 @@ public class BeachView extends JPanel{
 		
 		for (int i = 0; i < windImages.length; i++)
 			windImages[i] = createImage(windImagesLoc[i]);
+		
+		for (int i = 0; i < horseshoeImages.length; i++)
+			horseshoeImages[i] = createImage(horseshoeImagesLoc[i]);
 		
 		//sets up frame
 		frame = new JFrame();
@@ -203,7 +219,19 @@ public class BeachView extends JPanel{
 		}
 		
 		//drawing user
-		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), User.CRAB_WIDTH, User.CRAB_HEIGHT, null, this);
+		if (MainMenu.getCurState()==MainMenu.DE){
+			if(user.getDirection()!=-1){
+				horseshoeImages[8]=horseshoeImages[user.getDirection()];
+			}
+			g.drawImage(horseshoeImages[user.getDirection()],
+					user.getxLoc(), user.getyLoc(), User.CRAB_WIDTH, 
+					User.CRAB_HEIGHT, null, this);
+		}
+		else{
+			g.drawImage(crabImages[user.getPicNum()],user.getxLoc(),
+					user.getyLoc(), User.CRAB_WIDTH, User.CRAB_HEIGHT, 
+					null, this);
+		}
 		
 		//drawing the win timer
 		g.setColor(Color.GRAY);
