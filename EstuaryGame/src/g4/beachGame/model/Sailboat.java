@@ -10,7 +10,7 @@ public class Sailboat extends Boat{
 	/** constructor for a Sailboat*/
 	public Sailboat(){
 		int randomDir = 1+ (int) (Math.random() * 2);
-		int randomHeight = BOAT_HEIGHT + (int) (Math.random()*(Board.SHORE_HEIGHT-Board.RAISE)-BOAT_HEIGHT);
+		int randomHeight = BOAT_HEIGHT + (int) (Math.random()*(Board.SHORE_HEIGHT-200)-BOAT_HEIGHT);
 		if (randomDir==1){
 			this.xloc=0;
 			this.direction=true;
