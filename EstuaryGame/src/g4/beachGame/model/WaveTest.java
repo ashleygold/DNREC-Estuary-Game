@@ -63,7 +63,6 @@ public class WaveTest {
 		assertTrue(wave2.isOutOfRange());
 		
 		Wave wave3 = new Wave(cruiseliner);
-		wave3.xloc = 450;
 		wave3.xloc = 400;
 		assertFalse(wave3.isOutOfRange());
 	}

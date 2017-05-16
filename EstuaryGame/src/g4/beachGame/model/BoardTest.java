@@ -10,13 +10,18 @@ public class BoardTest {
 	Board b1 = new Board();
 	
 	@Test
-	public void tesetUpdateElapsedTime(){
+	public void testUpdateElapsedTime(){
 		b1.updateElapsedTime();
 		assertEquals(.001,b1.elapsedTime,1);
 	}
 	
 	@Test
 	public void testCreateWave() {
+		b1.elapsedTime = 20;
+		b1.createWave(new Sailboat());
+		assertEquals(1, b1.getCurrWaves().size());
+		
+		b1.elapsedTime = 17;
 		b1.createWave(new Sailboat());
 		assertEquals(1, b1.getCurrWaves().size());
 	}
@@ -44,9 +49,14 @@ public class BoardTest {
 	
 	@Test
 	public void testCreateBoat(){
+		b1.elapsedTime = 20;
 		for (int i = 0; i < 1000; i++)
 			b1.createBoat();
-		assertTrue(b1.currBoats.size()!=0);
+		assertNotNull(b1.currBoats);
+		
+		b1.elapsedTime = 17;
+		b1.createBoat();
+		assertNotNull(b1.currBoats);
 	}
 	
 	@Test
@@ -111,6 +121,7 @@ public class BoardTest {
 		b1.beach[1][4] = b1.WALL;
 		//b1.beach[2][4] = b1.WALL;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
+		b1.waveHit(1111, -1000);
 		
 		Wave wave2 = new Wave(10, 40, 300, b1.SHORE_HEIGHT+10);
 		b1.waveHit(wave2.getX(),wave2.getX()+wave2.getLength());
@@ -130,13 +141,13 @@ public class BoardTest {
 		assertEquals(Board.SHORE, b1.beach[1][4]);
 		
 		b1.beach[1][4]= Board.WATER;
-		b1.beach[2][4] = Board.WATER;
 		b1.waveHit(wave2.getX(),wave2.getX()+wave2.getLength());
 		assertTrue(b1.getIsShoreDestroyed());
 	}
 	
 	@Test
-	public void testIsInOcean(){
+	public void testIsInOcean(){ //method called in waveHit
+		//depth = 0
 		b1.user.setyLoc(200);
 		b1.beach[0][4]=b1.SHORE;
 		Wave wave = new Wave(10, 20, 350, b1.SHORE_HEIGHT+30);
@@ -148,11 +159,19 @@ public class BoardTest {
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
 		assertTrue(b1.user.isInOcean);
 		
+		b1.user.isInOcean = false;
 		b1.user.setyLoc(400);
+		b1.beach[0][4]=b1.SHORE;
+		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
+		assertFalse(b1.user.isInOcean);
+		
+		b1.user.setyLoc(251);
 		b1.beach[0][4]=b1.SHORE;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
 		assertTrue(b1.user.isInOcean);
 		
+		//depth = 1
+		b1.user.isInOcean = false;
 		b1.user.setyLoc(400);
 		b1.beach[0][4]=b1.WATER;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
@@ -161,18 +180,27 @@ public class BoardTest {
 		b1.user.isInOcean = false;
 		b1.user.setyLoc(325);
 		b1.beach[0][4]=b1.WATER;
+		b1.beach[1][4]=b1.SHORE;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
 		assertFalse(b1.user.isInOcean);
 		
 		b1.user.setyLoc(500);
-		b1.beach[0][4]=b1.WATER;
+		b1.beach[0][4]=Board.WATER;
+		b1.beach[1][4]=Board.SHORE;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
 		assertFalse(b1.user.isInOcean);
 		
 		b1.user.setyLoc(345);
-		b1.beach[0][4]=b1.WATER;
+		b1.beach[0][4]=Board.WATER;
+		b1.beach[1][4]=Board.SHORE;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertFalse(b1.user.isInOcean);
+		assertTrue(b1.user.isInOcean);
+		
+		b1.user.isInOcean = true;
+		b1.beach[0][4]=Board.WATER;
+		b1.beach[1][4]=Board.SHORE;
+		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
+		assertTrue(b1.user.isInOcean);
 	}
 	
 	@Test

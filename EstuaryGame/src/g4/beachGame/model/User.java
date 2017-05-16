@@ -67,6 +67,7 @@ public class User {
 	 * Moves the user by changing the direction of the user
 	 */
 	public void move() {
+		System.out.println(yLoc);
 		//checks nested in the interest of efficiency
 		if(direction!=STILL)
 			picNum = (picNum + .2) % frameCount;
@@ -89,7 +90,7 @@ public class User {
 					yLoc-=YINCR;
 				break;
 			case DOWN:
-				if (board.isShore(xLoc, yLoc+YINCR) || isInOcean || isOnEdge) 
+				if (board.isShore(xLoc, yLoc+YINCR) || isInOcean) 
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
@@ -107,13 +108,13 @@ public class User {
 				break;
 			case DOWN_RIGHT:
 				if (board.isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
-						|| isInOcean || isOnEdge){
+						|| isInOcean){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}
 				break;
 			case DOWN_LEFT:
-				if (board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean || isOnEdge){
+				if (board.isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
 					xLoc-= XINCR;
 					yLoc+= YINCR;
 				}
@@ -122,7 +123,6 @@ public class User {
 		if (isInOcean && board.isShore(xLoc, yLoc)){
 			isInOcean=false;
 		}
-		isOnEdge = (yLoc >= board.getHeight() - CRAB_HEIGHT - 10);
 	}
 	
 	public int getPicNum(){

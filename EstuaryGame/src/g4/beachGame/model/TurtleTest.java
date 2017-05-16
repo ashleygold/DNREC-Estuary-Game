@@ -64,7 +64,7 @@ public class TurtleTest {
 		assertTrue(turtle.isWater(370, 200));
 		b1.beach[0][4] = Board.WATER;
 		assertTrue(turtle.isWater(370, 350));
-		assertFalse(turtle.isWater(300, Board.HEIGHT));
+		assertFalse(turtle.isWater(300, Board.HEIGHT+1));
 		assertFalse(turtle.isWater(-1, 200));
 		assertFalse(turtle.isWater(Board.WIDTH, 450));
 		assertFalse(turtle.isWater(300, 600));

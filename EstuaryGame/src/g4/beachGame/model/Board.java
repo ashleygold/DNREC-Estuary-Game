@@ -226,7 +226,7 @@ public class Board {
 			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
 				depth++;
 			}
-			if (depth == beach.length-1){ // the shore has reached the bottom of the screen
+			if (depth == beach.length-1){ // the shore is about to reach the bottom of the screen
 				isShoreDestroyed = true;
 				beach[depth][i] = WATER;
 			}
@@ -259,17 +259,10 @@ public class Board {
 					user.isInOcean = true;
 				}
 			}
-			else if (depth == 1) {
+			else{
 				if ((user.getyLoc() >= TOP_ROW2 && user.getyLoc() <= TOP_ROW3)
 						|| user.getyLoc() + User.CRAB_HEIGHT >= TOP_ROW2
 								&& user.getyLoc() + User.CRAB_HEIGHT <= TOP_ROW3) {
-					user.isInOcean = true;
-				}
-			}
-			else if (depth == 2) {
-				if ((user.getyLoc() >= TOP_ROW3 && user.getyLoc() <= HEIGHT)
-						|| user.getyLoc() + User.CRAB_HEIGHT >= TOP_ROW3
-								&& user.getyLoc() + User.CRAB_HEIGHT <= HEIGHT) {
 					user.isInOcean = true;
 				}
 			}

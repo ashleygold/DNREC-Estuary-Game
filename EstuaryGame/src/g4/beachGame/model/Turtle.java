@@ -86,7 +86,6 @@ public class Turtle {
 			//if grass at diagonal location
 			else if (board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
 					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc-XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
-				System.out.println("going left hit grass");
 				xLoc-=XINCR;
 				yLoc-=YINCR;
 			}
@@ -115,7 +114,6 @@ public class Turtle {
 				gotToOcean= true;
 			else if (board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS_L ||
 					board.beach[(int) (Math.ceil((yLoc-YINCR)*6/Board.HEIGHT))-3][(xLoc+XINCR)*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]==Board.GRASS){
-				System.out.println("going right hit grass");
 				xLoc+= XINCR;
 				yLoc-= YINCR;
 			}
@@ -160,7 +158,7 @@ public class Turtle {
 		int cell = Board.SHORE;
 		if (y<=3 && xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100)
 			return true;
-		else if (x>11 || y>6)
+		else if (x>11 || y>6||x<=0)
 			return false;
 		else
 			cell = board.beach[y-4][x];
