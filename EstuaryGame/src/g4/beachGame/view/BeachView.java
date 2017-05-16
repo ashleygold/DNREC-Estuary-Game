@@ -83,6 +83,15 @@ public class BeachView extends JPanel{
 	/**the  background image*/
 	private BufferedImage background = createImage("images/BeachImages/background.png");
 	
+	/**tutorial images*/
+	BufferedImage title = createImage("images/BeachImages/Title.png");
+	BufferedImage tut1 = createImage("images/BeachImages/Tut2.png");
+	BufferedImage tut2 = createImage("images/BeachImages/Tut3.png");
+	BufferedImage tut3 = createImage("images/BeachImages/Tut4.png");
+	BufferedImage tut4 = createImage("images/BeachImages/Tut5.png");
+	BufferedImage tut5 = createImage("images/BeachImages/Tut6.png");
+	BufferedImage arrowDown = createImage("images/BeachImages/arrowDown.png");
+	
 	/**the height of the display*/
 	private int displayHeight;
 	
@@ -152,12 +161,9 @@ public class BeachView extends JPanel{
 	 * Paints all graphics to the screen
 	 */
 	public void paint(Graphics g){
+		//drawing board
 		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
 		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
-		g.setColor(Color.darkGray);
-		g.fillRect(0, board.getHeight() - Board.RAISE*2, board.getWidth(), 100); //goal to protect
-		g.setColor(Color.GREEN);
-		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)(board.TOTAL_HOURS-board.hoursLeft)/board.TOTAL_HOURS)), 100);
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){
 			for (int col = 0; col < board.beach[0].length; col++){
@@ -173,6 +179,11 @@ public class BeachView extends JPanel{
 				if (board.beach[row][col] != Board.SHORE)
 					g.drawImage(image, col*(board.getWidth() - 100)/12 -1, board.posArr[row] - 1, (board.getWidth() - 100)/12 +2, board.getHeight()/6 +2, null, this);
 			}
+		}
+		
+		//draws protectors
+		for (int i = 0; i < protectors.length; i++){
+			g.drawImage(protectors[i], board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
 		}
 		
 		//if user is holding a protector, draw it attached to user
@@ -191,12 +202,16 @@ public class BeachView extends JPanel{
 			g.drawImage(image, user.getxLoc(), user.getyLoc()-30, User.CRAB_WIDTH, 40, null, this);
 		}
 		
-		//draws protectors
-		for (int i = 0; i < protectors.length; i++){
-			g.drawImage(protectors[i], board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
-		}
-		
+		//drawing user
 		g.drawImage(crabImages[user.getPicNum()], user.getxLoc(), user.getyLoc(), User.CRAB_WIDTH, User.CRAB_HEIGHT, null, this);
+		
+		//drawing the win timer
+		g.setColor(Color.GRAY);
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, board.getWidth(), 100); //goal to protect
+		g.setColor(Color.GREEN);
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)(board.TOTAL_HOURS-board.hoursLeft)/board.TOTAL_HOURS)), 100);
+		
+		//drawing turtles
 		Iterator<Turtle> turtleIt = board.getCurrTurtles().iterator();
 		while (turtleIt.hasNext()){
 			Turtle turtle = turtleIt.next();
@@ -211,47 +226,74 @@ public class BeachView extends JPanel{
 			g.fillRect(turtle.getxLoc()+turtle.getWidth(), turtle.getyLoc(), turtle.getFramesLeft()/60, 10);
 		}
 		
-		Iterator<Boat> boatIt = board.getCurrBoats().iterator();
-		BufferedImage boatImage = null;
-		while (boatIt.hasNext()){
-			Boat currBoat = boatIt.next();
-			if (currBoat instanceof CruiseLiner){
-				if (currBoat.getDirection())
-					boatImage = boatImages[0];
-				else
-					boatImage = boatImages[1];
+		//drawing tutorial graphics
+		if(user.getxLoc()==100 && user.getyLoc()==450){
+			g.drawImage(tut1, 20, 360, Color.DARK_GRAY, this);
+		}
+		if(board.hoursLeft>=24){
+			g.drawImage(title, 400, 75, Color.DARK_GRAY, this);
+		}
+		else if(board.hoursLeft>=23){
+			g.drawImage(tut2, 300, 400, Color.DARK_GRAY, this);
+			g.drawImage(arrowDown, 430, 510, null, this);
+		}
+		else if(board.hoursLeft>=21){
+			g.drawImage(tut3, 690, 200, Color.DARK_GRAY, this);
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(1000, 247, 50, 40);
+			g.drawImage(arrowDown, 1000, 250, Color.DARK_GRAY, this);
+		}
+		else if(board.hoursLeft>=20){
+			g.drawImage(tut4, 300, 350, Color.DARK_GRAY, this);
+		}
+		else if(board.hoursLeft>=18){
+			g.drawImage(tut5, 400, 350, Color.DARK_GRAY, this);
+		}
+		else{
+			Iterator<Boat> boatIt = board.getCurrBoats().iterator();
+			BufferedImage boatImage = null;
+			while (boatIt.hasNext()){
+				Boat currBoat = boatIt.next();
+				if (currBoat instanceof CruiseLiner){
+					if (currBoat.getDirection())
+						boatImage = boatImages[0];
+					else
+						boatImage = boatImages[1];
+				}
+				else if (currBoat instanceof Sailboat){
+					if (currBoat.getDirection())
+						boatImage = boatImages[3];
+					else
+						boatImage = boatImages[2];
+				}
+				else{
+					if (currBoat.getDirection())
+						boatImage = boatImages[4];
+					else
+						boatImage = boatImages[5];
+				}
+				g.drawImage(boatImage, currBoat.getXLoc()+10, currBoat.getYLoc()+10, 60, 50, null, this);
 			}
-			else if (currBoat instanceof Sailboat){
-				if (currBoat.getDirection())
-					boatImage = boatImages[3];
-				else
-					boatImage = boatImages[2];
+			
+			g.setColor(Color.CYAN);
+			Iterator<Wave> wavesIt = board.getCurrWaves().iterator();
+			while (wavesIt.hasNext()){
+				Wave currWave = wavesIt.next();
+				g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
 			}
-			else{
-				if (currBoat.getDirection())
-					boatImage = boatImages[4];
-				else
-					boatImage = boatImages[5];
+			Iterator<Wave> splitWavesIt = board.getSplitWaves().iterator();
+			while (splitWavesIt.hasNext()){
+				Wave sWave = splitWavesIt.next();
+				g.fillRect(sWave.getX()+10, sWave.getY()+10, sWave.getLength(), 10);
 			}
-			g.drawImage(boatImage, currBoat.getXLoc()+10, currBoat.getYLoc()+10, 60, 50, null, this);
+			
+			if (Wave.getWindFace()==1)
+				g.drawImage(windImages[1], 0, 0, 70, 60, null, this);
+			else if (Wave.getWindFace()==-1)
+				g.drawImage(windImages[0], 1010, 0, 70, 60, null, this);
 		}
 		
-		g.setColor(Color.CYAN);
-		Iterator<Wave> wavesIt = board.getCurrWaves().iterator();
-		while (wavesIt.hasNext()){
-			Wave currWave = wavesIt.next();
-			g.fillRect(currWave.getX()+10, currWave.getY()+10, currWave.getLength(), 10);
-		}
-		Iterator<Wave> splitWavesIt = board.getSplitWaves().iterator();
-		while (splitWavesIt.hasNext()){
-			Wave sWave = splitWavesIt.next();
-			g.fillRect(sWave.getX()+10, sWave.getY()+10, sWave.getLength(), 10);
-		}
-		
-		if (Wave.getWindFace()==1)
-			g.drawImage(windImages[1], 0, 0, 70, 60, null, this);
-		else if (Wave.getWindFace()==-1)
-			g.drawImage(windImages[0], 1010, 0, 70, 60, null, this);
 	}
+	
 }
 

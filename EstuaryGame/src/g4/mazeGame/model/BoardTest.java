@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class BoardTest {
 	Board board = new Board(3,0);
-	User user = new User(board);
+	User user = board.getUser();
 
 	@Test
 	public void testIsEmpty(){
@@ -52,8 +52,7 @@ public class BoardTest {
 	
 	@Test
 	public void testGetUser(){
-		//WHY DOES THIS FAIL???????
-		assertEquals(user.hashCode(), board.getUser().hashCode());
+		assertEquals(user, board.getUser());
 	}
 	
 	@Test

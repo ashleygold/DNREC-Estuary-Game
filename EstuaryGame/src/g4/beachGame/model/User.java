@@ -12,7 +12,7 @@ public class User {
 	private final static int BUFFER = 30;
 	
 	/**starting x location of user*/
-	private final int DEFAULTX = 15;
+	private final int DEFAULTX = 100;
 	
 	/**starting y location of user*/
 	private final int DEFAULTY = 450;
