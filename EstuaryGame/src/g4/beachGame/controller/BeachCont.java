@@ -18,7 +18,7 @@ public class BeachCont implements MiniGameController{
 	/**Creating an instance of a board for the beach game*/
 	private Board board1 = new Board();
 	
-	/**Creating an instance of beach view */
+	/**Creating an instance of beach view*/
 	private BeachView bView;
 	
 	/**Variable to declare if the game is over*/
@@ -153,7 +153,6 @@ public class BeachCont implements MiniGameController{
 					board1.getCurrWaves().add(wave);
 					splitWavesIt.remove();
 				}
-				//System.out.println(board1.getCurrWaves());
 				Iterator<Wave> wavesIt2 = board1.getCurrWaves().iterator();
 				while (wavesIt2.hasNext()){
 					Wave currWave2 = wavesIt2.next();
@@ -163,7 +162,6 @@ public class BeachCont implements MiniGameController{
 					else{
 						if ((int)(Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3 == 3 || currWave2.getX()+currWave2.getLength()>Board.SHORE_WIDTH ||
 								(currWave2.getY() >= Board.SHORE_HEIGHT && board1.beach[(int) (Math.ceil(currWave2.getY()*6/Board.HEIGHT))-3][currWave2.getX()*Board.SPACES_OF_SHORE/Board.SHORE_WIDTH]!=Board.WATER)){
-							System.out.println("Calling waveHit");
 							board1.waveHit(currWave2.getX(), currWave2.getX()+currWave2.getLength());
 							wavesIt2.remove();
 						}
