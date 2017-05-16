@@ -26,7 +26,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import g4.mainController.MainMenu;
-import g4.storyGame.model.Cube;
 import g4.storyGame.model.Table;
 
 public class StoryView extends JPanel{
@@ -120,7 +119,7 @@ public class StoryView extends JPanel{
 		refTable = t;
 		
 		//set up window
-		frame = new JFrame();
+		frame = new JFrame("Minigame 3: Story Cubes");
 		frame.getContentPane().add(this);
 		frame.setBackground(MainMenu.BACKGROUND_BLUE);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -286,23 +285,24 @@ public class StoryView extends JPanel{
 		}
 		
 		//draw finalized images
-		for (int i = 0; i < refTable.getFinished().size(); i++){
+		for (int i = 0; i < refTable.getFinishedSize(); i++){
 			g.drawImage(images[refTable.getCubeAt(i, false).getImg()],
 					IMG_WIDTH/2 + (int)(i*1.2*IMG_WIDTH), FRAME_HEIGHT - 5*IMG_HEIGHT/2,
 					null, this);
 		}
 		
-		for (Cube i : refTable.getDice()){
-			if (!i.isFixed()){
-				g.drawImage(title, 75, 200, Color.DARK_GRAY, this);
-				g.drawImage(tut1, 375, 225, Color.DARK_GRAY, this);
+		//if all cubes have been clicked
+		if (refTable.areAllMoved()) {
+			g.drawImage(tut3, 15*IMG_WIDTH/2, FRAME_HEIGHT - IMG_HEIGHT, Color.DARK_GRAY, this);
+		} else {
+			g.drawImage(title, 2*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
+			if (refTable.areAllFixed()){
+				//movement prompt
+				g.drawImage(tut2, 4*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
+			} else {
+				//rolling prompt
+				g.drawImage(tut1, 4*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
 			}
-			else if(refTable.getDice().size()==refTable.getFinished().size())
-				g.drawImage(tut3, 820, 610, Color.DARK_GRAY, this);
-			else if(i.isFixed()){
-				g.drawImage(title, 75, 200, Color.DARK_GRAY, this);
-				g.drawImage(tut2, 375, 225, Color.DARK_GRAY, this);
-			}	
 		}
 	}
 	
