@@ -249,7 +249,7 @@ public class Board {
 	}
 	/**
 	 * Opens the goal to allow the user to win.  Called when the user collects all the food.
-	 * @return Returns true when gate is opened.  
+	 * Returns true when gate is opened.  
 	 */
 	protected boolean openGate(){
 		int x = 0;

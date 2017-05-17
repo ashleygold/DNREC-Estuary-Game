@@ -39,7 +39,7 @@ public class MazeView extends JPanel{
 	/** the buffer on the edge of the screen for progress bars */
 	private final int BAR_BUFFER;
 	
-	/** height of progress bars (salinity and food) */
+	/** height of progress bars (salinity & food) */
 	private final int BAR_HEIGHT;
 	
 	/** width of each block in the salinity bar */
