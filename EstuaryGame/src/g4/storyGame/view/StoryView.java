@@ -189,7 +189,7 @@ public class StoryView extends JPanel{
 			if (refTable.areAllMoved()){
 				//quit button
 				JButton quit = new JButton("Return to Menu");
-				quit.setFont(new Font("SansSerif", Font.BOLD, 20));
+				quit.setFont(new Font("Findet Nemo", Font.PLAIN, 40));
 				quit.setBackground(MainMenu.SEA_GREEN);
 				quit.setForeground(MainMenu.TEXT_BROWN);
 				quit.addActionListener(new ActionListener(){
@@ -204,7 +204,7 @@ public class StoryView extends JPanel{
 				
 				//submit
 				JButton submit = new JButton("Submit");
-				submit.setFont(new Font("SansSerif", Font.BOLD, 20));
+				submit.setFont(new Font("Findet Nemo", Font.PLAIN, 40));
 				submit.setBackground(MainMenu.SEA_GREEN);
 				submit.setForeground(MainMenu.TEXT_BROWN);
 				submit.addActionListener(new ActionListener(){
@@ -303,7 +303,7 @@ public class StoryView extends JPanel{
 		if (refTable.areAllMoved()) {
 			g.drawImage(tut3, 15*IMG_WIDTH/2, FRAME_HEIGHT - IMG_HEIGHT, Color.DARK_GRAY, this);
 		} else {
-			g.drawImage(title, 2*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
+			g.drawImage(title, IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);
 			if (refTable.areAllFixed()){
 				//movement prompt
 				g.drawImage(tut2, 4*IMG_HEIGHT, 2*IMG_HEIGHT, Color.DARK_GRAY, this);

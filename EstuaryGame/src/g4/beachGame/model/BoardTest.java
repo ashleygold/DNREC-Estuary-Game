@@ -241,7 +241,10 @@ public class BoardTest {
 		assertEquals(-1, b1.getProtector());
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 4b5ff871b5e38cdc360d6478d11b48a7a3954835
 	@Test
 	public void testGetWidth(){
 		assertEquals(Board.WIDTH, b1.getWidth());

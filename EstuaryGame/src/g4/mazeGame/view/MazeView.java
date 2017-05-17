@@ -8,11 +8,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import g4.mainController.MainMenu;
@@ -39,6 +42,21 @@ public class MazeView extends JPanel{
 	
 	/** default left corner of salinity bar */
 	private final int SALINITY_LEFT_CORNER;
+	
+	/** control codes which handle transition buttons */
+	public static final byte MESSAGE_TUTORIAL = 0, MESSAGE_STAGE = 1, 
+			MESSAGE_VICTORY = 2, MESSAGE_FAILURE = 3;
+	
+	/** strings for transition buttons */
+	private final String[] transitionText = {
+			"Great job!<br><br>Click to start the first stage",
+			"Great job!<br><br>The salinity has decreased by 33%<br>Click to advance to the next stage",
+			"You win!<br><br>You made it to an area of <br>lower salinity, so now you<br>can grow big and strong!",
+			"You were eaten!<br><br>Click to restart the<br>stage you were on"
+	};
+	
+	/** knows if the transition JButton has been pressed */
+	private boolean isTransitionActive = false;
 	
 	/** blue crab image locations */
 	private static final String[] crabImagesLoc = {"bluecrab_0.png",
@@ -84,15 +102,8 @@ public class MazeView extends JPanel{
 	private final Font labelF;
 	
 	/** images for tutorial */
-	private BufferedImage tut1;
-	private BufferedImage tut2;
-	private BufferedImage tut3;
-	private BufferedImage tut4;
-	private BufferedImage tut5;
-	private BufferedImage tut6;
-	private BufferedImage arrowUp;
-	private BufferedImage arrowRight;
-			
+	private BufferedImage tut1, tut2, tut3, tut4, tut5, tut6, arrowUp, arrowRight;
+	
 	/**
 	 * Constructs a MazeView object set up to display the parameter board
 	 * @param board the board which the view displays
@@ -156,6 +167,7 @@ public class MazeView extends JPanel{
 	 */
 	public void changeBoard(Board board){
 		this.board = board;
+		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
 	}
 	
 	/**
@@ -194,124 +206,162 @@ public class MazeView extends JPanel{
 	}
 	
 	/**
+	 * This adds a transition text JButton to the screen when an event occurs
+	 * @param code the transition menu identification key
+	 */
+	public void messageInterrupt(byte code){
+		isTransitionActive = true;
+		JButton message = new JButton("<html><center>" + transitionText[code] + "</center></html>");
+		message.setBounds(0,0,getWidth(),getHeight());
+		message.setFont(new Font("Findet Nemo", Font.PLAIN, 40));
+		message.setBackground(MainMenu.SEA_GREEN);
+		message.setForeground(MainMenu.TEXT_BROWN);
+		message.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				handleMessageClick(message);
+			}
+		});
+		add(message);
+	}
+	
+	/**
+	 * This function removes transition JButtons from the screen when they are clicked
+	 * @param mes the JButton which triggered the event
+	 */
+	private void handleMessageClick(JButton mes){
+		this.remove(mes);
+		isTransitionActive = false;
+	}
+	
+	public boolean isTransitionActive(){
+		return isTransitionActive;
+	}
+	
+	/**
 	 * Draws all the information from the board onto the screen, called once per tick
 	 * @param g object which does the actual painting
 	 */
 	@Override
 	public void paint(Graphics g)
 	{
-		//fix antialiasing for text
-		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
-				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		for(int x=0; x<board.getWidth();x++){
-			for(int y=0;y<board.getHeight();y++)
-			{
-				char c=board.getCell(x,y);
-				switch(c)
+		if (!isTransitionActive){
+			//fix antialiasing for text
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			for(int x=0; x<board.getWidth();x++){
+				for(int y=0;y<board.getHeight();y++)
 				{
-					case '.':case '^':
-						g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
-						break;
-					case '#':case '*':
-						g.drawImage(seaWall, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
-						break;
-					case 'o':
-						g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
-						g.drawImage(foodTiles[(x+y)%foodTiles.length], x*SLOT_SPACE, y*SLOT_SPACE, null, this);
-						break;
-					case 'W':
-						g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
-						g.drawImage(winGateUp, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+					char c=board.getCell(x,y);
+					switch(c)
+					{
+						case '.':case '^':
+							g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+							break;
+						case '#':case '*':
+							g.drawImage(seaWall, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+							break;
+						case 'o':
+							g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+							g.drawImage(foodTiles[(x+y)%foodTiles.length], x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+							break;
+						case 'W':
+							g.drawImage(water, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+							g.drawImage(winGateUp, x*SLOT_SPACE, y*SLOT_SPACE, null, this);
+					}
 				}
 			}
-		}
-		
-		//spawning all predators
-		for(Predator x : board.getPredator()){
-			g.drawImage(turtleImages[x.getDirection()],
-					(int)(x.getXLoc()*SLOT_SPACE),
-					(int)(x.getYLoc()*SLOT_SPACE), null, this);
-		}
-		
-		//spawning user
-		if (MainMenu.getCurState()==MainMenu.DE){
-			if(board.getUser().getDirection()!=-1){
-				horseshoeImages[8]=horseshoeImages[board.getUser().getDirection()];
-			}
-			g.drawImage(horseshoeImages[board.getUser().getDirection()],
-					(int)(board.getUser().getXLoc()*SLOT_SPACE),
-					(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
-		}
-		else{
-			g.drawImage(crabImages[board.getUser().getPicNum()],
-					(int)(board.getUser().getXLoc()*SLOT_SPACE),
-					(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
-		}
-		
-		//creating food bar
-		g.setColor(Color.GRAY);
-		g.fillRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
-		
-		g.setColor(Color.GREEN);
-		g.fillRect(BAR_BUFFER, BAR_BUFFER, board.getUser().getFoodCount()*SLOT_SPACE/2, BAR_HEIGHT);
-		
-		g.setColor(Color.WHITE);
-		g.drawRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
-		
-		g.setFont(labelF);
-		g.setColor(Color.BLACK);
-		drawCenteredLine(g, "F O O D", new Rectangle(BAR_BUFFER,BAR_BUFFER,board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT));
-		
-		//creating salinity bar
-		g.setColor(Color.GRAY);
-		g.fillRect(SALINITY_LEFT_CORNER, BAR_BUFFER, 
-				Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
-		g.setColor(Color.WHITE);
-		
-		if (board.getGoalFood() != 5){
-			g.fillRect(SALINITY_LEFT_CORNER + 
-					(Board.MAX_SALINITY - board.getSalinity())*SALINITY_CHUNK_WIDTH,
-					BAR_BUFFER, board.getSalinity()*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
-		}
-		else{
-			g.fillRect(SALINITY_LEFT_CORNER,
-					BAR_BUFFER,	SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY, BAR_HEIGHT);
-		}
-		g.setColor(Color.GREEN);
-		g.drawRect(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
-		
-		g.setFont(labelF);
-		g.setColor(Color.BLACK);
-		drawCenteredLine(g, "S A L I N I T Y",
-				new Rectangle(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT));
-		
-		//tutorial
-		if(board.getSalinity()==4){
-			//logo
-			g.drawImage(tut1, SLOT_SPACE, SLOT_SPACE*9, Color.DARK_GRAY, this);
-			g.setColor(Color.DARK_GRAY);
 			
-			if(board.getUser().getXLoc() == 15 && board.getUser().getYLoc()==15){
-				//first instructions (movement)
-				g.drawImage(tut2, SLOT_SPACE*13, 13*SLOT_SPACE, Color.DARK_GRAY, this);
-			} else if(board.getUser().getFoodCount()<board.getGoalFood()-2){
-				//food instructions
-				g.drawImage(tut3, SLOT_SPACE/2, 5*SLOT_SPACE/2, Color.DARK_GRAY, this);
-				g.drawImage(arrowUp, SLOT_SPACE, SLOT_SPACE, null, this);
-			}
-			else if(board.getUser().getFoodCount()>=board.getGoalFood()-2 &&
-					board.getUser().getFoodCount()<board.getGoalFood()){
-				//salinity instructions
-				g.drawImage(tut4, 23*SLOT_SPACE/2, 5*SLOT_SPACE/2, Color.DARK_GRAY, this);
-				g.drawImage(arrowUp, 29*SLOT_SPACE/2, SLOT_SPACE, null, this);
-				g.drawImage(tut5, 12*SLOT_SPACE, 7*SLOT_SPACE, Color.DARK_GRAY, this);
-			}
-			else if(board.getUser().getFoodCount()==board.getGoalFood()){
-				//exit instructions
-				g.drawImage(tut6, 7*SLOT_SPACE/2, SLOT_SPACE/2, Color.DARK_GRAY, this);
-				g.drawImage(arrowRight, 15*SLOT_SPACE/2, SLOT_SPACE/3, null, this);
+			//spawning all predators
+			for(Predator x : board.getPredator()){
+				g.drawImage(turtleImages[x.getDirection()],
+						(int)(x.getXLoc()*SLOT_SPACE),
+						(int)(x.getYLoc()*SLOT_SPACE), null, this);
 			}
 			
-		}		
+			//spawning user
+			if (MainMenu.getCurState()==MainMenu.DE){
+				if(board.getUser().getDirection()!=-1){
+					horseshoeImages[8]=horseshoeImages[board.getUser().getDirection()];
+				}
+				g.drawImage(horseshoeImages[board.getUser().getDirection()],
+						(int)(board.getUser().getXLoc()*SLOT_SPACE),
+						(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
+			}
+			else{
+				g.drawImage(crabImages[board.getUser().getPicNum()],
+						(int)(board.getUser().getXLoc()*SLOT_SPACE),
+						(int)(board.getUser().getYLoc()*SLOT_SPACE), null, this);
+			}
+			
+			//creating food bar
+			g.setColor(Color.GRAY);
+			g.fillRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
+			
+			g.setColor(Color.GREEN);
+			g.fillRect(BAR_BUFFER, BAR_BUFFER, board.getUser().getFoodCount()*SLOT_SPACE/2, BAR_HEIGHT);
+			
+			g.setColor(Color.WHITE);
+			g.drawRect(BAR_BUFFER, BAR_BUFFER, board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT);
+			
+			g.setFont(labelF);
+			g.setColor(Color.BLACK);
+			drawCenteredLine(g, "F O O D", new Rectangle(BAR_BUFFER,BAR_BUFFER,board.getGoalFood()*SLOT_SPACE/2, BAR_HEIGHT));
+			
+			//creating salinity bar
+			g.setColor(Color.GRAY);
+			g.fillRect(SALINITY_LEFT_CORNER, BAR_BUFFER, 
+					Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
+			g.setColor(Color.WHITE);
+			
+			if (board.getGoalFood() != 5){
+				g.fillRect(SALINITY_LEFT_CORNER + 
+						(Board.MAX_SALINITY - board.getSalinity())*SALINITY_CHUNK_WIDTH,
+						BAR_BUFFER, board.getSalinity()*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
+			}
+			else{
+				g.fillRect(SALINITY_LEFT_CORNER,
+						BAR_BUFFER,	SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY, BAR_HEIGHT);
+			}
+			g.setColor(Color.GREEN);
+			g.drawRect(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT);
+			
+			g.setFont(labelF);
+			g.setColor(Color.BLACK);
+			drawCenteredLine(g, "S A L I N I T Y",
+					new Rectangle(SALINITY_LEFT_CORNER, BAR_BUFFER, Board.MAX_SALINITY*SALINITY_CHUNK_WIDTH, BAR_HEIGHT));
+			
+			//tutorial
+			if(board.getSalinity()==4){
+				//logo
+				g.drawImage(tut1, SLOT_SPACE, SLOT_SPACE*9, Color.DARK_GRAY, this);
+				g.setColor(Color.DARK_GRAY);
+				
+				if(board.getUser().getXLoc() == 15 && board.getUser().getYLoc()==15){
+					//first instructions (movement)
+					g.drawImage(tut2, SLOT_SPACE*13, 13*SLOT_SPACE, Color.DARK_GRAY, this);
+				} else if(board.getUser().getFoodCount()<board.getGoalFood()-2){
+					//food instructions
+					g.drawImage(tut3, SLOT_SPACE/2, 5*SLOT_SPACE/2, Color.DARK_GRAY, this);
+					g.drawImage(arrowUp, SLOT_SPACE, SLOT_SPACE, null, this);
+				}
+				else if(board.getUser().getFoodCount()>=board.getGoalFood()-2 &&
+						board.getUser().getFoodCount()<board.getGoalFood()){
+					//salinity instructions
+					g.drawImage(tut4, 23*SLOT_SPACE/2, 5*SLOT_SPACE/2, Color.DARK_GRAY, this);
+					g.drawImage(arrowUp, 29*SLOT_SPACE/2, SLOT_SPACE, null, this);
+					g.drawImage(tut5, 12*SLOT_SPACE, 7*SLOT_SPACE, Color.DARK_GRAY, this);
+				}
+				else if(board.getUser().getFoodCount()==board.getGoalFood()){
+					//exit instructions
+					g.drawImage(tut6, 7*SLOT_SPACE/2, SLOT_SPACE/2, Color.DARK_GRAY, this);
+					g.drawImage(arrowRight, 15*SLOT_SPACE/2, SLOT_SPACE/3, null, this);
+				}
+				
+			}
+		} else {
+			//repaints JButton
+			super.paint(g);
+		}
 	}
 }

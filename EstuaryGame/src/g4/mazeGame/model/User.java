@@ -52,7 +52,7 @@ public class User {
 	private int direction = STILL;
 	
 	/**center of the user image- used for collision detection */
-	public final static double CENTER_IMG=0.5;
+	private final static double CENTER_IMG=0.5;
 	
 	/**hit box buffer*/
 	private final static double BUFFER=0.375;
@@ -77,7 +77,7 @@ public class User {
 	/**
 	 * checks if a space on the board is food, if so the user "eats" the food
 	 */
-	public void checkFood(){
+	private void checkFood(){
 		if (board.eatFood(xLoc + CENTER_IMG, yLoc + CENTER_IMG)){
 			foodCount++;
 		}
@@ -148,7 +148,7 @@ public class User {
 			} else if (tryMove(MOVE_VECTOR[tryDir][3])){
 				return true;
 				//see if x/y can be slightly changed to allow movement
-			} else if (MOVE_VECTOR[tryDir][0] * (2 * (xLoc - (int)xLoc) - 1) >
+			} else if (MOVE_VECTOR[tryDir][0] * (2 * (xLoc - (int)xLoc) - 1) <
 						MOVE_VECTOR[tryDir][1] * (2 * (yLoc - (int)yLoc) - 1)){
 				xLoc -= DIAG_MOVE_SPEED * MOVE_VECTOR[tryDir][0];
 				return tryMove(tryDir);
@@ -161,11 +161,11 @@ public class User {
 		return false;		
 	}
 	
-	public void setXLoc(double x){
+	protected void setXLoc(double x){
 		xLoc=x;
 	}
 	
-	public void setYLoc(double y){
+	protected void setYLoc(double y){
 		yLoc=y;
 	}
 	
@@ -189,7 +189,7 @@ public class User {
 		return foodCount;
 	}
 	
-	public void setFoodCount(int food) {
+	protected void setFoodCount(int food) {
 		foodCount=food;
 	}
 	

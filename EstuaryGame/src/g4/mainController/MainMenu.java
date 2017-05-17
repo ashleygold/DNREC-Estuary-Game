@@ -82,6 +82,8 @@ public class MainMenu extends JPanel{
 		    e.printStackTrace();
 		}
 		
+		Font buttonF = new Font("Findet Nemo", Font.PLAIN, 40);
+		
 		//create and set up frame defaults
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new MainMenu());
@@ -91,10 +93,9 @@ public class MainMenu extends JPanel{
 		
 		//create buttons
 		JButton[] choices = new JButton[4];
-		for (int i = 0; i < choices.length; i++)
-		choices[0] = new JButton("Maze Game");
-		choices[1] = new JButton("Beach Game");
-		choices[2] = new JButton("Story Cube Game");
+		choices[0] = new JButton("Maze");
+		choices[1] = new JButton("<html><center>Shore<br>Defense</center></html>");
+		choices[2] = new JButton("<html><center>Story<br>Cubes</center></html>");
 		choices[3] = new JButton("Exit");
 		
 		JButton[] states = new JButton[3];
@@ -106,10 +107,12 @@ public class MainMenu extends JPanel{
 		for (JButton b : choices) {
 			b.setBackground(SEA_GREEN);
 			b.setForeground(TEXT_BROWN);
+			b.setFont(buttonF);
 		}
 		for (JButton b : states) {
 			b.setBackground(TEXT_BROWN);
 			b.setForeground(SEA_GREEN);
+			b.setFont(buttonF);
 		}
 		
 		//creates action on click for each button
@@ -180,7 +183,7 @@ public class MainMenu extends JPanel{
 		frame.add(state);
 		state.setBounds(340, 30, 300, 75);
 		state.setSize(300, 75);
-		state.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+		state.setFont(new Font("Findet Nemo", Font.PLAIN, 50));
 		state.setForeground(SEA_GREEN);
 		
 		//creates action on click for each state button
