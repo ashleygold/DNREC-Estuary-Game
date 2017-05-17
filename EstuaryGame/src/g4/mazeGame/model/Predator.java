@@ -71,6 +71,7 @@ public class Predator {
 	 */
 	public boolean move() {
 		if (direction < 4){
+			//ordinal direction
 			if (board.isEmptyPred(xLoc + CENTER_IMG + MOVE_VECTOR[direction][0]*(MOVE_SPEED + BUFFER), 
 					yLoc + CENTER_IMG + MOVE_VECTOR[direction][1]*(MOVE_SPEED + BUFFER))){
 				xLoc += MOVE_VECTOR[direction][0]*MOVE_SPEED;
@@ -78,7 +79,8 @@ public class Predator {
 			} else {
 				newDirection();
 			}
-		} else if (direction < 8){
+		} else {
+			//diagonal direction
 			if (board.isEmptyPred(xLoc + CENTER_IMG + MOVE_VECTOR[direction][0]*(DIAG_MOVE_SPEED + DIAG_BUFFER), 
 					yLoc + CENTER_IMG + MOVE_VECTOR[direction][1]*(DIAG_MOVE_SPEED + DIAG_BUFFER))){
 				xLoc += MOVE_VECTOR[direction][0]*DIAG_MOVE_SPEED;
@@ -87,7 +89,8 @@ public class Predator {
 				newDirection();
 			}
 		}
-		return checkEat();
+		//checks if the predator is close enough to eat the user
+		return (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5);
 	}
 	
 	/**
@@ -95,14 +98,6 @@ public class Predator {
 	 */
 	private void newDirection(){
 		direction = (int)(8*Math.random());
-	}
-	
-	/**
-	 * checks if the predator is close enough to eat the user
-	 * @return true if the predator has eaten the user, false otherwise
-	 */
-	boolean checkEat(){
-		return (Math.abs(xLoc - user.getXLoc()) < 0.5 && Math.abs(yLoc - user.getYLoc()) < 0.5);
 	}
 	
 	public int getDirection(){
