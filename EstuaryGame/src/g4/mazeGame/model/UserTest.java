@@ -9,99 +9,78 @@ public class UserTest {
 	User user = new User(board);
 	
 	@Test
-	public void tryMoveLeftTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.LEFT);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()<userX);
-		assertTrue(user.getYLoc()==userY);
+	public void testTryMoveCardinalDirection() {
+		double initX = 17;
+		double initY = 15;
+		
+		User user2 = new User(board);
+		user2.setXLoc((int) initX);
+		user2.setYLoc((int) initY);
+		
+		user2.setDirection(User.RIGHT);
+		user2.update();
+		
+		assertTrue(initX != user2.getXLoc());
+		assertTrue(initY == user2.getYLoc());
+		
+		for (int i = 0; i < 10; i++){
+			user2.setDirection(User.RIGHT);
+			user2.update();
+		}
+		initX = user2.getXLoc();
+		initY = user2.getYLoc();
+		
+		user2.setDirection(User.RIGHT);
+		user2.update();
+		assertTrue(initX == user2.getXLoc());
+		assertTrue(initY == user2.getYLoc());
 	}
 	
 	@Test
-	public void tryMoveRightTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.RIGHT);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()>userX);
-		assertTrue(user.getYLoc()==userY);
+	public void testTryMoveOrdinalDirectionTest() {
+		double initX = 17;
+		double initY = 15;
+		
+		User user2 = new User(board);
+		user2.setXLoc((int) initX);
+		user2.setYLoc((int) initY);
+		
+		user2.setDirection(User.DOWN_RIGHT);
+		user2.update();
+		
+		assertTrue(initX < user2.getXLoc());
+		assertTrue(initY < user2.getYLoc());
+		
+		for (int i = 0; i < 10; i++){
+			user2.setDirection(User.DOWN_RIGHT);
+			user2.update();
+		}
+		initX = user2.getXLoc();
+		initY = user2.getYLoc();
+		
+		user2.setDirection(User.DOWN_RIGHT);
+		user2.update();
+		assertTrue(initX == user2.getXLoc());
+		assertTrue(initY != user2.getYLoc());
+		
+		initX = user2.getXLoc();
+		initY = user2.getYLoc();
+		
+		user2.setDirection(User.UP_LEFT);
+		user2.update();
+		assertTrue(initX > user2.getXLoc());
+		assertTrue(initY > user2.getYLoc());
 	}
 	
 	@Test
-	public void tryMoveUpTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.UP);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()==userX);
-		assertTrue(user.getYLoc()<userY);
-	}
-	
-	@Test
-	public void tryMoveDownTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.DOWN);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()==userX);
-		assertTrue(user.getYLoc()>userY);
-	}
-	
-	@Test
-	public void tryMoveDownLeftTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.DOWN_LEFT);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()<userX);
-		assertTrue(user.getYLoc()>userY);
-	}
-	
-	@Test
-	public void tryMoveDownRightTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.DOWN_LEFT);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()>userX);
-		assertTrue(user.getYLoc()>userY);
-	}
-	
-	@Test
-	public void tryMoveUpRightTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.DOWN_LEFT);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()>userX);
-		assertTrue(user.getYLoc()<userY);
-	}
-	
-	@Test
-	public void tryMoveUpLeftTest() {
-		double userX = user.getXLoc();
-		double userY = user.getYLoc();
-		user.setDirection(User.DOWN_LEFT);
-		user.update();
-		user.setDirection(User.STILL);
-		user.update();
-		assertTrue(user.getXLoc()<userX);
-		assertTrue(user.getYLoc()<userY);
+	public void testEatFood(){		
+		User user2 = new User(board);
+		user2.setXLoc(17);
+		user2.setYLoc(15);
+		board.setFoodAtCorner();
+		int iFood = user2.getFoodCount();
+		user2.update();
+		assertEquals(iFood + 1, user2.getFoodCount());
 	}
 	
 	@Test

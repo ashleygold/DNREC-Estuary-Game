@@ -71,7 +71,7 @@ public class Predator {
 	 */
 	public boolean move() {
 		if (direction < 4){
-			//ordinal direction
+			//cardinal direction
 			if (board.isEmptyPred(xLoc + CENTER_IMG + MOVE_VECTOR[direction][0]*(MOVE_SPEED + BUFFER), 
 					yLoc + CENTER_IMG + MOVE_VECTOR[direction][1]*(MOVE_SPEED + BUFFER))){
 				xLoc += MOVE_VECTOR[direction][0]*MOVE_SPEED;
@@ -112,7 +112,7 @@ public class Predator {
 		return yLoc;
 	}
 
-	public void setDirection(int dir) {
+	protected void setDirection(int dir) {
 		direction = dir;
 	}
 

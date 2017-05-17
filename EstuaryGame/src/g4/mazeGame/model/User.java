@@ -14,7 +14,7 @@ public class User {
 	private double picNum = 0;
 	
 	/** the frame count of the user's images*/
-	int frameCount = 3;
+	private final int FRAME_COUNT = 3;
 	
 	/**the x location of the user*/
 	private double xLoc=15;
@@ -107,7 +107,7 @@ public class User {
 	 */
 	public void update() {
 		if (tryMove(direction))
-			picNum = (picNum + .2) % frameCount;
+			picNum = (picNum + .2) % FRAME_COUNT;
 		checkFood();
 	}
 	
@@ -169,6 +169,10 @@ public class User {
 		yLoc=y;
 	}
 	
+	/**
+	 * Get the current frame image for the user
+	 * @return integer of the image
+	 */
 	public int getPicNum(){
 		return (int) picNum;
 	}
@@ -190,9 +194,8 @@ public class User {
 	}
 	
 	protected void setFoodCount(int food) {
-		foodCount=food;
+		foodCount = food;
 	}
-	
 	
 	public boolean getDispose(){
 		return dispose;

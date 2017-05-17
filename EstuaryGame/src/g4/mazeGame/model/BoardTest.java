@@ -57,7 +57,12 @@ public class BoardTest {
 	
 	@Test
 	public void testGetIsEaten(){
-		assertEquals(board.getIsEaten(), false);
+		Board board2 = new Board(2,0);
+		User user2 = board2.getUser();
+		assertEquals(board2.getIsEaten(), false);
+		board2.getPredator().add(new Predator(board2, user2, (int) user2.getXLoc(), (int) user2.getYLoc()));
+		board2.update();
+		assertEquals(board2.getIsEaten(), true);
 	}
 	
 	@Test
