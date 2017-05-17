@@ -269,6 +269,13 @@ public class Board {
 	}
 	
 	/**
+	 * Used only in testing, adds food to the bottom right corner
+	 */
+	protected void setFoodAtCorner(){
+		boardArr.get(15).set(17, 'o');
+	}
+	
+	/**
 	 * Returns the character value of the specified location
 	 * @param x the x-location
 	 * @param y the y-location

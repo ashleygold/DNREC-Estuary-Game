@@ -32,7 +32,7 @@ public class PredatorTest {
 		pred2.setDirection(Predator.RIGHT);
 		pred2.move();
 		
-		assertTrue(initX != pred2.getXLoc());
+		assertTrue(initX < pred2.getXLoc());
 		assertTrue(initY == pred2.getYLoc());
 		
 		for (int i = 0; i < 10; i++){
@@ -57,8 +57,8 @@ public class PredatorTest {
 		pred2.setDirection(Predator.DOWN_RIGHT);
 		pred2.move();
 		
-		assertTrue(initX != pred2.getXLoc());
-		assertTrue(initY != pred2.getYLoc());
+		assertTrue(initX < pred2.getXLoc());
+		assertTrue(initY < pred2.getYLoc());
 		
 		for (int i = 0; i < 10; i++){
 			pred2.setDirection(Predator.DOWN_RIGHT);

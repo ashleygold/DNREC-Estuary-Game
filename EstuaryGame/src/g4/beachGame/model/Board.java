@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 public class Board {
 	/** the amount of seconds that is equals 1 hour on the time of the game**/
-	final static int GAMESEC_PER_HOUR = 3; //sun time bar has 12 notches.
+	private final static int GAMESEC_PER_HOUR = 3; //sun time bar has 12 notches.
 	
 	/**width of the board**/
-	final static int WIDTH = 1100; 
+	private final static int WIDTH = 1100; 
 	
 	/**width of the shore (not including the last column reserved for protectors)**/
 	public final static int SHORE_WIDTH = WIDTH-100; 
@@ -45,7 +45,7 @@ public class Board {
 	public final static int TOTALROWS=6;
 	
 	/**Amount by which to raise height of board due to timer*/
-	public final static int RAISE=15; //how much high it is?
+	public final static int RAISE=15;
 	
 	/**final fields that represent the depth of the shore**/
 	public final static int TOP_ROW1=3;
@@ -55,7 +55,6 @@ public class Board {
 	/**the array representing what was originally the shore**/
 	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
-	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
 	public int[] posArr = {HEIGHT/2, TOP_ROW2, TOP_ROW3};
 
@@ -87,9 +86,6 @@ public class Board {
 	/**the user for this board**/
 	public User user;
 	
-	/**the game should get easier as people keep losing**/
-	int difficulty;
-	
 	/**represents if the turtle died or not*/
 	private boolean turtleDie = false;
 	
@@ -100,7 +96,7 @@ public class Board {
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
 		splitWaves = new ArrayList<Wave>();
-		user = new User(this);
+		user = new User();
 		turtles = new ArrayList<Turtle>();
 	}
 
@@ -289,7 +285,7 @@ public class Board {
 	 * Returns the width of the board.
 	 * @return the width of the board
 	 */
-	public int getWidth(){return WIDTH;}
+	public static int getWidth(){return WIDTH;}
 	
 	/**
 	 * Returns the height of the board.

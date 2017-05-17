@@ -4,9 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +20,11 @@ import g4.beachGame.model.Wave;
 import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
+	/**
+	 * Default Serializable required since it implements Serializable
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**Beach game's window */
 	public JFrame frame;
 
@@ -172,7 +175,7 @@ public class BeachView extends JPanel{
 		frame.getContentPane().add(this);
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(b.getWidth(), b.getHeight() + 100);
+		frame.setSize(Board.getWidth(), b.getHeight() + 100);
 		//makes frame visible and sets no layout
 		frame.setVisible(true);
 		frame.setLayout(null);
@@ -185,8 +188,9 @@ public class BeachView extends JPanel{
 	 */
 	public void paint(Graphics g){
 		//drawing board
-		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
-		g.drawImage(shoreImages[8], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
+
+		g.drawImage(background, 0, 0, Board.getWidth(),displayHeight,this);
+		g.drawImage(shoreImages[8], 0, board.getHeight()/2, Board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){
 			for (int col = 0; col < board.beach[0].length; col++){
@@ -195,13 +199,13 @@ public class BeachView extends JPanel{
 				else if (board.beach[row][col] >= Board.GRASS && board.beach[row][col] <= Board.GABION_2L)
 					image = shoreImages[board.beach[row][col]];
 				if (board.beach[row][col] != Board.SHORE)
-					g.drawImage(image, col*(board.getWidth() - 100)/12 -1, board.posArr[row] - 1, (board.getWidth() - 100)/12 +2, board.getHeight()/6 +2, null, this);
+					g.drawImage(image, col*(Board.getWidth() - 100)/12 -1, board.posArr[row] - 1, (Board.getWidth() - 100)/12 +2, board.getHeight()/6 +2, null, this);
 			}
 		}
 		
 		//draws protectors
 		for (int i = 0; i < protectors.length; i++){
-			g.drawImage(protectors[i], board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
+			g.drawImage(protectors[i], Board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
 		}
 		
 		//if user is holding a protector, draw it attached to user
@@ -237,9 +241,9 @@ public class BeachView extends JPanel{
 		
 		//drawing the win timer
 		g.setColor(Color.GRAY);
-		g.fillRect(0, board.getHeight() - Board.RAISE*2, board.getWidth(), 100); //goal to protect
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, Board.getWidth(), 100); //goal to protect
 		g.setColor(Color.GREEN);
-		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (board.getWidth()*((double)(board.TOTAL_HOURS-board.hoursLeft)/board.TOTAL_HOURS)), 100);
+		g.fillRect(0, board.getHeight() - Board.RAISE*2, (int) (Board.getWidth()*((double)(board.TOTAL_HOURS-board.hoursLeft)/board.TOTAL_HOURS)), 100);
 		
 		//drawing turtles
 		Iterator<Turtle> turtleIt = board.getCurrTurtles().iterator();

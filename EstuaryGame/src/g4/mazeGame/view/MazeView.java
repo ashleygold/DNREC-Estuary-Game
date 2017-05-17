@@ -25,6 +25,11 @@ import g4.mazeGame.model.Predator;
 
 public class MazeView extends JPanel{
 	
+	/**
+	 * Default Serializable required since it implements Serializable
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** the board to be displayed */
 	private Board board;
 	

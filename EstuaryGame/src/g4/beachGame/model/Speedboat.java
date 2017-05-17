@@ -12,7 +12,7 @@ public class Speedboat extends Boat{
 	final int MIN_DISTANCE=300; 
 	
 	/**
-	 * constructor for a speedboat
+	 * Constructor for a speedboat
 	 */
 	public Speedboat(){
 		int randomDir = 1+ (int) (Math.random() * 2);
@@ -22,9 +22,10 @@ public class Speedboat extends Boat{
 			this.direction=true;
 		}
 		else{
-			this.xloc=Board.WIDTH; 
+			this.xloc=Board.getWidth(); 
 			this.direction=false;
 		}
+		this.yloc=randomHeight;
 		this.hasEmittedWave=false;
 		this.speed=SPEEDBOAT_SPEED;
 	}

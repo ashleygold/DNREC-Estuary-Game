@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class UserTest {
 	Board b1 = new Board();
-	User user = new User(b1);
+	User user = new User();
 	
 	@Test
 	public void testGetPicNum() {
@@ -66,7 +66,7 @@ public class UserTest {
 		user.move();
 		assertEquals(458, user.getyLoc());
 		
-		user.setxLoc(Board.WIDTH);
+		user.setxLoc(Board.getWidth());
 		user.move();
 		assertEquals(458, user.getyLoc());
 	
@@ -76,9 +76,9 @@ public class UserTest {
 		user.move();
 		assertEquals(112, user.getxLoc());
 		
-		user.setxLoc(Board.WIDTH);
+		user.setxLoc(Board.getWidth());
 		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());
+		assertEquals(Board.getWidth(), user.getxLoc());
 		
 		//testing up_left
 		user.setxLoc(100);
@@ -86,9 +86,9 @@ public class UserTest {
 		user.move();
 		assertEquals(88, user.getxLoc());
 		
-		user.setxLoc(Board.WIDTH);
+		user.setxLoc(Board.getWidth());
 		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());
+		assertEquals(Board.getWidth(), user.getxLoc());
 		
 		//testing down_right
 		user.setxLoc(100);
@@ -96,9 +96,9 @@ public class UserTest {
 		user.move();
 		assertEquals(112, user.getxLoc());
 		
-		user.setxLoc(Board.WIDTH);
+		user.setxLoc(Board.getWidth());
 		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());	
+		assertEquals(Board.getWidth(), user.getxLoc());	
 	
 		//testing down_left
 		user.setxLoc(100);
@@ -106,9 +106,9 @@ public class UserTest {
 		user.move();
 		assertEquals(88, user.getxLoc());
 		
-		user.setxLoc(Board.WIDTH);
+		user.setxLoc(Board.getWidth());
 		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());
+		assertEquals(Board.getWidth(), user.getxLoc());
 	}
 	
 	@Test

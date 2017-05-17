@@ -8,9 +8,6 @@ public class User {
 	/**width of the crab*/
 	public final static int CRAB_WIDTH=70;
 	
-	/**hit box buffer for collision detection*/
-	private final static int BUFFER = 30;
-	
 	/**starting x location of user*/
 	private final int DEFAULTX = 100;
 	
@@ -32,18 +29,11 @@ public class User {
 	/**picture number of current graphic */
 	private double picNum = 0;
 	
-	/** */
+	/**number of frames available for crab images */
 	int frameCount = 3;
 	
 	/**tells whether the user is in the ocean */
 	public boolean isInOcean = false;
-	
-	/**tells whether the user is on the edge of the screen so they can't walk
-	 * off the screen*/
-	private boolean isOnEdge = false;
-	
-	/**board that the user is on */
-	private final Board board;
 	
 	/**possible directions of user */
 	public static final int RIGHT = 0, UP = 1, DOWN = 2, LEFT = 3, UP_RIGHT = 4,
@@ -57,15 +47,20 @@ public class User {
 	
 	
 	/**
-	 *Constructor to create a user 
+	 * Constructor to create a user 
 	 * @param b: the board that the user is on
 	 */
-	public User(Board b){
-		this.board = b;
+	public User(){
 		this.xLoc = DEFAULTX;
 		this.yLoc = DEFAULTY;
 	}
 	
+	/**
+	 * Returns if the user is on the shore based on its coordinates
+	 * @param x xLocation of the user
+	 * @param y yLocation of the user
+	 * @return boolean whether or not the user is on the shore
+	 */
 	public boolean isShore(double x, double y){
 		return (x>=0 && x<Board.SHORE_WIDTH && y>Board.SHORE_HEIGHT && y<Board.HEIGHT-CRAB_HEIGHT);
 	}
@@ -123,6 +118,10 @@ public class User {
 		}
 	}
 	
+	/**
+	 * Returns integer representation of picNum
+	 * @return integer representation of picNum
+	 */
 	public int getPicNum(){
 		return (int) picNum;
 	}
