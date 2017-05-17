@@ -151,7 +151,7 @@ public class BoardTest {
 		b1.user.setxLoc(400);
 		assertEquals(-1, b1.chooseProtector());
 		
-		b1.user.setxLoc(950);
+		b1.user.setxLoc(900);
 		assertEquals(Board.GRASS_L, b1.chooseProtector());
 		
 		b1.user.setyLoc(400);
@@ -163,14 +163,14 @@ public class BoardTest {
 	
 	@Test
 	public void testPlaceProtector(){
-		b1.user.setxLoc(950);
+		b1.user.setxLoc(900);
 		b1.user.setyLoc(400); //gabion
 		b1.chooseProtector();
 		b1.user.setxLoc(370);
 		b1.placeProtector();
 		assertEquals(Board.GABION_2L, b1.beach[0][4]);
 		
-		b1.user.setxLoc(950);
+		b1.user.setxLoc(900);
 		b1.user.setyLoc(400); //gabion
 		b1.chooseProtector();
 		b1.user.setxLoc(370);
