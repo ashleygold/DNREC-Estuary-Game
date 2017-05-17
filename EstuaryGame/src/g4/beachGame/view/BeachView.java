@@ -101,18 +101,17 @@ public class BeachView extends JPanel{
 	private BufferedImage background = createImage("background.png");
 	
 	/**tutorial images*/
-	BufferedImage title = createImage("Title.png"),tut1 = createImage("Tut2.png"),tut2 = createImage("Tut3.png"),
-			tut3 = createImage("Tut4.png"), tut4 = createImage("Tut5.png"),tut5 = createImage("Tut6.png"),
-			arrowDown = createImage("arrowDown.png"),
-			
-	/**wave image*/		
-	waveImage;
+	BufferedImage title = createImage("Title.png");
+	BufferedImage tut1 = createImage("Tut2.png");
+	BufferedImage tut2 = createImage("Tut3.png");
+	BufferedImage tut3 = createImage("Tut4.png");
+	BufferedImage tut4 = createImage("Tut5.png");
+	BufferedImage tut5 = createImage("Tut6.png");
+	BufferedImage arrowDown = createImage("arrowDown.png");
+	BufferedImage waveImage;
 	
 	/**the height of the display*/
 	private int displayHeight;
-	
-	/** */
-	JLabel time; 
 	
 	/**
 	 * Converts file name/location to Buffered Image
