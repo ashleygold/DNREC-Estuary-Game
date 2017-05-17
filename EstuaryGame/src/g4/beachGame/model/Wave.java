@@ -116,7 +116,8 @@ public class Wave {
 	
 	
 	/**activates wind, which blows waves and offsets them left or right 
-	 * @param number: integer that determines whether the wind moves waves to left or right
+	 * @param number integer that determines whether the wind moves waves to left or right
+	 * @param waves waves currently on screen 
 	 */
 	public static void activateWind(int number, ArrayList<Wave> waves) {
 		boolean isWaveBelowStartingShoreline=false;
