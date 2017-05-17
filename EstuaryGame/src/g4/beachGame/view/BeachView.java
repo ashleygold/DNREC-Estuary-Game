@@ -58,8 +58,9 @@ public class BeachView extends JPanel{
 	
 	/** locations of protector images*/
 	private static final String[] protectorsLoc = {"grass.png", 
-		"oysters.png", "seawall.png"};
+		"oyster_clipart.png", "concrete-block-clipart.jpg"};
 	
+	/**locations of shore images */
 	private static final String[] shoreImagesLoc = {
 			"tile_sand_center.png", "tile_water_C.png", "tile_grass_north_deteriorated.png",
 			"tile_grass_north.png", "seawall.png", "gabion.png", "gabion_l.png", "gabion_2l.png",
@@ -100,9 +101,14 @@ public class BeachView extends JPanel{
 	private BufferedImage background = createImage("background.png");
 	
 	/**tutorial images*/
-	BufferedImage title = createImage("Title.png"),tut1 = createImage("Tut2.png"),tut2 = createImage("Tut3.png"),
-			tut3 = createImage("Tut4.png"), tut4 = createImage("Tut5.png"),tut5 = createImage("Tut6.png"),
-			arrowDown = createImage("arrowDown.png"),waveImage;
+	BufferedImage title = createImage("Title.png");
+	BufferedImage tut1 = createImage("Tut2.png");
+	BufferedImage tut2 = createImage("Tut3.png");
+	BufferedImage tut3 = createImage("Tut4.png");
+	BufferedImage tut4 = createImage("Tut5.png");
+	BufferedImage tut5 = createImage("Tut6.png");
+	BufferedImage arrowDown = createImage("arrowDown.png");
+	BufferedImage waveImage;
 	
 	/**the height of the display*/
 	private int displayHeight;
@@ -191,9 +197,9 @@ public class BeachView extends JPanel{
 		}
 		
 		//draws protectors
-		for (int i = 0; i < protectors.length; i++){
-			g.drawImage(protectors[i], Board.getWidth()-100, (3+i)*board.getHeight()/6 - 15*i, 100, board.getHeight()/6, null, this);
-		}
+			for (int i = 0; i < protectors.length; i++){
+				g.drawImage(protectors[i], Board.getWidth()-100, (3+i)*board.getHeight()/6 - 10*i, 85, board.getHeight()/7, null, this);
+			}
 		
 		//if user is holding a protector, draw it attached to user
 		if (board.getProtector()!= -1){
