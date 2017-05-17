@@ -12,10 +12,10 @@ public class Cube {
 	private int imageNum;
 	
 	/** control finalization of cube image */
-	private boolean fixed = false;
+	private boolean isFixed = false;
 	
 	/** control location of cubes (movement to story row)*/
-	private boolean moved = false;
+	private boolean isMoved = false;
 	
 	/**
 	 * initializes with a random seed and random image
@@ -29,7 +29,7 @@ public class Cube {
 	 * change to a new random image, if the image has not been finalized yet
 	 */
 	protected void changeImg(){
-		if (!fixed)
+		if (!isFixed)
 			imageNum = (int)(RAND_ID*Math.random()) % StoryView.NUM_SIDES;
 	}
 	
@@ -37,25 +37,25 @@ public class Cube {
 	 * prevents the image from changing again
 	 */
 	protected void fix(){
-		fixed = true;
+		isFixed = true;
 	}
 	
 	/**
 	 * Sets the cube as having been moved to the story row
 	 */
 	protected void move(){
-		moved = true;
+		isMoved = true;
 	}
 	
 	public int getImg(){
 		return imageNum;
 	}
 	
-	protected boolean isFixed(){
-		return fixed;
+	protected boolean getIsFixed(){
+		return isFixed;
 	}
 	
-	public boolean isMoved(){
-		return moved;
+	public boolean getIsMoved(){
+		return isMoved;
 	}
 }

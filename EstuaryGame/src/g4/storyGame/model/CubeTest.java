@@ -11,13 +11,13 @@ public class CubeTest {
 	@Test
 	public void moveTest(){
 		cube.move();
-		assertTrue(cube.isMoved());
+		assertTrue(cube.getIsMoved());
 	}
 	
 	@Test
 	public void fixTest(){
 		cube.fix();
-		assertTrue(cube.isFixed());
+		assertTrue(cube.getIsFixed());
 	}
 	
 	@Test

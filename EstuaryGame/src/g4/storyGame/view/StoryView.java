@@ -186,7 +186,7 @@ public class StoryView extends JPanel{
 	 */
 	private void clicked(int i) {
 		refTable.activateCube(i);
-		if (refTable.getCubeAt(i, true).isMoved()){
+		if (refTable.getCubeAt(i, true).getIsMoved()){
 			//if moved, remove the button
 			frame.remove(cubes[i]);
 			
