@@ -83,6 +83,7 @@ public class Listener implements KeyListener {
 	//@Override
 	public void keyTyped(KeyEvent arg0) {}
 	
+	/** sets the user direction based on keystrokes*/
 	public void setUserDirection(){
 		if (keysDown[UP_ARROW] && keysDown[LEFT_ARROW])
 			user.setDirection(User.UP_LEFT);

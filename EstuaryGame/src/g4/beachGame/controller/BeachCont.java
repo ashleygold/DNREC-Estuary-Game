@@ -25,17 +25,13 @@ public class BeachCont implements MiniGameController{
 	private boolean isGameOver = false;
 	
 	/**The frame counter for the entire game*/
-	public int frameCounter;
+	private int frameCounter;
 	
 	/**The frame counter for the wind */
-	public static int frameCounterWind;
+	private static int frameCounterWind;
 	
 	/**The frame counter for the turtles*/
-	public int frameCounterTurtles;
-	
-	/**The frame counter for the turtle's life bar */
-	public int frameCounterTurtleLife;
-	
+	private int frameCounterTurtles;
 	
 	/**The frame counter for the frames between boat instances */
 	private int framesBetweenBoats;
@@ -45,9 +41,9 @@ public class BeachCont implements MiniGameController{
 	
 	/**The frame counter for the frames between wind instances */
 	private int framesBetweenWind;
-	
-	/**The time between each boat occurrence*/
-	final int timeBetweenBoats= 6;
+
+	/**The frame counter for the turtle's life bar */
+	private int frameCounterTurtleLife;
 	
 	
 	/**
@@ -57,9 +53,9 @@ public class BeachCont implements MiniGameController{
 		bView = new BeachView(board1);
 		bView.addKeyListener(new Listener(board1));
 		frameCounter=0;
-		frameCounterWind=0;
+		setFrameCounterWind(0);
 		frameCounterTurtles=0;
-		frameCounterTurtleLife = 0;
+		setFrameCounterTurtleLife(0);
 		framesBetweenBoats=230;
 		framesBetweenTurtles=605;
 		framesBetweenWind=600;
@@ -69,7 +65,7 @@ public class BeachCont implements MiniGameController{
 	 * Checks to see if boat is in a location where they are able to create a new wave
 	 * @param boat is the boat we check to see if it can create a boat
 	 */
-	public void couldCreateWave(Boat boat){
+	private void couldCreateWave(Boat boat){
 		if (!boat.getHasEmittedWave()){
 			if (boat.getDirection() && boat.getXLoc()>=boat.getWaveLocation()){
 				board1.createWave(boat);
@@ -102,9 +98,9 @@ public class BeachCont implements MiniGameController{
 					dispose();
 				}
 				frameCounter++;
-				frameCounterWind++;
+				setFrameCounterWind(getFrameCounterWind() + 1);
 				frameCounterTurtles++;
-				frameCounterTurtleLife++;
+				setFrameCounterTurtleLife(getFrameCounterTurtleLife() + 1);
 				board1.user.move();
 				
 				//spawn boats
@@ -120,13 +116,13 @@ public class BeachCont implements MiniGameController{
 					frameCounterTurtles=0;
 				}
 				
-				if (frameCounterWind > framesBetweenWind){
+				if (getFrameCounterWind() > framesBetweenWind){
 					Wave.activateWind(frameCounterTurtles,board1.getCurrWaves());
 				}
 				
-				if (frameCounterWind == framesBetweenWind + 700){
+				if (getFrameCounterWind() == framesBetweenWind + 700){
 					Wave.ceaseWind();
-					frameCounterWind=0;
+					setFrameCounterWind(0);
 				}
 				
 				//waves move on screen
@@ -204,6 +200,22 @@ public class BeachCont implements MiniGameController{
 	
 	public int getFrameCount(){
 		return frameCounter;
+	}
+
+	public static int getFrameCounterWind() {
+		return frameCounterWind;
+	}
+
+	public static void setFrameCounterWind(int frameCounterWind) {
+		BeachCont.frameCounterWind = frameCounterWind;
+	}
+
+	public int getFrameCounterTurtleLife() {
+		return frameCounterTurtleLife;
+	}
+
+	public void setFrameCounterTurtleLife(int frameCounterTurtleLife) {
+		this.frameCounterTurtleLife = frameCounterTurtleLife;
 	}
 
 }

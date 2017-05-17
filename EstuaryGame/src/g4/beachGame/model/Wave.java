@@ -89,12 +89,12 @@ public class Wave {
 		}
 		else if (direction == LEFT){
 			this.xloc-=direction;
-			if (BeachCont.frameCounterWind % 3 ==0)
+			if (BeachCont.getFrameCounterWind() % 3 ==0)
 				this.yloc+=speed;
 		}
 		else{
 			this.xloc-=direction;
-			if (BeachCont.frameCounterWind % 3 ==0)
+			if (BeachCont.getFrameCounterWind() % 3 ==0)
 				this.yloc+=speed;
 		}
 	}
@@ -156,9 +156,15 @@ public class Wave {
 		return length;
 	}
 	
-	public static int getDirection(){return direction;}
+	public static int getDirection(){
+		return direction;
+	}
 	
-	public static void setDirection(int x){direction = x;}
+	public static void setDirection(int x){
+		direction = x;
+	}
 	
-	public static int getWindFace(){return windFace;}
+	public static int getWindFace(){
+		return windFace;
+	}
 }

@@ -25,7 +25,7 @@ public class WaveTest {
 		wave.move();
 		assertEquals(xLocation-Wave.getDirection(), wave.getX());
 		
-		BeachCont.frameCounterWind = 8;
+		BeachCont.setFrameCounterWind(8);
 		wave.move();
 		assertEquals(sailboat.getYLoc()+2*wave.speed, wave.getY());
 		
@@ -33,7 +33,7 @@ public class WaveTest {
 		wave.move();
 		assertEquals(sailboat.getYLoc()+2*wave.speed, wave.getY());
 		
-		BeachCont.frameCounterWind = 6;
+		BeachCont.setFrameCounterWind(6);
 		wave.move();
 		assertEquals(sailboat.getYLoc()+3*wave.speed, wave.getY());
 	}
