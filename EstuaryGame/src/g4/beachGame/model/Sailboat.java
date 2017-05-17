@@ -2,10 +2,10 @@ package g4.beachGame.model;
 
 public class Sailboat extends Boat{
 	/**height of the boat*/
-	final int BOAT_HEIGHT = 100; //so that the boat doesn't swim off the board
+	private final int BOAT_HEIGHT = 100; //so that the boat doesn't swim off the board
 	
 	/**speed of the sailboat*/
-	final int SAILBOAT_SPEED =5;
+	private final int SAILBOAT_SPEED =5;
 
 	/** constructor for a Sailboat*/
 	public Sailboat(){

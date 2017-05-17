@@ -30,10 +30,7 @@ public class User {
 	private double picNum = 0;
 	
 	/**number of frames available for crab images */
-	int frameCount = 3;
-	
-	/**tells whether the user is in the ocean */
-	public boolean isInOcean = false;
+	public int frameCount = 3;
 	
 	/**possible directions of user */
 	public static final int RIGHT = 0, UP = 1, DOWN = 2, LEFT = 3, UP_RIGHT = 4,
@@ -61,7 +58,7 @@ public class User {
 	 * @param y yLocation of the user
 	 * @return boolean whether or not the user is on the shore
 	 */
-	public boolean isShore(double x, double y){
+	protected boolean isShore(double x, double y){
 		return (x>=0 && x<Board.SHORE_WIDTH && y>Board.SHORE_HEIGHT && y<Board.HEIGHT-CRAB_HEIGHT);
 	}
 	

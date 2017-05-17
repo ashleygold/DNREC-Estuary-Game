@@ -3,22 +3,22 @@ package g4.beachGame.model;
 
 public abstract class Boat{
 	/** x location of the boat **/
-	int xloc;
+	protected int xloc;
 
 	/**y location of the boat */
-	int yloc; 
+	protected int yloc; 
 	
 	/**The speed of a boat*/
-	int speed;
+	protected int speed;
 	
 	/**The direction of a boat. true = right, false = left */
-	boolean direction; //true=right, false=left;
+	protected boolean direction; //true=right, false=left;
 	
 	/**if the boat has emitted a wave or not */
-	boolean hasEmittedWave;
+	protected boolean hasEmittedWave;
 	
 	/**the horizontal location that the wave is emitted*/
-	int waveLocation = (int)(Math.random() * (Board.SHORE_WIDTH)-200);
+	private int waveLocation = (int)(Math.random() * (Board.SHORE_WIDTH)-200);
 
 	/** Moves the boat across the screen*/
 	public void move() {
@@ -29,7 +29,7 @@ public abstract class Boat{
 	}
 	
 	/** is called when the boat has emitted a wave to change hasEmittedWave field */
-	public void emittedWave(){
+	protected void emittedWave(){
 		hasEmittedWave = true;
 	}
 	

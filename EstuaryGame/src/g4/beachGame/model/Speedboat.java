@@ -3,13 +3,13 @@ package g4.beachGame.model;
 public class Speedboat extends Boat{
 	
 	/** height of the boat*/
-	final int HEIGHT=100;
+	private final int HEIGHT=100;
 	
 	/**speed of the speedboat*/
-	final int SPEEDBOAT_SPEED=20;
+	private final int SPEEDBOAT_SPEED=20;
 	
 	/**minimum distance from starting shoreline*/
-	final int MIN_DISTANCE=300; 
+	private final int MIN_DISTANCE=300; 
 	
 	/**
 	 * Constructor for a speedboat

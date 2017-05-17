@@ -100,7 +100,7 @@ public class Wave {
 	}
 	
 	/**tells if a wave is out of the range of the game*/
-	protected boolean isOutOfRange(){
+	public boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
 		else if ((direction ==RIGHT||direction == FORWARD) && this.getX()+this.getLength()>Board.getWidth())

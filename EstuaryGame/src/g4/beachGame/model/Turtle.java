@@ -110,7 +110,7 @@ public class Turtle {
 	 * @param yLoc
 	 * @return true if turtle is on shore, false otherwise
 	 */
-	public boolean isShore(double xLoc, double yLoc){
+	protected boolean isShore(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell;
@@ -127,7 +127,7 @@ public class Turtle {
 	 * @param yLoc
 	 * @return true if turtle is on the water, false otherwise
 	 */
-	public boolean isWater(double xLoc, double yLoc){
+	protected boolean isWater(double xLoc, double yLoc){
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell = Board.SHORE;
