@@ -239,9 +239,6 @@ public class MazeView extends JPanel{
 		isTransitionActive = false;
 	}
 	
-	public boolean isTransitionActive(){
-		return isTransitionActive;
-	}
 	
 	/**
 	 * Draws all the information from the board onto the screen, called once per tick
@@ -368,5 +365,9 @@ public class MazeView extends JPanel{
 			//repaints JButton
 			super.paint(g);
 		}
+	}
+	
+	public boolean getIsTransitionActive(){
+		return isTransitionActive;
 	}
 }
