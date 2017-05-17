@@ -56,7 +56,7 @@ public class Turtle {
 	
 	/**
 	 * Constructs a turtle using the given board
-	 * @param b - board on which the turtle is placed
+	 * @param b board on which the turtle is placed
 	 */
 	public Turtle(Board b){
 		board = b;

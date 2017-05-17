@@ -45,7 +45,7 @@ public class User {
 	
 	/**
 	 * Constructor to create a user 
-	 * @param b: the board that the user is on
+	 * @param b the board that the user is on
 	 */
 	public User(){
 		this.xLoc = DEFAULTX;
