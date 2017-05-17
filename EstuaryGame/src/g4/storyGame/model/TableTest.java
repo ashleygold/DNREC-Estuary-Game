@@ -11,12 +11,12 @@ public class TableTest {
 	
 	@Test
 	public void testActivateCubePass(){
-		assertTrue(!table.getCubeAt(1, true).isFixed());
+		assertTrue(!table.getCubeAt(1, true).getIsFixed());
 		table.activateCube(1);
-		assertTrue(table.getCubeAt(1, true).isFixed());
-		assertTrue(!table.getCubeAt(1, true).isMoved());
+		assertTrue(table.getCubeAt(1, true).getIsFixed());
+		assertTrue(!table.getCubeAt(1, true).getIsMoved());
 		table.activateCube(1);
-		assertTrue(table.getCubeAt(1, true).isMoved());
+		assertTrue(table.getCubeAt(1, true).getIsMoved());
 	}
 	
 	@Test
