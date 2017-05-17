@@ -328,16 +328,16 @@ public class Board {
 	 * Sets isShoreDestroyed attribute to the boolean x
 	 * @param x - the boolean to replace isShoreDestroyed with
 	 */
-	public void setIsShoreDestroyed(boolean x){
-		isShoreDestroyed = x;
+	public void setIsShoreDestroyed(boolean isDestroyed){
+		isShoreDestroyed = isDestroyed;
 	}
 	
 	/**
 	 * Sets turtleDie attribute to the boolean x
 	 * @param x - the boolean to replace turtleDie with
 	 */
-	public void setTurtleDie(boolean x){
-		turtleDie = x;
+	public void setTurtleDie(boolean isDead){
+		turtleDie = isDead;
 	}
 }
 
