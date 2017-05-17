@@ -106,8 +106,8 @@ public class Turtle {
 	
 	/**
 	 * Checks to see if turtle is on the shore
-	 * @param xLoc
-	 * @param yLoc
+	 * @param xLoc xLocation of turtle
+	 * @param yLoc yLocation of turtle
 	 * @return true if turtle is on shore, false otherwise
 	 */
 	protected boolean isShore(double xLoc, double yLoc){
