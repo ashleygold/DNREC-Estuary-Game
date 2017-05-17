@@ -99,7 +99,9 @@ public class Wave {
 		}
 	}
 	
-	/**tells if a wave is out of the range of the game*/
+	/**
+	 * @return true if wave has left the screen or going to hit the shore where the protects are on the side
+	 */
 	public boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
