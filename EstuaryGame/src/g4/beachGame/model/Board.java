@@ -248,7 +248,7 @@ public class Board {
 	 */
 	public int chooseProtector() {
 		//if user is close enough to protectors
-		if ((int)(user.getxLoc()+User.CRAB_WIDTH)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE){
+		if ((int)(user.getxLoc()+User.CRAB_WIDTH)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE-1){
 			//uses y location to determine which protector is chosen
 			if (user.getyLoc() <TOP_ROW2)
 				protector = GRASS_L;
