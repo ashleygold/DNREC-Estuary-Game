@@ -5,46 +5,58 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class BoatTest {
-	Boat boat = new Sailboat();
+	Boat[] boat = {new Sailboat(), new Speedboat(), new CruiseLiner()};
+	
 	
 	@Test
 	public void testMove() {
-		int x = boat.getXLoc();
-		boat.direction = true;
-		boat.move();
-		assertEquals(x+boat.speed, boat.getXLoc());
-		
-		boat.direction = false;
-		boat.move();
-		assertEquals(x, boat.getXLoc());
-		
+		for (int i = 0; i < boat.length - 1; i++) {
+			int x = boat[i].getXLoc();
+			boat[i].direction = true;
+			boat[i].move();
+			assertEquals(x + boat[i].speed, boat[i].getXLoc());
+
+			boat[i].direction = false;
+			boat[i].move();
+			assertEquals(x, boat[i].getXLoc());
+		}
 	}
 	
 	@Test
 	public void testGetYLoc(){
-		int y = boat.yloc;
-		assertEquals(y, boat.getYLoc());
+		for (int i = 0; i < boat.length - 1; i++) {
+			int y = boat[i].yloc;
+			assertEquals(y, boat[i].getYLoc());
+		}
 	}
-	
+		
 	@Test
 	public void testGetHasEmittedWave(){
-		assertFalse(boat.getHasEmittedWave());
+		for (int i = 0; i < boat.length - 1; i++) {
+			assertFalse(boat[i].getHasEmittedWave());
+		}
 	}
 	
 	@Test
 	public void testGetWaveLocation(){
-		assertTrue(boat.getWaveLocation()<Board.SHORE_WIDTH-200);
+		for (int i = 0; i < boat.length - 1; i++) {
+			assertTrue(boat[i].getWaveLocation()<Board.SHORE_WIDTH-200);
+		}
 	}
 	
 	@Test
 	public void testEmittedWave(){
-		boat.emittedWave();
-		assertTrue(boat.hasEmittedWave);
+		for (int i = 0; i < boat.length - 1; i++) {
+			boat[i].emittedWave();
+			assertTrue(boat[i].hasEmittedWave);
+		}
 	}
 	
 	@Test
 	public void testGetDirection(){
-		boat.direction = true;
-		assertTrue(boat.getDirection());
+		for (int i = 0; i < boat.length - 1; i++) {
+			boat[i].direction = true;
+			assertTrue(boat[i].getDirection());
+		}
 	}
 }
