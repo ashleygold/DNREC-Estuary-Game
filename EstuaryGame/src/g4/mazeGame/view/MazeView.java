@@ -239,7 +239,8 @@ public class MazeView extends JPanel{
 		isTransitionActive = false;
 	}
 	
-	public boolean isTransitionActive(){
+	
+	public boolean getIsTransitionActive(){
 		return isTransitionActive;
 	}
 	
