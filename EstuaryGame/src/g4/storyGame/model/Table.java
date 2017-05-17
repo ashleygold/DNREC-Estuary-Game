@@ -55,7 +55,7 @@ public class Table {
 		}
 		
 		//change to an unused image for each cube that isn't fixed
-		for (Cube x : getDice()) {
+		for (Cube x : dice) {
 			if (!x.isFixed()) {
 				do {
 					x.changeImg();
@@ -86,11 +86,11 @@ public class Table {
 		if (!dice.get(i).isFixed()) {
 			//if not fixed
 			dice.get(i).fix();
-			imgsInUse[getDice().get(i).getImg()] = FIXED;
-		} else if (!getDice().get(i).isMoved()){
+			imgsInUse[dice.get(i).getImg()] = FIXED;
+		} else if (!dice.get(i).isMoved()){
 			//if not moved
 			dice.get(i).move();
-			finished.add(getDice().get(i));
+			finished.add(dice.get(i));
 		}
 	}
 	
@@ -114,13 +114,17 @@ public class Table {
 		return true;
 	}
 	
-	protected List<Cube> getDice() {
-		return dice;
+	/**
+	 * gets the number of active cubes
+	 * @return the size of the active cubes arrayList (dice)
+	 */
+	protected int getActiveSize() {
+		return dice.size();
 	}
 	
 	/**
 	 * gets the number of finished cubes
-	 * @return the size of the finished cubes arraylist
+	 * @return the size of the finished cubes arrayList
 	 */
 	public int getFinishedSize() {
 		return finished.size();
