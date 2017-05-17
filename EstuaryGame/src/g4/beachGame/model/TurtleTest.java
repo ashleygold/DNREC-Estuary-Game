@@ -37,7 +37,7 @@ public class TurtleTest {
 		turtle.setxLoc(370); turtle.setyLoc(350);
 		turtle.move(); //x:371,y:349
 		assertEquals(371, turtle.getxLoc());
-		turtle.setxLoc(Board.WIDTH-turtle.getWidth()-100);
+		turtle.setxLoc(Board.getWidth()-turtle.getWidth()-100);
 		turtle.move();//y:349
 		assertEquals(0, turtle.getDirection());
 		turtle.setDirection(1);
@@ -66,7 +66,7 @@ public class TurtleTest {
 		assertTrue(turtle.isWater(370, 350));
 		assertFalse(turtle.isWater(300, Board.HEIGHT+1));
 		assertFalse(turtle.isWater(-1, 200));
-		assertFalse(turtle.isWater(Board.WIDTH, 450));
+		assertFalse(turtle.isWater(Board.getWidth(), 450));
 		assertFalse(turtle.isWater(300, 600));
 	}
 	

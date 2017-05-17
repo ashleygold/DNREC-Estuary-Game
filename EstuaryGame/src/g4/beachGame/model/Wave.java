@@ -120,7 +120,7 @@ public class Wave {
 	public boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
-		else if ((direction ==RIGHT||direction == FORWARD) && this.getX()+this.getLength()>Board.WIDTH)
+		else if ((direction ==RIGHT||direction == FORWARD) && this.getX()+this.getLength()>Board.getWidth())
 			return true;
 		else if (this.xloc>Board.SHORE_WIDTH && this.yloc>Board.HEIGHT/2)
 			return true;

@@ -46,11 +46,11 @@ public class WaveTest {
 		assertTrue(wave.isOutOfRange());
 		
 		Wave.direction = Wave.RIGHT;
-		wave.xloc = Board.WIDTH;
+		wave.xloc = Board.getWidth();
 		assertTrue(wave.isOutOfRange());
 		
 		Wave.direction = Wave.FORWARD;
-		wave.xloc = Board.WIDTH;
+		wave.xloc = Board.getWidth();
 		assertTrue(wave.isOutOfRange());
 		
 		

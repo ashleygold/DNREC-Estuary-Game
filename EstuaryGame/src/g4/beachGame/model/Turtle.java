@@ -93,7 +93,7 @@ public class Turtle {
 				xLoc+= XINCR;
 				yLoc-= YINCR;
 			}
-			else if (xLoc+XINCR >=Board.WIDTH-TURTLE_WIDTH-100)
+			else if (xLoc+XINCR >=Board.getWidth()-TURTLE_WIDTH-100)
 				direction = 0;
 			else if (isWater(xLoc+XINCR, yLoc-YINCR))
 				gotToOcean= true;
@@ -118,7 +118,7 @@ public class Turtle {
 			return false;
 		else
 			cell = board.beach[y-4][x];
-		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && (cell == Board.SHORE||cell == Board.GRASS || cell == Board.GRASS_L));
+		return (xLoc>0 && xLoc<Board.getWidth()-TURTLE_WIDTH-100 && (cell == Board.SHORE||cell == Board.GRASS || cell == Board.GRASS_L));
 	}
 	
 	/**
@@ -131,13 +131,13 @@ public class Turtle {
 		int x = (int) xLoc*12/Board.SHORE_WIDTH;
 		int y = (int) Math.ceil(yLoc*6/Board.HEIGHT);
 		int cell = Board.SHORE;
-		if (y<=3 && xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100)
+		if (y<=3 && xLoc>0 && xLoc<Board.getWidth()-TURTLE_WIDTH-100)
 			return true;
 		else if (x>11 || y>6||x<=0)
 			return false;
 		else
 			cell = board.beach[y-4][x];
-		return (xLoc>0 && xLoc<Board.WIDTH-TURTLE_WIDTH-100 && cell == Board.WATER);
+		return (xLoc>0 && xLoc<Board.getWidth()-TURTLE_WIDTH-100 && cell == Board.WATER);
 	} 	
 	
 	public int getxLoc() {

@@ -16,7 +16,7 @@ public class Sailboat extends Boat{
 			this.direction=true;
 		}
 		else{
-			this.xloc=Board.WIDTH; 
+			this.xloc=Board.getWidth(); 
 			this.direction=false;
 		}
 		this.yloc=randomHeight;

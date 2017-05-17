@@ -83,7 +83,7 @@ public class BoardTest {
 		Iterator<Boat> boatsIt3 = b1.currBoats.iterator();
 		while (boatsIt3.hasNext()){
 			Boat boat = boatsIt3.next();
-			boat.xloc = Board.WIDTH+1;
+			boat.xloc = Board.getWidth()+1;
 		}
 		b1.checkBoats();
 		assertEquals(0, b1.currBoats.size());
@@ -185,7 +185,7 @@ public class BoardTest {
 
 	@Test
 	public void testGetWidth(){
-		assertEquals(Board.WIDTH, b1.getWidth());
+		assertEquals(Board.getWidth(), Board.getWidth());
 	}
 	
 	@Test

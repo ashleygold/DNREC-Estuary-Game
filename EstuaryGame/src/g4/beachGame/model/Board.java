@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 public class Board {
 	/** the amount of seconds that is equals 1 hour on the time of the game**/
-	final static int GAMESEC_PER_HOUR = 3; //sun time bar has 12 notches.
+	private final static int GAMESEC_PER_HOUR = 3; //sun time bar has 12 notches.
 	
 	/**width of the board**/
-	final static int WIDTH = 1100; 
+	private final static int WIDTH = 1100; 
 	
 	/**width of the shore (not including the last column reserved for protectors)**/
 	public final static int SHORE_WIDTH = WIDTH-100; 
@@ -285,7 +285,7 @@ public class Board {
 	 * Returns the width of the board.
 	 * @return the width of the board
 	 */
-	public int getWidth(){return WIDTH;}
+	public static int getWidth(){return WIDTH;}
 	
 	/**
 	 * Returns the height of the board.
