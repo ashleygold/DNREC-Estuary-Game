@@ -100,7 +100,7 @@ public class Wave {
 	}
 	
 	/**tells if a wave is out of the range of the game*/
-	protected boolean isOutOfRange(){
+	public boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
 		else if ((direction ==RIGHT||direction == FORWARD) && this.getX()+this.getLength()>Board.getWidth())
@@ -158,9 +158,7 @@ public class Wave {
 	
 	public static int getDirection(){return direction;}
 	
-	public static void setDirection(int x){
-		direction = x;
-	}
+	public static void setDirection(int x){direction = x;}
 	
 	public static int getWindFace(){return windFace;}
 }
