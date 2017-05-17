@@ -56,7 +56,7 @@ public class Table {
 		
 		//change to an unused image for each cube that isn't fixed
 		for (Cube x : dice) {
-			if (!x.isFixed()) {
+			if (!x.getIsFixed()) {
 				do {
 					x.changeImg();
 				} while (imgsInUse[x.getImg()] != FREE);
@@ -83,11 +83,11 @@ public class Table {
 	 * @param i the index of the Cube that has been interacted with
 	 */
 	public void activateCube(int i){
-		if (!dice.get(i).isFixed()) {
+		if (!dice.get(i).getIsFixed()) {
 			//if not fixed
 			dice.get(i).fix();
 			imgsInUse[dice.get(i).getImg()] = FIXED;
-		} else if (!dice.get(i).isMoved()){
+		} else if (!dice.get(i).getIsMoved()){
 			//if not moved
 			dice.get(i).move();
 			finished.add(dice.get(i));
@@ -108,7 +108,7 @@ public class Table {
 	 */
 	public boolean areAllFixed(){
 		for (Cube x : dice){
-			if (!x.isFixed())
+			if (!x.getIsFixed())
 				return false;
 		}
 		return true;
