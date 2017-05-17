@@ -29,13 +29,13 @@ public class Predator {
 	private int direction = RIGHT;
 	
 	/** center of the user image- used for collision detection */
-	public static final double CENTER_IMG = 0.5;
+	private final double CENTER_IMG = 0.5;
 	
 	/** hit box buffer */
-	public final static double BUFFER = 0.37;
+	private final double BUFFER = 0.37;
 	
 	/**diagonal hit box buffer*/
-	private static final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
+	private final double DIAG_BUFFER = Math.sqrt(.5*Math.pow(BUFFER, 2));
 	
 	/** array which handles vector movement checks **/
 	private final double[][] MOVE_VECTOR = {

@@ -117,19 +117,19 @@ public class MazeView extends JPanel{
 		this.board = board;
 		
 		//set display constants
-		SLOT_SPACE = (int)((MazeCont.screenSize.getHeight() - 55)/board.getHeight());
+		SLOT_SPACE = (int)((MazeCont.screenSize.getHeight() - 55) / board.HEIGHT);
 		BAR_BUFFER = SLOT_SPACE/8;
 		BAR_HEIGHT = SLOT_SPACE/2 + BAR_BUFFER;
 		SALINITY_CHUNK_WIDTH = BAR_HEIGHT*4;
 		
-		SALINITY_LEFT_CORNER = -(SALINITY_CHUNK_WIDTH*Board.MAX_SALINITY + BAR_BUFFER)
-				+ board.getWidth()*SLOT_SPACE;
+		SALINITY_LEFT_CORNER = -(SALINITY_CHUNK_WIDTH * Board.MAX_SALINITY + BAR_BUFFER)
+				+ board.WIDTH*SLOT_SPACE;
 		
 		//set font sizes
 		labelF = new Font("Findet Nemo", Font.PLAIN, 3*SLOT_SPACE/5);
 		
 		//setup size
-		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
+		setSize(board.WIDTH * SLOT_SPACE,board.HEIGHT * SLOT_SPACE);
 		setFocusable(true);
 		
 		//load images
@@ -172,7 +172,7 @@ public class MazeView extends JPanel{
 	 */
 	public void changeBoard(Board board){
 		this.board = board;
-		setSize(board.getWidth()*SLOT_SPACE,board.getHeight()*SLOT_SPACE);
+		setSize(board.WIDTH * SLOT_SPACE, board.HEIGHT * SLOT_SPACE);
 	}
 	
 	/**
@@ -254,10 +254,10 @@ public class MazeView extends JPanel{
 			//fix antialiasing for text
 			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
 					RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			for(int x=0; x<board.getWidth();x++){
-				for(int y=0;y<board.getHeight();y++)
+			for(int x = 0; x < board.WIDTH; x++){
+				for(int y = 0; y < board.HEIGHT; y++)
 				{
-					char c=board.getCell(x,y);
+					char c = board.getCell(x,y);
 					switch(c)
 					{
 						case '.':case '^':
@@ -285,7 +285,7 @@ public class MazeView extends JPanel{
 			}
 			
 			//spawning user
-			if (MainMenu.getCurState()==MainMenu.DE){
+			if (MainMenu.getCurState() == MainMenu.DE){
 				if(board.getUser().getDirection()!=-1){
 					horseshoeImages[8]=horseshoeImages[board.getUser().getDirection()];
 				}
