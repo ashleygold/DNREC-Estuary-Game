@@ -165,7 +165,7 @@ public class BeachView extends JPanel{
 		waveImage = createImage("wave.png");
 		
 		//sets up frame
-		frame = new JFrame();
+		frame = new JFrame("Minigame 2: Shore Defense");
 		frame.getContentPane().add(this);
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

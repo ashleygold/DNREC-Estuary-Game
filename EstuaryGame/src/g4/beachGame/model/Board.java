@@ -272,7 +272,7 @@ public class Board {
 	/** @return the integer representing the current protector */
 	public int getProtector(){
 		return protector;
-		}
+	}
 	
 	/**
 	 * Returns the array of current boats on the screen.
@@ -280,7 +280,7 @@ public class Board {
 	 */
 	public ArrayList<Boat> getCurrBoats() {
 		return currBoats;
-		}
+	}
 	
 	/**
 	 * Returns the width of the board.
@@ -288,7 +288,7 @@ public class Board {
 	 */
 	public static int getWidth(){
 		return WIDTH;
-		}
+	}
 	
 	/**
 	 * Returns the height of the board.
@@ -296,7 +296,7 @@ public class Board {
 	 */
 	public int getHeight(){
 		return HEIGHT;
-		}
+	}
 	
 	/**
 	 * Returns the arraylist of current waves on the screen.
@@ -304,11 +304,12 @@ public class Board {
 	 */
 	public ArrayList<Wave> getCurrWaves() {
 		return currWaves;
-		}
+	}
 	
 	public ArrayList<Wave> getSplitWaves(){
 		return splitWaves;
-		}
+	}
+	
 	/**
 	 * Sets the attribute currWaves to the parameter currWaves.
 	 * @param currWaves the arraylist to replace the attribute currWaves

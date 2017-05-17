@@ -90,7 +90,7 @@ public class MainMenu extends JPanel{
 		Font buttonF = new Font("Findet Nemo", Font.PLAIN, 40);
 		
 		//create and set up frame defaults
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Main Menu");
 		frame.getContentPane().add(new MainMenu());
 		frame.setBackground(BACKGROUND_BLUE);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
