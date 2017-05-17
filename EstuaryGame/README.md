@@ -1,6 +1,6 @@
 ﻿# Section-010-Team-4
 
-A Java project that teaches middle school students about the estuary conservation in a fun and exciting way. 
+A Java project that teaches middle school students about estuary conservation in a fun and exciting way. 
 
 ## How To Run
 
