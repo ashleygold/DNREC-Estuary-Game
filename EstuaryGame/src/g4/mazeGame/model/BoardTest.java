@@ -41,16 +41,6 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testGetHeight(){
-		assertEquals(board.getHeight(),17);
-	}
-	
-	@Test
-	public void testGetWidth(){
-		assertEquals(board.getWidth(), 19);
-	}
-	
-	@Test
 	public void testGetUser(){
 		assertEquals(user, board.getUser());
 	}

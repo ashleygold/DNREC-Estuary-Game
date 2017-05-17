@@ -29,14 +29,8 @@ public class Board {
 	private int protector = -1;
 	
 	/**final fields that represents types of objects on the board**/
-	public final static int SHORE = 0; 
-	public final static int WATER = 1; 
-	public final static int GRASS = 2; 
-	public final static int GRASS_L =3; 
-	public final static int WALL = 4;
-	public final static int GABION = 5;
-	public final static int GABION_L = 6;
-	public final static int GABION_2L = 7;
+	public final static int SHORE = 0, WATER = 1,GRASS = 2, GRASS_L =3, WALL = 4,
+			GABION = 5, GABION_L = 6, GABION_2L = 7;
 	
 	/**The total rows on the board */
 	private final static int TOTALROWS=6;

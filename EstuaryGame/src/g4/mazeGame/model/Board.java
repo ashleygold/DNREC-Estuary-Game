@@ -293,14 +293,6 @@ public class Board {
 		return salinity;
 	}
 	
-	public int getHeight() {
-		return HEIGHT;
-	}
-
-	public int getWidth() {
-		return WIDTH;
-	}
-	
 	public User getUser() {
 		return user;
 	}

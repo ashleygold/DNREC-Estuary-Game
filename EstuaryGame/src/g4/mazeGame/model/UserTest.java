@@ -104,8 +104,8 @@ public class UserTest {
 	public void testCheckWin(){
 		Board board2 = new Board (1,0);
 		User user2 = new User(board2);
-		user2.setFoodCount(10);
 		assertFalse(user2.checkWin());
+		user2.setFoodCount(10);
 		user2.setYLoc(0);
 		user2.setXLoc(9);
 		assertTrue(user2.checkWin());
