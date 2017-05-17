@@ -60,11 +60,6 @@ public class BeachView extends JPanel{
 	private static final String[] protectorsLoc = {"grass.png", 
 		"oysters.png", "seawall.png"};
 	
-	/**locations of shore images */
-//	private static final String[] shoreImagesLoc = {"tile_sand_north.png",
-//		"tile_sand_center.png", "tile_water_S.png", 
-//		"tile_water_C.png", "tile_grass_north.png", "gabion.png", "gabion_l.png", "gabion_2l"};
-	
 	private static final String[] shoreImagesLoc = {
 			"tile_sand_center.png", "tile_water_C.png", "tile_grass_north_deteriorated.png",
 			"tile_grass_north.png", "seawall.png", "gabion.png", "gabion_l.png", "gabion_2l.png",
@@ -105,20 +100,12 @@ public class BeachView extends JPanel{
 	private BufferedImage background = createImage("background.png");
 	
 	/**tutorial images*/
-	BufferedImage title = createImage("Title.png");
-	BufferedImage tut1 = createImage("Tut2.png");
-	BufferedImage tut2 = createImage("Tut3.png");
-	BufferedImage tut3 = createImage("Tut4.png");
-	BufferedImage tut4 = createImage("Tut5.png");
-	BufferedImage tut5 = createImage("Tut6.png");
-	BufferedImage arrowDown = createImage("arrowDown.png");
-	BufferedImage waveImage;
+	BufferedImage title = createImage("Title.png"),tut1 = createImage("Tut2.png"),tut2 = createImage("Tut3.png"),
+			tut3 = createImage("Tut4.png"), tut4 = createImage("Tut5.png"),tut5 = createImage("Tut6.png"),
+			arrowDown = createImage("arrowDown.png"),waveImage;
 	
 	/**the height of the display*/
 	private int displayHeight;
-	
-	/** */
-	JLabel time; 
 	
 	/**
 	 * Converts file name/location to Buffered Image
