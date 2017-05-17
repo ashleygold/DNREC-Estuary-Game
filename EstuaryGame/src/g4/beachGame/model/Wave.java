@@ -6,53 +6,40 @@ import java.util.Iterator;
 import g4.beachGame.controller.BeachCont;
 
 public class Wave {
-	
-	/**damage a wave inflicts */
-	int damage;
-	
 	/**length of wave */
-	int length;
+	private int length;
 	
 	/**direction of wave*/
-	static int direction = 0;
+	private static int direction = 0;
 	
 	/**speed of wave*/
-	int speed;
+	protected int speed;
 	
 	/** x location of the wave*/
-	int xloc;
+	protected int xloc;
 	
 	/**y location of the wave */
-	int yloc;
+	protected int yloc;
 	 
 	/**length of a cruise liner */
-	final int CRUISELINER_LENGTH = 150;
+	private final int CRUISELINER_LENGTH = 150;
 	
 	/**length of a sailboat*/
-	final int SAILBOAT_LENGTH = 80;
+	private final int SAILBOAT_LENGTH = 80;
 	
 	/**length of a speed boat*/
-	final int SPEEDBOAT_LENGTH = 40;
-	
-	/**damage inflicted by a cruise liner wave */
-	final int CRUISELINER_DAMAGE = 3;
-	
-	/**damage inflicted by a sailboat wave */
-	final int SAILBOAT_DAMAGE=2; 
-	
-	/**damage inflicted by a speed boat wave*/
-	final int SPEEDBOAT_DAMAGE=1; 
+	private final int SPEEDBOAT_LENGTH = 40;
 	
 	/**possible directions of a wave*/
-	final static int RIGHT=1;
-	final static int LEFT=-1; 
-	final static int FORWARD=0;
+	protected final static int RIGHT=1;
+	protected final static int LEFT=-1; 
+	protected final static int FORWARD=0;
 	
 	/**speed of sailboat and speedboat*/
-	final int BOAT_SPEED = 1;
+	private final int BOAT_SPEED = 1;
 
 	/**speed of cruiseliner */
-	int CRUISELINER_SPEED=2; 
+	private int CRUISELINER_SPEED=2; 
 	
 	/**direction that the picture of the wind is facing */
 	private static int windFace = 0;
@@ -63,17 +50,14 @@ public class Wave {
 	 */
 	public Wave(Boat boat){
 		if (boat instanceof CruiseLiner){
-			this.damage = CRUISELINER_DAMAGE;
 			this.length = CRUISELINER_LENGTH;
 			this.speed= CRUISELINER_SPEED; 
 		}
 		else if (boat instanceof Sailboat){
-			this.damage = SAILBOAT_DAMAGE;
 			this.length = SAILBOAT_LENGTH;
 			this.speed= BOAT_SPEED; 
 		}
 		else{
-			this.damage = SPEEDBOAT_DAMAGE;
 			this.length = SPEEDBOAT_LENGTH;
 			this.speed= BOAT_SPEED; 
 		}
@@ -92,7 +76,6 @@ public class Wave {
 	 * @param y: y location of wave
 	 */
 	public Wave(int speed, int length, int x, int y){
-		this.damage=3;
 		this.length=length;
 		this.speed=speed;
 		this.xloc=x;
@@ -117,7 +100,7 @@ public class Wave {
 	}
 	
 	/**tells if a wave is out of the range of the game*/
-	public boolean isOutOfRange(){
+	protected boolean isOutOfRange(){
 		if (direction == LEFT && this.getX()<1)
 			return true;
 		else if ((direction ==RIGHT||direction == FORWARD) && this.getX()+this.getLength()>Board.getWidth())
@@ -174,6 +157,10 @@ public class Wave {
 	}
 	
 	public static int getDirection(){return direction;}
+	
+	public static void setDirection(int x){
+		direction = x;
+	}
 	
 	public static int getWindFace(){return windFace;}
 }

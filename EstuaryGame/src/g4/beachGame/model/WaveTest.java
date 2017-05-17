@@ -16,20 +16,20 @@ public class WaveTest {
 	@Test
 	public void testMove() {
 		Wave wave = new Wave(sailboat);
-		Wave.direction = Wave.FORWARD;
+		Wave.setDirection(Wave.FORWARD);
 		wave.move();
 		assertEquals(sailboat.getYLoc()+wave.speed, wave.getY());
 		
-		Wave.direction = Wave.LEFT;
+		Wave.setDirection(Wave.LEFT);
 		int xLocation = wave.getX();
 		wave.move();
-		assertEquals(xLocation-Wave.direction, wave.getX());
+		assertEquals(xLocation-Wave.getDirection(), wave.getX());
 		
 		BeachCont.frameCounterWind = 8;
 		wave.move();
 		assertEquals(sailboat.getYLoc()+2*wave.speed, wave.getY());
 		
-		Wave.direction = Wave.RIGHT;
+		Wave.setDirection(Wave.RIGHT);
 		wave.move();
 		assertEquals(sailboat.getYLoc()+2*wave.speed, wave.getY());
 		
@@ -41,26 +41,26 @@ public class WaveTest {
 	@Test
 	public void testIsOutOfRange(){
 		Wave wave = new Wave(speedboat);
-		Wave.direction = Wave.LEFT;
+		Wave.setDirection(Wave.LEFT);
 		wave.xloc = -1;
 		assertTrue(wave.isOutOfRange());
 		
-		Wave.direction = Wave.RIGHT;
+		Wave.setDirection(Wave.RIGHT);
 		wave.xloc = Board.getWidth();
 		assertTrue(wave.isOutOfRange());
 		
-		Wave.direction = Wave.FORWARD;
+		Wave.setDirection(Wave.FORWARD);
 		wave.xloc = Board.getWidth();
 		assertTrue(wave.isOutOfRange());
 		
 		
-		Wave.direction = Wave.LEFT;
+		Wave.setDirection(Wave.LEFT);
 		wave.xloc = Board.SHORE_WIDTH+1;
 		wave.yloc = Board.HEIGHT/2 + 1;
 		assertTrue(wave.isOutOfRange());
 		
 		Wave wave2 = new Wave(2, 5, -1, 600);
-		Wave.direction = Wave.RIGHT;
+		Wave.setDirection(Wave.RIGHT);
 		wave.xloc = -1;
 		assertTrue(wave2.isOutOfRange());
 		
@@ -75,17 +75,17 @@ public class WaveTest {
 		Wave wave = new Wave(cruiseliner);
 		wave.xloc = Board.SHORE_HEIGHT+1;
 		waves.add(wave);
-		Wave.direction = Wave.FORWARD;
+		Wave.setDirection(Wave.FORWARD);
 		Wave.activateWind(3, waves);
-		assertEquals(Wave.FORWARD, Wave.direction);
+		assertEquals(Wave.FORWARD, Wave.getDirection());
 		
 		wave.xloc= Board.SHORE_HEIGHT-1;
 		Wave.activateWind(3,waves);
-		assertEquals(Wave.RIGHT, Wave.direction);
+		assertEquals(Wave.RIGHT, Wave.getDirection());
 		
-		Wave.direction = Wave.FORWARD;
+		Wave.setDirection(Wave.FORWARD);
 		Wave.activateWind(4,waves);
-		assertEquals(Wave.LEFT, Wave.direction);
+		assertEquals(Wave.LEFT, Wave.getDirection());
 		
 		Wave.activateWind(3,waves);
 		assertEquals(Wave.LEFT, Wave.getDirection());
@@ -94,7 +94,7 @@ public class WaveTest {
 	@Test
 	public void testCeaseWind(){
 		Wave.ceaseWind();
-		assertEquals(Wave.FORWARD, Wave.direction);
+		assertEquals(Wave.FORWARD, Wave.getDirection());
 	}
 	
 	@Test
