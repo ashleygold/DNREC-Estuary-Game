@@ -12,7 +12,7 @@ public class PredatorTest {
 	@Test
 	public void checkEatTestTrue() {
 		Predator pred2 = new Predator(board, user, 15, 15);
-		assertTrue(pred2.checkEat());
+		assertTrue(pred2.move());
 	}
 	
 	@Test
@@ -24,13 +24,52 @@ public class PredatorTest {
 	}
 	
 	@Test
-	public void testMove(){
-		int initX = (int) pred.getXLoc();
-		int initY = (int) pred.getYLoc();
-		for(int i=0; i<1000; i++){
-			pred.move();
+	public void testMoveCardinalDirection(){
+		double initX = 17;
+		double initY = 15;
+		
+		Predator pred2 = new Predator(board, user, (int) initX, (int) initY);
+		pred2.setDirection(Predator.RIGHT);
+		pred2.move();
+		
+		assertTrue(initX != pred2.getXLoc());
+		assertTrue(initY == pred2.getYLoc());
+		
+		for (int i = 0; i < 10; i++){
+			pred2.setDirection(Predator.RIGHT);
+			pred2.move();
 		}
-		assertTrue(initX!=pred.getXLoc());
-		assertTrue(initY!=pred.getYLoc());
+		initX = pred2.getXLoc();
+		initY = pred2.getYLoc();
+		
+		pred2.setDirection(Predator.RIGHT);
+		pred2.move();
+		assertTrue(initX == pred2.getXLoc());
+		assertTrue(initY == pred2.getYLoc());
+	}
+	
+	@Test
+	public void testMoveDiagonalDirection(){
+		double initX = 17;
+		double initY = 15;
+		
+		Predator pred2 = new Predator(board, user, (int) initX, (int) initY);
+		pred2.setDirection(Predator.DOWN_RIGHT);
+		pred2.move();
+		
+		assertTrue(initX != pred2.getXLoc());
+		assertTrue(initY != pred2.getYLoc());
+		
+		for (int i = 0; i < 10; i++){
+			pred2.setDirection(Predator.DOWN_RIGHT);
+			pred2.move();
+		}
+		initX = pred2.getXLoc();
+		initY = pred2.getYLoc();
+		
+		pred2.setDirection(Predator.DOWN_RIGHT);
+		pred2.move();
+		assertTrue(initX == pred2.getXLoc());
+		assertTrue(initY == pred2.getYLoc());
 	}
 }
