@@ -51,7 +51,7 @@ public class Cube {
 		return imageNum;
 	}
 	
-	public boolean isFixed(){
+	protected boolean isFixed(){
 		return fixed;
 	}
 	

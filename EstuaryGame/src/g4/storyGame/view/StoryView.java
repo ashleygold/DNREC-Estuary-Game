@@ -113,7 +113,7 @@ public class StoryView extends JPanel{
 	private JTextArea storyBox = new JTextArea();
 	
 	/** Scrollable text box */
-	JScrollPane scrollPane = new JScrollPane(storyBox);
+	private JScrollPane scrollPane = new JScrollPane(storyBox);
 	
 	/**
 	 * Constructor which initializes a View to display the model parameter

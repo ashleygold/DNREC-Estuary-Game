@@ -10,17 +10,13 @@ public class TableTest {
 	Cube cube = new Cube();
 	
 	@Test
-	public void testGetActiveCubeAt(){
-		cube = table.getCubeAt(2, true);
-		assertEquals(cube, table.getDice().get(2));
-	}
-	
-	@Test
 	public void testActivateCubePass(){
+		assertTrue(!table.getCubeAt(1, true).isFixed());
 		table.activateCube(1);
-		assertTrue(table.getDice().get(1).isFixed());
+		assertTrue(table.getCubeAt(1, true).isFixed());
+		assertTrue(!table.getCubeAt(1, true).isMoved());
 		table.activateCube(1);
-		assertTrue(table.getDice().get(1).isMoved());
+		assertTrue(table.getCubeAt(1, true).isMoved());
 	}
 	
 	@Test
@@ -30,7 +26,7 @@ public class TableTest {
 	
 	@Test
 	public void testAreAllMovedTrue(){
-		for(int i=0; i<table.getDice().size(); i++){
+		for(int i=0; i<table.getActiveSize(); i++){
 			table.activateCube(i);
 			table.activateCube(i);
 		}
@@ -39,20 +35,20 @@ public class TableTest {
 	
 	@Test
 	public void testGetInactiveCubeAt(){
-		for(int i=0; i<table.getDice().size(); i++){
+		for(int i=0; i < table.getActiveSize(); i++){
 			table.activateCube(i);
 			table.activateCube(i);
 		}
 		Cube cube2 = table.getCubeAt(0, false);
-		assertEquals(cube2, table.getDice().get(0));
+		assertEquals(cube2, table.getCubeAt(0, false));
 	}
 
 	@Test
 	public void testAreAllFixed(){
 		Table table2 = new Table();
 		assertTrue(!table2.areAllFixed());
-		for (Cube x : table2.getDice())
-			x.fix();
+		for (int i = 0; i < table2.getActiveSize(); i++)
+			table2.getCubeAt(i, true).fix();
 		assertTrue(table2.areAllFixed());
 	}
 	
@@ -66,7 +62,8 @@ public class TableTest {
 	public void testUpdate(){
 		table.update();
 		table.update();
-		for (Cube x : table.getDice()){
+		for (int i = 0; i < table.getActiveSize(); i++){
+			Cube x = table.getCubeAt(i, true);
 			int img = x.getImg();
 			while (img == x.getImg())
 				x.changeImg();
