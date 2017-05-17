@@ -28,9 +28,6 @@ public class Board {
 	/**which protect is currently being used placed**/
 	private int protector = -1;
 	
-	/**the width of the user, which may change depending on the state**/
-	public int user_width = 100;
-	
 	/**final fields that represents types of objects on the board**/
 	public final static int SHORE = 0; 
 	public final static int WATER = 1; 
@@ -42,15 +39,14 @@ public class Board {
 	public final static int GABION_2L = 7;
 	
 	/**The total rows on the board */
-	public final static int TOTALROWS=6;
+	private final static int TOTALROWS=6;
 	
 	/**Amount by which to raise height of board due to timer*/
 	public final static int RAISE=15;
 	
 	/**final fields that represent the depth of the shore**/
-	public final static int TOP_ROW1=3;
-	public final static int TOP_ROW2=4*HEIGHT/TOTALROWS -RAISE ;
-	public final static int TOP_ROW3=5*HEIGHT/TOTALROWS -2*RAISE;
+	private final static int TOP_ROW2=4*HEIGHT/TOTALROWS -RAISE ;
+	private final static int TOP_ROW3=5*HEIGHT/TOTALROWS -2*RAISE;
 	
 	/**the array representing what was originally the shore**/
 	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
@@ -65,23 +61,23 @@ public class Board {
 	public int hoursLeft = TOTAL_HOURS; 
 	
 	/**nano seconds per second conversion**/
-	final static double NANOSECOND_PER_SECOND=1000000000.0;
+	private final static double NANOSECOND_PER_SECOND=1000000000.0;
 	
 	/**time when user starts playing**/
-	final long START_TIME= System.nanoTime();
+	private final long START_TIME= System.nanoTime();
 	
 	/**how much time has passed in seconds since user started playing**/
-	public double elapsedTime=0;
+	protected double elapsedTime=0;
 	
 	/**current Waves on the screen moving towards the shore; splitWaves
 	 * are the waves that are smaller because a portion **/
 	private ArrayList<Wave> currWaves, splitWaves;
 	
 	/**current Boats on the screen**/
-	ArrayList<Boat> currBoats;
+	protected ArrayList<Boat> currBoats;
 	
 	/**current Turtles on the screen**/
-	ArrayList<Turtle> turtles;
+	protected ArrayList<Turtle> turtles;
 	
 	/**the user for this board**/
 	public User user;
@@ -252,7 +248,7 @@ public class Board {
 	 */
 	public int chooseProtector() {
 		//if user is close enough to protectors
-		if ((int)(user.getxLoc()+user_width)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE){
+		if ((int)(user.getxLoc()+User.CRAB_WIDTH)*SPACES_OF_SHORE/SHORE_WIDTH == SPACES_OF_SHORE){
 			//uses y location to determine which protector is chosen
 			if (user.getyLoc() <TOP_ROW2)
 				protector = GRASS_L;
