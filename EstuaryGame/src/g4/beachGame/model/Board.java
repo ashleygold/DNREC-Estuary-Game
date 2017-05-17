@@ -73,9 +73,9 @@ public class Board {
 	/**how much time has passed in seconds since user started playing**/
 	public double elapsedTime=0;
 	
-	/**current Waves on the screen moving towards the shore**/
-	private ArrayList<Wave> currWaves;
-	private ArrayList<Wave> splitWaves;
+	/**current Waves on the screen moving towards the shore; splitWaves
+	 * are the waves that are smaller because a portion **/
+	private ArrayList<Wave> currWaves, splitWaves;
 	
 	/**current Boats on the screen**/
 	ArrayList<Boat> currBoats;
@@ -83,7 +83,7 @@ public class Board {
 	/**current Turtles on the screen**/
 	ArrayList<Turtle> turtles;
 	
-	/**the user**/
+	/**the user for this board**/
 	public User user;
 	
 	/**represents if the turtle died or not*/
