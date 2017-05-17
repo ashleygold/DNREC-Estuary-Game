@@ -110,4 +110,15 @@ public class UserTest {
 		user.move();
 		assertEquals(Board.WIDTH, user.getxLoc());
 	}
+	
+	@Test
+	public void testIsShore(){
+		assertFalse(user.isShore(-1, 350));
+		assertTrue(user.isShore(370, 350));
+		b1.beach[0][4] = Board.WATER;
+		assertFalse(user.isShore(370, 350));
+		assertFalse(user.isShore(Board.SHORE_WIDTH+1, 350));
+		assertFalse(user.isShore(370, 200));
+		assertFalse(user.isShore(370, Board.HEIGHT+100));
+	}
 }

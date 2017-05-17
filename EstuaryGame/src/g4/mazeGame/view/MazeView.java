@@ -75,8 +75,8 @@ public class MazeView extends JPanel{
 	
 	/** turtle image locations */
 	private static final String[] turtleImagesLoc = {"turtle_east.png", "turtle_north.png",
-			"turtle_northeast.png", "turtle_northwest.png", "turtle_south.png", "turtle_southeast.png",
-			"turtle_southwest.png", "turtle_west.png"};
+			"turtle_south.png", "turtle_west.png", "turtle_northeast.png", "turtle_northwest.png",
+			"turtle_southeast.png",	"turtle_southwest.png"};
 	
 	/** food image locations **/
 	private static final String[] foodImgLoc = {"algae_good.png",

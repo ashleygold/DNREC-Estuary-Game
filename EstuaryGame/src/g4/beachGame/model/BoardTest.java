@@ -182,7 +182,7 @@ public class BoardTest {
 		b1.placeProtector();
 		assertEquals(-1, b1.getProtector());
 	}
-	
+
 	@Test
 	public void testGetWidth(){
 		assertEquals(Board.WIDTH, b1.getWidth());
