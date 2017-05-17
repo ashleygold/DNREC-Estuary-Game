@@ -97,33 +97,33 @@ public class BoardTest {
 	
 	@Test
 	public void testSplitWave(){
-		Wave wave = new Wave(10, 200, 350, b1.SHORE_HEIGHT+30);
-		b1.beach[0][4] = b1.SHORE;
-		b1.beach[0][5] = b1.WATER;
-		b1.beach[0][6] = b1.SHORE;
+		Wave wave = new Wave(10, 200, 350, Board.SHORE_HEIGHT+30);
+		b1.beach[0][4] = Board.SHORE;
+		b1.beach[0][5] = Board.WATER;
+		b1.beach[0][6] = Board.SHORE;
 		b1.splitWave(wave);
 		assertEquals(3, b1.getSplitWaves().size());
 		
-		b1.beach[0][4] = b1.WATER;
-		b1.splitWave(new Wave(10, 200, 350, b1.SHORE_HEIGHT+30));
+		b1.beach[0][4] = Board.WATER;
+		b1.splitWave(new Wave(10, 200, 350, Board.SHORE_HEIGHT+30));
 		assertEquals(5, b1.getSplitWaves().size());
 		
-		b1.splitWave(new Wave(10, 200, b1.SHORE_WIDTH-100, b1.SHORE_HEIGHT+30));
+		b1.splitWave(new Wave(10, 200, Board.SHORE_WIDTH-100, Board.SHORE_HEIGHT+30));
 		assertEquals(5, b1.getSplitWaves().size());
 	}
 	
 	@Test
 	public void testWaveHit(){
-		Wave wave = new Wave(10, 200, b1.SHORE_WIDTH-100, b1.SHORE_HEIGHT+30);
-		b1.beach[0][3] = b1.GABION_2L;
-		b1.beach[0][4] = b1.GRASS_L;
-		b1.beach[1][3] = b1.SHORE;
-		b1.beach[1][4] = b1.WALL;
+		Wave wave = new Wave(10, 200, Board.SHORE_WIDTH-100, Board.SHORE_HEIGHT+30);
+		b1.beach[0][3] = Board.GABION_2L;
+		b1.beach[0][4] = Board.GRASS_L;
+		b1.beach[1][3] = Board.SHORE;
+		b1.beach[1][4] = Board.WALL;
 		//b1.beach[2][4] = b1.WALL;
 		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
 		b1.waveHit(1111, -1000);
 		
-		Wave wave2 = new Wave(10, 40, 300, b1.SHORE_HEIGHT+10);
+		Wave wave2 = new Wave(10, 40, 300, Board.SHORE_HEIGHT+10);
 		b1.waveHit(wave2.getX(),wave2.getX()+wave2.getLength());
 		assertEquals(Board.GABION_L, b1.beach[0][3]);
 		assertEquals(Board.GRASS, b1.beach[0][4]);
@@ -143,64 +143,6 @@ public class BoardTest {
 		b1.beach[1][4]= Board.WATER;
 		b1.waveHit(wave2.getX(),wave2.getX()+wave2.getLength());
 		assertTrue(b1.getIsShoreDestroyed());
-	}
-	
-	@Test
-	public void testIsInOcean(){ //method called in waveHit
-		//depth = 0
-		b1.user.setyLoc(200);
-		b1.beach[0][4]=b1.SHORE;
-		Wave wave = new Wave(10, 20, 350, b1.SHORE_HEIGHT+30);
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertFalse(b1.user.isInOcean);
-		
-		b1.user.setyLoc(320);
-		b1.beach[0][4]=b1.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertTrue(b1.user.isInOcean);
-		
-		b1.user.isInOcean = false;
-		b1.user.setyLoc(400);
-		b1.beach[0][4]=b1.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertFalse(b1.user.isInOcean);
-		
-		b1.user.setyLoc(251);
-		b1.beach[0][4]=b1.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertTrue(b1.user.isInOcean);
-		
-		//depth = 1
-		b1.user.isInOcean = false;
-		b1.user.setyLoc(400);
-		b1.beach[0][4]=b1.WATER;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertTrue(b1.user.isInOcean);
-		
-		b1.user.isInOcean = false;
-		b1.user.setyLoc(325);
-		b1.beach[0][4]=b1.WATER;
-		b1.beach[1][4]=b1.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertFalse(b1.user.isInOcean);
-		
-		b1.user.setyLoc(500);
-		b1.beach[0][4]=Board.WATER;
-		b1.beach[1][4]=Board.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertFalse(b1.user.isInOcean);
-		
-		b1.user.setyLoc(345);
-		b1.beach[0][4]=Board.WATER;
-		b1.beach[1][4]=Board.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertTrue(b1.user.isInOcean);
-		
-		b1.user.isInOcean = true;
-		b1.beach[0][4]=Board.WATER;
-		b1.beach[1][4]=Board.SHORE;
-		b1.waveHit(wave.getX(), wave.getX()+wave.getLength());
-		assertTrue(b1.user.isInOcean);
 	}
 	
 	@Test

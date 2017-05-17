@@ -145,7 +145,7 @@ public class Wave {
 				isWaveBelowStartingShoreline=true;
 			}
 		}
-		if (direction == FORWARD && isWaveBelowStartingShoreline) {
+		if (direction == FORWARD && !isWaveBelowStartingShoreline) {
 			int randomDir = number %2 ;
 			if (randomDir == 1){
 				direction = RIGHT;

@@ -72,8 +72,14 @@ public class WaveTest {
 	@Test
 	public void testActivateWind(){
 		ArrayList<Wave> waves = new ArrayList<Wave>();
-		waves.add(new Wave(cruiseliner));
+		Wave wave = new Wave(cruiseliner);
+		wave.xloc = Board.SHORE_HEIGHT+1;
+		waves.add(wave);
 		Wave.direction = Wave.FORWARD;
+		Wave.activateWind(3, waves);
+		assertEquals(Wave.FORWARD, Wave.direction);
+		
+		wave.xloc= Board.SHORE_HEIGHT-1;
 		Wave.activateWind(3,waves);
 		assertEquals(Wave.RIGHT, Wave.direction);
 		
@@ -81,9 +87,8 @@ public class WaveTest {
 		Wave.activateWind(4,waves);
 		assertEquals(Wave.LEFT, Wave.direction);
 		
-		Wave.direction = Wave.RIGHT;
 		Wave.activateWind(3,waves);
-		assertEquals(Wave.RIGHT, Wave.getDirection());
+		assertEquals(Wave.LEFT, Wave.getDirection());
 	}
 	
 	@Test

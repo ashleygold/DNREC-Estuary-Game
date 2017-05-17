@@ -14,63 +14,40 @@ public class UserTest {
 	}
 	
 	@Test
-	public void testMoveLeft(){
-		user.setDirection(User.LEFT);
-		user.setyLoc(600); //sets isOnEdge true
-		user.move();
-		assertEquals(15, user.getxLoc());
-		
-		user.setxLoc(15);
-		user.isInOcean = true;
-		user.move();
-		assertEquals(3, user.getxLoc());
-		
-		user.isInOcean = false;
-		user.move();
-		assertEquals(-9, user.getxLoc());
-		
-		user.isInOcean = true;
-		user.setxLoc(15);
-		user.setyLoc(450);
-		user.move();
-		assertEquals(3, user.getxLoc());
+	public void getDirection(){
+		assertEquals(8, user.getDirection());
 	}
 	
 	@Test
-	public void testMoveRight(){
+	public void testMove(){
+		//testing still
+		user.move();
+		assertEquals(0, user.getPicNum());
+		
+		//testing left
+		user.setDirection(User.LEFT);
+		user.move();
+		assertEquals(88, user.getxLoc());
+		
+		user.setxLoc(-1);
+		user.move();
+		assertEquals(-1, user.getxLoc());
+	
+		//testing right
 		user.setDirection(User.RIGHT);
 		user.setxLoc(15); //isShore = true
 		user.move();
 		assertEquals(27, user.getxLoc());
 		
-		user.setxLoc(Board.WIDTH); //isShore = false
+		user.setxLoc(Board.SHORE_WIDTH); //isShore = false
 		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());
-		
-		user.isInOcean = true;
-		user.setxLoc(Board.WIDTH);
-		user.setyLoc(600);
-		user.move();
-		assertEquals(Board.WIDTH+12, user.getxLoc());
-		
-		user.isInOcean = false;
-		user.setxLoc(15);
-		user.move();
-		assertEquals(27, user.getxLoc());
-		
-		user.setxLoc(Board.WIDTH);
-		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());
-		
-		user.setxLoc(15);
-		user.setyLoc(450);
-		user.isInOcean = true;
-		user.move();
-		assertEquals(27, user.getxLoc());
-	}
+		assertEquals(Board.SHORE_WIDTH, user.getxLoc());
 	
-	@Test
-	public void testMoveUp(){
+		user.setxLoc(920);
+		user.move();
+		assertEquals(920, user.getxLoc());
+	
+		//testing up
 		user.setDirection(User.UP);
 		user.move();
 		assertEquals(442, user.getyLoc());
@@ -80,25 +57,11 @@ public class UserTest {
 		assertEquals(600, user.getyLoc());
 		
 		user.setyLoc(450);
-		user.move(); //isOnEdge = False
-		
 		user.setxLoc(975);
 		user.move();
-		assertEquals(442, user.getyLoc()); //first term in if is false
+		assertEquals(450, user.getyLoc()); //first term in if is false
 		
-		user.isInOcean = true;
-		user.move();
-		assertEquals(434, user.getyLoc());
-		
-		user.setyLoc(600);
-		user.move(); //isOnEdge = True
-		
-		user.move();
-		assertEquals(592, user.getyLoc());
-	}
-	
-	@Test
-	public void testMoveDown(){
+		//testing down
 		user.setDirection(User.DOWN);
 		user.move();
 		assertEquals(458, user.getyLoc());
@@ -106,91 +69,45 @@ public class UserTest {
 		user.setxLoc(Board.WIDTH);
 		user.move();
 		assertEquals(458, user.getyLoc());
-		
-		user.isInOcean = true;
-		user.move();
-		assertEquals(466, user.getyLoc());
-		
-		user.isInOcean = false;
-		user.setyLoc(600);
-		user.move();
-		assertEquals(600, user.getyLoc());
-		
-		user.move();
-		assertEquals(608, user.getyLoc());
-	}
 	
-	@Test
-	public void testMoveUpRight(){
+		//testing up_right
+		user.setxLoc(100);
 		user.setDirection(User.UP_RIGHT);
 		user.move();
-		assertEquals(27, user.getxLoc());
+		assertEquals(112, user.getxLoc());
 		
 		user.setxLoc(Board.WIDTH);
 		user.move();
 		assertEquals(Board.WIDTH, user.getxLoc());
 		
-		user.isInOcean = true;
-		user.move();
-		assertEquals(Board.WIDTH+12, user.getxLoc());
-	}
-	
-	@Test
-	public void testMoveUpLeft(){
+		//testing up_left
+		user.setxLoc(100);
 		user.setDirection(User.UP_LEFT);
 		user.move();
-		assertEquals(3, user.getxLoc());
+		assertEquals(88, user.getxLoc());
 		
 		user.setxLoc(Board.WIDTH);
 		user.move();
 		assertEquals(Board.WIDTH, user.getxLoc());
 		
-		user.isInOcean = true;
-		user.move();
-		assertEquals(Board.WIDTH-12, user.getxLoc());
-	}
-	
-	@Test
-	public void testMoveDownRight(){
+		//testing down_right
+		user.setxLoc(100);
 		user.setDirection(User.DOWN_RIGHT);
 		user.move();
-		assertEquals(27, user.getxLoc());
+		assertEquals(112, user.getxLoc());
 		
 		user.setxLoc(Board.WIDTH);
 		user.move();
-		assertEquals(Board.WIDTH, user.getxLoc());
-		
-		user.isInOcean = true;
-		user.move();
-		assertEquals(Board.WIDTH+12, user.getxLoc());
-		
-		user.setyLoc(600); //isOnEdge = true
-		user.move(); 
-		
-		user.isInOcean = false;
-		user.move();
-		assertEquals(616, user.getyLoc());
-	}
+		assertEquals(Board.WIDTH, user.getxLoc());	
 	
-	@Test
-	public void testMoveDownLeft(){
+		//testing down_left
+		user.setxLoc(100);
 		user.setDirection(User.DOWN_LEFT);
 		user.move();
-		assertEquals(3, user.getxLoc());
+		assertEquals(88, user.getxLoc());
 		
 		user.setxLoc(Board.WIDTH);
 		user.move();
 		assertEquals(Board.WIDTH, user.getxLoc());
-		
-		user.isInOcean = true;
-		user.move();
-		assertEquals(Board.WIDTH-12, user.getxLoc());
-		
-		user.isInOcean = false;
-		user.setyLoc(600);
-		user.move();
-		
-		user.move();
-		assertEquals(608, user.getyLoc());
 	}
 }

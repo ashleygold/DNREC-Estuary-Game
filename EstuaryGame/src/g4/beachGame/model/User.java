@@ -67,7 +67,7 @@ public class User {
 	}
 	
 	public boolean isShore(double x, double y){
-		return (x>0 && x<Board.SHORE_WIDTH && y>Board.SHORE_HEIGHT && y<Board.HEIGHT-CRAB_HEIGHT);
+		return (x>=0 && x<Board.SHORE_WIDTH && y>Board.SHORE_HEIGHT && y<Board.HEIGHT-CRAB_HEIGHT);
 	}
 	
 	/**
@@ -79,54 +79,47 @@ public class User {
 			picNum = (picNum + .2) % frameCount;
 		switch(direction) {
 			case LEFT:
-				if (isShore(xLoc - XINCR, yLoc) || isInOcean || (isOnEdge && xLoc > 0))
+				if (isShore(xLoc - XINCR, yLoc))
 					xLoc-=XINCR;
 				break;
 			case RIGHT:
-				if ((isShore(xLoc + XINCR+CRAB_WIDTH, yLoc) 
-						&& isShore(xLoc + XINCR, yLoc)) || isInOcean
-						|| (isOnEdge && xLoc < Board.SHORE_WIDTH))
+				if (isShore(xLoc + XINCR, yLoc) &&
+						isShore(xLoc + XINCR+CRAB_WIDTH, yLoc))
 					xLoc+=XINCR;
 				break;
 			case UP:
-				if ((isShore(xLoc, yLoc - YINCR)
+				if (isShore(xLoc, yLoc - YINCR)
 						&& isShore(xLoc+CRAB_WIDTH, yLoc - YINCR))
-						|| isInOcean || isOnEdge)
 					yLoc-=YINCR;
 				break;
 			case DOWN:
-				if (isShore(xLoc, yLoc+YINCR) || isInOcean) 
+				if (isShore(xLoc, yLoc+YINCR)) 
 					yLoc+=YINCR;
 				break;
 			case UP_RIGHT:
-				if (isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)
-						|| isInOcean){
+				if (isShore(xLoc + XINCR+CRAB_WIDTH, yLoc-YINCR)){
 					xLoc+=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case UP_LEFT:
-				if (isShore(xLoc-XINCR,yLoc-YINCR) || isInOcean){
+				if (isShore(xLoc-XINCR,yLoc-YINCR)){
 					xLoc-=XINCR;
 					yLoc-=YINCR;
 				}
 				break;
 			case DOWN_RIGHT:
-				if (isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR) 
-						|| isInOcean){
+				if (isShore(xLoc + XINCR+CRAB_WIDTH, yLoc + YINCR)){
 					xLoc+=XINCR;
 					yLoc+=YINCR;
 				}
 				break;
 			case DOWN_LEFT:
-				if (isShore(xLoc - XINCR, yLoc + YINCR) || isInOcean){
+				if (isShore(xLoc - XINCR, yLoc + YINCR)){
 					xLoc-= XINCR;
 					yLoc+= YINCR;
 				}
 				break;
-		}
-		if (isInOcean && isShore(xLoc, yLoc)){
-			isInOcean=false;
 		}
 	}
 	

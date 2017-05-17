@@ -226,13 +226,12 @@ public class Board {
 			while (depth < beach.length && beach[depth][i] == WATER && i<=SPACES_OF_SHORE) {
 				depth++;
 			}
-			if (depth == beach.length-1){ // the shore is about to reach the bottom of the screen
+			if (depth == beach.length-1&&beach[depth][i]==SHORE){ // the shore is about to reach the bottom of the screen
 				isShoreDestroyed = true;
 				beach[depth][i] = WATER;
 			}
 			else if (beach[depth][i] == SHORE){ //shore erodes
 				beach[depth][i] = WATER;
-				isInOcean(depth);
 			}
 			else if (beach[depth][i] != WATER || beach[depth][i] != SHORE) { //wave hits protector
 				int protectorHit = beach[depth][i];
@@ -244,31 +243,6 @@ public class Board {
 		}
 	}
 	
-	/**
-	 * helper function to waveHit. If the wave hits while the user is in the ocean, changes the 
-	 * isInOcean field to true so that when move() is called, the user can get out of the ocean
-	 * @param depth is which row down on the shore the wave hit
-	 * @param index is which column across on the shore the wave hit
-	 */
-	private void isInOcean(int depth) {
-		if (!user.isInOcean) {
-			if (depth == 0) {
-				if ((user.getyLoc() >= SHORE_HEIGHT && user.getyLoc() <= TOP_ROW2)
-						|| user.getyLoc() + User.CRAB_HEIGHT >= SHORE_HEIGHT
-								&& user.getyLoc() + User.CRAB_HEIGHT <= TOP_ROW2) {
-					user.isInOcean = true;
-				}
-			}
-			else{
-				if ((user.getyLoc() >= TOP_ROW2 && user.getyLoc() <= TOP_ROW3)
-						|| user.getyLoc() + User.CRAB_HEIGHT >= TOP_ROW2
-								&& user.getyLoc() + User.CRAB_HEIGHT <= TOP_ROW3) {
-					user.isInOcean = true;
-				}
-			}
-		}
-	}
-
 	/**
 	 * Returns the protector closest to the user by the user's position on the grid.
 	 * @return the integer representing the protector chosen
@@ -301,24 +275,6 @@ public class Board {
 		beach[depth][spot] = getProtector();
 		protector = -1;
 	}
-	
-	
-//	/**
-//	 * @param x is the x location
-//	 * @param y is the y location
-//	 * @return whether or not the x and y location is a shore or not
-//	 */
-//	public boolean isShore(double x, double y){
-//		if (x>0 && x<SHORE_WIDTH && y>SHORE_HEIGHT && y<HEIGHT-User.CRAB_HEIGHT){
-//			int crabSpot = (int)(SPACES_OF_SHORE*x/SHORE_WIDTH);
-//			int crabDepth = (int)(6*y/Board.HEIGHT);
-//			if (beach[crabDepth-3][crabSpot]!=WATER){
-//				return true;
-//			}
-//			return false;
-//		}
-//		return false;
-//	}
 	
 	/** @return the integer representing the current protector */
 	public int getProtector(){return protector;}
