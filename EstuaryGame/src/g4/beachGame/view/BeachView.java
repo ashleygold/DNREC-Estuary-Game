@@ -58,9 +58,14 @@ public class BeachView extends JPanel{
 		"oysters.png", "seawall.png"};
 	
 	/**locations of shore images */
-	private static final String[] shoreImagesLoc = {"tile_sand_north.png",
-		"tile_sand_center.png", "tile_water_S.png", 
-		"tile_water_C.png", "tile_grass_north.png"};
+//	private static final String[] shoreImagesLoc = {"tile_sand_north.png",
+//		"tile_sand_center.png", "tile_water_S.png", 
+//		"tile_water_C.png", "tile_grass_north.png", "gabion.png", "gabion_l.png", "gabion_2l"};
+	
+	private static final String[] shoreImagesLoc = {
+			"tile_sand_center.png", "tile_water_C.png", "tile_grass_north_deteriorated.png",
+			"tile_grass_north.png", "seawall.png", "gabion.png", "gabion_l.png", "gabion_2l.png",
+			"tile_sand_north.png","tile_water_S.png"};
 	
 	/**locations of boat images */
 	private static final String[] boatImagesLoc = {"cruiseliner.png", "cruiselinerLeft.png", "sailboat.png",
@@ -181,19 +186,14 @@ public class BeachView extends JPanel{
 	public void paint(Graphics g){
 		//drawing board
 		g.drawImage(background, 0, 0, board.getWidth(),displayHeight,this);
-		g.drawImage(shoreImages[0], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
+		g.drawImage(shoreImages[8], 0, board.getHeight()/2, board.getWidth(), board.getHeight()/6, null, this); //top layer of sand
 		BufferedImage image = null;
 		for (int row = 0; row < board.beach.length; row++){
 			for (int col = 0; col < board.beach[0].length; col++){
 				if (board.beach[row][col] == Board.WATER) //probably have to pass these numbers in via controller
-					image = shoreImages[3];
-				else if (board.beach[row][col] == Board.GRASS || board.beach[row][col]==Board.GRASS_L)
-					image = shoreImages[4];
-				else if (board.beach[row][col] >= Board.GABION && board.beach[row][col] <= Board.GABION_2L)
-					image = protectors[1];
-				else if (board.beach[row][col] == Board.WALL)
-					image = protectors[2];
-
+					image = shoreImages[Board.WATER];
+				else if (board.beach[row][col] >= Board.GRASS && board.beach[row][col] <= Board.GABION_2L)
+					image = shoreImages[board.beach[row][col]];
 				if (board.beach[row][col] != Board.SHORE)
 					g.drawImage(image, col*(board.getWidth() - 100)/12 -1, board.posArr[row] - 1, (board.getWidth() - 100)/12 +2, board.getHeight()/6 +2, null, this);
 			}
@@ -208,13 +208,13 @@ public class BeachView extends JPanel{
 		if (board.getProtector()!= -1){
 			switch(board.getProtector()){
 			case Board.GABION_2L:
-				image = protectors[1];
+				image = shoreImages[Board.GABION_2L];
 				break;
 			case Board.GRASS_L:
-				image = shoreImages[4];
+				image = shoreImages[Board.GRASS_L];
 				break;
 			case Board.WALL:
-				image = protectors[2];
+				image = shoreImages[Board.WALL];
 				break;
 			}
 			g.drawImage(image, user.getxLoc(), user.getyLoc()-30, User.CRAB_WIDTH, 40, null, this);
