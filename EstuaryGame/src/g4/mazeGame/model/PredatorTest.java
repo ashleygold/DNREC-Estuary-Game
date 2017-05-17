@@ -4,9 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.sun.org.apache.xml.internal.security.Init;
-
-
 public class PredatorTest {
 	Board board = new Board(3,0);
 	User user = new User(board);
@@ -19,9 +16,11 @@ public class PredatorTest {
 	}
 	
 	@Test
-	public void testGetDirection(){
-		pred.setDirection(Predator.STILL);
-		assertEquals(pred.getDirection(), Predator.STILL);
+	public void testSetDirection(){
+		pred.setDirection(Predator.RIGHT);
+		assertEquals(pred.getDirection(), Predator.RIGHT);
+		pred.setDirection(Predator.LEFT);
+		assertEquals(pred.getDirection(), Predator.LEFT);
 	}
 	
 	@Test
