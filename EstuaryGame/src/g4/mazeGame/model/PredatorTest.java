@@ -4,10 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b988a71e5acf6078e27160fc878ef0b54920cd36
 public class PredatorTest {
 	Board board = new Board(3,0);
 	User user = new User(board);

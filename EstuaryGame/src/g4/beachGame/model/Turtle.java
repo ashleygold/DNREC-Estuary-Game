@@ -103,6 +103,7 @@ public class Turtle {
 				xLoc+=XINCR;
 		}
 	}
+	
 	/**
 	 * Checks to see if turtle is on the shore
 	 * @param xLoc
