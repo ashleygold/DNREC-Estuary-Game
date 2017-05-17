@@ -47,7 +47,7 @@ public class TableTest {
 	public void testAreAllFixed(){
 		Table table2 = new Table();
 		assertTrue(!table2.areAllFixed());
-		for (int i = 0; i < table.getActiveSize(); i++)
+		for (int i = 0; i < table2.getActiveSize(); i++)
 			table2.getCubeAt(i, true).fix();
 		assertTrue(table2.areAllFixed());
 	}
