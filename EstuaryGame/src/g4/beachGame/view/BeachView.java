@@ -58,7 +58,7 @@ public class BeachView extends JPanel{
 	
 	/** locations of protector images*/
 	private static final String[] protectorsLoc = {"grass.png", 
-		"oyster_clipart.png", "concrete-block-clipart.jpg"};
+		"oyster_clipart.png", "concrete-block-clipart.png"};
 	
 	/**locations of shore images */
 	private static final String[] shoreImagesLoc = {
