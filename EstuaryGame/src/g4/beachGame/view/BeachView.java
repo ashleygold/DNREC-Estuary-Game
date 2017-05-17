@@ -4,9 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +20,11 @@ import g4.beachGame.model.Wave;
 import g4.mainController.MainMenu;
 
 public class BeachView extends JPanel{
+	/**
+	 * Default Serializable required since it implements Serializable
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**Beach game's window */
 	public JFrame frame;
 

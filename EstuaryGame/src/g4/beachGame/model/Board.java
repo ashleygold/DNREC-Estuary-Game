@@ -45,7 +45,7 @@ public class Board {
 	public final static int TOTALROWS=6;
 	
 	/**Amount by which to raise height of board due to timer*/
-	public final static int RAISE=15; //how much high it is?
+	public final static int RAISE=15;
 	
 	/**final fields that represent the depth of the shore**/
 	public final static int TOP_ROW1=3;
@@ -55,7 +55,6 @@ public class Board {
 	/**the array representing what was originally the shore**/
 	public int[][] beach = new int[3][SPACES_OF_SHORE]; //height, width
 	
-	//I KNOW NO IDEA WHAT THIS ACTUALLY IS
 	/**the array representing the protectors**/
 	public int[] posArr = {HEIGHT/2, TOP_ROW2, TOP_ROW3};
 
@@ -87,9 +86,6 @@ public class Board {
 	/**the user**/
 	public User user;
 	
-	/**the game should get easier as people keep losing**/
-	int difficulty;
-	
 	/**represents if the turtle died or not*/
 	private boolean turtleDie = false;
 	
@@ -100,7 +96,7 @@ public class Board {
 		currBoats = new ArrayList<Boat>();
 		setCurrWaves(new ArrayList<Wave>());
 		splitWaves = new ArrayList<Wave>();
-		user = new User(this);
+		user = new User();
 		turtles = new ArrayList<Turtle>();
 	}
 

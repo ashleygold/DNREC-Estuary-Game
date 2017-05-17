@@ -35,12 +35,12 @@ public abstract class Boat{
 	
 	//getter for X Location of boat
 	public int getXLoc(){
-		return this.xloc;
+		return xloc;
 	}
 	
 	//getter for Y Location of boat
 	public int getYLoc(){
-		return this.yloc;
+		return yloc;
 	}
 
 	public boolean getHasEmittedWave(){

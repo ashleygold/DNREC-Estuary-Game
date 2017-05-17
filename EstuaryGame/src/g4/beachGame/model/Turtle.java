@@ -45,10 +45,10 @@ public class Turtle {
 	/**number of turtle pictures */
 	private int numPics = 3;
 	
-	/** */
+	/**default number of frames that a turtle is able to be on screen for */
 	public final int DEFAULTFRAMES = 1600;
 	
-	/** */
+	/**number of frames that a turtle has left on screen */
 	private int framesLeft;
 	
 	/**The board the turtle is on */
@@ -103,6 +103,7 @@ public class Turtle {
 				xLoc+=XINCR;
 		}
 	}
+	
 	/**
 	 * Checks to see if turtle is on the shore
 	 * @param xLoc
@@ -160,6 +161,11 @@ public class Turtle {
 	public void setDirection(int x){
 		direction = x;
 	}
+	
+	/**
+	 * Returns integer representation of picNum
+	 * @return picNum as an integer
+	 */
 	public int getPicNum(){
 		return (int)picNum;
 	}

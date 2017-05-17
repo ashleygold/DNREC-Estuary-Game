@@ -21,6 +21,11 @@ import g4.storyGame.controller.StoryCont;
 
 public class MainMenu extends JPanel{
 	
+	/**
+	 * Default Serializable required since it implements Serializable
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** Exit program flag */
 	private static boolean exitFlag = false;
 	

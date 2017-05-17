@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class UserTest {
 	Board b1 = new Board();
-	User user = new User(b1);
+	User user = new User();
 	
 	@Test
 	public void testGetPicNum() {

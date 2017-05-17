@@ -30,6 +30,11 @@ import g4.storyGame.model.Table;
 
 public class StoryView extends JPanel{
 	
+	/**
+	 * Default Serializable required since it implements Serializable
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** dimension of the user's screen*/
 	private final static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 

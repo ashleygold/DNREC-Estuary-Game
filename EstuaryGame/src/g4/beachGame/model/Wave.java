@@ -48,16 +48,13 @@ public class Wave {
 	final static int LEFT=-1; 
 	final static int FORWARD=0;
 	
-	/** */
+	/**speed of sailboat and speedboat*/
 	final int BOAT_SPEED = 1;
 
-	/** */
+	/**speed of cruiseliner */
 	int CRUISELINER_SPEED=2; 
 	
-	/** */
-	final int WAVE_MOVEMENT_W_WIND =5;
-	
-	/** */
+	/**direction that the picture of the wind is facing */
 	private static int windFace = 0;
 	
 	/**
@@ -134,7 +131,7 @@ public class Wave {
 	
 	
 	/**activates wind, which blows waves and offsets them left or right 
-	 * @param number: ???
+	 * @param number: integer that determines whether the wind moves waves to left or right
 	 */
 	public static void activateWind(int number, ArrayList<Wave> waves) {
 		boolean isWaveBelowStartingShoreline=false;
