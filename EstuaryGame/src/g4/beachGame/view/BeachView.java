@@ -107,9 +107,6 @@ public class BeachView extends JPanel{
 	/**the height of the display*/
 	private int displayHeight;
 	
-	/** */
-	JLabel time; 
-	
 	/**
 	 * Converts file name/location to Buffered Image
 	 * @param fileName: filename/location of the image to be created 

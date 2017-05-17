@@ -89,6 +89,9 @@ public class Board {
 	/**represents if the turtle died or not*/
 	private boolean turtleDie = false;
 	
+	/**the time that tutorial ends and boats can start coming across the screen*/
+	private int timeTutorialEnds=17;
+	
 	/**
 	 * Constructor to create a new board of waves and protectors
 	 */
@@ -130,13 +133,17 @@ public class Board {
 	 * Boats from most frequent to least frequent: Sailboat, Speedboats,and CruiseLiner
 	 */
 	public void createBoat(){
-		if (this.hoursLeft<=17){
+		if (this.hoursLeft<=timeTutorialEnds){
+			//these numbers are just used here to demarkate the ratio at which certain boats come
 			int randomNum = 1 + (int)(Math.random() * 7);
-			if (randomNum>0 && randomNum<4)
+			if (randomNum>0 && randomNum<=4)
+				// 4 out of 7 times, a sailboat comes
 				currBoats.add(new Sailboat());
 			else if(randomNum<=6)
+				// 2 out of 7 times, a speedboat comes
 				currBoats.add(new Speedboat());
 			else
+				//and only one of out 7 times, a cruiseliner comes
 				currBoats.add(new CruiseLiner());
 		}
 	}
