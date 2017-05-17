@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.sun.org.apache.xml.internal.security.Init;
-
 
 public class PredatorTest {
 	Board board = new Board(3,0);

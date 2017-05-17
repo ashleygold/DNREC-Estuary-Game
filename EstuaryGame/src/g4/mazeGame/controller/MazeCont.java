@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import g4.mainController.MiniGameController;
 import g4.mazeGame.model.Board;
